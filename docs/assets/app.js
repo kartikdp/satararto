@@ -7,6 +7,8 @@ const state = {
 const elements = {
   quickActions: document.getElementById("quick-actions"),
   statsGrid: document.getElementById("stats-grid"),
+  journeyGrid: document.getElementById("journey-grid"),
+  preflightGrid: document.getElementById("preflight-grid"),
   categoryPills: document.getElementById("category-pills"),
   serviceSearch: document.getElementById("service-search"),
   serviceList: document.getElementById("service-list"),
@@ -18,11 +20,56 @@ const elements = {
   sourceGrid: document.getElementById("source-grid")
 };
 
+function getServiceById(id) {
+  return window.siteData.services.find((service) => service.id === id);
+}
+
+function getCategoryById(id) {
+  return window.siteData.categories.find((category) => category.id === id);
+}
+
+function getPortalLabel(service) {
+  const labels = service.officialLinks.map((link) => link.label.toLowerCase());
+
+  if (labels.some((label) => label.includes("sarathi"))) {
+    return "Sarathi";
+  }
+
+  if (labels.some((label) => label.includes("vahan"))) {
+    return "Vahan";
+  }
+
+  if (service.id === "permit-services") {
+    return "Permit portal / Maharashtra Transport";
+  }
+
+  if (service.category === "licence") {
+    return "Sarathi";
+  }
+
+  if (service.category === "vehicle") {
+    return "Vahan";
+  }
+
+  return "Official portal";
+}
+
 function getFilteredServices() {
   return window.siteData.services.filter((service) => {
     const matchesCategory = state.activeCategory === "all" || service.category === state.activeCategory;
     const query = state.search.trim().toLowerCase();
-    const haystack = `${service.title} ${service.short} ${service.summary} ${service.forms.join(" ")}`.toLowerCase();
+    const haystack = [
+      service.title,
+      service.short,
+      service.summary,
+      service.bestFor,
+      service.forms.join(" "),
+      service.requiredDocs.join(" "),
+      service.extraDocs.join(" ")
+    ]
+      .join(" ")
+      .toLowerCase();
+
     const matchesSearch = !query || haystack.includes(query);
     return matchesCategory && matchesSearch;
   });
@@ -34,12 +81,56 @@ function ensureSelectedServiceVisible(filteredServices) {
   }
 }
 
-function getServiceById(id) {
-  return window.siteData.services.find((service) => service.id === id);
+function scrollToServices() {
+  const target = document.getElementById("services");
+  if (target) {
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+function focusDetailOnSmallScreens() {
+  if (window.innerWidth <= 1080) {
+    const detailPanel = document.querySelector(".detail-panel");
+    if (detailPanel) {
+      detailPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+}
+
+function activateService(serviceId, options = {}) {
+  const service = getServiceById(serviceId);
+  if (!service) {
+    return;
+  }
+
+  state.selectedServiceId = serviceId;
+
+  if (options.category) {
+    state.activeCategory = options.category;
+  }
+
+  if (options.clearSearch) {
+    state.search = "";
+    elements.serviceSearch.value = "";
+  }
+
+  renderAll();
+
+  if (options.scrollToServices) {
+    scrollToServices();
+  }
+
+  if (options.focusDetail) {
+    focusDetailOnSmallScreens();
+  }
 }
 
 function createBadge(label, kind = "") {
   return `<span class="badge ${kind}">${label}</span>`;
+}
+
+function createServiceLinkChip(service) {
+  return `<button class="mini-chip" data-service-id="${service.id}">${service.title}</button>`;
 }
 
 function renderQuickActions() {
@@ -52,10 +143,11 @@ function renderQuickActions() {
 
   elements.quickActions.querySelectorAll("[data-service-id]").forEach((button) => {
     button.addEventListener("click", () => {
-      state.selectedServiceId = button.dataset.serviceId;
-      state.activeCategory = "all";
-      renderAll();
-      document.getElementById("services").scrollIntoView({ behavior: "smooth", block: "start" });
+      activateService(button.dataset.serviceId, {
+        clearSearch: true,
+        scrollToServices: true,
+        focusDetail: true
+      });
     });
   });
 }
@@ -64,19 +156,19 @@ function renderStats() {
   const cards = [
     {
       value: window.siteData.services.length,
-      label: "reference pages covering licence, vehicle, permit, tax, and PUC journeys"
+      label: "guided reference pages for Satara RTO services"
+    },
+    {
+      value: window.siteData.journeys.length,
+      label: "start-here paths based on the user's real situation"
     },
     {
       value: window.siteData.offices.length,
-      label: "official Satara district offices shown with code, contact, and address"
-    },
-    {
-      value: "Docs",
-      label: "document bundles designed to help users prepare before opening the official portal"
+      label: "official Satara district offices shown with contact details"
     },
     {
       value: "Official",
-      label: "state and central source links kept separate from public pain-point signals"
+      label: "process guidance separated from final government submission"
     }
   ];
 
@@ -86,6 +178,70 @@ function renderStats() {
         <article class="stat-card">
           <strong>${card.value}</strong>
           <span>${card.label}</span>
+        </article>
+      `
+    )
+    .join("");
+}
+
+function renderJourneys() {
+  elements.journeyGrid.innerHTML = window.siteData.journeys
+    .map((journey) => {
+      const linkedServices = journey.serviceIds
+        .map((serviceId) => getServiceById(serviceId))
+        .filter(Boolean);
+
+      return `
+        <article class="journey-card">
+          <p class="eyebrow">${getCategoryById(journey.category).label}</p>
+          <h3>${journey.title}</h3>
+          <p>${journey.description}</p>
+          <div class="mini-chip-row">
+            ${linkedServices.map((service) => createServiceLinkChip(service)).join("")}
+          </div>
+          <button class="journey-cta" data-journey-id="${journey.id}">Show the best starting point</button>
+        </article>
+      `;
+    })
+    .join("");
+
+  elements.journeyGrid.querySelectorAll("[data-service-id]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const service = getServiceById(button.dataset.serviceId);
+      activateService(service.id, {
+        category: service.category,
+        clearSearch: true,
+        scrollToServices: true,
+        focusDetail: true
+      });
+    });
+  });
+
+  elements.journeyGrid.querySelectorAll("[data-journey-id]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const journey = window.siteData.journeys.find((entry) => entry.id === button.dataset.journeyId);
+      if (!journey || !journey.serviceIds.length) {
+        return;
+      }
+
+      activateService(journey.serviceIds[0], {
+        category: journey.category,
+        clearSearch: true,
+        scrollToServices: true,
+        focusDetail: true
+      });
+    });
+  });
+}
+
+function renderPreflight() {
+  elements.preflightGrid.innerHTML = window.siteData.preflight
+    .map(
+      (item) => `
+        <article class="preflight-card">
+          <span class="step-badge">${item.step}</span>
+          <h3>${item.title}</h3>
+          <p>${item.description}</p>
         </article>
       `
     )
@@ -116,29 +272,42 @@ function renderServiceList() {
   ensureSelectedServiceVisible(filteredServices);
 
   if (!filteredServices.length) {
-    elements.serviceList.innerHTML = `<div class="empty-state">No services match this search yet. Try a simpler word like <code>renewal</code>, <code>NOC</code>, or <code>licence</code>.</div>`;
+    elements.serviceList.innerHTML = `
+      <div class="empty-state">
+        No services match this search yet. Try a simpler word like <code>renewal</code>, <code>NOC</code>,
+        <code>licence</code>, or start from one of the situation cards above.
+      </div>
+    `;
     return;
   }
 
   elements.serviceList.innerHTML = filteredServices
-    .map(
-      (service) => `
-        <button class="service-item ${state.selectedServiceId === service.id ? "is-active" : ""}" data-service-id="${service.id}">
-          <small>${window.siteData.categories.find((category) => category.id === service.category).label}</small>
-          <strong>${service.title}</strong>
-          <span>${service.short}</span>
-        </button>
-      `
-    )
+    .map((service) => `
+      <button class="service-item ${state.selectedServiceId === service.id ? "is-active" : ""}" data-service-id="${service.id}">
+        <small>${getCategoryById(service.category).label}</small>
+        <strong>${service.title}</strong>
+        <span>${service.short}</span>
+        <div class="service-meta">
+          <span>${getPortalLabel(service)}</span>
+          <span>${service.officeVisit}</span>
+        </div>
+      </button>
+    `)
     .join("");
 
   elements.serviceList.querySelectorAll("[data-service-id]").forEach((button) => {
     button.addEventListener("click", () => {
-      state.selectedServiceId = button.dataset.serviceId;
-      renderServiceDetail();
-      renderServiceList();
+      activateService(button.dataset.serviceId, {
+        focusDetail: true
+      });
     });
   });
+}
+
+function getRelatedServices(service) {
+  return window.siteData.services
+    .filter((entry) => entry.category === service.category && entry.id !== service.id)
+    .slice(0, 4);
 }
 
 function renderServiceDetail() {
@@ -149,26 +318,49 @@ function renderServiceDetail() {
     return;
   }
 
+  const primaryLink = service.officialLinks[0];
+  const relatedServices = getRelatedServices(service);
+
   elements.serviceDetail.innerHTML = `
     <div class="detail-header">
       <p class="eyebrow">Service Reference</p>
       <h2>${service.title}</h2>
       <p class="detail-lead">${service.summary}</p>
       <div class="badge-row">
-        ${createBadge(`Flow: ${service.mode}`)}
+        ${createBadge(`Starts on ${getPortalLabel(service)}`)}
         ${createBadge(`Appointment: ${service.appointment}`, "warning")}
         ${createBadge(`Office visit: ${service.officeVisit}`, "alert")}
         ${createBadge(`Inspection: ${service.inspection}`)}
       </div>
+      <div class="detail-actions">
+        <a class="primary-link" href="${primaryLink.url}" target="_blank" rel="noreferrer">Open ${primaryLink.label}</a>
+        <a class="secondary-link" href="#offices">Check office routing</a>
+      </div>
+    </div>
+
+    <div class="detail-grid glance-grid">
+      <article class="detail-card">
+        <h3>Use this when</h3>
+        <p class="detail-meta">${service.bestFor}</p>
+      </article>
+      <article class="detail-card">
+        <h3>Start on</h3>
+        <p class="detail-meta">${getPortalLabel(service)}</p>
+      </article>
+      <article class="detail-card">
+        <h3>Office visit</h3>
+        <p class="detail-meta">${service.officeVisit}</p>
+      </article>
+      <article class="detail-card">
+        <h3>Keep ready first</h3>
+        <ul>
+          ${service.requiredDocs.slice(0, 4).map((doc) => `<li>${doc}</li>`).join("")}
+        </ul>
+      </article>
     </div>
 
     <div class="detail-grid">
-      <article class="detail-card">
-        <h3>Best used for</h3>
-        <p class="detail-meta">${service.bestFor}</p>
-      </article>
-
-      <article class="detail-card">
+      <article class="detail-card wide">
         <h3>Eligibility or timing</h3>
         <ul>
           ${service.eligibility.map((item) => `<li>${item}</li>`).join("")}
@@ -179,8 +371,17 @@ function renderServiceDetail() {
     <div class="detail-grid">
       <article class="detail-card wide">
         <h3>Official step-by-step flow</h3>
-        <ol>
-          ${service.steps.map((step) => `<li>${step}</li>`).join("")}
+        <ol class="step-list">
+          ${service.steps
+            .map(
+              (step, index) => `
+                <li>
+                  <span class="step-index">${index + 1}</span>
+                  <div>${step}</div>
+                </li>
+              `
+            )
+            .join("")}
         </ol>
       </article>
     </div>
@@ -196,7 +397,11 @@ function renderServiceDetail() {
       <article class="detail-card">
         <h3>Conditional or supporting documents</h3>
         <ul>
-          ${service.extraDocs.length ? service.extraDocs.map((doc) => `<li>${doc}</li>`).join("") : "<li>No extra supporting documents highlighted for this reference page.</li>"}
+          ${
+            service.extraDocs.length
+              ? service.extraDocs.map((doc) => `<li>${doc}</li>`).join("")
+              : "<li>No extra supporting documents highlighted for this reference page.</li>"
+          }
         </ul>
       </article>
     </div>
@@ -223,7 +428,7 @@ function renderServiceDetail() {
     </div>
 
     <div class="detail-card">
-      <h3>Reference notes</h3>
+      <h3>Watch out for</h3>
       <ul>
         ${service.notices.map((note) => `<li>${note}</li>`).join("")}
       </ul>
@@ -241,7 +446,28 @@ function renderServiceDetail() {
           .join("")}
       </div>
     </div>
+
+    ${
+      relatedServices.length
+        ? `
+          <div class="detail-card">
+            <h3>Related services</h3>
+            <div class="mini-chip-row">
+              ${relatedServices.map((entry) => createServiceLinkChip(entry)).join("")}
+            </div>
+          </div>
+        `
+        : ""
+    }
   `;
+
+  elements.serviceDetail.querySelectorAll("[data-service-id]").forEach((button) => {
+    button.addEventListener("click", () => {
+      activateService(button.dataset.serviceId, {
+        focusDetail: true
+      });
+    });
+  });
 }
 
 function renderOffices() {
@@ -340,6 +566,8 @@ elements.serviceSearch.addEventListener("input", (event) => {
 
 renderQuickActions();
 renderStats();
+renderJourneys();
+renderPreflight();
 renderOffices();
 renderBundles();
 renderSignals();

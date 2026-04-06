@@ -47,6 +47,67 @@ window.siteData = {
       note: "Use this office when your existing DL or RC is already linked to MH-50 or the portal assigns your case there."
     }
   ],
+  journeys: [
+    {
+      id: "new-driver",
+      title: "I am a new driver",
+      description: "Start here if you need your first learner's licence or want to move from learner's licence to permanent licence.",
+      category: "licence",
+      serviceIds: ["learner-licence", "permanent-driving-licence"]
+    },
+    {
+      id: "renew-or-correct-licence",
+      title: "I need to update my licence",
+      description: "Best for renewal, duplicate licence, address change, or other existing-DL corrections.",
+      category: "licence",
+      serviceIds: ["dl-renewal", "duplicate-dl", "dl-address-change"]
+    },
+    {
+      id: "bought-or-sold-vehicle",
+      title: "I bought or sold a vehicle",
+      description: "Use this if you need registration, transfer of ownership, or papers for a change in owner.",
+      category: "vehicle",
+      serviceIds: ["new-vehicle-registration", "transfer-ownership"]
+    },
+    {
+      id: "moved-or-shifting-state",
+      title: "I moved house or I am shifting the vehicle",
+      description: "Start here for address change in RC, NOC, and related cross-jurisdiction paperwork.",
+      category: "vehicle",
+      serviceIds: ["rc-address-change", "noc", "rc-renewal"]
+    },
+    {
+      id: "loan-or-finance",
+      title: "My vehicle loan status changed",
+      description: "Use this when finance needs to be added to the RC or removed after loan closure.",
+      category: "vehicle",
+      serviceIds: ["hypothecation-addition", "hypothecation-removal"]
+    },
+    {
+      id: "travel-or-commercial",
+      title: "I need travel, permit, tax, or compliance help",
+      description: "Start here for IDP, permit, tax, PUC, and other compliance-heavy journeys.",
+      category: "compliance",
+      serviceIds: ["international-driving-permit", "permit-services", "tax-services", "puc-requirements"]
+    }
+  ],
+  preflight: [
+    {
+      step: "1",
+      title: "Start with your situation",
+      description: "Pick the life event first, such as new licence, sold vehicle, moved house, or loan closure."
+    },
+    {
+      step: "2",
+      title: "Read the full reference page",
+      description: "Check documents, official steps, fees, timelines, and whether the case is online, appointment-based, or office-heavy."
+    },
+    {
+      step: "3",
+      title: "Then use the official portal",
+      description: "Only after the checklist is clear should the user continue to Sarathi, Vahan, or Maharashtra Transport."
+    }
+  ],
   services: [
     {
       id: "learner-licence",
