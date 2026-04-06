@@ -13,6 +13,8 @@ const elements = {
   serviceSearch: document.getElementById("service-search"),
   serviceList: document.getElementById("service-list"),
   serviceDetail: document.getElementById("service-detail"),
+  toolGroupGrid: document.getElementById("tool-group-grid"),
+  downloadGroupGrid: document.getElementById("download-group-grid"),
   officeGrid: document.getElementById("office-grid"),
   bundleGrid: document.getElementById("bundle-grid"),
   signalList: document.getElementById("signal-list"),
@@ -26,6 +28,18 @@ function getServiceById(id) {
 
 function getCategoryById(id) {
   return window.siteData.categories.find((category) => category.id === id);
+}
+
+function getToolById(id) {
+  return window.siteData.officialTools.find((tool) => tool.id === id);
+}
+
+function getFormById(id) {
+  return window.siteData.formLibrary.find((form) => form.id === id);
+}
+
+function getServiceResources(serviceId) {
+  return window.siteData.serviceResources[serviceId] || { formIds: [], toolIds: [] };
 }
 
 function getPortalLabel(service) {
@@ -248,6 +262,65 @@ function renderPreflight() {
     .join("");
 }
 
+function renderToolGroups() {
+  elements.toolGroupGrid.innerHTML = window.siteData.toolGroups
+    .map((group) => {
+      const tools = group.toolIds.map((toolId) => getToolById(toolId)).filter(Boolean);
+
+      return `
+        <article class="tool-group-card">
+          <h3>${group.title}</h3>
+          <p>${group.intro}</p>
+          <div class="tool-list">
+            ${tools
+              .map(
+                (tool) => `
+                  <article class="tool-card">
+                    <strong>${tool.label}</strong>
+                    <p>${tool.description}</p>
+                    <a href="${tool.url}" target="_blank" rel="noreferrer">Open official page</a>
+                  </article>
+                `
+              )
+              .join("")}
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function renderDownloadGroups() {
+  elements.downloadGroupGrid.innerHTML = window.siteData.downloadGroups
+    .map((group) => {
+      const forms = group.formIds.map((formId) => getFormById(formId)).filter(Boolean);
+
+      return `
+        <article class="download-group-card">
+          <h3>${group.title}</h3>
+          <p>${group.intro}</p>
+          <div class="download-list">
+            ${forms
+              .map(
+                (form) => `
+                  <article class="download-card">
+                    <div class="download-copy">
+                      <span>${form.formNo}</span>
+                      <strong>${form.title}</strong>
+                      <p>${form.usedFor}</p>
+                    </div>
+                    <a href="${form.url}" target="_blank" rel="noreferrer">Download PDF</a>
+                  </article>
+                `
+              )
+              .join("")}
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
 function renderCategoryPills() {
   elements.categoryPills.innerHTML = window.siteData.categories
     .map(
@@ -320,6 +393,9 @@ function renderServiceDetail() {
 
   const primaryLink = service.officialLinks[0];
   const relatedServices = getRelatedServices(service);
+  const resources = getServiceResources(service.id);
+  const formLinks = resources.formIds.map((formId) => getFormById(formId)).filter(Boolean);
+  const toolLinks = resources.toolIds.map((toolId) => getToolById(toolId)).filter(Boolean);
 
   elements.serviceDetail.innerHTML = `
     <div class="detail-header">
@@ -334,7 +410,7 @@ function renderServiceDetail() {
       </div>
       <div class="detail-actions">
         <a class="primary-link" href="${primaryLink.url}" target="_blank" rel="noreferrer">Open ${primaryLink.label}</a>
-        <a class="secondary-link" href="#offices">Check office routing</a>
+        <a class="secondary-link" href="#downloads">Go to Download Center</a>
       </div>
     </div>
 
@@ -425,6 +501,48 @@ function renderServiceDetail() {
       <div class="tag-row">
         ${service.forms.map((form) => `<span class="tag">${form}</span>`).join("")}
       </div>
+    </div>
+
+    <div class="detail-grid">
+      <article class="detail-card">
+        <h3>Download official forms</h3>
+        ${
+          formLinks.length
+            ? `
+              <div class="inline-link-grid">
+                ${formLinks
+                  .map(
+                    (form) => `
+                      <a class="inline-link-card" href="${form.url}" target="_blank" rel="noreferrer">
+                        <strong>${form.formNo}</strong>
+                        <span>${form.title}</span>
+                        <small>Download official PDF</small>
+                      </a>
+                    `
+                  )
+                  .join("")}
+              </div>
+            `
+            : `<p class="detail-meta">No standalone PDF form is highlighted here. Use the official service page or the full download center for this workflow.</p>`
+        }
+      </article>
+
+      <article class="detail-card">
+        <h3>Useful official links</h3>
+        <div class="inline-link-grid">
+          ${toolLinks
+            .map(
+              (tool) => `
+                <a class="inline-link-card" href="${tool.url}" target="_blank" rel="noreferrer">
+                  <strong>${tool.label}</strong>
+                  <span>${tool.description}</span>
+                  <small>Open official page</small>
+                </a>
+              `
+            )
+            .join("")}
+        </div>
+      </article>
     </div>
 
     <div class="detail-card">
@@ -568,6 +686,8 @@ renderQuickActions();
 renderStats();
 renderJourneys();
 renderPreflight();
+renderToolGroups();
+renderDownloadGroups();
 renderOffices();
 renderBundles();
 renderSignals();

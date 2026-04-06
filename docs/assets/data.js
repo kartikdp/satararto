@@ -108,6 +108,334 @@ window.siteData = {
       description: "Only after the checklist is clear should the user continue to Sarathi, Vahan, or Maharashtra Transport."
     }
   ],
+  officialTools: [
+    {
+      id: "sarathi",
+      label: "Sarathi",
+      description: "Official portal for learner's licence, driving licence, renewal, and IDP-related services.",
+      url: "https://sarathi.parivahan.gov.in"
+    },
+    {
+      id: "vahan",
+      label: "Vahan",
+      description: "Official portal for vehicle services like transfer, NOC, RC updates, tax, and fitness.",
+      url: "https://vahan.parivahan.gov.in/vahanservice/"
+    },
+    {
+      id: "dl-status",
+      label: "Know Your Licence Details",
+      description: "Official driving licence status and details lookup on Parivahan.",
+      url: "https://parivahan.gov.in/rcdlstatus/?pur_cd=101"
+    },
+    {
+      id: "vehicle-status",
+      label: "Know Your Vehicle Details",
+      description: "Official vehicle details lookup through the Vahan citizen service flow.",
+      url: "https://vahan.parivahan.gov.in/nrservices/faces/user/citizen/searchstatus.xhtml"
+    },
+    {
+      id: "download-forms",
+      label: "All Official Forms",
+      description: "Central Parivahan page for downloadable driving and vehicle forms.",
+      url: "https://parivahan.gov.in/parivahan/en/content/download-forms"
+    },
+    {
+      id: "dl-forms-page",
+      label: "Driving Licence Forms",
+      description: "Official driving licence forms directory on Parivahan.",
+      url: "https://parivahan.gov.in/parivahan/en/content/driving-licence-0"
+    },
+    {
+      id: "vehicle-forms-page",
+      label: "Vehicle Registration Forms",
+      description: "Official vehicle-registration forms directory on Parivahan.",
+      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration"
+    },
+    {
+      id: "permit-forms-page",
+      label: "Permit Forms",
+      description: "Official permit forms and permit references on Parivahan.",
+      url: "https://parivahan.gov.in/parivahan/en/content/permit-form"
+    },
+    {
+      id: "fees-user-charges",
+      label: "Fees and User Charges",
+      description: "Official central fee table for licensing, registration, and related services.",
+      url: "https://parivahan.gov.in/parivahan/en/content/fees-user-charges"
+    },
+    {
+      id: "tax-calculation",
+      label: "Maharashtra Tax Calculation",
+      description: "Official Maharashtra Transport tax-calculation reference.",
+      url: "https://transport.maharashtra.gov.in/1167/Tax-Calculation"
+    },
+    {
+      id: "maharashtra-faceless-dl",
+      label: "Maharashtra Faceless DL Services",
+      description: "Official Maharashtra page showing faceless Sarathi-related services.",
+      url: "https://transport.maharashtra.gov.in/1363/Sarathi-Related-Faceless-Services?format=print"
+    },
+    {
+      id: "maharashtra-offices",
+      label: "Maharashtra Regional Offices",
+      description: "Official Maharashtra office directory including Satara and Karad.",
+      url: "https://transport.maharashtra.gov.in/1184/Regional-Offices?format=print"
+    }
+  ],
+  toolGroups: [
+    {
+      title: "Apply Or Check Status",
+      intro: "Use these official links when the user is ready to move from guidance into the real government workflow.",
+      toolIds: ["sarathi", "vahan", "dl-status", "vehicle-status"]
+    },
+    {
+      title: "Download Forms And Rules",
+      intro: "Use these official directories when a user needs the original government form or fee/rules page.",
+      toolIds: ["download-forms", "dl-forms-page", "vehicle-forms-page", "permit-forms-page", "fees-user-charges"]
+    },
+    {
+      title: "Maharashtra-Specific References",
+      intro: "Use these when the client wants state-level service status, tax notes, or office routing.",
+      toolIds: ["maharashtra-faceless-dl", "tax-calculation", "maharashtra-offices"]
+    }
+  ],
+  formLibrary: [
+    {
+      id: "form1",
+      formNo: "Form 1",
+      title: "Application-cum-declaration as to physical fitness",
+      category: "Licence Forms",
+      usedFor: "Learner's licence and other licence-side workflows where self-declaration is applicable.",
+      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form1.pdf"
+    },
+    {
+      id: "form1a",
+      formNo: "Form 1A",
+      title: "Medical Certificate",
+      category: "Licence Forms",
+      usedFor: "Driving licence renewal, IDP, and other cases needing medical certification.",
+      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form1a.pdf"
+    },
+    {
+      id: "form2",
+      formNo: "Form 2",
+      title: "Application for learner's licence / driving licence / renewal / change of address",
+      category: "Licence Forms",
+      usedFor: "Learner's licence and DL-side application flows.",
+      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form2.pdf"
+    },
+    {
+      id: "form4",
+      formNo: "Form 4",
+      title: "Application for Licence to Drive",
+      category: "Licence Forms",
+      usedFor: "Permanent driving licence and related DL issue flows.",
+      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form4.pdf"
+    },
+    {
+      id: "form4a",
+      formNo: "Form 4A",
+      title: "Application for International Driving Permit",
+      category: "Licence Forms",
+      usedFor: "International Driving Permit applications.",
+      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/cmvr/FORM-4A.pdf"
+    },
+    {
+      id: "form5",
+      formNo: "Form 5",
+      title: "Driving Certificate issued by Driving School or Establishment",
+      category: "Licence Forms",
+      usedFor: "Transport-category driving licence cases where training certification is required.",
+      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/cmvr/FORM-5.pdf"
+    },
+    {
+      id: "form9",
+      formNo: "Form 9",
+      title: "Application for Renewal of Driving Licence",
+      category: "Licence Forms",
+      usedFor: "Driving licence renewal.",
+      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form9.pdf"
+    },
+    {
+      id: "form20",
+      formNo: "Form 20",
+      title: "Application for Registration of a Motor Vehicle",
+      category: "Vehicle Forms",
+      usedFor: "New vehicle registration.",
+      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form20.pdf"
+    },
+    {
+      id: "form25",
+      formNo: "Form 25",
+      title: "Application for Renewal of Certificate of Registration",
+      category: "Vehicle Forms",
+      usedFor: "RC renewal.",
+      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/cmvr/FORM-25.pdf"
+    },
+    {
+      id: "form26",
+      formNo: "Form 26",
+      title: "Application for the Issue of Duplicate Certificate of Registration",
+      category: "Vehicle Forms",
+      usedFor: "Duplicate RC.",
+      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form%2026.pdf"
+    },
+    {
+      id: "form28",
+      formNo: "Form 28",
+      title: "Application and Grant of No Objection Certificate",
+      category: "Vehicle Forms",
+      usedFor: "NOC for moving or transferring a vehicle across jurisdiction.",
+      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form%2028.pdf"
+    },
+    {
+      id: "form29",
+      formNo: "Form 29",
+      title: "Notice of Transfer of Ownership of a Motor Vehicle",
+      category: "Vehicle Forms",
+      usedFor: "Transfer of vehicle ownership.",
+      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form%2029.pdf"
+    },
+    {
+      id: "form30",
+      formNo: "Form 30",
+      title: "Application for Intimation and Transfer of Ownership",
+      category: "Vehicle Forms",
+      usedFor: "Transfer of ownership after sale.",
+      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form%2030.pdf"
+    },
+    {
+      id: "form33",
+      formNo: "Form 33",
+      title: "Intimation of Change of Address in RC",
+      category: "Vehicle Forms",
+      usedFor: "Address change in registration certificate.",
+      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form%2033.pdf"
+    },
+    {
+      id: "form34",
+      formNo: "Form 34",
+      title: "Application for Making an Entry of Hire-Purchase / Lease / Hypothecation",
+      category: "Vehicle Forms",
+      usedFor: "Hypothecation or finance entry in RC.",
+      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form%2034.pdf"
+    },
+    {
+      id: "form35",
+      formNo: "Form 35",
+      title: "Notice of Termination of Hire-Purchase / Lease / Hypothecation",
+      category: "Vehicle Forms",
+      usedFor: "Hypothecation removal after loan closure.",
+      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form%2035.pdf"
+    },
+    {
+      id: "form38",
+      formNo: "Form 38",
+      title: "Certificate of Fitness",
+      category: "Fitness Forms",
+      usedFor: "Fitness certificate cases, mainly for transport vehicles.",
+      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form38.pdf"
+    },
+    {
+      id: "form38a",
+      formNo: "Form 38A",
+      title: "Report of Inspection",
+      category: "Fitness Forms",
+      usedFor: "Inspection report linked to transport vehicle fitness workflows.",
+      url: "https://parivahan.gov.in/sites/default/files/DownloadForm/cmvr/FORM-38A.pdf"
+    }
+  ],
+  downloadGroups: [
+    {
+      title: "Licence Forms",
+      intro: "Official forms clients most often need for learner's licence, permanent licence, renewal, and IDP.",
+      formIds: ["form1", "form1a", "form2", "form4", "form4a", "form5", "form9"]
+    },
+    {
+      title: "Vehicle Forms",
+      intro: "Official forms commonly used for registration, RC work, transfer, NOC, and hypothecation.",
+      formIds: ["form20", "form25", "form26", "form28", "form29", "form30", "form33", "form34", "form35"]
+    },
+    {
+      title: "Fitness And Inspection Forms",
+      intro: "Official forms used in fitness and inspection-heavy cases.",
+      formIds: ["form38", "form38a"]
+    }
+  ],
+  serviceResources: {
+    "learner-licence": {
+      formIds: ["form1", "form1a", "form2"],
+      toolIds: ["sarathi", "dl-status", "dl-forms-page", "maharashtra-faceless-dl"]
+    },
+    "permanent-driving-licence": {
+      formIds: ["form4", "form5"],
+      toolIds: ["sarathi", "dl-status", "dl-forms-page"]
+    },
+    "dl-renewal": {
+      formIds: ["form9", "form1a"],
+      toolIds: ["sarathi", "dl-status", "fees-user-charges", "maharashtra-faceless-dl"]
+    },
+    "duplicate-dl": {
+      formIds: [],
+      toolIds: ["sarathi", "dl-status", "download-forms"]
+    },
+    "dl-address-change": {
+      formIds: ["form2"],
+      toolIds: ["sarathi", "dl-status", "maharashtra-faceless-dl"]
+    },
+    "international-driving-permit": {
+      formIds: ["form4a", "form1a"],
+      toolIds: ["sarathi", "dl-status", "dl-forms-page"]
+    },
+    "new-vehicle-registration": {
+      formIds: ["form20"],
+      toolIds: ["vahan", "vehicle-status", "vehicle-forms-page", "fees-user-charges"]
+    },
+    "transfer-ownership": {
+      formIds: ["form29", "form30"],
+      toolIds: ["vahan", "vehicle-status", "vehicle-forms-page"]
+    },
+    "noc": {
+      formIds: ["form28"],
+      toolIds: ["vahan", "vehicle-status", "vehicle-forms-page"]
+    },
+    "rc-renewal": {
+      formIds: ["form25"],
+      toolIds: ["vahan", "vehicle-status", "vehicle-forms-page", "fees-user-charges"]
+    },
+    "duplicate-rc": {
+      formIds: ["form26"],
+      toolIds: ["vahan", "vehicle-status", "vehicle-forms-page"]
+    },
+    "rc-address-change": {
+      formIds: ["form33"],
+      toolIds: ["vahan", "vehicle-status", "vehicle-forms-page"]
+    },
+    "hypothecation-addition": {
+      formIds: ["form34"],
+      toolIds: ["vahan", "vehicle-status", "vehicle-forms-page"]
+    },
+    "hypothecation-removal": {
+      formIds: ["form35"],
+      toolIds: ["vahan", "vehicle-status", "vehicle-forms-page"]
+    },
+    "fitness-certificate": {
+      formIds: ["form38", "form38a"],
+      toolIds: ["vahan", "vehicle-status", "vehicle-forms-page"]
+    },
+    "permit-services": {
+      formIds: [],
+      toolIds: ["permit-forms-page", "fees-user-charges"]
+    },
+    "tax-services": {
+      formIds: [],
+      toolIds: ["vahan", "tax-calculation", "fees-user-charges"]
+    },
+    "puc-requirements": {
+      formIds: [],
+      toolIds: ["vahan", "vehicle-status", "maharashtra-offices"]
+    }
+  },
   services: [
     {
       id: "learner-licence",

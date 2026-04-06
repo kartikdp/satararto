@@ -252,6 +252,12 @@ h3 {
   line-height: 1.7;
 }
 
+.hero-subnote {
+  margin-top: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
 .hero-panel {
   padding: 28px;
   display: flex;
@@ -313,6 +319,8 @@ h3 {
 .intro-grid,
 .journey-grid,
 .preflight-grid,
+.tool-group-grid,
+.download-group-grid,
 .secondary-grid,
 .support-grid,
 .source-grid {
@@ -329,6 +337,11 @@ h3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.tool-group-grid,
+.download-group-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .intro-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -339,7 +352,9 @@ h3 {
 }
 
 .journey-card,
-.preflight-card {
+.preflight-card,
+.tool-group-card,
+.download-group-card {
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   background: var(--surface);
@@ -349,13 +364,17 @@ h3 {
 }
 
 .journey-card p,
-.preflight-card p {
+.preflight-card p,
+.tool-group-card p,
+.download-group-card p {
   color: var(--muted);
   line-height: 1.7;
 }
 
 .journey-card h3,
-.preflight-card h3 {
+.preflight-card h3,
+.tool-group-card h3,
+.download-group-card h3 {
   margin-bottom: 10px;
 }
 
@@ -417,6 +436,84 @@ h3 {
   color: #fffaf2;
   font-family: "Sora", sans-serif;
   font-weight: 800;
+}
+
+.tool-list,
+.download-list,
+.inline-link-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.tool-card,
+.download-card,
+.inline-link-card {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.62);
+  padding: 16px;
+}
+
+.tool-card strong,
+.download-copy strong,
+.inline-link-card strong {
+  display: block;
+  margin-bottom: 6px;
+  font-family: "Sora", sans-serif;
+}
+
+.tool-card p,
+.download-copy p,
+.inline-link-card span,
+.inline-link-card small {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.tool-card a,
+.download-card a {
+  display: inline-flex;
+  margin-top: 12px;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 0.7rem 0.9rem;
+  background: var(--ink);
+  color: #fffaf2;
+  font-weight: 800;
+}
+
+.download-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: start;
+}
+
+.download-copy span {
+  display: inline-flex;
+  margin-bottom: 6px;
+  color: var(--teal);
+  font-size: 0.84rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.inline-link-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.inline-link-card {
+  text-decoration: none;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.inline-link-card:hover,
+.inline-link-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(11, 125, 114, 0.22);
+  background: rgba(11, 125, 114, 0.05);
 }
 
 .intro-card ol,
@@ -839,6 +936,8 @@ h3 {
   .reference-layout,
   .journey-grid,
   .preflight-grid,
+  .tool-group-grid,
+  .download-group-grid,
   .secondary-grid,
   .support-grid,
   .source-grid,
@@ -878,10 +977,15 @@ h3 {
   }
 
   .stat-grid,
+  .inline-link-grid,
   .office-grid,
   .bundle-grid,
   .detail-grid,
   .glance-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .download-card {
     grid-template-columns: 1fr;
   }
 
