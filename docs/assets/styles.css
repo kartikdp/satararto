@@ -679,19 +679,21 @@ h3 {
   gap: 12px;
 }
 
-.planner-resource-link {
+.planner-resource-link,
+.planner-resource-card {
   display: grid;
   gap: 4px;
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 14px 16px;
   background: rgba(255, 255, 255, 0.86);
-  text-decoration: none;
   transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
 }
 
 .planner-resource-link:hover,
-.planner-resource-link:focus-visible {
+.planner-resource-link:focus-visible,
+.planner-resource-card:hover,
+.planner-resource-card:focus-within {
   transform: translateY(-2px);
   border-color: rgba(11, 125, 114, 0.24);
   background: rgba(11, 125, 114, 0.05);
@@ -703,6 +705,16 @@ h3 {
 }
 
 .planner-resource-link span {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.planner-resource-card strong,
+.planner-resource-card span {
+  display: block;
+}
+
+.planner-resource-card span {
   color: var(--muted);
   line-height: 1.5;
 }
@@ -803,8 +815,7 @@ h3 {
   line-height: 1.6;
 }
 
-.tool-card a,
-.download-card a {
+.tool-card a {
   display: inline-flex;
   margin-top: 12px;
   text-decoration: none;
@@ -817,7 +828,7 @@ h3 {
 
 .download-card {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr;
   gap: 12px;
   align-items: start;
 }
@@ -837,7 +848,6 @@ h3 {
 }
 
 .inline-link-card {
-  text-decoration: none;
   transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
 }
 
@@ -1164,6 +1174,60 @@ h3 {
 .detail-card--practical {
   background: linear-gradient(135deg, rgba(11, 125, 114, 0.08), rgba(255, 255, 255, 0.88));
   border-color: rgba(11, 125, 114, 0.16);
+}
+
+.form-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.form-action-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 0.72rem 0.9rem;
+  font-weight: 800;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.82);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.form-action-link:hover,
+.form-action-link:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(11, 125, 114, 0.22);
+  background: rgba(11, 125, 114, 0.05);
+}
+
+.form-action-link--primary {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fffaf2;
+}
+
+.form-action-link--primary:hover,
+.form-action-link--primary:focus-visible {
+  background: #233632;
+  border-color: #233632;
+}
+
+.form-link-note {
+  margin: 10px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.download-actions {
+  display: grid;
+  gap: 6px;
+}
+
+.inline-link-card--form .form-action-row {
+  margin-top: 14px;
 }
 
 .office-grid,

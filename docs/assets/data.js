@@ -274,7 +274,9 @@ window.siteData = {
       title: "Application-cum-declaration as to physical fitness",
       category: "Licence Forms",
       usedFor: "Learner's licence and other licence-side workflows where self-declaration is applicable.",
-      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form1.pdf"
+      url: "https://parivahan.gov.in/parivahan/en/content/driving-licence-0",
+      downloadUrl: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form%201.pdf",
+      lookupHint: "Open the official driving-licence forms page and look for Form 1 if the PDF does not open directly."
     },
     {
       id: "form1a",
@@ -282,7 +284,9 @@ window.siteData = {
       title: "Medical Certificate",
       category: "Licence Forms",
       usedFor: "Driving licence renewal, IDP, and other cases needing medical certification.",
-      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form1a.pdf"
+      url: "https://parivahan.gov.in/parivahan/en/content/driving-licence-0",
+      downloadUrl: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/Form-1-A.pdf",
+      lookupHint: "Open the official driving-licence forms page and look for Form 1A if the PDF does not open directly."
     },
     {
       id: "form2",
@@ -290,7 +294,9 @@ window.siteData = {
       title: "Application for learner's licence / driving licence / renewal / change of address",
       category: "Licence Forms",
       usedFor: "Learner's licence and DL-side application flows.",
-      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form2.pdf"
+      url: "https://parivahan.gov.in/parivahan/en/content/driving-licence-0",
+      downloadUrl: "https://parivahan.gov.in/sites/default/files/DownloadForm/cmvr/FORM-2.pdf",
+      lookupHint: "Open the official driving-licence forms page and look for Form 2 if the PDF does not open directly."
     },
     {
       id: "form4",
@@ -298,7 +304,9 @@ window.siteData = {
       title: "Application for Licence to Drive",
       category: "Licence Forms",
       usedFor: "Permanent driving licence and related DL issue flows.",
-      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form4.pdf"
+      url: "https://parivahan.gov.in/parivahan/en/content/driving-licence-0",
+      downloadUrl: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form4.pdf",
+      lookupHint: "Open the official driving-licence forms page and look for Form 4 if the PDF does not open directly."
     },
     {
       id: "form4a",
@@ -306,7 +314,9 @@ window.siteData = {
       title: "Application for International Driving Permit",
       category: "Licence Forms",
       usedFor: "International Driving Permit applications.",
-      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/cmvr/FORM-4A.pdf"
+      url: "https://parivahan.gov.in/parivahan/en/content/driving-licence-0",
+      downloadUrl: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/cmvr/FORM-4A.pdf",
+      lookupHint: "Open the official driving-licence forms page and look for Form 4A if the PDF does not open directly."
     },
     {
       id: "form5",
@@ -314,7 +324,9 @@ window.siteData = {
       title: "Driving Certificate issued by Driving School or Establishment",
       category: "Licence Forms",
       usedFor: "Transport-category driving licence cases where training certification is required.",
-      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/cmvr/FORM-5.pdf"
+      url: "https://parivahan.gov.in/parivahan/en/content/driving-licence-0",
+      downloadUrl: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form5.pdf",
+      lookupHint: "Open the official driving-licence forms page and look for Form 5 if the PDF does not open directly."
     },
     {
       id: "form9",
@@ -322,7 +334,8 @@ window.siteData = {
       title: "Application for Renewal of Driving Licence",
       category: "Licence Forms",
       usedFor: "Driving licence renewal.",
-      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form9.pdf"
+      url: "https://parivahan.gov.in/parivahan/en/content/driving-licence-0",
+      lookupHint: "Open the official driving-licence forms page and search for Form 9 on Parivahan."
     },
     {
       id: "form20",
@@ -330,7 +343,9 @@ window.siteData = {
       title: "Application for Registration of a Motor Vehicle",
       category: "Vehicle Forms",
       usedFor: "New vehicle registration.",
-      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form20.pdf"
+      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      downloadUrl: "https://parivahan.gov.in/sites/default/files/DownloadForm/cmvr/FORM-20.pdf",
+      lookupHint: "Open the official vehicle-registration forms page and look for Form 20 if the PDF does not open directly."
     },
     {
       id: "form25",
@@ -338,7 +353,9 @@ window.siteData = {
       title: "Application for Renewal of Certificate of Registration",
       category: "Vehicle Forms",
       usedFor: "RC renewal.",
-      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/cmvr/FORM-25.pdf"
+      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      downloadUrl: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/cmvr/FORM-25.pdf",
+      lookupHint: "Open the official vehicle-registration forms page and look for Form 25 if the PDF does not open directly."
     },
     {
       id: "form26",
@@ -346,7 +363,8 @@ window.siteData = {
       title: "Application for the Issue of Duplicate Certificate of Registration",
       category: "Vehicle Forms",
       usedFor: "Duplicate RC.",
-      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form%2026.pdf"
+      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      lookupHint: "Open the official vehicle-registration forms page and search for Form 26 on Parivahan."
     },
     {
       id: "form28",
@@ -354,7 +372,8 @@ window.siteData = {
       title: "Application and Grant of No Objection Certificate",
       category: "Vehicle Forms",
       usedFor: "NOC for moving or transferring a vehicle across jurisdiction.",
-      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form%2028.pdf"
+      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      lookupHint: "Open the official vehicle-registration forms page and search for Form 28 on Parivahan."
     },
     {
       id: "form29",
@@ -362,7 +381,8 @@ window.siteData = {
       title: "Notice of Transfer of Ownership of a Motor Vehicle",
       category: "Vehicle Forms",
       usedFor: "Transfer of vehicle ownership.",
-      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form%2029.pdf"
+      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      lookupHint: "Open the official vehicle-registration forms page and search for Form 29 on Parivahan."
     },
     {
       id: "form30",
@@ -370,7 +390,8 @@ window.siteData = {
       title: "Application for Intimation and Transfer of Ownership",
       category: "Vehicle Forms",
       usedFor: "Transfer of ownership after sale.",
-      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form%2030.pdf"
+      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      lookupHint: "Open the official vehicle-registration forms page and search for Form 30 on Parivahan."
     },
     {
       id: "form33",
@@ -378,7 +399,9 @@ window.siteData = {
       title: "Intimation of Change of Address in RC",
       category: "Vehicle Forms",
       usedFor: "Address change in registration certificate.",
-      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form%2033.pdf"
+      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      downloadUrl: "https://parivahan.gov.in/sites/default/files/DownloadForm/cmvr/FORM-33.pdf",
+      lookupHint: "Open the official vehicle-registration forms page and look for Form 33 if the PDF does not open directly."
     },
     {
       id: "form34",
@@ -386,7 +409,8 @@ window.siteData = {
       title: "Application for Making an Entry of Hire-Purchase / Lease / Hypothecation",
       category: "Vehicle Forms",
       usedFor: "Hypothecation or finance entry in RC.",
-      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form%2034.pdf"
+      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      lookupHint: "Open the official vehicle-registration forms page and search for Form 34 on Parivahan."
     },
     {
       id: "form35",
@@ -394,7 +418,9 @@ window.siteData = {
       title: "Notice of Termination of Hire-Purchase / Lease / Hypothecation",
       category: "Vehicle Forms",
       usedFor: "Hypothecation removal after loan closure.",
-      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form%2035.pdf"
+      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      downloadUrl: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form%2035.pdf",
+      lookupHint: "Open the official vehicle-registration forms page and look for Form 35 if the PDF does not open directly."
     },
     {
       id: "form38",
@@ -402,7 +428,8 @@ window.siteData = {
       title: "Certificate of Fitness",
       category: "Fitness Forms",
       usedFor: "Fitness certificate cases, mainly for transport vehicles.",
-      url: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form38.pdf"
+      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      lookupHint: "Open the official vehicle-registration forms page and search for Form 38 on Parivahan."
     },
     {
       id: "form38a",
@@ -410,7 +437,9 @@ window.siteData = {
       title: "Report of Inspection",
       category: "Fitness Forms",
       usedFor: "Inspection report linked to transport vehicle fitness workflows.",
-      url: "https://parivahan.gov.in/sites/default/files/DownloadForm/cmvr/FORM-38A.pdf"
+      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      downloadUrl: "https://parivahan.gov.in/sites/default/files/DownloadForm/cmvr/FORM-38A.pdf",
+      lookupHint: "Open the official vehicle-registration forms page and look for Form 38A if the PDF does not open directly."
     }
   ],
   downloadGroups: [

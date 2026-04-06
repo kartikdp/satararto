@@ -81,6 +81,24 @@ function dedupeList(items) {
   return [...new Set(items.filter(Boolean))];
 }
 
+function getFormLookupHint(form) {
+  return form.lookupHint || `Open the official forms page and look for ${form.formNo}.`;
+}
+
+function renderFormActions(form) {
+  return `
+    <div class="form-action-row">
+      <a class="form-action-link form-action-link--primary" href="${form.url}" target="_blank" rel="noreferrer">Open official form page</a>
+      ${
+        form.downloadUrl
+          ? `<a class="form-action-link" href="${form.downloadUrl}" target="_blank" rel="noreferrer">Direct PDF</a>`
+          : ""
+      }
+    </div>
+    <p class="form-link-note">${getFormLookupHint(form)}</p>
+  `;
+}
+
 function getPortalLabel(service) {
   const labels = service.officialLinks.map((link) => link.label.toLowerCase());
 
@@ -754,7 +772,7 @@ function renderPlannerOutput() {
 
     <div class="planner-detail-grid">
       <article class="planner-panel">
-        <h4>Official forms to download</h4>
+        <h4>Official form links</h4>
         ${
           formLinks.length
             ? `
@@ -762,10 +780,11 @@ function renderPlannerOutput() {
                 ${formLinks
                   .map(
                     (form) => `
-                      <a class="planner-resource-link" href="${form.url}" target="_blank" rel="noreferrer">
+                      <article class="planner-resource-card">
                         <strong>${form.formNo}</strong>
                         <span>${form.title}</span>
-                      </a>
+                        ${renderFormActions(form)}
+                      </article>
                     `
                   )
                   .join("")}
@@ -868,7 +887,9 @@ function renderDownloadGroups() {
                       <strong>${form.title}</strong>
                       <p>${form.usedFor}</p>
                     </div>
-                    <a href="${form.url}" target="_blank" rel="noreferrer">Download PDF</a>
+                    <div class="download-actions">
+                      ${renderFormActions(form)}
+                    </div>
                   </article>
                 `
               )
@@ -1080,7 +1101,7 @@ function renderServiceDetail() {
 
     <div class="detail-grid">
       <article class="detail-card">
-        <h3>Download official forms</h3>
+        <h3>Official form links</h3>
         ${
           formLinks.length
             ? `
@@ -1088,11 +1109,11 @@ function renderServiceDetail() {
                 ${formLinks
                   .map(
                     (form) => `
-                      <a class="inline-link-card" href="${form.url}" target="_blank" rel="noreferrer">
+                      <article class="inline-link-card inline-link-card--form">
                         <strong>${form.formNo}</strong>
                         <span>${form.title}</span>
-                        <small>Download official PDF</small>
-                      </a>
+                        ${renderFormActions(form)}
+                      </article>
                     `
                   )
                   .join("")}
