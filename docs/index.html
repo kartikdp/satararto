@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Satara RTO Reference Guide</title>
+    <meta
+      name="description"
+      content="A reference-first website for Satara RTO services: licence, registration, transfer, NOC, renewal, hypothecation, permit, tax, and document guidance."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="#top">
+          <span class="brand-mark">SR</span>
+          <span class="brand-copy">
+            <strong>Satara RTO Reference Guide</strong>
+            <small>Understand the process before you open the portal</small>
+          </span>
+        </a>
+
+        <nav class="top-nav" aria-label="Primary">
+          <a href="#services">Services</a>
+          <a href="#offices">Offices</a>
+          <a href="#documents">Documents</a>
+          <a href="#support">Support</a>
+          <a href="#sources">Sources</a>
+        </nav>
+      </header>
+
+      <main id="top">
+        <section class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Reference Website Concept</p>
+            <h1>Explain the steps for issuing, renewing, correcting, or managing RTO documents in Satara.</h1>
+            <p class="hero-text">
+              This website is designed as a citizen-friendly reference layer. It helps users understand what service they
+              need, which documents to collect, what the official steps look like, and when they still need to visit the
+              RTO or use the official Maharashtra and Parivahan portals.
+            </p>
+
+            <div class="hero-actions" id="quick-actions"></div>
+
+            <div class="hero-note">
+              <strong>Important:</strong> This is an explainer and planning guide. Final submission, payments, and status
+              updates still happen on the official government portals.
+            </div>
+          </div>
+
+          <div class="hero-panel">
+            <div class="stat-grid" id="stats-grid"></div>
+            <div class="portal-card">
+              <p class="eyebrow">Official Portals</p>
+              <div class="portal-links">
+                <a href="https://sarathi.parivahan.gov.in" target="_blank" rel="noreferrer">Open Sarathi</a>
+                <a href="https://vahan.parivahan.gov.in/vahanservice/" target="_blank" rel="noreferrer">Open Vahan</a>
+                <a href="https://transport.maharashtra.gov.in/" target="_blank" rel="noreferrer">Maharashtra Transport</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="intro-grid">
+          <article class="intro-card">
+            <p class="eyebrow">How To Use It</p>
+            <h2>Start with the service, not the form number.</h2>
+            <ol>
+              <li>Pick the service you need from the reference explorer.</li>
+              <li>Read the official steps, documents, fees, and visit requirements.</li>
+              <li>Use the official portal only after you know exactly what your case needs.</li>
+            </ol>
+          </article>
+
+          <article class="intro-card">
+            <p class="eyebrow">What It Solves</p>
+            <h2>Reduce confusion before the real application starts.</h2>
+            <ul>
+              <li>Understand whether your case is online, faceless, appointment-based, or office-heavy.</li>
+              <li>See the supporting forms and documents before the portal asks for them.</li>
+              <li>Know when PUC, loan documents, police reports, or cross-jurisdiction papers become important.</li>
+            </ul>
+          </article>
+        </section>
+
+        <section class="reference-section" id="services">
+          <div class="section-heading">
+            <p class="eyebrow">Reference Explorer</p>
+            <h2>Choose a service and read the full guidance.</h2>
+          </div>
+
+          <div class="reference-layout">
+            <aside class="explorer-panel" aria-label="Service explorer">
+              <label class="search-box" for="service-search">
+                <span>Search services</span>
+                <input id="service-search" type="search" placeholder="Search licence, RC, NOC, transfer..." />
+              </label>
+
+              <div class="category-pills" id="category-pills"></div>
+              <div class="service-list" id="service-list"></div>
+            </aside>
+
+            <section class="detail-panel" aria-live="polite">
+              <div id="service-detail"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="secondary-grid">
+          <article class="panel-card" id="offices">
+            <div class="section-heading compact">
+              <p class="eyebrow">Office Reference</p>
+              <h2>Satara district RTO offices</h2>
+            </div>
+            <div class="office-grid" id="office-grid"></div>
+            <p class="panel-note">
+              If the user already has an existing record, the office code on the current DL or RC is the safest routing clue.
+              For new or unclear cases, the website should present both offices and encourage confirmation on the official portal.
+            </p>
+          </article>
+
+          <article class="panel-card" id="documents">
+            <div class="section-heading compact">
+              <p class="eyebrow">Documents</p>
+              <h2>Reusable document bundles</h2>
+            </div>
+            <div class="bundle-grid" id="bundle-grid"></div>
+          </article>
+        </section>
+
+        <section class="support-grid" id="support">
+          <article class="panel-card">
+            <div class="section-heading compact">
+              <p class="eyebrow">User Friction</p>
+              <h2>Common pain points this website should explain clearly</h2>
+            </div>
+            <div class="signal-list" id="signal-list"></div>
+          </article>
+
+          <article class="panel-card">
+            <div class="section-heading compact">
+              <p class="eyebrow">Reference FAQ</p>
+              <h2>Helpful guidance for non-standard cases</h2>
+            </div>
+            <div class="faq-list" id="faq-list"></div>
+          </article>
+        </section>
+
+        <section class="sources-section" id="sources">
+          <div class="section-heading">
+            <p class="eyebrow">Sources</p>
+            <h2>Official links first, public signals second.</h2>
+          </div>
+          <div class="source-grid" id="source-grid"></div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>
+          Built as a static reference website for Satara region RTO guidance. Update the content in
+          <code>docs/assets/data.js</code> when rules, fees, or official links change.
+        </p>
+      </footer>
+    </div>
+
+    <script src="./assets/data.js"></script>
+    <script src="./assets/app.js"></script>
+  </body>
+</html>
