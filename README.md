@@ -12,6 +12,13 @@ The website is designed to help users understand:
 - what the official step-by-step process looks like
 - when an office visit, appointment, or inspection is still required
 
+It now also includes:
+
+- an interactive planner for personalized client checklists
+- shareable service and planner links
+- print-friendly planner and service views
+- an official tools hub and download center
+
 It is intentionally built as a static site so it can be hosted for free on GitHub Pages.
 
 ## Project structure

@@ -28,6 +28,7 @@
         </a>
 
         <nav class="top-nav" aria-label="Primary">
+          <a href="#planner">Planner</a>
           <a href="#journeys">Start Here</a>
           <a href="#services">Services</a>
           <a href="#tools">Official Tools</a>
@@ -73,6 +74,51 @@
                 <a href="https://transport.maharashtra.gov.in/" target="_blank" rel="noreferrer">Maharashtra Transport</a>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section class="planner-section" id="planner">
+          <div class="section-heading">
+            <p class="eyebrow">Smart Planner</p>
+            <h2>Build a personalized checklist before your client opens the official portal.</h2>
+          </div>
+
+          <div class="planner-layout">
+            <form class="planner-form-card" id="planner-form">
+              <div class="planner-block">
+                <p class="planner-label">1. What is the main situation?</p>
+                <div class="planner-chip-grid" id="planner-journey-options"></div>
+              </div>
+
+              <div class="planner-grid">
+                <label class="planner-field">
+                  <span>2. Specific service</span>
+                  <select id="planner-service-select"></select>
+                </label>
+
+                <label class="planner-field">
+                  <span>3. Known office or record</span>
+                  <select id="planner-office-select"></select>
+                </label>
+              </div>
+
+              <div class="planner-block">
+                <p class="planner-label">4. Case type</p>
+                <div class="planner-chip-grid" id="planner-profile-options"></div>
+              </div>
+
+              <div class="planner-block">
+                <p class="planner-label">5. Extra case details</p>
+                <div class="planner-flag-grid" id="planner-flag-options"></div>
+              </div>
+
+              <div class="planner-actions">
+                <button class="planner-primary" type="submit">Build my plan</button>
+                <button class="planner-secondary" type="button" id="planner-reset">Reset</button>
+              </div>
+            </form>
+
+            <section class="planner-output-card" id="planner-output" aria-live="polite"></section>
           </div>
         </section>
 
@@ -153,6 +199,11 @@
           <div class="section-heading">
             <p class="eyebrow">Download Center</p>
             <h2>Direct official form links clients can open and download.</h2>
+            <p class="section-note">
+              If a direct PDF does not open on the first try, use the
+              <a href="https://parivahan.gov.in/parivahan/en/content/download-forms" target="_blank" rel="noreferrer">All Official Forms</a>
+              page as the official fallback.
+            </p>
           </div>
           <div class="download-group-grid" id="download-group-grid"></div>
         </section>
@@ -213,6 +264,8 @@
         </p>
       </footer>
     </div>
+
+    <div class="site-toast" id="site-toast" aria-live="polite" aria-atomic="true"></div>
 
     <script src="./assets/data.js"></script>
     <script src="./assets/app.js"></script>

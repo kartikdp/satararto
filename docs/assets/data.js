@@ -108,6 +108,74 @@ window.siteData = {
       description: "Only after the checklist is clear should the user continue to Sarathi, Vahan, or Maharashtra Transport."
     }
   ],
+  planner: {
+    officeOptions: [
+      {
+        id: "unknown",
+        label: "I am not sure",
+        description: "Use this if you do not know whether your record is under MH-11 or MH-50."
+      },
+      {
+        id: "mh11",
+        label: "MH-11 Satara",
+        description: "Choose this if your existing DL or RC already points to MH-11 Satara."
+      },
+      {
+        id: "mh50",
+        label: "MH-50 Karad",
+        description: "Choose this if your existing DL or RC already points to MH-50 Karad."
+      },
+      {
+        id: "other-state",
+        label: "Another state / unknown record",
+        description: "Choose this if the record is from outside Maharashtra or you expect record verification."
+      }
+    ],
+    profileOptions: [
+      {
+        id: "private",
+        label: "Private / personal",
+        description: "Best for individual licence and private vehicle cases."
+      },
+      {
+        id: "transport",
+        label: "Transport / commercial",
+        description: "Use this for permit, fitness, goods, passenger, or commercial vehicle cases."
+      },
+      {
+        id: "unsure",
+        label: "Not sure",
+        description: "Use this if you want the site to keep the guidance broad."
+      }
+    ],
+    flags: [
+      {
+        id: "financed",
+        label: "Vehicle is financed or loan-related",
+        description: "Important for hypothecation, NOC, transfer, and RC work."
+      },
+      {
+        id: "lost",
+        label: "Document is lost or damaged",
+        description: "Useful for duplicate DL, duplicate RC, and similar replacement flows."
+      },
+      {
+        id: "addressChanged",
+        label: "Address has changed",
+        description: "Useful for address update journeys and supporting proof checks."
+      },
+      {
+        id: "crossJurisdiction",
+        label: "Vehicle or record is moving across jurisdiction / state",
+        description: "Important for NOC, transfer, and reassignment-style cases."
+      },
+      {
+        id: "alreadyHasLearner",
+        label: "Applicant already has learner's licence",
+        description: "Useful for new-driver journeys where the user may be ready for permanent DL."
+      }
+    ]
+  },
   officialTools: [
     {
       id: "sarathi",
