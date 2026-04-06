@@ -17,6 +17,27 @@ These sources were used only to understand user friction and public complaints. 
 
 - Team-BHP walkthrough for hypothecation removal
   - https://www.team-bhp.com/advice/rto-hypothecation-removal-process-step-step-guide-0
+- Team-BHP licence-renewal walkthrough showing extra upload and paper expectations
+  - https://www.team-bhp.com/news/renewed-my-driving-license-kl-without-visiting-rto-heres-how
+- Team-BHP driving-licence thread showing appointment, originals, and test-vehicle paper checks
+  - https://www.team-bhp.com/forum/street-experiences/172748-how-get-driving-licence-bangalore-without-agents-4.html
+- Team-BHP ownership-transfer guide showing extra copies, IDs, and supporting paper bundles
+  - https://www.team-bhp.com/forum/indian-car-scene/153324-guidelines-car-ownership-transfer-bangalore-print.html
+
+## Reddit / community evidence for practical backup documents
+
+- CarsIndia learners-licence thread
+  - https://www.reddit.com/r/CarsIndia/comments/1jo1enp
+- CarsIndia driving-licence renewal thread
+  - https://www.reddit.com/r/CarsIndia/comments/1rlk0wh/driving_licence_renewal/
+- CarsIndia Form 1A / IDP thread
+  - https://www.reddit.com/r/CarsIndia/comments/1p3quur/form_1a_for_international_driving_permit/
+- CarsIndia rental-agreement address-proof thread
+  - https://www.reddit.com/r/CarsIndia/comments/1adw1zw
+- CarsIndia NOC / dealer transfer thread
+  - https://www.reddit.com/r/CarsIndia/comments/1qulyuy
+- CarsIndia hypothecation-removal thread
+  - https://www.reddit.com/r/CarsIndia/comments/1joz9xl
 
 ## Caveat
 

@@ -118,7 +118,8 @@ function getFilteredServices() {
       service.bestFor,
       service.forms.join(" "),
       service.requiredDocs.join(" "),
-      service.extraDocs.join(" ")
+      service.extraDocs.join(" "),
+      (service.practicalDocs || []).join(" ")
     ]
       .join(" ")
       .toLowerCase();
@@ -609,6 +610,42 @@ function getPlannerConditionalDocs(service) {
   };
 }
 
+function getServicePracticalDocs(service) {
+  const docs = [...(service.practicalDocs || [])];
+
+  if (service.appointment.toLowerCase().includes("required")) {
+    docs.push("Printed appointment slip or acknowledgement");
+  }
+
+  if (service.officeVisit.toLowerCase().includes("required")) {
+    docs.push("Original documents plus a spare photocopy set for the counter");
+  }
+
+  return dedupeList(docs);
+}
+
+function getPlannerPracticalDocs(service) {
+  const docs = [...getServicePracticalDocs(service)];
+
+  if (state.planner.flags.lost) {
+    docs.push("Any old scan, phone photo, DigiLocker view, or xerox of the missing document");
+  }
+
+  if (state.planner.flags.addressChanged) {
+    docs.push("Original address proof plus one self-attested photocopy set");
+  }
+
+  if (state.planner.flags.financed && service.category === "vehicle") {
+    docs.push("Bank-stamped NOC, sanction letter, or loan-closure letter in original plus copies");
+  }
+
+  if (state.planner.profileId === "transport") {
+    docs.push("Hard-copy set of permit, tax, fitness, insurance, and PUC papers");
+  }
+
+  return dedupeList(docs);
+}
+
 function getPlannerTodaySteps(service) {
   const steps = [
     `Confirm that ${service.title} is the correct service for this case.`,
@@ -653,6 +690,7 @@ function renderPlannerOutput() {
   const todaySteps = getPlannerTodaySteps(service);
   const readiness = getPlannerReadiness(service);
   const primaryLink = service.officialLinks[0];
+  const practicalDocs = getPlannerPracticalDocs(service);
 
   elements.plannerOutput.innerHTML = `
     <div class="planner-output-header">
@@ -690,20 +728,28 @@ function renderPlannerOutput() {
 
     <div class="planner-detail-grid">
       <article class="planner-panel">
-        <h4>Must keep ready</h4>
+        <h4>Official must keep ready</h4>
         <ul>
           ${dedupeList(service.requiredDocs).map((doc) => `<li>${doc}</li>`).join("")}
         </ul>
       </article>
 
       <article class="planner-panel">
-        <h4>Extra documents for this case</h4>
+        <h4>Official conditional documents</h4>
         ${
           conditional.docs.length
             ? `<ul>${conditional.docs.map((doc) => `<li>${doc}</li>`).join("")}</ul>`
             : `<p>No extra conditional documents are highlighted for the current selections.</p>`
         }
       </article>
+    </div>
+
+    <div class="planner-panel planner-panel--practical">
+      <h4>Often asked in practice</h4>
+      <p class="planner-note">${window.siteData.practicalDocsNote}</p>
+      <ul>
+        ${practicalDocs.map((doc) => `<li>${doc}</li>`).join("")}
+      </ul>
     </div>
 
     <div class="planner-detail-grid">
@@ -912,6 +958,7 @@ function renderServiceDetail() {
   const resources = getServiceResources(service.id);
   const formLinks = resources.formIds.map((formId) => getFormById(formId)).filter(Boolean);
   const toolLinks = resources.toolIds.map((toolId) => getToolById(toolId)).filter(Boolean);
+  const practicalDocs = getServicePracticalDocs(service);
 
   elements.serviceDetail.innerHTML = `
     <div class="detail-header">
@@ -982,20 +1029,30 @@ function renderServiceDetail() {
 
     <div class="detail-grid">
       <article class="detail-card">
-        <h3>Required documents</h3>
+        <h3>Official required documents</h3>
         <ul>
           ${service.requiredDocs.map((doc) => `<li>${doc}</li>`).join("")}
         </ul>
       </article>
 
       <article class="detail-card">
-        <h3>Conditional or supporting documents</h3>
+        <h3>Official conditional or supporting documents</h3>
         <ul>
           ${
             service.extraDocs.length
               ? service.extraDocs.map((doc) => `<li>${doc}</li>`).join("")
               : "<li>No extra supporting documents highlighted for this reference page.</li>"
           }
+        </ul>
+      </article>
+    </div>
+
+    <div class="detail-grid">
+      <article class="detail-card detail-card--practical wide">
+        <h3>Often asked in practice</h3>
+        <p class="panel-note">${window.siteData.practicalDocsNote}</p>
+        <ul>
+          ${practicalDocs.map((doc) => `<li>${doc}</li>`).join("")}
         </ul>
       </article>
     </div>

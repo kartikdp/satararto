@@ -1459,3 +1459,181 @@ window.siteData = {
     }
   ]
 };
+
+const practicalChecklistSignalsByService = {
+  "learner-licence": [
+    "Printed application or learner-test appointment receipt",
+    "Original age and address proofs plus one self-attested photocopy set",
+    "Backup photo and signature files, plus a couple of passport photos if image upload or counter verification fails",
+    "Old application number or prior learner acknowledgement if the portal flags multiple learner records"
+  ],
+  "permanent-driving-licence": [
+    "Printed driving-test appointment slip and fee receipt",
+    "Original learner's licence plus one photocopy",
+    "Original RC, insurance, and PUC of the vehicle used for the test",
+    "Authorization letter from the vehicle owner if the test vehicle is borrowed"
+  ],
+  "dl-renewal": [
+    "Front-and-back copy or clear photo of the old driving licence because some users report DigiLocker PDF alone gets held",
+    "Fresh passport photo and signature scan matching the portal size rules",
+    "Printed acknowledgement or payment receipt",
+    "Original address proof plus one self-attested copy for counter verification"
+  ],
+  "duplicate-dl": [
+    "Any old scan, photo, xerox, or DigiLocker view of the lost driving licence",
+    "Spare copies of FIR, NCR, or police acknowledgement",
+    "Self-attested ID and address proof copies",
+    "Printed application receipt and extra passport photos"
+  ],
+  "dl-address-change": [
+    "Old driving licence front-and-back photocopy",
+    "Original new address proof plus one self-attested copy set",
+    "Registered rent agreement, landlord NOC, or utility bill where rent-based proof is questioned",
+    "Printed acknowledgement or payment receipt"
+  ],
+  "international-driving-permit": [
+    "Self-attested copies of passport, visa, air ticket, and Indian driving licence",
+    "Original passport and physical driving licence for counter verification",
+    "Extra passport photos and a doctor-stamped Form 1A copy",
+    "Travel itinerary printout if ticket or visa details are awkward to show on phone"
+  ],
+  "new-vehicle-registration": [
+    "Original PAN and address proof even if the dealer has already uploaded copies",
+    "Registered rent agreement plus landlord NOC or utility bill where address proof is rental-based",
+    "Delivery note, temporary registration, or booking receipt as backup to the invoice",
+    "Spare copies of invoice, insurance, and tax receipt for dealer or RTO counters"
+  ],
+  "transfer-ownership": [
+    "Seller and buyer ID proof copies with self-attestation",
+    "Printed fee receipt, acknowledgement, and extra copies of the signed forms",
+    "Original RC plus spare xeroxes of insurance and PUC",
+    "Seller authorization or delivery note if one party is not visiting in person"
+  ],
+  noc: [
+    "Original RC plus a photocopy set",
+    "Challan-clearance or tax-receipt printout before applying",
+    "Bank NOC or loan-closure letter in original if finance ever existed",
+    "Extra signed Form 28 copies and address proof for the next-state process"
+  ],
+  "rc-renewal": [
+    "Printed appointment or acknowledgement and fee receipt",
+    "Original RC plus hard copies of insurance, PUC, and tax receipts",
+    "Chassis print or engine number copy ready in case the counter asks",
+    "Green tax receipt or older-vehicle compliance receipt where applicable"
+  ],
+  "duplicate-rc": [
+    "Extra FIR, NCR, or police-diary acknowledgement copies",
+    "Old RC photo, mParivahan screenshot, or insurance copy to recover record details",
+    "Tax receipt and challan-clearance print if the office checks pending dues",
+    "Self-attested ID and address proof copies with the payment receipt"
+  ],
+  "rc-address-change": [
+    "Original RC plus xeroxes of insurance, PUC, and new address proof",
+    "Registered rent agreement, landlord NOC, or utility bill for rental addresses",
+    "Old address-linked ID or previous RC copy if spelling or format differs",
+    "Printed acknowledgement or payment receipt"
+  ],
+  "hypothecation-addition": [
+    "Bank sanction letter or finance-agreement copy",
+    "Self-attested copies of RC, insurance, PUC, and PAN or Aadhaar",
+    "Printed application receipt and an extra signed copy of Form 34",
+    "Chassis pencil print or clear chassis photo if upload or counter verification asks for it"
+  ],
+  "hypothecation-removal": [
+    "Original bank NOC or due-clearance letter and both signed copies of Form 35",
+    "Loan-closure letter or bank covering letter",
+    "Original RC plus xeroxes of insurance, PUC, and ID proof",
+    "Printed application receipt because some users report extra speed-post or hard-copy submission steps"
+  ],
+  "fitness-certificate": [
+    "Printed appointment slip and payment receipt",
+    "Hard-copy set of RC, insurance, permit, tax, and PUC papers",
+    "Owner or driver ID proof and authorization letter if a representative attends",
+    "Spare photocopies because inspection counters may still ask for paper sets"
+  ],
+  "permit-services": [
+    "Current permit copy and previous permit or renewal paper if any",
+    "Hard-copy set of insurance, fitness, tax, PUC, and challan-clearance papers",
+    "Route authorization, contract carriage list, or passenger endorsement papers as per permit type",
+    "Authorization letter and ID proof if a representative submits the file"
+  ],
+  "tax-services": [
+    "Previous tax receipt, challan, or DD copy as backup",
+    "Insurance, RC, and permit or fitness copies if the taxable category is disputed",
+    "Chassis and engine details noted down in case OTP or portal lookup fails",
+    "Printed payment receipt after online payment"
+  ],
+  "puc-requirements": [
+    "RC or insurance copy if the PUC center needs vehicle details",
+    "Previous PUC copy or photo to avoid number-entry mistakes",
+    "Printed and digital PUC copy because downstream RTO counters often ask for a hard copy",
+    "Owner ID if someone else takes the vehicle for testing"
+  ]
+};
+
+window.siteData.practicalDocsNote =
+  "These are not official mandatory papers. They are backup documents repeatedly mentioned by users on Reddit, Team-BHP, and public complaint forums, so clients can prepare for real-world verification and avoid repeat visits.";
+
+window.siteData.services = window.siteData.services.map((service) => ({
+  ...service,
+  practicalDocs: practicalChecklistSignalsByService[service.id] || []
+}));
+
+window.siteData.signals.unshift({
+  title: "Counter Staff Often Ask For Backup Copies",
+  detail:
+    "Public user reports repeatedly mention self-attested photocopies, printed receipts, old scans, passport photos, and originals being asked for during verification even after online submission."
+});
+
+window.siteData.faq.splice(3, 0, {
+  question: "Why does the site show extra backup documents that are not on the official checklist?",
+  answer:
+    "Because Indian RTO counters sometimes ask for backup papers when uploads fail, records do not match, or the clerk wants originals and photocopies together. The website keeps those items in a separate 'Often asked in practice' section sourced from public user reports, not as official legal requirements."
+});
+
+window.siteData.sourceGroups.push(
+  {
+    title: "Public Checklist Reports From Reddit",
+    intro: "These posts helped identify the backup papers people say they were still asked to carry in real RTO flows. Treat them as practical signals, not law.",
+    links: [
+      { label: "CarsIndia - Getting the learners licence", url: "https://www.reddit.com/r/CarsIndia/comments/1jo1enp" },
+      { label: "CarsIndia - Driving licence renewal", url: "https://www.reddit.com/r/CarsIndia/comments/1rlk0wh/driving_licence_renewal/" },
+      { label: "CarsIndia - Form 1A for International Driving Permit", url: "https://www.reddit.com/r/CarsIndia/comments/1p3quur/form_1a_for_international_driving_permit/" },
+      {
+        label: "CarsIndia - Is the rental agreement address proof for RTO registration?",
+        url: "https://www.reddit.com/r/CarsIndia/comments/1adw1zw"
+      },
+      {
+        label: "CarsIndia - Bought a car from Delhi dealer, NOC pending",
+        url: "https://www.reddit.com/r/CarsIndia/comments/1qulyuy"
+      },
+      { label: "CarsIndia - Hypothecation removal pending / hard copies at RTO", url: "https://www.reddit.com/r/CarsIndia/comments/1joz9xl" }
+    ]
+  },
+  {
+    title: "Public Checklist Reports From Forums And Complaints",
+    intro: "These walkthroughs and complaint pages surfaced repeated mentions of printed receipts, extra photocopies, old document scans, original RC sets, and bank paperwork.",
+    links: [
+      {
+        label: "Team-BHP - Renewed my driving licence in KL without visiting the RTO",
+        url: "https://www.team-bhp.com/news/renewed-my-driving-license-kl-without-visiting-rto-heres-how"
+      },
+      {
+        label: "Team-BHP - How to get a driving licence in Bangalore without agents",
+        url: "https://www.team-bhp.com/forum/street-experiences/172748-how-get-driving-licence-bangalore-without-agents-4.html"
+      },
+      {
+        label: "Team-BHP - Guidelines: car ownership transfer in Bangalore",
+        url: "https://www.team-bhp.com/forum/indian-car-scene/153324-guidelines-car-ownership-transfer-bangalore-print.html"
+      },
+      {
+        label: "Team-BHP - Hypothecation removal walkthrough",
+        url: "https://www.team-bhp.com/advice/rto-hypothecation-removal-process-step-step-guide-0"
+      },
+      {
+        label: "ConsumerComplaints - not able to upload document in Parivahan Sewa",
+        url: "https://www.consumercomplaints.in/parivahan-gov-in-not-able-to-upload-document-in-parivahan-sewa-c2456286"
+      }
+    ]
+  }
+);

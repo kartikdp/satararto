@@ -657,9 +657,21 @@ h3 {
   line-height: 1.8;
 }
 
+.planner-note {
+  margin: 0 0 12px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
 .planner-panel--warning {
   margin-top: 18px;
   background: rgba(199, 91, 48, 0.08);
+}
+
+.planner-panel--practical {
+  margin-top: 18px;
+  background: linear-gradient(135deg, rgba(11, 125, 114, 0.1), rgba(255, 255, 255, 0.86));
+  border-color: rgba(11, 125, 114, 0.16);
 }
 
 .planner-link-stack {
@@ -1147,6 +1159,11 @@ h3 {
 
 .detail-card p + p {
   margin-top: 10px;
+}
+
+.detail-card--practical {
+  background: linear-gradient(135deg, rgba(11, 125, 114, 0.08), rgba(255, 255, 255, 0.88));
+  border-color: rgba(11, 125, 114, 0.16);
 }
 
 .office-grid,

@@ -17,6 +17,8 @@ This folder stores the Satara RTO research in category-based files so the inform
   - Permit, tax, and PUC related research.
 - `documents/document-checklists.md`
   - Reusable document bundles and service-wise checklist notes.
+- `documents/practical-additional-documents.md`
+  - Public-reported backup papers that users say are often still asked for during verification.
 - `documents/forms-reference.md`
   - Forms reference for Sarathi, Vahan, registration, permit, and fitness workflows.
 - `product/user-pain-points.md`
