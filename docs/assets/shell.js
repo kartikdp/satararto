@@ -41,7 +41,7 @@
       brand.setAttribute("href", `./index.html${langSuffix}`);
     }
     if (brandStrong) {
-      brandStrong.textContent = getLanguage() === "mr" ? "सातारा RTO मार्गदर्शक" : "Satara RTO Guide";
+      brandStrong.textContent = getLanguage() === "mr" ? "सातारा आरटीओ मार्गदर्शिका" : "Satara RTO Guide";
     }
     if (brandSmall) {
       brandSmall.textContent = getLanguage() === "mr" ? "सातारा जिल्हा, महाराष्ट्र" : "Satara district, Maharashtra";
