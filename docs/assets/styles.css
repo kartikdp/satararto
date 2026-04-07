@@ -313,6 +313,13 @@ img {
   font-weight: 800;
 }
 
+.wizard-progress-service {
+  margin: 0;
+  color: var(--teal-deep);
+  font-size: 0.94rem;
+  font-weight: 800;
+}
+
 .progress-track {
   width: 100%;
   height: 10px;
@@ -562,6 +569,19 @@ img {
 
 .summary-note-list span {
   color: var(--muted);
+}
+
+.step-channel {
+  margin: 0 0 6px;
+  color: var(--teal);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.content-card-soft {
+  background: rgba(255, 255, 255, 0.74);
 }
 
 .at-glance-card h2 {
@@ -946,6 +966,7 @@ img {
   display: grid;
   gap: 14px;
   padding: 18px;
+  height: 100%;
 }
 
 .service-card h2 {
@@ -956,6 +977,26 @@ img {
 
 .service-card-top p {
   margin: 0;
+}
+
+.service-card-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.mini-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(214, 155, 45, 0.14);
+  color: #7c5600;
+  font-size: 0.74rem;
+  font-weight: 800;
+  white-space: nowrap;
 }
 
 .service-card-meta {
@@ -974,6 +1015,18 @@ img {
   color: var(--ink);
   font-size: 0.84rem;
   font-weight: 800;
+}
+
+.service-card-note {
+  margin: 0;
+  padding: 0.8rem 0.9rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--border);
+}
+
+.service-card-actions {
+  margin-top: auto;
 }
 
 .detail-shell {
@@ -1083,6 +1136,10 @@ img {
   line-height: 1.6;
 }
 
+.footer-meta {
+  font-size: 0.94rem;
+}
+
 .footer-sources {
   width: min(1120px, 100%);
   margin: 0 auto;
@@ -1119,6 +1176,10 @@ img {
 #service-guide-anchor,
 #service-related-anchor {
   scroll-margin-top: 124px;
+}
+
+.floating-primary-action {
+  display: none;
 }
 
 @media (min-width: 760px) {
@@ -1182,6 +1243,25 @@ img {
   .cta-link-row .button {
     width: auto;
   }
+
+  .floating-primary-action {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    z-index: 18;
+    display: block;
+  }
+
+  .floating-primary-action .button {
+    width: 100%;
+    box-shadow: var(--shadow);
+  }
+
+  body[data-page="wizard"] .result-view,
+  body[data-page="service"] #service-page-body {
+    padding-bottom: 88px;
+  }
 }
 
 @keyframes wizardStepFade {
@@ -1219,6 +1299,7 @@ img {
   .site-header,
   .site-footer,
   .sticky-revisit,
+  .floating-primary-action,
   .feedback-card,
   .wizard-progress,
   .wizard-footer-actions {

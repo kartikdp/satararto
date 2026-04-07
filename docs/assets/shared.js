@@ -367,6 +367,28 @@
     return "Online-first service";
   }
 
+  function getStepChannel(step) {
+    const text = step.toLowerCase();
+
+    if (/(visit|appear|present|bring|inspection|test appointment|scheduled date|licensing authority|rto)/.test(text)) {
+      return "Office";
+    }
+
+    if (/(track|download|save|acknowledgement|dispatch|approval status)/.test(text)) {
+      return "After submission";
+    }
+
+    return "Online";
+  }
+
+  function needsOriginals(service) {
+    return /required|possible/i.test(service.officeVisit) || /required|yes/i.test(service.appointment);
+  }
+
+  function isFinanceSensitive(service) {
+    return ["hypothecation-addition", "hypothecation-removal", "transfer-ownership", "new-vehicle-registration"].includes(service.id);
+  }
+
   function getOfficeByPlannerId(officeId) {
     if (officeId === "mh11") {
       return siteData.offices.find((office) => office.code === "MH-11") || null;
@@ -380,7 +402,8 @@
   }
 
   function createPhoneHref(phone) {
-    return `tel:${phone.replace(/[^0-9+]/g, "")}`;
+    const firstNumber = String(phone).split("/")[0].trim();
+    return `tel:${firstNumber.replace(/[^0-9+]/g, "")}`;
   }
 
   function getConditionalDocs(service, state) {
@@ -541,8 +564,12 @@
     const purposeText = service.short || service.bestFor;
     const summaryNotes = [
       {
-        label: "Best for",
+        label: "Who this is for",
         text: service.bestFor
+      },
+      {
+        label: "You receive",
+        text: service.outcomeSummary
       }
     ];
 
@@ -565,6 +592,8 @@
           <p class="result-lead">${purposeText}</p>
         </div>
         <div class="result-summary-meta">
+          ${createBadge(service.serviceLabel)}
+          ${service.featured ? createBadge("Most used") : ""}
           ${createBadge(`Start on ${getPortalLabel(service)}`)}
           ${createBadge(getPlannerReadiness(service), "warning")}
           ${createBadge(`Office visit: ${service.officeVisit}`, "alert")}
@@ -587,7 +616,19 @@
 
   function getInformationSections(service) {
     if (service.information && service.information.sections && service.information.sections.length) {
-      return service.information;
+      const sections = [...service.information.sections];
+
+      if (service.commonConfusion && sections.length < 3) {
+        sections.push({
+          title: "What people often confuse",
+          body: service.commonConfusion
+        });
+      }
+
+      return {
+        ...service.information,
+        sections
+      };
     }
 
     return {
@@ -600,6 +641,10 @@
         {
           title: "What to keep in mind",
           items: dedupeList([...(service.eligibility || []), ...(service.notices || [])])
+        },
+        {
+          title: "What people often confuse",
+          body: service.commonConfusion || "The official service name matters, so make sure the task matches before you pay."
         }
       ]
     };
@@ -640,6 +685,7 @@
         <article class="content-card">
           <h3>Required documents</h3>
           <p class="muted-copy">These are the main official documents that most applicants should keep ready for this service.</p>
+          ${needsOriginals(service) ? `<p class="inline-note"><strong>Carry originals</strong> if the portal or office asks for verification.</p>` : ""}
           <ul class="content-list">
             ${service.officialRequiredDocs.map((doc) => `<li>${doc}</li>`).join("")}
           </ul>
@@ -657,7 +703,7 @@
       ${
         practicalDocs.length
           ? `
-            <article class="content-card content-card-highlight">
+            <article class="content-card content-card-soft">
               <h3>Backup papers people often carry</h3>
               <p class="muted-copy">${siteData.practicalDocsNote}</p>
               <ul class="content-list">
@@ -673,6 +719,7 @@
   function renderStepsSection(service, state) {
     const conditional = getConditionalDocs(service, state);
     const watchOuts = dedupeList([...(service.notices || []), ...(conditional.notes || [])]);
+    const leaveOfficeChecks = service.leaveOfficeChecks || [];
 
     return `
       <article class="content-card content-card-highlight">
@@ -687,13 +734,27 @@
               (step, index) => `
                 <li>
                   <span class="step-number">${index + 1}</span>
-                  <div>${step}</div>
+                  <div>
+                    <p class="step-channel">${getStepChannel(step)}</p>
+                    <div>${step}</div>
+                  </div>
                 </li>
               `
             )
             .join("")}
         </ol>
       </article>
+      <div class="section-grid">
+        <article class="content-card">
+          <h3>After you submit</h3>
+          <p>${service.outcomeSummary}</p>
+          <p class="muted-copy">${service.officialProcessingNote}</p>
+        </article>
+        <article class="content-card">
+          <h3>Before you pay</h3>
+          <p>${service.beforePayingNote}</p>
+        </article>
+      </div>
       ${
         watchOuts.length
           ? `
@@ -701,6 +762,18 @@
               <h3>Watch out for</h3>
               <ul class="content-list">
                 ${watchOuts.map((note) => `<li>${note}</li>`).join("")}
+              </ul>
+            </article>
+          `
+          : ""
+      }
+      ${
+        leaveOfficeChecks.length
+          ? `
+            <article class="content-card">
+              <h3>Before you leave the office</h3>
+              <ul class="content-list">
+                ${leaveOfficeChecks.map((item) => `<li>${item}</li>`).join("")}
               </ul>
             </article>
           `
@@ -759,20 +832,20 @@
     return `
       <div class="section-grid">
         <article class="content-card">
-          <h3>When to apply</h3>
+          <h3>Important dates</h3>
           ${
             service.officialTimingWindows.length
               ? `<ul class="content-list">${service.officialTimingWindows.map((item) => `<li>${item}</li>`).join("")}</ul>`
-              : `<p class="muted-copy">No official rule-window or filing window is specifically published for this service on the source pages used here.</p>`
+              : `<p class="muted-copy">No official filing window was specifically published for this service in the source pages used here.</p>`
           }
         </article>
         <article class="content-card">
-          <h3>Validity / rule window</h3>
+          <h3>Validity</h3>
           <p>${service.officialValidity}</p>
         </article>
       </div>
       <article class="content-card content-card-highlight">
-        <h3>Processing note</h3>
+        <h3>Processing time</h3>
         <p>${service.officialProcessingNote}</p>
       </article>
     `;
@@ -826,6 +899,8 @@
             <li><strong>Inspection:</strong> ${service.inspection}</li>
           </ul>
           <p class="muted-copy">${officeGuidance}</p>
+          ${needsOriginals(service) ? `<p class="inline-note">Carry originals if the portal or office asks for document verification.</p>` : ""}
+          ${isFinanceSensitive(service) ? `<p class="inline-note">If a bank or financier is involved, keep the latest finance papers ready.</p>` : ""}
           <p><a class="inline-link" href="./offices.html">See office details</a></p>
         </article>
         <article class="content-card">
@@ -925,6 +1000,7 @@
         html: `
           <article class="content-card">
             <h3>Official sources</h3>
+            <p class="muted-copy">Last reviewed from official sources: ${siteData.reviewMeta.lastReviewed}.</p>
             <div class="resource-stack">
               ${service.officialSourceRefs
                 .map(
@@ -1212,6 +1288,7 @@
     copyText,
     createBadge,
     createDefaultPlannerState,
+    createPhoneHref,
     createServiceHref,
     dedupeList,
     getJourneyById,

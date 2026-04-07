@@ -1,9 +1,17 @@
 (function () {
-  const { renderFooterSources } = window.SiteApp;
+  const { renderFooterSources, siteData } = window.SiteApp;
 
   const footerSources = document.getElementById("footer-sources");
   if (footerSources) {
     renderFooterSources(footerSources);
+  }
+
+  const footerCopy = document.querySelector(".footer-copy");
+  if (footerCopy && siteData.reviewMeta) {
+    const meta = document.createElement("p");
+    meta.className = "footer-meta";
+    meta.innerHTML = `Last reviewed from official sources: ${siteData.reviewMeta.lastReviewed}. <a href="${siteData.reviewMeta.reportUrl}" target="_blank" rel="noreferrer">Report outdated information</a>.`;
+    footerCopy.appendChild(meta);
   }
 
   document.querySelectorAll("[data-nav-link]").forEach((link) => {

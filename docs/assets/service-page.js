@@ -30,7 +30,7 @@
         <h1>Service guide not found</h1>
         <p>The link may be incomplete or the service ID is invalid.</p>
         <div class="service-card-actions">
-          <a class="button button-primary" href="./index.html">Go to Start Here</a>
+          <a class="button button-primary" href="./index.html">Find My Service</a>
           <a class="button button-secondary" href="./services.html">Browse services</a>
         </div>
       </article>
@@ -52,12 +52,12 @@
     elements.intro.innerHTML = `
       <p class="eyebrow">${category ? category.label : "Service"} guide</p>
       <h1>${service.title}</h1>
-      <p>${service.summary}</p>
+      <p>${service.short || service.summary}</p>
     `;
 
     elements.floatingStart.innerHTML = `
-      <a class="button button-secondary" href="./index.html">Start Here</a>
-      <a class="button button-secondary" href="./services.html">All services</a>
+      <a class="button button-secondary" href="./index.html">Find My Service</a>
+      <a class="button button-secondary" href="./services.html">Services</a>
       <a class="button button-secondary" href="#service-summary-anchor">Summary</a>
       <a class="button button-secondary" href="#service-guide-anchor">Guide</a>
       ${related.length ? `<a class="button button-secondary" href="#service-related-anchor">Related</a>` : ""}
@@ -77,8 +77,11 @@
             <button class="button button-link" type="button" id="service-share-link">Copy link</button>
             <a class="button button-link" href="./index.html?journey=${encodeURIComponent(journeyId)}&service=${encodeURIComponent(
               service.id
-            )}">Use Start Here</a>
+            )}">Let the wizard choose</a>
           </div>
+        </div>
+        <div class="floating-primary-action">
+          <a class="button button-primary" href="${service.officialLinks[0].url}" target="_blank" rel="noreferrer">Open ${service.officialLinks[0].label}</a>
         </div>
         <div id="service-guide-anchor">
           <div id="service-page-guide"></div>

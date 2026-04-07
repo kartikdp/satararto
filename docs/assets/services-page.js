@@ -3,7 +3,7 @@
     return;
   }
 
-  const { createServiceHref, getPortalLabel, getServiceById, siteData } = window.SiteApp;
+  const { createServiceHref, getPortalLabel, siteData } = window.SiteApp;
 
   const elements = {
     search: document.getElementById("services-search"),
@@ -62,6 +62,7 @@
         <article class="empty-card">
           <h2>No matching service found</h2>
           <p>Try a simpler word like renewal, transfer, NOC, address change, or permit.</p>
+          <p><a class="inline-link" href="./index.html">Let the wizard narrow it down</a></p>
         </article>
       `;
       return;
@@ -76,20 +77,25 @@
         return `
           <article class="service-card">
             <div class="service-card-top">
-              <p class="eyebrow">${category.label}</p>
+              <div class="service-card-topline">
+                <p class="eyebrow">${category.label}</p>
+                ${service.featured ? `<span class="mini-tag">Most used</span>` : ""}
+              </div>
               <h2>${service.title}</h2>
               <p>${service.short || service.summary}</p>
             </div>
             <div class="service-card-meta">
+              <span>${service.serviceLabel}</span>
               <span>Start on ${getPortalLabel(service)}</span>
               <span>Office visit: ${service.officeVisit}</span>
               <span>Appointment: ${service.appointment}</span>
             </div>
+            ${service.commonConfusion ? `<p class="service-card-note">${service.commonConfusion}</p>` : ""}
             <div class="service-card-actions">
               <a class="button button-primary" href="${createServiceHref(service.id)}">Open guide</a>
               <a class="button button-link" href="./index.html?journey=${encodeURIComponent(journeyId)}&service=${encodeURIComponent(
                 service.id
-              )}">Use Start Here</a>
+              )}">Let the wizard choose</a>
             </div>
           </article>
         `;

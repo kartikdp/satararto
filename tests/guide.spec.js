@@ -91,7 +91,7 @@ async function expectFullGuide(page, rootSelector = "body") {
 
   await expect(root.locator('[data-guide-section="steps"] .step-list li').first()).toBeVisible();
   await expect(root.locator('[data-guide-section="documents"] h3', { hasText: "Required documents" })).toBeVisible();
-  await expect(root.locator('[data-guide-section="timeline"] h3', { hasText: "Processing note" })).toBeVisible();
+  await expect(root.locator('[data-guide-section="timeline"] h3', { hasText: "Processing time" })).toBeVisible();
   await expect(root.locator('[data-guide-section="fees"] .content-list li').first()).toBeVisible();
   await expect(root.locator('[data-guide-section="forms"] article').first()).toBeVisible();
   await expect(root.locator('[data-guide-section="office"] article').first()).toBeVisible();

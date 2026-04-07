@@ -30,6 +30,7 @@
   const elements = {
     intro: document.getElementById("wizard-intro"),
     progressLabel: document.getElementById("wizard-progress-label"),
+    progressService: document.getElementById("wizard-progress-service"),
     progressBar: document.getElementById("wizard-progress-bar"),
     stage: document.querySelector(".wizard-stage"),
     stepTitle: document.getElementById("wizard-step-title"),
@@ -114,9 +115,18 @@
     const stepNumber = currentIndex + 1;
     const total = steps.length;
     const percentage = total ? Math.round((stepNumber / total) * 100) : 0;
+    const service = getServiceById(plannerState.serviceId);
 
     elements.progressLabel.textContent = `${siteData.wizardMeta.progressLabel} ${stepNumber} of ${total}`;
     elements.progressBar.style.width = `${percentage}%`;
+
+    if (service && currentStepId !== "journey") {
+      elements.progressService.hidden = false;
+      elements.progressService.textContent = `Likely service: ${service.title}`;
+    } else {
+      elements.progressService.hidden = true;
+      elements.progressService.textContent = "";
+    }
   }
 
   function applyJourneySelection(journeyId) {
@@ -534,6 +544,9 @@
               : ""
           }
         </div>
+      </div>
+      <div class="floating-primary-action">
+        <a class="button button-primary" href="${primaryLink.url}" target="_blank" rel="noreferrer">Open ${primaryLink.label}</a>
       </div>
     `;
 

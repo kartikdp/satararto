@@ -1,6 +1,6 @@
 (function () {
   const page = document.body.dataset.page;
-  const { getOfficeByCode, groupFaqByCategory, siteData } = window.SiteApp;
+  const { createPhoneHref, getOfficeByCode, groupFaqByCategory, siteData } = window.SiteApp;
 
   if (page === "offices") {
     const officeGrid = document.getElementById("office-page-grid");
@@ -14,7 +14,7 @@
             <h2>${office.name}</h2>
             <p>${office.address}</p>
             <ul class="content-list">
-              <li><strong>Phone:</strong> <a href="tel:${office.phone.replace(/[^0-9+]/g, "")}">${office.phone}</a></li>
+              <li><strong>Phone:</strong> <a href="${createPhoneHref(office.phone)}">${office.phone}</a></li>
               <li><strong>Email:</strong> <a href="mailto:${office.email}">${office.email}</a></li>
               <li>${office.note}</li>
             </ul>

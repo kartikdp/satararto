@@ -11,22 +11,26 @@ window.siteData = {
     {
       id: "all",
       label: "All Services",
-      description: "Complete reference list"
+      description: "Complete reference list",
+      shortLabel: "All"
     },
     {
       id: "licence",
       label: "Licence",
-      description: "Learner, permanent, renewal, duplicate, IDP"
+      description: "Learner, permanent, renewal, duplicate, IDP",
+      shortLabel: "DL"
     },
     {
       id: "vehicle",
       label: "Vehicle",
-      description: "Registration, RC, NOC, transfer, hypothecation"
+      description: "Registration, RC, NOC, transfer, hypothecation",
+      shortLabel: "RC"
     },
     {
       id: "compliance",
       label: "Permit, Tax & PUC",
-      description: "Permit guidance, tax payment, pollution certificate"
+      description: "Permit guidance, tax payment, pollution certificate",
+      shortLabel: "PT"
     }
   ],
   offices: [
@@ -2325,6 +2329,71 @@ const officialTimingWindowsByService = {
   ]
 };
 
+const commonConfusionByService = {
+  "learner-licence": "People often confuse this with the permanent licence. The learner's licence comes first.",
+  "permanent-driving-licence": "This is not the learner's stage. It is the test-based licence that comes after a valid learner's licence.",
+  "duplicate-dl": "Use this for a lost or damaged licence, not for renewal or address change.",
+  "dl-address-change": "Use this only when the main update is the address, not expiry or loss of the licence.",
+  "transfer-ownership": "Transfer of ownership is different from NOC. Use NOC when the record is moving across jurisdiction or state.",
+  noc: "Use NOC when the record is moving out of the current jurisdiction. Do not use it for a normal local ownership transfer.",
+  "rc-address-change": "Use this when only the address is changing. Use NOC if the vehicle is moving to another jurisdiction.",
+  "hypothecation-removal": "Use this after the loan is closed. Do not confuse it with transfer of ownership.",
+  "tax-services": "Tax payment is different from RC transfer or permit renewal, even though some papers are checked together.",
+  "puc-requirements": "PUC is a compliance paper, not an RTO application by itself."
+};
+
+const beforePayingByService = {
+  "learner-licence": "Check the class of vehicle, age proof, and address proof before you pay.",
+  "permanent-driving-licence": "Confirm the correct service, test slot, and learner's licence details before you pay.",
+  "dl-renewal": "Check the expiry date, medical-certificate requirement, and state of the original licence before you pay.",
+  "duplicate-dl": "Make sure the licence is truly lost or damaged and not simply due for renewal or correction.",
+  "dl-address-change": "Keep the new address exactly as it should appear on the licence record before payment.",
+  "international-driving-permit": "Check that your passport, visa, travel papers, and Indian licence are still valid before payment.",
+  "new-vehicle-registration": "Confirm who is submitting which papers if the dealer is handling part of the process.",
+  "transfer-ownership": "Check whether the case is local transfer or cross-jurisdiction before paying the wrong service.",
+  noc: "Confirm that the vehicle is actually moving to another jurisdiction or state before you pay for NOC.",
+  "rc-renewal": "Check the RC expiry date and whether fitness papers are also needed before payment.",
+  "duplicate-rc": "Use this only when the RC is lost or damaged, not when the main issue is expiry or address change.",
+  "rc-address-change": "Check that the address proof and current vehicle record match before payment.",
+  "hypothecation-addition": "Check the financier name and loan papers before adding hypothecation.",
+  "hypothecation-removal": "Keep the loan closure and financier clearance ready before payment.",
+  "fitness-certificate": "Check the appointment slot and vehicle readiness before payment.",
+  "permit-services": "Confirm the permit type first, because the correct route depends on the vehicle and use case.",
+  "tax-services": "Tax totals depend on vehicle class and usage. Confirm the category before payment.",
+  "puc-requirements": "Check whether the downstream RC-side service actually needs a current PUC before you visit."
+};
+
+const leaveOfficeChecksByService = {
+  "permanent-driving-licence": [
+    "Check that the test result or approval status is correctly recorded.",
+    "Keep the acknowledgement or receipt before you leave."
+  ],
+  "new-vehicle-registration": [
+    "Check the registration number, owner name, and chassis details on the acknowledgement.",
+    "Keep tax and registration receipts together."
+  ],
+  "transfer-ownership": [
+    "Check that the buyer and seller details are correctly recorded.",
+    "Keep the acknowledgement showing the transfer request was accepted."
+  ],
+  noc: [
+    "Check the destination authority or jurisdiction details on the acknowledgement.",
+    "Keep every page of the NOC output safely."
+  ],
+  "hypothecation-removal": [
+    "Check that financier details were cleared correctly from the request.",
+    "Keep the closure proof and acknowledgement together."
+  ],
+  "fitness-certificate": [
+    "Check the fitness result, validity period, and any remarks before you leave.",
+    "Keep the inspection receipt."
+  ],
+  "permit-services": [
+    "Check the permit type, validity, and any route or vehicle conditions before leaving.",
+    "Keep the acknowledgement or permit printout."
+  ]
+};
+
 function buildOfficialForms(service) {
   const resources = window.siteData.serviceResources[service.id] || { formIds: [] };
   const forms = resources.formIds
@@ -2370,6 +2439,50 @@ function buildOfficialProcessingNote(service) {
   return "No official processing-time estimate is published. Completion depends on portal verification, record match, and office scrutiny where applicable.";
 }
 
+function buildOutcomeSummary(service) {
+  if (service.id === "learner-licence") {
+    return "An approved learner's licence record or downloadable learner's licence.";
+  }
+
+  if (service.id === "permanent-driving-licence") {
+    return "Driving-test approval followed by licence issue or updated licence status.";
+  }
+
+  if (service.id === "international-driving-permit") {
+    return "An International Driving Permit linked to your existing Indian driving licence.";
+  }
+
+  if (service.category === "licence") {
+    return `An updated ${service.title.toLowerCase()} record after approval.`;
+  }
+
+  if (service.id === "noc") {
+    return "An NOC record or acknowledgement for the next jurisdiction step.";
+  }
+
+  if (service.id === "puc-requirements") {
+    return "A clearer understanding of where a valid PUC is needed in RTO-linked work.";
+  }
+
+  if (service.category === "vehicle") {
+    return `An updated vehicle record for ${service.title.toLowerCase()} after approval.`;
+  }
+
+  return `The official output or updated status for ${service.title.toLowerCase()} after approval.`;
+}
+
+function buildServiceLabel(service) {
+  if (service.category === "licence") {
+    return "Licence service";
+  }
+
+  if (service.category === "vehicle") {
+    return "Vehicle service";
+  }
+
+  return "Compliance service";
+}
+
 function buildMainFormsSummary(service) {
   const resources = window.siteData.serviceResources[service.id] || { formIds: [] };
   const formNos = resources.formIds
@@ -2405,6 +2518,8 @@ function buildMainFormsCountLabel(service) {
 function normalizeServiceGuideFields(service) {
   return {
     ...service,
+    serviceLabel: buildServiceLabel(service),
+    featured: window.siteData.featuredIds.includes(service.id),
     practicalDocs: practicalChecklistSignalsByService[service.id] || [],
     recommendedAction: recommendedActionByService[service.id] || service.steps[0],
     information: informationByService[service.id] || null,
@@ -2412,6 +2527,10 @@ function normalizeServiceGuideFields(service) {
     mainFormsSummary: buildMainFormsSummary(service),
     mainFormsCountLabel: buildMainFormsCountLabel(service),
     inspectionSummary: service.inspection,
+    outcomeSummary: buildOutcomeSummary(service),
+    beforePayingNote: beforePayingByService[service.id] || "Check the service, documents, and jurisdiction before you pay.",
+    leaveOfficeChecks: leaveOfficeChecksByService[service.id] || [],
+    commonConfusion: commonConfusionByService[service.id] || "",
     relatedServices: relatedServiceLinksById[service.id] || [],
     officialTimingWindows: Array.isArray(officialTimingWindowsByService[service.id]) ? officialTimingWindowsByService[service.id] : [],
     officialValidity: service.validity || "No separate official validity note was highlighted on the source pages used here.",
@@ -2522,7 +2641,7 @@ const faqCategoryByQuestion = {
 };
 
 window.siteData.navLinks = [
-  { href: "./index.html", label: "Start Here" },
+  { href: "./index.html", label: "Find My Service" },
   { href: "./services.html", label: "Services" },
   { href: "./offices.html", label: "Offices" },
   { href: "./faq.html", label: "FAQ" }
@@ -2532,35 +2651,35 @@ window.siteData.wizardMeta = {
   introEyebrow: "Satara District, Maharashtra",
   introTitle: "Don't know which RTO service you need?",
   introText: "Answer a few simple questions and get the right service, documents, forms, office guidance, and official next step.",
-  progressLabel: "Step",
+  progressLabel: "Question",
   stepMeta: {
     journey: {
       title: "What are you trying to do?",
-      help: "Pick the situation that matches your problem."
+      help: "Choose the situation that best matches your current task."
     },
     learnerStatus: {
       title: "Do you already have a learner's licence?",
-      help: "This decides whether you need the learner's licence step or the permanent driving licence test."
+      help: "This decides whether you need the learner's stage or the final driving test."
     },
     service: {
-      title: "Which option sounds closest?",
-      help: "Choose the closest match. You can change it later."
+      title: "Which service sounds closest?",
+      help: "Pick the nearest match. You can still change it."
     },
     office: {
       title: "Which office or record is involved?",
-      help: "Use the office code on your current DL or RC if you already have one."
+      help: "Use the code on your current DL or RC if you already have one."
     },
     profile: {
       title: "Is this personal or commercial?",
-      help: "This helps narrow down permit, tax, and transport-heavy cases."
+      help: "This only changes cases where commercial rules matter."
     },
     vehicleType: {
       title: "What kind of vehicle is involved?",
-      help: "This changes tax and PUC guidance."
+      help: "This changes tax, permit, and PUC guidance."
     },
     fuelType: {
       title: "What fuel type does the vehicle use?",
-      help: "This helps make the PUC guidance more specific."
+      help: "This makes the PUC guidance more specific."
     },
     flags: {
       title: "Anything else about this case?",
@@ -2578,6 +2697,11 @@ window.siteData.wizardMeta = {
     { id: "office", label: "Office" },
     { id: "information", label: "Information" }
   ]
+};
+
+window.siteData.reviewMeta = {
+  lastReviewed: "April 7, 2026",
+  reportUrl: "https://github.com/kartikdp/satararto/issues/new"
 };
 
 window.siteData.faqCategories = ["Licence", "RC & Vehicle", "Transfer & NOC", "General"];
