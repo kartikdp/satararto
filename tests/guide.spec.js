@@ -1,0 +1,170 @@
+const fs = require("fs");
+const path = require("path");
+const { test, expect } = require("@playwright/test");
+
+const screenshotDir = path.join(process.cwd(), "test-results", "screenshots");
+
+const directServiceIds = [
+  "learner-licence",
+  "permanent-driving-licence",
+  "dl-renewal",
+  "duplicate-dl",
+  "dl-address-change",
+  "international-driving-permit",
+  "new-vehicle-registration",
+  "transfer-ownership",
+  "noc",
+  "rc-renewal",
+  "duplicate-rc",
+  "rc-address-change",
+  "hypothecation-addition",
+  "hypothecation-removal",
+  "fitness-certificate",
+  "permit-services",
+  "tax-services",
+  "puc-requirements"
+];
+
+const wizardResultCases = [
+  {
+    slug: "wizard-learner-licence",
+    url: "/index.html?journey=new-driver&learnerStatus=no&service=learner-licence&profile=private&view=result"
+  },
+  {
+    slug: "wizard-permanent-driving-licence",
+    url: "/index.html?journey=new-driver&learnerStatus=yes&service=permanent-driving-licence&office=mh11&profile=private&view=result"
+  },
+  {
+    slug: "wizard-dl-renewal",
+    url: "/index.html?journey=renew-or-correct-licence&service=dl-renewal&office=mh11&profile=private&view=result"
+  },
+  {
+    slug: "wizard-transfer-ownership",
+    url: "/index.html?journey=bought-or-sold-vehicle&service=transfer-ownership&office=mh50&profile=private&financed=1&view=result"
+  },
+  {
+    slug: "wizard-noc",
+    url: "/index.html?journey=moved-or-shifting-state&service=noc&office=other-state&profile=private&crossJurisdiction=1&view=result"
+  },
+  {
+    slug: "wizard-hypothecation-removal",
+    url: "/index.html?journey=loan-or-finance&service=hypothecation-removal&office=mh11&profile=private&financed=1&view=result"
+  },
+  {
+    slug: "wizard-idp",
+    url: "/index.html?journey=travel-or-commercial&service=international-driving-permit&office=mh11&profile=private&view=result"
+  },
+  {
+    slug: "wizard-permit-services",
+    url: "/index.html?journey=travel-or-commercial&service=permit-services&office=mh50&profile=transport&view=result"
+  },
+  {
+    slug: "wizard-tax-services",
+    url: "/index.html?journey=travel-or-commercial&service=tax-services&profile=transport&vehicleType=commercial&view=result"
+  },
+  {
+    slug: "wizard-puc-requirements",
+    url: "/index.html?journey=travel-or-commercial&service=puc-requirements&profile=transport&vehicleType=commercial&fuelType=diesel&view=result"
+  }
+];
+
+function ensureScreenshotDir() {
+  fs.mkdirSync(screenshotDir, { recursive: true });
+}
+
+async function captureGuideScreens(page, slug) {
+  ensureScreenshotDir();
+  await page.screenshot({ path: path.join(screenshotDir, `${slug}-top.png`) });
+  const stepsSection = page.locator('[data-guide-section="steps"]').first();
+  await stepsSection.scrollIntoViewIfNeeded();
+  await page.screenshot({ path: path.join(screenshotDir, `${slug}-steps.png`) });
+  await page.screenshot({ path: path.join(screenshotDir, `${slug}-full.png`), fullPage: true });
+}
+
+async function expectFullGuide(page) {
+  const sectionIds = ["steps", "documents", "timeline", "fees", "forms", "office", "information", "sources"];
+
+  for (const sectionId of sectionIds) {
+    await expect(page.locator(`[data-guide-section="${sectionId}"]`).first()).toBeVisible();
+  }
+
+  await expect(page.locator('[data-guide-section="steps"] .step-list li').first()).toBeVisible();
+  await expect(page.locator('[data-guide-section="documents"] h3', { hasText: "Required documents" })).toBeVisible();
+  await expect(page.locator('[data-guide-section="timeline"] h3', { hasText: "Processing note" })).toBeVisible();
+  await expect(page.locator('[data-guide-section="fees"] .content-list li').first()).toBeVisible();
+  await expect(page.locator('[data-guide-section="forms"] article').first()).toBeVisible();
+  await expect(page.locator('[data-guide-section="office"] article').first()).toBeVisible();
+  await expect(page.locator('[data-guide-section="information"] article').first()).toBeVisible();
+
+  const sourceLinks = page.locator('[data-guide-section="sources"] a[href]');
+  await expect(sourceLinks.first()).toBeVisible();
+  const hrefs = await sourceLinks.evaluateAll((nodes) => nodes.map((node) => node.href));
+  for (const href of hrefs) {
+    expect(href).toMatch(/(parivahan\.gov\.in|transport\.maharashtra\.gov\.in)/);
+  }
+
+  const stepsBox = await page.locator('[data-guide-section="steps"]').first().boundingBox();
+  expect(stepsBox).not.toBeNull();
+  expect(stepsBox.y).toBeLessThan(1450);
+}
+
+test.describe("direct service pages render the complete guide", () => {
+  for (const serviceId of directServiceIds) {
+    test(`service page shows full guide for ${serviceId}`, async ({ page }) => {
+      await page.goto(`/service.html?service=${serviceId}`);
+      await expect(page.locator("#service-page-guide")).toBeVisible();
+      await expectFullGuide(page);
+      await captureGuideScreens(page, `service-${serviceId}`);
+    });
+  }
+});
+
+test.describe("wizard result pages render the same detailed guide", () => {
+  for (const entry of wizardResultCases) {
+    test(`wizard result shows full guide for ${entry.slug}`, async ({ page }) => {
+      await page.goto(entry.url);
+      await expect(page.locator("#wizard-result")).toBeVisible();
+      await expect(page.locator("#result-guide")).toBeVisible();
+      await expectFullGuide(page);
+      await captureGuideScreens(page, entry.slug);
+    });
+  }
+});
+
+test.describe("interactive wizard smoke flows", () => {
+  test("new driver flow reaches learner licence full guide", async ({ page }) => {
+    await page.goto("/index.html");
+    await page.getByRole("button", { name: /I am a new driver/i }).click();
+    await page.getByRole("button", { name: /No, I need my first learner's licence/i }).click();
+    await page.getByRole("button", { name: /Private \/ personal/i }).click();
+    await expect(page.locator("#wizard-result")).toBeVisible();
+    await expect(page.locator("#result-summary h2")).toContainText("Learner's Licence");
+    await expectFullGuide(page);
+    await captureGuideScreens(page, "interactive-learner");
+  });
+
+  test("new driver with learner licence reaches permanent licence full guide", async ({ page }) => {
+    await page.goto("/index.html");
+    await page.getByRole("button", { name: /I am a new driver/i }).click();
+    await page.getByRole("button", { name: /Yes, I already have a learner's licence/i }).click();
+    await page.getByRole("button", { name: /MH-11 Satara/i }).click();
+    await page.getByRole("button", { name: /Private \/ personal/i }).click();
+    await expect(page.locator("#wizard-result")).toBeVisible();
+    await expect(page.locator("#result-summary h2")).toContainText("Permanent Driving Licence");
+    await expectFullGuide(page);
+    await captureGuideScreens(page, "interactive-permanent");
+  });
+
+  test("travel and compliance flow reaches PUC full guide with vehicle and fuel questions", async ({ page }) => {
+    await page.goto("/index.html");
+    await page.getByRole("button", { name: /I need travel, permit, tax, or compliance help/i }).click();
+    await page.getByRole("button", { name: /PUC Requirements/i }).click();
+    await page.getByRole("button", { name: /Transport \/ commercial/i }).click();
+    await page.getByRole("button", { name: /Commercial \/ transport vehicle/i }).click();
+    await page.getByRole("button", { name: /Diesel/i }).click();
+    await expect(page.locator("#wizard-result")).toBeVisible();
+    await expect(page.locator("#result-summary h2")).toContainText("PUC Requirements");
+    await expectFullGuide(page);
+    await captureGuideScreens(page, "interactive-puc");
+  });
+});

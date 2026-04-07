@@ -2402,25 +2402,29 @@ function buildMainFormsCountLabel(service) {
   return resources.formIds.length === 1 ? "1 main form" : `${resources.formIds.length} main forms`;
 }
 
-window.siteData.services = window.siteData.services.map((service) => ({
-  ...service,
-  practicalDocs: practicalChecklistSignalsByService[service.id] || [],
-  recommendedAction: recommendedActionByService[service.id] || service.steps[0],
-  information: informationByService[service.id] || null,
-  timelineSummary: timelineSummaryByService[service.id] || service.validity,
-  mainFormsSummary: buildMainFormsSummary(service),
-  mainFormsCountLabel: buildMainFormsCountLabel(service),
-  inspectionSummary: service.inspection,
-  relatedServices: relatedServiceLinksById[service.id] || [],
-  officialTimingWindows: officialTimingWindowsByService[service.id] || [],
-  officialValidity: service.validity,
-  officialProcessingNote: buildOfficialProcessingNote(service),
-  officialRequiredDocs: service.requiredDocs || [],
-  officialAdditionalDocs: service.extraDocs || [],
-  officialForms: buildOfficialForms(service),
-  officialFeeNotes: service.fees || [],
-  officialSourceRefs: service.officialLinks || []
-}));
+function normalizeServiceGuideFields(service) {
+  return {
+    ...service,
+    practicalDocs: practicalChecklistSignalsByService[service.id] || [],
+    recommendedAction: recommendedActionByService[service.id] || service.steps[0],
+    information: informationByService[service.id] || null,
+    timelineSummary: timelineSummaryByService[service.id] || service.validity,
+    mainFormsSummary: buildMainFormsSummary(service),
+    mainFormsCountLabel: buildMainFormsCountLabel(service),
+    inspectionSummary: service.inspection,
+    relatedServices: relatedServiceLinksById[service.id] || [],
+    officialTimingWindows: Array.isArray(officialTimingWindowsByService[service.id]) ? officialTimingWindowsByService[service.id] : [],
+    officialValidity: service.validity || "No separate official validity note was highlighted on the source pages used here.",
+    officialProcessingNote: buildOfficialProcessingNote(service),
+    officialRequiredDocs: Array.isArray(service.requiredDocs) ? service.requiredDocs : [],
+    officialAdditionalDocs: Array.isArray(service.extraDocs) ? service.extraDocs : [],
+    officialForms: buildOfficialForms(service),
+    officialFeeNotes: Array.isArray(service.fees) && service.fees.length ? service.fees : ["Use the live official portal amount as final for this service."],
+    officialSourceRefs: Array.isArray(service.officialLinks) ? service.officialLinks : []
+  };
+}
+
+window.siteData.services = window.siteData.services.map(normalizeServiceGuideFields);
 
 window.siteData.signals.unshift({
   title: "Counter Staff Often Ask For Backup Copies",

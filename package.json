@@ -1,0 +1,22 @@
+{
+  "name": "gajraj",
+  "version": "1.0.0",
+  "description": "Static Satara RTO guidance website with Playwright verification.",
+  "scripts": {
+    "serve:docs": "python3 -m http.server 4173 --directory docs",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-kartik:kartikdp/satararto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1"
+  }
+}

@@ -448,7 +448,7 @@ img {
 
 .result-summary {
   display: grid;
-  gap: 16px;
+  gap: 14px;
 }
 
 .result-summary-main {
@@ -543,6 +543,31 @@ img {
 
 .summary-quick-list li {
   margin-top: 0;
+}
+
+.summary-mini-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.summary-mini-item {
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.summary-mini-item strong {
+  font-family: "Sora", sans-serif;
+  font-size: 0.98rem;
+}
+
+.summary-mini-item span {
+  color: var(--muted);
+  line-height: 1.65;
 }
 
 .at-glance-card h2 {
@@ -655,7 +680,7 @@ img {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  padding: 12px 0 4px;
+  padding: 4px 0 2px;
 }
 
 .guide-anchor-link {
@@ -681,12 +706,12 @@ img {
 
 .guide-stack {
   display: grid;
-  gap: 20px;
+  gap: 18px;
 }
 
 .guide-section {
   display: grid;
-  gap: 14px;
+  gap: 12px;
   scroll-margin-top: 130px;
 }
 

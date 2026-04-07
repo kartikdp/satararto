@@ -553,15 +553,20 @@
           ${createBadge(getPlannerReadiness(service), "warning")}
           ${createBadge(`Office visit: ${service.officeVisit}`, "alert")}
         </div>
-        <article class="content-card summary-quick-card">
-          <h3>Quick notes</h3>
-          <ul class="content-list summary-quick-list">
-            <li><strong>Use this when:</strong> ${service.bestFor}</li>
-            <li><strong>Start with:</strong> ${service.recommendedAction}</li>
-            <li><strong>Office guidance:</strong> ${officeGuidance}</li>
-            ${selectedOffice ? `<li><strong>Selected office:</strong> ${selectedOffice.name}</li>` : ""}
-          </ul>
-        </article>
+        <div class="summary-mini-grid">
+          <article class="summary-mini-item">
+            <strong>Use this when</strong>
+            <span>${service.bestFor}</span>
+          </article>
+          <article class="summary-mini-item">
+            <strong>Start with</strong>
+            <span>${service.recommendedAction}</span>
+          </article>
+          <article class="summary-mini-item">
+            <strong>Office guidance</strong>
+            <span>${selectedOffice ? `${selectedOffice.name}. ` : ""}${officeGuidance}</span>
+          </article>
+        </div>
       </div>
     `;
   }
@@ -944,7 +949,7 @@
     const sectionHtml = sections
       .map(
         (section) => `
-          <section class="guide-section" id="${scopeId}-${section.id}">
+          <section class="guide-section" id="${scopeId}-${section.id}" data-guide-section="${section.id}">
             <div class="section-head compact">
               <h2>${section.label}</h2>
             </div>
