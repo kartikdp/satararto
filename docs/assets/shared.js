@@ -711,15 +711,15 @@
   function renderServiceSummary(service, state, options = {}) {
     const officeGuidance = state ? getPlannerOfficeGuidance(service, state) : getGenericOfficeGuidance(service);
     const selectedOffice = state ? getOfficeByPlannerId(state.officeId) : null;
-    const purposeText = getServiceShort(service) || service.bestFor;
+    const purposeText = getServiceShort(service) || pickLocalized(service, "bestFor");
     const summaryNotes = [
       {
         label: t("guide.labels.whoThisIsFor", "Who this is for"),
-        text: service.bestFor
+        text: pickLocalized(service, "bestFor")
       },
       {
         label: t("guide.labels.youReceive", "You receive"),
-        text: service.outcomeSummary
+        text: pickLocalized(service, "outcomeSummary")
       }
     ];
 
@@ -782,26 +782,26 @@
     }
 
     return {
-      intro: service.summary,
+      intro: pickLocalized(service, "summary"),
       sections: [
         {
           title: "What this service is for",
-          body: service.bestFor
+          body: pickLocalized(service, "bestFor")
         },
         {
           title: "What to keep in mind",
-          items: dedupeList([...(service.eligibility || []), ...(service.notices || [])])
+          items: dedupeList([...(pickLocalized(service, "eligibility") || []), ...(pickLocalized(service, "notices") || [])])
         },
         {
           title: "What people often confuse",
-          body: service.commonConfusion || "The official service name matters, so make sure the task matches before you pay."
+          body: pickLocalized(service, "commonConfusion") || "The official service name matters, so make sure the task matches before you pay."
         }
       ]
     };
   }
 
   function renderInformationSection(service) {
-    const information = getInformationSections(service);
+    const information = pickLocalized(service, "information") || getInformationSections(service);
     const headings =
       getLanguage() === "mr"
         ? ["ही सेवा काय आहे", "ही सेवा कधी लागते", "लोक सहसा कशात गोंधळतात"]
@@ -830,8 +830,9 @@
 
   function renderDocumentsSection(service, state) {
     const conditional = getConditionalDocs(service, state);
-    const practicalDocs = service.practicalDocs || [];
-    const officialAdditionalDocs = dedupeList([...(service.officialAdditionalDocs || []), ...(conditional.docs || [])]);
+    const practicalDocs = pickLocalized(service, "practicalDocs") || [];
+    const officialRequiredDocs = pickLocalized(service, "officialRequiredDocs") || [];
+    const officialAdditionalDocs = dedupeList([...(pickLocalized(service, "officialAdditionalDocs") || []), ...(conditional.docs || [])]);
 
     return `
       <div class="section-grid">
@@ -840,7 +841,7 @@
           <p class="muted-copy">${getLanguage() === "mr" ? "या सेवेसाठी बहुतेक अर्जदारांनी तयार ठेवावीत अशी मुख्य अधिकृत कागदपत्रे." : "These are the main official documents that most applicants should keep ready for this service."}</p>
           ${needsOriginals(service) ? `<p class="inline-note"><strong>${t("guide.labels.carryOriginals", "Carry originals")}</strong> ${getLanguage() === "mr" ? "जर पोर्टल किंवा कार्यालय पडताळणीसाठी विचारत असेल तर." : "if the portal or office asks for verification."}</p>` : ""}
           <ul class="content-list">
-            ${service.officialRequiredDocs.map((doc) => `<li>${doc}</li>`).join("")}
+            ${officialRequiredDocs.map((doc) => `<li>${doc}</li>`).join("")}
           </ul>
         </article>
         <article class="content-card">
@@ -871,14 +872,18 @@
 
   function renderStepsSection(service, state) {
     const conditional = getConditionalDocs(service, state);
-    const watchOuts = dedupeList([...(service.notices || []), ...(conditional.notes || [])]);
-    const leaveOfficeChecks = service.leaveOfficeChecks || [];
+    const steps = pickLocalized(service, "steps") || [];
+    const watchOuts = dedupeList([...(pickLocalized(service, "notices") || []), ...(conditional.notes || [])]);
+    const leaveOfficeChecks = pickLocalized(service, "leaveOfficeChecks") || [];
+    const outcomeSummary = pickLocalized(service, "outcomeSummary");
+    const processingNote = pickLocalized(service, "officialProcessingNote");
+    const beforePayingNote = pickLocalized(service, "beforePayingNote");
 
     return `
       <article class="content-card">
         <h3>${t("guide.labels.stepByStep", "Step-by-step")}</h3>
         <ol class="step-list">
-          ${service.steps
+          ${steps
             .map(
               (step, index) => `
                 <li>
@@ -896,12 +901,12 @@
       <div class="section-grid">
         <article class="content-card">
           <h3>${t("guide.labels.afterSubmit", "After you submit")}</h3>
-          <p>${service.outcomeSummary}</p>
-          <p class="muted-copy">${service.officialProcessingNote}</p>
+          <p>${outcomeSummary}</p>
+          <p class="muted-copy">${processingNote}</p>
         </article>
         <article class="content-card">
           <h3>${t("guide.labels.beforePay", "Before you pay")}</h3>
-          <p>${service.beforePayingNote}</p>
+          <p>${beforePayingNote}</p>
         </article>
       </div>
       ${
@@ -978,24 +983,27 @@
   }
 
   function renderTimingSection(service) {
+    const officialTimingWindows = pickLocalized(service, "officialTimingWindows") || [];
+    const officialValidity = pickLocalized(service, "officialValidity");
+    const officialProcessingNote = pickLocalized(service, "officialProcessingNote");
     return `
       <div class="section-grid">
         <article class="content-card">
           <h3>${t("guide.labels.importantDates", "Important dates")}</h3>
           ${
-            service.officialTimingWindows.length
-              ? `<ul class="content-list">${service.officialTimingWindows.map((item) => `<li>${item}</li>`).join("")}</ul>`
+            officialTimingWindows.length
+              ? `<ul class="content-list">${officialTimingWindows.map((item) => `<li>${item}</li>`).join("")}</ul>`
               : `<p class="muted-copy">${getLanguage() === "mr" ? "या सेवेसाठी वापरलेल्या अधिकृत स्रोतांत स्वतंत्र अर्ज विंडो स्पष्ट दिलेली नाही." : "No official filing window was specifically published for this service in the source pages used here."}</p>`
           }
         </article>
         <article class="content-card">
           <h3>${t("guide.labels.validity", "Validity")}</h3>
-          <p>${service.officialValidity}</p>
+          <p>${officialValidity}</p>
         </article>
       </div>
       <article class="content-card content-card-highlight">
         <h3>${t("guide.labels.processingTime", "Processing time")}</h3>
-        <p>${service.officialProcessingNote}</p>
+        <p>${officialProcessingNote}</p>
       </article>
     `;
   }
@@ -1003,6 +1011,7 @@
   function renderOfficeSection(service, state) {
     const officeGuidance = state ? getPlannerOfficeGuidance(service, state) : getGenericOfficeGuidance(service);
     const selectedOffice = state ? getOfficeByPlannerId(state.officeId) : null;
+    const eligibility = pickLocalized(service, "eligibility") || [];
     const officeCards = selectedOffice
       ? `
           <article class="office-mini-card office-mini-card-selected">
@@ -1055,7 +1064,7 @@
         <article class="content-card">
           <h3>${t("guide.labels.beforeVisit", "Before you visit")}</h3>
           <ul class="content-list">
-            ${service.eligibility.map((item) => `<li>${item}</li>`).join("")}
+            ${eligibility.map((item) => `<li>${item}</li>`).join("")}
           </ul>
         </article>
       </div>
@@ -1090,7 +1099,7 @@
             <h3>${t("guide.sectionLabels.fees", "Fees")}</h3>
             <p class="muted-copy">${getLanguage() === "mr" ? "ज्या सेवांमध्ये रक्कम प्रणालीद्वारे मोजली जाते, तिथे पोर्टलवर दिसणारी रक्कम अंतिम माना." : "Treat the live portal amount as final wherever the system calculates the amount automatically."}</p>
             <ul class="content-list">
-              ${service.officialFeeNotes.map((fee) => `<li>${fee}</li>`).join("")}
+              ${(pickLocalized(service, "officialFeeNotes") || []).map((fee) => `<li>${fee}</li>`).join("")}
             </ul>
           </article>
         `
@@ -1104,7 +1113,7 @@
             <p class="muted-copy">
               ${
                 service.officialForms.length
-                  ? `Main official forms commonly used here: ${service.mainFormsSummary}.`
+                  ? `Main official forms commonly used here: ${pickLocalized(service, "mainFormsSummary") || service.mainFormsSummary}.`
                   : getLanguage() === "mr"
                     ? "ही सेवा मुख्यतः पोर्टल-आधारित आहे. ताज्या फॉर्म आणि अपलोड सूचनांसाठी अधिकृत सेवा पान वापरा."
                     : "This service is mostly portal-driven. Use the official service page for the latest form and upload instructions."
