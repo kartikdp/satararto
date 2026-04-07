@@ -348,6 +348,12 @@ img {
   gap: 14px;
 }
 
+.wizard-choice-grid-featured .wizard-choice {
+  min-height: 220px;
+  align-content: start;
+  gap: 10px;
+}
+
 .wizard-choice {
   width: 100%;
   text-align: left;
@@ -416,7 +422,7 @@ img {
 
 .sticky-revisit {
   position: sticky;
-  top: 84px;
+  top: 78px;
   z-index: 10;
   display: flex;
   flex-wrap: wrap;
@@ -431,6 +437,11 @@ img {
 .result-summary {
   display: grid;
   gap: 16px;
+}
+
+.answers-card {
+  border-color: rgba(214, 155, 45, 0.28);
+  background: linear-gradient(135deg, rgba(214, 155, 45, 0.12), rgba(255, 255, 255, 0.94));
 }
 
 .result-summary-main h2 {
@@ -461,6 +472,11 @@ img {
 .office-mini-grid {
   display: grid;
   gap: 16px;
+}
+
+.summary-card-office {
+  border: 1px solid rgba(11, 125, 114, 0.16);
+  background: linear-gradient(135deg, rgba(11, 125, 114, 0.09), rgba(255, 255, 255, 0.92));
 }
 
 .summary-card,
@@ -562,6 +578,10 @@ img {
   gap: 10px;
 }
 
+.cta-actions .button {
+  flex: 0 0 auto;
+}
+
 .pill,
 .tag,
 .filter-pill {
@@ -617,6 +637,7 @@ img {
   gap: 10px;
   overflow-x: auto;
   padding-bottom: 4px;
+  scroll-padding-inline: 10px;
 }
 
 .tab-button {
@@ -809,6 +830,11 @@ img {
   grid-template-columns: 1fr;
 }
 
+.office-mini-card-selected {
+  border: 1px solid rgba(11, 125, 114, 0.18);
+  background: linear-gradient(135deg, rgba(11, 125, 114, 0.08), rgba(255, 255, 255, 0.94));
+}
+
 .section-head.compact {
   display: grid;
   gap: 8px;
@@ -941,6 +967,19 @@ img {
   .card-grid,
   .office-mini-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 759px) {
+  .sticky-revisit {
+    top: 72px;
+    border-radius: 20px;
+  }
+
+  .cta-actions .button,
+  .service-card-actions .button,
+  .inline-actions .button {
+    width: 100%;
   }
 }
 

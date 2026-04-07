@@ -7,10 +7,9 @@
     buildServiceSections,
     copyText,
     createDefaultPlannerState,
-    createServiceHref,
-    getJourneyById,
     getPlannerServiceOptions,
     getPlannerSteps,
+    getOfficeByPlannerId,
     getRelevantFlags,
     getServiceById,
     normalizePlannerState,
@@ -107,14 +106,22 @@
       ...plannerState,
       journeyId,
       serviceId: "",
+      learnerStatus: "no",
       officeId: "unknown",
       profileId: "private",
+      vehicleType: "car",
+      fuelType: "petrol",
       flags: defaultState.flags
     });
 
     const next = getNextStepId();
-    currentStepId = next || "journey";
-    render();
+    if (next) {
+      currentStepId = next;
+      render();
+      return;
+    }
+
+    showResult();
   }
 
   function applyServiceSelection(serviceId) {
@@ -124,8 +131,30 @@
     });
 
     const next = getNextStepId();
-    currentStepId = next || "service";
-    render();
+    if (next) {
+      currentStepId = next;
+      render();
+      return;
+    }
+
+    showResult();
+  }
+
+  function applyLearnerStatusSelection(learnerStatus) {
+    plannerState = normalizePlannerState({
+      ...plannerState,
+      learnerStatus,
+      serviceId: ""
+    });
+
+    const next = getNextStepId();
+    if (next) {
+      currentStepId = next;
+      render();
+      return;
+    }
+
+    showResult();
   }
 
   function applyOfficeSelection(officeId) {
@@ -135,8 +164,13 @@
     });
 
     const next = getNextStepId();
-    currentStepId = next || "office";
-    render();
+    if (next) {
+      currentStepId = next;
+      render();
+      return;
+    }
+
+    showResult();
   }
 
   function applyProfileSelection(profileId) {
@@ -146,8 +180,45 @@
     });
 
     const next = getNextStepId();
-    currentStepId = next || "profile";
-    render();
+    if (next) {
+      currentStepId = next;
+      render();
+      return;
+    }
+
+    showResult();
+  }
+
+  function applyVehicleTypeSelection(vehicleType) {
+    plannerState = normalizePlannerState({
+      ...plannerState,
+      vehicleType
+    });
+
+    const next = getNextStepId();
+    if (next) {
+      currentStepId = next;
+      render();
+      return;
+    }
+
+    showResult();
+  }
+
+  function applyFuelTypeSelection(fuelType) {
+    plannerState = normalizePlannerState({
+      ...plannerState,
+      fuelType
+    });
+
+    const next = getNextStepId();
+    if (next) {
+      currentStepId = next;
+      render();
+      return;
+    }
+
+    showResult();
   }
 
   function showResult() {
@@ -211,6 +282,29 @@
     });
   }
 
+  function renderLearnerStatusStep() {
+    elements.stepBody.innerHTML = `
+      <div class="wizard-choice-grid">
+        ${renderChoiceCards(siteData.planner.learnerStatusOptions, (option) => {
+          const isActive = plannerState.learnerStatus === option.id;
+
+          return `
+            <button class="wizard-choice ${isActive ? "is-active" : ""}" type="button" data-learner-status-id="${option.id}">
+              <strong>${option.label}</strong>
+              <span>${option.description}</span>
+            </button>
+          `;
+        })}
+      </div>
+    `;
+
+    elements.stepBody.querySelectorAll("[data-learner-status-id]").forEach((button) => {
+      button.addEventListener("click", () => {
+        applyLearnerStatusSelection(button.dataset.learnerStatusId);
+      });
+    });
+  }
+
   function renderOfficeStep() {
     elements.stepBody.innerHTML = `
       <div class="wizard-choice-grid">
@@ -257,6 +351,52 @@
     });
   }
 
+  function renderVehicleTypeStep() {
+    elements.stepBody.innerHTML = `
+      <div class="wizard-choice-grid">
+        ${renderChoiceCards(siteData.planner.vehicleTypeOptions, (option) => {
+          const isActive = plannerState.vehicleType === option.id;
+
+          return `
+            <button class="wizard-choice ${isActive ? "is-active" : ""}" type="button" data-vehicle-type-id="${option.id}">
+              <strong>${option.label}</strong>
+              <span>${option.description}</span>
+            </button>
+          `;
+        })}
+      </div>
+    `;
+
+    elements.stepBody.querySelectorAll("[data-vehicle-type-id]").forEach((button) => {
+      button.addEventListener("click", () => {
+        applyVehicleTypeSelection(button.dataset.vehicleTypeId);
+      });
+    });
+  }
+
+  function renderFuelTypeStep() {
+    elements.stepBody.innerHTML = `
+      <div class="wizard-choice-grid">
+        ${renderChoiceCards(siteData.planner.fuelTypeOptions, (option) => {
+          const isActive = plannerState.fuelType === option.id;
+
+          return `
+            <button class="wizard-choice ${isActive ? "is-active" : ""}" type="button" data-fuel-type-id="${option.id}">
+              <strong>${option.label}</strong>
+              <span>${option.description}</span>
+            </button>
+          `;
+        })}
+      </div>
+    `;
+
+    elements.stepBody.querySelectorAll("[data-fuel-type-id]").forEach((button) => {
+      button.addEventListener("click", () => {
+        applyFuelTypeSelection(button.dataset.fuelTypeId);
+      });
+    });
+  }
+
   function renderFlagsStep() {
     const service = getServiceById(plannerState.serviceId);
     const relevantFlags = getRelevantFlags(service, plannerState);
@@ -281,12 +421,7 @@
         const flagId = button.dataset.flagId;
         plannerState.flags[flagId] = !plannerState.flags[flagId];
 
-        if (flagId === "alreadyHasLearner" && plannerState.journeyId === "new-driver") {
-          plannerState = normalizePlannerState({
-            ...plannerState,
-            serviceId: ""
-          });
-        } else if (flagId === "crossJurisdiction" && plannerState.journeyId === "moved-or-shifting-state") {
+        if (flagId === "crossJurisdiction" && plannerState.journeyId === "moved-or-shifting-state") {
           plannerState = normalizePlannerState({
             ...plannerState,
             serviceId: ""
@@ -314,6 +449,11 @@
       return;
     }
 
+    if (currentStep.id === "learnerStatus") {
+      renderLearnerStatusStep();
+      return;
+    }
+
     if (currentStep.id === "service") {
       renderServiceStep();
       return;
@@ -329,6 +469,16 @@
       return;
     }
 
+    if (currentStep.id === "vehicleType") {
+      renderVehicleTypeStep();
+      return;
+    }
+
+    if (currentStep.id === "fuelType") {
+      renderFuelTypeStep();
+      return;
+    }
+
     renderFlagsStep();
   }
 
@@ -336,6 +486,7 @@
     const service = getServiceById(plannerState.serviceId);
     const sections = buildServiceSections(service, plannerState);
     const primaryLink = service.officialLinks[0];
+    const selectedOffice = getOfficeByPlannerId(plannerState.officeId);
 
     elements.resultSummary.innerHTML = renderServiceSummary(service, plannerState);
     elements.resultCta.innerHTML = `
@@ -345,11 +496,18 @@
           <a class="button button-primary" href="${primaryLink.url}" target="_blank" rel="noreferrer">Open ${primaryLink.label}</a>
           <a class="button button-secondary" href="${createServiceHref(service.id)}">View detailed guide</a>
           <button class="button button-secondary" type="button" id="result-share-link">Copy share link</button>
+          <button class="button button-secondary" type="button" id="result-print">Print this result</button>
+          <a class="button button-secondary" href="./offices.html">View office details</a>
+          ${
+            selectedOffice
+              ? `<a class="button button-secondary" href="tel:${selectedOffice.phone.replace(/[^0-9+]/g, "")}">Call ${selectedOffice.code}</a>`
+              : ""
+          }
         </div>
       </div>
     `;
 
-    renderTabs(elements.resultTabs, sections, `result-${service.id}`);
+    renderTabs(elements.resultTabs, sections, `result-${service.id}`, "steps");
     renderHelpfulFeedback(elements.resultFeedback, `result-${service.id}`);
     elements.resultRevisit.hidden = false;
 
@@ -358,6 +516,10 @@
         const button = document.getElementById("result-share-link");
         button.textContent = "Link copied";
       });
+    });
+
+    document.getElementById("result-print").addEventListener("click", () => {
+      window.print();
     });
   }
 

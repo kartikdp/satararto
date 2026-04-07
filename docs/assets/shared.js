@@ -12,8 +12,11 @@
     return {
       journeyId: firstJourney.id,
       serviceId: firstJourney.serviceIds[0],
+      learnerStatus: "no",
       officeId: "unknown",
       profileId: "private",
+      vehicleType: "car",
+      fuelType: "petrol",
       flags: createEmptyFlags()
     };
   }
@@ -60,8 +63,8 @@
   }
 
   function getDefaultServiceForJourney(journeyId, state) {
-    if (journeyId === "new-driver" && state.flags.alreadyHasLearner) {
-      return "permanent-driving-licence";
+    if (journeyId === "new-driver") {
+      return state.learnerStatus === "yes" ? "permanent-driving-licence" : "learner-licence";
     }
 
     if (journeyId === "moved-or-shifting-state" && state.flags.crossJurisdiction) {
@@ -79,7 +82,15 @@
       return siteData.services;
     }
 
+    if (state.journeyId === "new-driver") {
+      return [getServiceById(getDefaultServiceForJourney(state.journeyId, state))].filter(Boolean);
+    }
+
     return journey.serviceIds.map((serviceId) => getServiceById(serviceId)).filter(Boolean);
+  }
+
+  function shouldShowLearnerStatusQuestion(state) {
+    return state.journeyId === "new-driver";
   }
 
   function shouldShowOfficeQuestion(service) {
@@ -117,10 +128,6 @@
 
     if (!service) {
       return [];
-    }
-
-    if (state.journeyId === "new-driver") {
-      relevantIds.add("alreadyHasLearner");
     }
 
     if (service.category === "vehicle") {
@@ -175,6 +182,18 @@
       state.profileId = "private";
     }
 
+    if (!siteData.planner.learnerStatusOptions.some((entry) => entry.id === state.learnerStatus)) {
+      state.learnerStatus = "no";
+    }
+
+    if (!siteData.planner.vehicleTypeOptions.some((entry) => entry.id === state.vehicleType)) {
+      state.vehicleType = "car";
+    }
+
+    if (!siteData.planner.fuelTypeOptions.some((entry) => entry.id === state.fuelType)) {
+      state.fuelType = "petrol";
+    }
+
     const service = getServiceById(state.serviceId);
 
     if (!shouldShowOfficeQuestion(service)) {
@@ -183,6 +202,14 @@
 
     if (!shouldShowProfileQuestion(service)) {
       state.profileId = "private";
+    }
+
+    if (!["tax-services", "puc-requirements"].includes(service.id)) {
+      state.vehicleType = "car";
+    }
+
+    if (service.id !== "puc-requirements") {
+      state.fuelType = "petrol";
     }
 
     const relevantFlagIds = new Set(getRelevantFlags(service, state).map((flag) => flag.id));
@@ -208,6 +235,15 @@
         title: stepMeta.journey.title,
         help: stepMeta.journey.help
       },
+      ...(shouldShowLearnerStatusQuestion(normalized)
+        ? [
+            {
+              id: "learnerStatus",
+              title: stepMeta.learnerStatus.title,
+              help: stepMeta.learnerStatus.help
+            }
+          ]
+        : []),
       ...(serviceOptions.length > 1
         ? [
             {
@@ -232,6 +268,24 @@
               id: "profile",
               title: stepMeta.profile.title,
               help: stepMeta.profile.help
+            }
+          ]
+        : []),
+      ...(["tax-services", "puc-requirements"].includes(service.id)
+        ? [
+            {
+              id: "vehicleType",
+              title: stepMeta.vehicleType.title,
+              help: stepMeta.vehicleType.help
+            }
+          ]
+        : []),
+      ...(service.id === "puc-requirements"
+        ? [
+            {
+              id: "fuelType",
+              title: stepMeta.fuelType.title,
+              help: stepMeta.fuelType.help
             }
           ]
         : []),
@@ -313,40 +367,94 @@
     return "Online-first service";
   }
 
+  function getOfficeByPlannerId(officeId) {
+    if (officeId === "mh11") {
+      return siteData.offices.find((office) => office.code === "MH-11") || null;
+    }
+
+    if (officeId === "mh50") {
+      return siteData.offices.find((office) => office.code === "MH-50") || null;
+    }
+
+    return null;
+  }
+
+  function createPhoneHref(phone) {
+    return `tel:${phone.replace(/[^0-9+]/g, "")}`;
+  }
+
   function getConditionalDocs(service, state) {
     const docs = [...(service.extraDocs || [])];
     const notes = [];
+    const reasons = [];
 
     if (state && state.flags.lost) {
       docs.push("Police report, diary, or loss acknowledgement where the document is lost");
+      reasons.push("Loss-related papers were added because you said the document is lost or damaged.");
     }
 
     if (state && state.flags.addressChanged) {
       docs.push("Current address proof matching the new address");
+      reasons.push("Address-proof guidance was expanded because you said the address has changed.");
     }
 
     if (state && state.flags.financed && service.category === "vehicle") {
       docs.push("Financier NOC or finance-related papers if the vehicle record is loan-linked");
       notes.push("Finance-linked vehicles can trigger extra financier verification.");
+      reasons.push("Financier papers were added because you said the vehicle is financed or loan-linked.");
     }
 
     if (state && state.profileId === "transport") {
       docs.push("Commercial or transport papers such as permit, fitness, or route authorisation where applicable");
       notes.push("Transport and commercial cases usually face more scrutiny than private cases.");
+      reasons.push("Commercial and transport papers were added because you selected transport / commercial.");
     }
 
     if (state && state.flags.crossJurisdiction) {
       docs.push("Cross-jurisdiction proof or linked NOC papers where required");
       notes.push("Moving records across jurisdiction can add verification and timing delays.");
+      reasons.push("Cross-jurisdiction papers were added because you said the vehicle or record is moving across jurisdictions.");
     }
 
     if (state && state.officeId === "other-state" && service.category === "licence") {
       notes.push("Out-of-state licence records can take longer because verification may be manual.");
+      reasons.push("Verification warning was added because you selected another state or an outside record.");
+    }
+
+    if (state && service.id === "tax-services") {
+      if (state.vehicleType === "two-wheeler") {
+        notes.push("Two-wheeler tax can still vary by class, age, and state rule slabs.");
+        reasons.push("Tax notes were narrowed for a two-wheeler case.");
+      }
+
+      if (state.vehicleType === "commercial" || state.profileId === "transport") {
+        docs.push("Permit, fitness, or transport classification papers where the tax category depends on commercial use");
+        notes.push("Commercial tax cases depend more heavily on permit class, fitness, and transport categorisation.");
+        reasons.push("Commercial tax guidance was added because you selected a transport or commercial case.");
+      }
+    }
+
+    if (state && service.id === "puc-requirements") {
+      if (state.vehicleType === "commercial") {
+        notes.push("Commercial vehicles may face stricter downstream checks when PUC is used in RC-side workflows.");
+        reasons.push("Commercial PUC guidance was added because you selected a transport or commercial vehicle.");
+      }
+
+      if (state.fuelType === "diesel") {
+        notes.push("Diesel vehicle owners should double-check that the PUC center enters the correct fuel type and result values.");
+        reasons.push("Diesel-specific PUC guidance was added because you selected diesel.");
+      }
+
+      if (state.fuelType === "ev-other") {
+        notes.push("If the vehicle is electric, hybrid, or the fuel type is unclear, confirm what downstream service actually needs before visiting the RTO.");
+        reasons.push("A broader PUC note was added because the fuel type is electric, hybrid, or uncertain.");
+      }
     }
 
     return {
       docs: dedupeList(docs),
-      notes: dedupeList(notes)
+      notes: dedupeList(notes),
+      reasons: dedupeList(reasons)
     };
   }
 
@@ -381,8 +489,58 @@
     return `<span class="pill ${kind ? `pill-${kind}` : ""}">${label}</span>`;
   }
 
+  function getBasedOnAnswers(service, state) {
+    if (!state) {
+      return [];
+    }
+
+    const journey = getJourneyById(state.journeyId);
+    const answers = [
+      `Journey: ${journey ? journey.title : service.title}`,
+      `Service: ${service.title}`
+    ];
+
+    if (state.journeyId === "new-driver") {
+      answers.push(`Learner's licence status: ${state.learnerStatus === "yes" ? "Already have learner's licence" : "Need first learner's licence"}`);
+    }
+
+    const officeOption = siteData.planner.officeOptions.find((entry) => entry.id === state.officeId);
+    if (officeOption) {
+      answers.push(`Office: ${officeOption.label}`);
+    }
+
+    const profileOption = siteData.planner.profileOptions.find((entry) => entry.id === state.profileId);
+    if (profileOption && shouldShowProfileQuestion(service)) {
+      answers.push(`Profile: ${profileOption.label}`);
+    }
+
+    if (["tax-services", "puc-requirements"].includes(service.id)) {
+      const vehicleType = siteData.planner.vehicleTypeOptions.find((entry) => entry.id === state.vehicleType);
+      if (vehicleType) {
+        answers.push(`Vehicle type: ${vehicleType.label}`);
+      }
+    }
+
+    if (service.id === "puc-requirements") {
+      const fuelType = siteData.planner.fuelTypeOptions.find((entry) => entry.id === state.fuelType);
+      if (fuelType) {
+        answers.push(`Fuel type: ${fuelType.label}`);
+      }
+    }
+
+    siteData.planner.flags.forEach((flag) => {
+      if (state.flags[flag.id]) {
+        answers.push(flag.label);
+      }
+    });
+
+    return answers;
+  }
+
   function renderServiceSummary(service, state) {
     const officeGuidance = state ? getPlannerOfficeGuidance(service, state) : getGenericOfficeGuidance(service);
+    const selectedOffice = state ? getOfficeByPlannerId(state.officeId) : null;
+    const answerSummary = getBasedOnAnswers(service, state);
 
     return `
       <div class="result-summary">
@@ -396,6 +554,18 @@
           ${createBadge(getPlannerReadiness(service), "warning")}
           ${createBadge(`Office visit: ${service.officeVisit}`, "alert")}
         </div>
+        ${
+          answerSummary.length
+            ? `
+              <article class="content-card answers-card">
+                <h3>Based on your answers</h3>
+                <ul class="content-list">
+                  ${answerSummary.map((item) => `<li>${item}</li>`).join("")}
+                </ul>
+              </article>
+            `
+            : ""
+        }
         <div class="summary-grid">
           <article class="summary-card">
             <h3>Why this fits</h3>
@@ -409,6 +579,19 @@
             <h3>Office guidance</h3>
             <p>${officeGuidance}</p>
           </article>
+          ${
+            selectedOffice
+              ? `
+                <article class="summary-card summary-card-office">
+                  <h3>Selected office</h3>
+                  <p><strong>${selectedOffice.name}</strong></p>
+                  <p>${selectedOffice.address}</p>
+                  <p><a href="${createPhoneHref(selectedOffice.phone)}">${selectedOffice.phone}</a></p>
+                  <p><a href="mailto:${selectedOffice.email}">${selectedOffice.email}</a></p>
+                </article>
+              `
+              : ""
+          }
         </div>
       </div>
     `;
@@ -442,6 +625,18 @@
           ${practicalDocs.map((doc) => `<li>${doc}</li>`).join("")}
         </ul>
       </article>
+      ${
+        conditional.reasons.length
+          ? `
+            <article class="content-card">
+              <h3>Why this checklist changed</h3>
+              <ul class="content-list">
+                ${conditional.reasons.map((reason) => `<li>${reason}</li>`).join("")}
+              </ul>
+            </article>
+          `
+          : ""
+      }
     `;
   }
 
@@ -537,19 +732,40 @@
 
   function renderOfficeSection(service, state) {
     const officeGuidance = state ? getPlannerOfficeGuidance(service, state) : getGenericOfficeGuidance(service);
-    const sataraOfficeCards = siteData.offices
-      .map(
-        (office) => `
-          <article class="office-mini-card">
-            <p class="eyebrow">${office.code}</p>
-            <h3>${office.name}</h3>
-            <p>${office.address}</p>
-            <p class="muted-copy"><strong>Phone:</strong> ${office.phone}</p>
-            <p class="muted-copy"><strong>Email:</strong> <a href="mailto:${office.email}">${office.email}</a></p>
+    const selectedOffice = state ? getOfficeByPlannerId(state.officeId) : null;
+    const officeCards = selectedOffice
+      ? `
+          <article class="office-mini-card office-mini-card-selected">
+            <p class="eyebrow">${selectedOffice.code}</p>
+            <h3>${selectedOffice.name}</h3>
+            <p>${selectedOffice.address}</p>
+            <p class="muted-copy"><strong>Phone:</strong> <a href="${createPhoneHref(selectedOffice.phone)}">${selectedOffice.phone}</a></p>
+            <p class="muted-copy"><strong>Email:</strong> <a href="mailto:${selectedOffice.email}">${selectedOffice.email}</a></p>
+            <p class="muted-copy">${selectedOffice.note}</p>
           </article>
         `
-      )
-      .join("");
+      : state && state.officeId === "other-state"
+        ? `
+            <article class="office-mini-card office-mini-card-selected">
+              <p class="eyebrow">Outside Satara</p>
+              <h3>Record from another state or unclear jurisdiction</h3>
+              <p>Expect extra verification, possible manual checking, and follow-up instructions from the official portal or office.</p>
+              <p class="muted-copy">Use the current record details first and confirm the correct authority before payment.</p>
+            </article>
+          `
+        : siteData.offices
+            .map(
+              (office) => `
+                <article class="office-mini-card">
+                  <p class="eyebrow">${office.code}</p>
+                  <h3>${office.name}</h3>
+                  <p>${office.address}</p>
+                  <p class="muted-copy"><strong>Phone:</strong> <a href="${createPhoneHref(office.phone)}">${office.phone}</a></p>
+                  <p class="muted-copy"><strong>Email:</strong> <a href="mailto:${office.email}">${office.email}</a></p>
+                </article>
+              `
+            )
+            .join("");
 
     return `
       <div class="section-grid">
@@ -562,6 +778,9 @@
             <li><strong>Inspection:</strong> ${service.inspection}</li>
           </ul>
           <p class="muted-copy">${officeGuidance}</p>
+          <div class="inline-actions">
+            <a class="button button-secondary" href="./offices.html">View office details</a>
+          </div>
         </article>
         <article class="content-card">
           <h3>Before you visit</h3>
@@ -571,7 +790,7 @@
         </article>
       </div>
       <div class="section-grid office-mini-grid">
-        ${sataraOfficeCards}
+        ${officeCards}
       </div>
     `;
   }
@@ -601,17 +820,18 @@
     ];
   }
 
-  function renderTabs(container, sections, scopeId) {
+  function renderTabs(container, sections, scopeId, defaultTabId) {
+    const initialTabId = sections.some((section) => section.id === defaultTabId) ? defaultTabId : sections[0].id;
     const tabList = `
       <div class="tab-list" role="tablist" aria-label="Service sections">
         ${sections
           .map(
-            (section, index) => `
+            (section) => `
               <button
-                class="tab-button ${index === 0 ? "is-active" : ""}"
+                class="tab-button ${section.id === initialTabId ? "is-active" : ""}"
                 type="button"
                 role="tab"
-                aria-selected="${index === 0 ? "true" : "false"}"
+                aria-selected="${section.id === initialTabId ? "true" : "false"}"
                 data-scope-id="${scopeId}"
                 data-tab-id="${section.id}"
               >
@@ -625,8 +845,8 @@
 
     const panels = sections
       .map(
-        (section, index) => `
-          <section class="tab-panel ${index === 0 ? "is-active" : ""}" data-panel-scope="${scopeId}" data-panel-id="${section.id}">
+        (section) => `
+          <section class="tab-panel ${section.id === initialTabId ? "is-active" : ""}" data-panel-scope="${scopeId}" data-panel-id="${section.id}">
             ${section.html}
           </section>
         `
@@ -730,12 +950,27 @@
       state.serviceId = params.get("service");
     }
 
+    if (
+      params.get("learnerStatus") &&
+      siteData.planner.learnerStatusOptions.some((entry) => entry.id === params.get("learnerStatus"))
+    ) {
+      state.learnerStatus = params.get("learnerStatus");
+    }
+
     if (params.get("office") && siteData.planner.officeOptions.some((entry) => entry.id === params.get("office"))) {
       state.officeId = params.get("office");
     }
 
     if (params.get("profile") && siteData.planner.profileOptions.some((entry) => entry.id === params.get("profile"))) {
       state.profileId = params.get("profile");
+    }
+
+    if (params.get("vehicleType") && siteData.planner.vehicleTypeOptions.some((entry) => entry.id === params.get("vehicleType"))) {
+      state.vehicleType = params.get("vehicleType");
+    }
+
+    if (params.get("fuelType") && siteData.planner.fuelTypeOptions.some((entry) => entry.id === params.get("fuelType"))) {
+      state.fuelType = params.get("fuelType");
     }
 
     plannerFlagIds.forEach((flagId) => {
@@ -755,12 +990,24 @@
     params.set("journey", normalized.journeyId);
     params.set("service", normalized.serviceId);
 
+    if (normalized.journeyId === "new-driver") {
+      params.set("learnerStatus", normalized.learnerStatus);
+    }
+
     if (normalized.officeId !== "unknown") {
       params.set("office", normalized.officeId);
     }
 
     if (normalized.profileId !== "private") {
       params.set("profile", normalized.profileId);
+    }
+
+    if (["tax-services", "puc-requirements"].includes(normalized.serviceId)) {
+      params.set("vehicleType", normalized.vehicleType);
+    }
+
+    if (normalized.serviceId === "puc-requirements") {
+      params.set("fuelType", normalized.fuelType);
     }
 
     plannerFlagIds.forEach((flagId) => {
@@ -799,6 +1046,7 @@
     getPortalLabel,
     getRelatedServices,
     getRelevantFlags,
+    getOfficeByPlannerId,
     getServiceById,
     getServiceResources,
     getToolById,

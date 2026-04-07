@@ -5,6 +5,7 @@
 
   const {
     buildServiceSections,
+    copyText,
     createServiceHref,
     getRelatedServices,
     getServiceById,
@@ -56,6 +57,8 @@
             <a class="button button-secondary" href="./index.html?journey=${encodeURIComponent(journeyId)}&service=${encodeURIComponent(
               service.id
             )}">Use Start Here</a>
+            <button class="button button-secondary" type="button" id="service-share-link">Copy guide link</button>
+            <button class="button button-secondary" type="button" id="service-print">Print guide</button>
           </div>
         </div>
         <div id="service-page-tabs"></div>
@@ -77,9 +80,19 @@
       </div>
     `;
 
-    renderTabs(document.getElementById("service-page-tabs"), sections, `service-${service.id}`);
+    renderTabs(document.getElementById("service-page-tabs"), sections, `service-${service.id}`, "steps");
     renderHelpfulFeedback(document.getElementById("service-page-feedback"), `service-${service.id}`);
     elements.floatingStart.hidden = false;
+
+    document.getElementById("service-share-link").addEventListener("click", () => {
+      copyText(window.location.href, () => {
+        document.getElementById("service-share-link").textContent = "Link copied";
+      });
+    });
+
+    document.getElementById("service-print").addEventListener("click", () => {
+      window.print();
+    });
   }
 
   render();

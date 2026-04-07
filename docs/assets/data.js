@@ -141,11 +141,6 @@ window.siteData = {
         id: "transport",
         label: "Transport / commercial",
         description: "Use this for permit, fitness, goods, passenger, or commercial vehicle cases."
-      },
-      {
-        id: "unsure",
-        label: "Not sure",
-        description: "Use this if you want the site to keep the guidance broad."
       }
     ],
     flags: [
@@ -168,11 +163,52 @@ window.siteData = {
         id: "crossJurisdiction",
         label: "Vehicle or record is moving across jurisdiction / state",
         description: "Important for NOC, transfer, and reassignment-style cases."
+      }
+    ],
+    learnerStatusOptions: [
+      {
+        id: "no",
+        label: "No, I need my first learner's licence",
+        description: "Use this if the applicant has not yet received a learner's licence."
       },
       {
-        id: "alreadyHasLearner",
-        label: "Applicant already has learner's licence",
-        description: "Useful for new-driver journeys where the user may be ready for permanent DL."
+        id: "yes",
+        label: "Yes, I already have a learner's licence",
+        description: "Use this if the learner's licence already exists and the next step is the permanent licence test."
+      }
+    ],
+    vehicleTypeOptions: [
+      {
+        id: "two-wheeler",
+        label: "Two-wheeler",
+        description: "Motorcycle, scooter, or similar two-wheel vehicle."
+      },
+      {
+        id: "car",
+        label: "Car / LMV",
+        description: "Private car or light motor vehicle."
+      },
+      {
+        id: "commercial",
+        label: "Commercial / transport vehicle",
+        description: "Goods, passenger, permit, or transport-linked vehicle."
+      }
+    ],
+    fuelTypeOptions: [
+      {
+        id: "petrol",
+        label: "Petrol / CNG / LPG",
+        description: "Petrol and similar light-fuel cases."
+      },
+      {
+        id: "diesel",
+        label: "Diesel",
+        description: "Diesel vehicle requiring diesel-side emission guidance."
+      },
+      {
+        id: "ev-other",
+        label: "Electric / hybrid / not sure",
+        description: "Use this if the fuel type is electric, hybrid, or you are not sure."
       }
     ]
   },
@@ -1742,6 +1778,10 @@ window.siteData.wizardMeta = {
       title: "What are you trying to do?",
       help: "Pick the situation that matches your problem."
     },
+    learnerStatus: {
+      title: "Do you already have a learner's licence?",
+      help: "This decides whether you need the learner's licence step or the permanent driving licence test."
+    },
     service: {
       title: "Which option sounds closest?",
       help: "Choose the closest match. You can change it later."
@@ -1753,6 +1793,14 @@ window.siteData.wizardMeta = {
     profile: {
       title: "Is this personal or commercial?",
       help: "This helps narrow down permit, tax, and transport-heavy cases."
+    },
+    vehicleType: {
+      title: "What kind of vehicle is involved?",
+      help: "This changes tax and PUC guidance."
+    },
+    fuelType: {
+      title: "What fuel type does the vehicle use?",
+      help: "This helps make the PUC guidance more specific."
     },
     flags: {
       title: "Anything else about this case?",
