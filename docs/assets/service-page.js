@@ -20,8 +20,7 @@
 
   const elements = {
     body: document.getElementById("service-page-body"),
-    intro: document.getElementById("service-page-intro"),
-    floatingStart: document.getElementById("service-page-start")
+    intro: document.getElementById("service-page-intro")
   };
 
   function renderNotFound() {
@@ -53,14 +52,6 @@
       <p class="eyebrow">${category ? category.label : "Service"} guide</p>
       <h1>${service.title}</h1>
       <p>${service.short || service.summary}</p>
-    `;
-
-    elements.floatingStart.innerHTML = `
-      <a class="button button-secondary" href="./index.html">Find My Service</a>
-      <a class="button button-secondary" href="./services.html">Services</a>
-      <a class="button button-secondary" href="#service-summary-anchor">Summary</a>
-      <a class="button button-secondary" href="#service-guide-anchor">Guide</a>
-      ${related.length ? `<a class="button button-secondary" href="#service-related-anchor">Related</a>` : ""}
     `;
 
     elements.body.innerHTML = `
@@ -105,7 +96,6 @@
 
     renderGuideSections(document.getElementById("service-page-guide"), sections, `service-${service.id}`);
     renderHelpfulFeedback(document.getElementById("service-page-feedback"), `service-${service.id}`);
-    elements.floatingStart.hidden = false;
 
     document.getElementById("service-share-link").addEventListener("click", () => {
       copyText(window.location.href, () => {
