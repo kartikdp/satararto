@@ -140,6 +140,26 @@
     return pickLocalized(siteData.business, key) || siteData.business[key] || "";
   }
 
+  function getLocalizedReviewDate() {
+    return getLanguage() === "mr" ? siteData.reviewMeta.lastReviewedMr || siteData.reviewMeta.lastReviewed : siteData.reviewMeta.lastReviewed;
+  }
+
+  function getLocalizedOfficeName(office) {
+    return pickLocalized(office, "name") || office.name;
+  }
+
+  function getLocalizedOfficeAddress(office) {
+    return pickLocalized(office, "address") || office.address;
+  }
+
+  function getLocalizedStatusText(service, key) {
+    return pickLocalized(service, key) || service[key] || "";
+  }
+
+  function getLocalizedPracticalDocsNote() {
+    return getLanguage() === "mr" ? siteData.practicalDocsNoteMr || siteData.practicalDocsNote : siteData.practicalDocsNote;
+  }
+
   function dedupeList(items) {
     return [...new Set((items || []).filter(Boolean))];
   }
@@ -399,23 +419,23 @@
     const labels = service.officialLinks.map((link) => link.label.toLowerCase());
 
     if (labels.some((label) => label.includes("sarathi"))) {
-      return "Sarathi";
+      return getLanguage() === "mr" ? "सारथी" : "Sarathi";
     }
 
     if (labels.some((label) => label.includes("vahan"))) {
-      return "Vahan";
+      return getLanguage() === "mr" ? "वाहन" : "Vahan";
     }
 
     if (service.id === "permit-services") {
-      return "Permit portal / Maharashtra Transport";
+      return getLanguage() === "mr" ? "परमिट पोर्टल / महाराष्ट्र परिवहन" : "Permit portal / Maharashtra Transport";
     }
 
     if (service.category === "licence") {
-      return "Sarathi";
+      return getLanguage() === "mr" ? "सारथी" : "Sarathi";
     }
 
     if (service.category === "vehicle") {
-      return "Vahan";
+      return getLanguage() === "mr" ? "वाहन" : "Vahan";
     }
 
     return getLanguage() === "mr" ? "अधिकृत पोर्टल" : "Official portal";
@@ -479,14 +499,14 @@
     const text = step.toLowerCase();
 
     if (/(visit|appear|present|bring|inspection|test appointment|scheduled date|licensing authority|rto)/.test(text)) {
-      return "Office";
+      return getLanguage() === "mr" ? "कार्यालय" : "Office";
     }
 
     if (/(track|download|save|acknowledgement|dispatch|approval status)/.test(text)) {
-      return "After submission";
+      return getLanguage() === "mr" ? "सबमिट केल्यानंतर" : "After submission";
     }
 
-    return "Online";
+    return getLanguage() === "mr" ? "ऑनलाइन" : "Online";
   }
 
   function needsOriginals(service) {
@@ -562,65 +582,165 @@
     const reasons = [];
 
     if (state && state.flags.lost) {
-      docs.push("Police report, diary, or loss acknowledgement where the document is lost");
-      reasons.push("Loss-related papers were added because you said the document is lost or damaged.");
+      docs.push(
+        getLanguage() === "mr"
+          ? "कागदपत्र हरवले असल्यास पोलिस अहवाल, डायरी नोंद किंवा हरवल्याची acknowledgement"
+          : "Police report, diary, or loss acknowledgement where the document is lost"
+      );
+      reasons.push(
+        getLanguage() === "mr"
+          ? "कागदपत्र हरवले किंवा खराब झाले आहे असे तुम्ही सांगितल्यामुळे हरवलेल्या कागदांबाबतचे मार्गदर्शन जोडले गेले."
+          : "Loss-related papers were added because you said the document is lost or damaged."
+      );
     }
 
     if (state && state.flags.addressChanged) {
-      docs.push("Current address proof matching the new address");
-      reasons.push("Address-proof guidance was expanded because you said the address has changed.");
+      docs.push(
+        getLanguage() === "mr" ? "नवीन पत्त्याशी जुळणारा सध्याचा पत्ता पुरावा" : "Current address proof matching the new address"
+      );
+      reasons.push(
+        getLanguage() === "mr"
+          ? "पत्ता बदलला आहे असे तुम्ही सांगितल्यामुळे पत्ता पुराव्याबाबतचे मार्गदर्शन वाढवले गेले."
+          : "Address-proof guidance was expanded because you said the address has changed."
+      );
     }
 
     if (state && state.flags.financed && service.category === "vehicle") {
-      docs.push("Financier NOC or finance-related papers if the vehicle record is loan-linked");
-      notes.push("Finance-linked vehicles can trigger extra financier verification.");
-      reasons.push("Financier papers were added because you said the vehicle is financed or loan-linked.");
+      docs.push(
+        getLanguage() === "mr"
+          ? "वाहन रेकॉर्ड कर्जाशी जोडलेले असल्यास फायनान्सरचे NOC किंवा फायनान्स-संबंधित कागदपत्रे"
+          : "Financier NOC or finance-related papers if the vehicle record is loan-linked"
+      );
+      notes.push(
+        getLanguage() === "mr"
+          ? "फायनान्सशी जोडलेल्या वाहनांमध्ये फायनान्सरकडून अतिरिक्त पडताळणी लागू होऊ शकते."
+          : "Finance-linked vehicles can trigger extra financier verification."
+      );
+      reasons.push(
+        getLanguage() === "mr"
+          ? "वाहन फायनान्सवर आहे किंवा कर्जाशी जोडलेले आहे असे तुम्ही सांगितल्यामुळे फायनान्सरची कागदपत्रे जोडली गेली."
+          : "Financier papers were added because you said the vehicle is financed or loan-linked."
+      );
     }
 
     if (state && state.profileId === "transport") {
-      docs.push("Commercial or transport papers such as permit, fitness, or route authorisation where applicable");
-      notes.push("Transport and commercial cases usually face more scrutiny than private cases.");
-      reasons.push("Commercial and transport papers were added because you selected transport / commercial.");
+      docs.push(
+        getLanguage() === "mr"
+          ? "लागू असल्यास परमिट, फिटनेस किंवा मार्ग अधिकृतता यांसारखी व्यावसायिक / परिवहन कागदपत्रे"
+          : "Commercial or transport papers such as permit, fitness, or route authorisation where applicable"
+      );
+      notes.push(
+        getLanguage() === "mr"
+          ? "परिवहन आणि व्यावसायिक प्रकरणांमध्ये खाजगी प्रकरणांपेक्षा अधिक छाननी होण्याची शक्यता असते."
+          : "Transport and commercial cases usually face more scrutiny than private cases."
+      );
+      reasons.push(
+        getLanguage() === "mr"
+          ? "तुम्ही व्यावसायिक / परिवहन पर्याय निवडल्यामुळे संबंधित कागदपत्रे जोडली गेली."
+          : "Commercial and transport papers were added because you selected transport / commercial."
+      );
     }
 
     if (state && state.flags.crossJurisdiction) {
-      docs.push("Cross-jurisdiction proof or linked NOC papers where required");
-      notes.push("Moving records across jurisdiction can add verification and timing delays.");
-      reasons.push("Cross-jurisdiction papers were added because you said the vehicle or record is moving across jurisdictions.");
+      docs.push(
+        getLanguage() === "mr"
+          ? "लागू असल्यास क्षेत्राधिकार बदलाचा पुरावा किंवा संबंधित NOC कागदपत्रे"
+          : "Cross-jurisdiction proof or linked NOC papers where required"
+      );
+      notes.push(
+        getLanguage() === "mr"
+          ? "रेकॉर्ड दुसऱ्या क्षेत्राधिकारात हलवल्यास पडताळणी आणि वेळेत विलंब होऊ शकतो."
+          : "Moving records across jurisdiction can add verification and timing delays."
+      );
+      reasons.push(
+        getLanguage() === "mr"
+          ? "वाहन किंवा रेकॉर्ड दुसऱ्या क्षेत्रात जात आहे असे तुम्ही सांगितल्यामुळे संबंधित कागदपत्रे जोडली गेली."
+          : "Cross-jurisdiction papers were added because you said the vehicle or record is moving across jurisdictions."
+      );
     }
 
     if (state && state.officeId === "other-state" && service.category === "licence") {
-      notes.push("Out-of-state licence records can take longer because verification may be manual.");
-      reasons.push("Verification warning was added because you selected another state or an outside record.");
+      notes.push(
+        getLanguage() === "mr"
+          ? "दुसऱ्या राज्यातील परवाना रेकॉर्डमध्ये मॅन्युअल पडताळणीमुळे अधिक वेळ लागू शकतो."
+          : "Out-of-state licence records can take longer because verification may be manual."
+      );
+      reasons.push(
+        getLanguage() === "mr"
+          ? "तुम्ही दुसरे राज्य किंवा बाहेरील रेकॉर्ड निवडल्यामुळे पडताळणीविषयी सूचना जोडली गेली."
+          : "Verification warning was added because you selected another state or an outside record."
+      );
     }
 
     if (state && service.id === "tax-services") {
       if (state.vehicleType === "two-wheeler") {
-        notes.push("Two-wheeler tax can still vary by class, age, and state rule slabs.");
-        reasons.push("Tax notes were narrowed for a two-wheeler case.");
+        notes.push(
+          getLanguage() === "mr"
+            ? "दुचाकी वाहनाचा कर वर्ग, वय आणि राज्यातील नियमांनुसार बदलू शकतो."
+            : "Two-wheeler tax can still vary by class, age, and state rule slabs."
+        );
+        reasons.push(
+          getLanguage() === "mr" ? "दुचाकी प्रकरणासाठी कराविषयीच्या टिपा अधिक नेमक्या दाखवण्यात आल्या." : "Tax notes were narrowed for a two-wheeler case."
+        );
       }
 
       if (state.vehicleType === "commercial" || state.profileId === "transport") {
-        docs.push("Permit, fitness, or transport classification papers where the tax category depends on commercial use");
-        notes.push("Commercial tax cases depend more heavily on permit class, fitness, and transport categorisation.");
-        reasons.push("Commercial tax guidance was added because you selected a transport or commercial case.");
+        docs.push(
+          getLanguage() === "mr"
+            ? "कराची श्रेणी व्यावसायिक वापरावर अवलंबून असल्यास परमिट, फिटनेस किंवा परिवहन वर्गीकरण कागदपत्रे"
+            : "Permit, fitness, or transport classification papers where the tax category depends on commercial use"
+        );
+        notes.push(
+          getLanguage() === "mr"
+            ? "व्यावसायिक कर प्रकरणांमध्ये परमिट वर्ग, फिटनेस आणि परिवहन वर्गीकरण अधिक महत्त्वाचे असते."
+            : "Commercial tax cases depend more heavily on permit class, fitness, and transport categorisation."
+        );
+        reasons.push(
+          getLanguage() === "mr"
+            ? "तुम्ही व्यावसायिक / परिवहन प्रकरण निवडल्यामुळे व्यावसायिक कर मार्गदर्शन जोडले गेले."
+            : "Commercial tax guidance was added because you selected a transport or commercial case."
+        );
       }
     }
 
     if (state && service.id === "puc-requirements") {
       if (state.vehicleType === "commercial") {
-        notes.push("Commercial vehicles may face stricter downstream checks when PUC is used in RC-side workflows.");
-        reasons.push("Commercial PUC guidance was added because you selected a transport or commercial vehicle.");
+        notes.push(
+          getLanguage() === "mr"
+            ? "RC-संबंधित प्रक्रियांमध्ये PUC वापरले जात असल्यास व्यावसायिक वाहनांवर अधिक कडक पडताळणी होऊ शकते."
+            : "Commercial vehicles may face stricter downstream checks when PUC is used in RC-side workflows."
+        );
+        reasons.push(
+          getLanguage() === "mr"
+            ? "तुम्ही व्यावसायिक / परिवहन वाहन निवडल्यामुळे व्यावसायिक PUC मार्गदर्शन जोडले गेले."
+            : "Commercial PUC guidance was added because you selected a transport or commercial vehicle."
+        );
       }
 
       if (state.fuelType === "diesel") {
-        notes.push("Diesel vehicle owners should double-check that the PUC center enters the correct fuel type and result values.");
-        reasons.push("Diesel-specific PUC guidance was added because you selected diesel.");
+        notes.push(
+          getLanguage() === "mr"
+            ? "डिझेल वाहनांसाठी PUC केंद्राने योग्य इंधन प्रकार आणि चाचणी मूल्ये नोंदवली आहेत का ते पुन्हा तपासा."
+            : "Diesel vehicle owners should double-check that the PUC center enters the correct fuel type and result values."
+        );
+        reasons.push(
+          getLanguage() === "mr"
+            ? "तुम्ही डिझेल निवडल्यामुळे डिझेल-विशिष्ट PUC मार्गदर्शन जोडले गेले."
+            : "Diesel-specific PUC guidance was added because you selected diesel."
+        );
       }
 
       if (state.fuelType === "ev-other") {
-        notes.push("If the vehicle is electric, hybrid, or the fuel type is unclear, confirm what downstream service actually needs before visiting the RTO.");
-        reasons.push("A broader PUC note was added because the fuel type is electric, hybrid, or uncertain.");
+        notes.push(
+          getLanguage() === "mr"
+            ? "वाहन इलेक्ट्रिक, हायब्रिड किंवा इंधन प्रकार अस्पष्ट असल्यास RTO ला जाण्यापूर्वी पुढील प्रक्रियेला नेमके काय हवे आहे ते तपासा."
+            : "If the vehicle is electric, hybrid, or the fuel type is unclear, confirm what downstream service actually needs before visiting the RTO."
+        );
+        reasons.push(
+          getLanguage() === "mr"
+            ? "इंधन प्रकार इलेक्ट्रिक, हायब्रिड किंवा अनिश्चित असल्यामुळे विस्तृत PUC टीप जोडली गेली."
+            : "A broader PUC note was added because the fuel type is electric, hybrid, or uncertain."
+        );
       }
     }
 
@@ -659,14 +779,14 @@
   }
 
   function getFormLookupHint(form) {
-    return form.lookupHint || "Open the official forms page and search for the form number.";
+    return pickLocalized(form, "lookupHint") || form.lookupHint || (getLanguage() === "mr" ? "अधिकृत फॉर्म पानावर जाऊन फॉर्म क्रमांक शोधा." : "Open the official forms page and search for the form number.");
   }
 
   function renderFormActions(form) {
     return `
       <div class="inline-actions">
-        <a class="button button-secondary" href="${form.url}" target="_blank" rel="noreferrer">Open official page</a>
-        ${form.downloadUrl ? `<a class="button button-secondary" href="${form.downloadUrl}" target="_blank" rel="noreferrer">Direct PDF</a>` : ""}
+        <a class="button button-secondary" href="${form.url}" target="_blank" rel="noreferrer">${getLanguage() === "mr" ? "अधिकृत पान उघडा" : "Open official page"}</a>
+        ${form.downloadUrl ? `<a class="button button-secondary" href="${form.downloadUrl}" target="_blank" rel="noreferrer">${getLanguage() === "mr" ? "थेट PDF" : "Direct PDF"}</a>` : ""}
       </div>
       <p class="inline-note">${getFormLookupHint(form)}</p>
     `;
@@ -680,28 +800,28 @@
     return `
       <section class="content-card at-glance-card">
         <div class="section-head compact">
-          <h2>At a glance</h2>
+          <h2>${getLanguage() === "mr" ? "थोडक्यात" : "At a glance"}</h2>
         </div>
         <div class="at-glance-grid">
           <article class="at-glance-item">
-            <span class="at-glance-label">Start on</span>
+            <span class="at-glance-label">${t("guide.labels.startOn", "Start on")}</span>
             <strong>${getPortalLabel(service)}</strong>
           </article>
           <article class="at-glance-item">
-            <span class="at-glance-label">Office visit</span>
-            <strong>${service.officeVisit}</strong>
+            <span class="at-glance-label">${t("guide.labels.officeVisit", "Office visit")}</span>
+            <strong>${getLocalizedStatusText(service, "officeVisit")}</strong>
           </article>
           <article class="at-glance-item">
-            <span class="at-glance-label">Appointment</span>
-            <strong>${service.appointment}</strong>
+            <span class="at-glance-label">${getLanguage() === "mr" ? "अपॉइंटमेंट" : "Appointment"}</span>
+            <strong>${getLocalizedStatusText(service, "appointment")}</strong>
           </article>
           <article class="at-glance-item">
-            <span class="at-glance-label">Inspection</span>
-            <strong>${service.inspectionSummary}</strong>
+            <span class="at-glance-label">${getLanguage() === "mr" ? "तपासणी" : "Inspection"}</span>
+            <strong>${getLocalizedStatusText(service, "inspectionSummary")}</strong>
           </article>
           <article class="at-glance-item">
-            <span class="at-glance-label">Main forms</span>
-            <strong>${service.mainFormsCountLabel}</strong>
+            <span class="at-glance-label">${getLanguage() === "mr" ? "मुख्य फॉर्म" : "Main forms"}</span>
+            <strong>${pickLocalized(service, "mainFormsCountLabel") || service.mainFormsCountLabel}</strong>
           </article>
         </div>
       </section>
@@ -726,7 +846,7 @@
     if (selectedOffice) {
       summaryNotes.push({
         label: t("guide.labels.office", "Office"),
-        text: `${selectedOffice.name}. ${officeGuidance}`
+        text: `${getLocalizedOfficeName(selectedOffice)}. ${officeGuidance}`
       });
     } else if (options.mode === "wizard") {
       summaryNotes.push({
@@ -746,7 +866,7 @@
           ${service.featured ? createBadge(t("guide.labels.mostUsed", "Most used")) : ""}
           ${createBadge(`${t("guide.labels.startOn", "Start on")} ${getPortalLabel(service)}`)}
           ${createBadge(getPlannerReadiness(service), "warning")}
-          ${createBadge(`${t("guide.labels.officeVisit", "Office visit")}: ${service.officeVisit}`, "alert")}
+          ${createBadge(`${t("guide.labels.officeVisit", "Office visit")}: ${getLocalizedStatusText(service, "officeVisit")}`, "alert")}
         </div>
         <ul class="summary-note-list">
           ${summaryNotes
@@ -859,7 +979,7 @@
           ? `
             <article class="content-card content-card-soft">
               <h3>${t("guide.labels.backupPapers", "Backup papers people often carry")}</h3>
-              <p class="muted-copy">${siteData.practicalDocsNote}</p>
+              <p class="muted-copy">${getLocalizedPracticalDocsNote()}</p>
               <ul class="content-list">
                 ${practicalDocs.map((doc) => `<li>${doc}</li>`).join("")}
               </ul>
@@ -1016,20 +1136,20 @@
       ? `
           <article class="office-mini-card office-mini-card-selected">
             <p class="eyebrow">${selectedOffice.code}</p>
-            <h3>${selectedOffice.name}</h3>
-            <p>${selectedOffice.address}</p>
-            <p class="muted-copy"><strong>Phone:</strong> <a href="${createPhoneHref(selectedOffice.phone)}">${selectedOffice.phone}</a></p>
-            <p class="muted-copy"><strong>Email:</strong> <a href="mailto:${selectedOffice.email}">${selectedOffice.email}</a></p>
-            <p class="muted-copy">${selectedOffice.note}</p>
+            <h3>${getLocalizedOfficeName(selectedOffice)}</h3>
+            <p>${getLocalizedOfficeAddress(selectedOffice)}</p>
+            <p class="muted-copy"><strong>${getLanguage() === "mr" ? "फोन" : "Phone"}:</strong> <a href="${createPhoneHref(selectedOffice.phone)}">${selectedOffice.phone}</a></p>
+            <p class="muted-copy"><strong>${getLanguage() === "mr" ? "ईमेल" : "Email"}:</strong> <a href="mailto:${selectedOffice.email}">${selectedOffice.email}</a></p>
+            <p class="muted-copy">${getOfficeNote(selectedOffice)}</p>
           </article>
         `
       : state && state.officeId === "other-state"
         ? `
             <article class="office-mini-card office-mini-card-selected">
-              <p class="eyebrow">Outside Satara</p>
-              <h3>Record from another state or unclear jurisdiction</h3>
-              <p>Expect extra verification, possible manual checking, and follow-up instructions from the official portal or office.</p>
-              <p class="muted-copy">Use the current record details first and confirm the correct authority before payment.</p>
+              <p class="eyebrow">${getLanguage() === "mr" ? "साताऱ्याबाहेरील रेकॉर्ड" : "Outside Satara"}</p>
+              <h3>${getLanguage() === "mr" ? "दुसऱ्या राज्यातील किंवा अस्पष्ट क्षेत्राधिकारातील रेकॉर्ड" : "Record from another state or unclear jurisdiction"}</h3>
+              <p>${getLanguage() === "mr" ? "अधिकृत पोर्टल किंवा कार्यालयाकडून अतिरिक्त पडताळणी, मॅन्युअल तपासणी किंवा पुढील सूचनांची अपेक्षा ठेवा." : "Expect extra verification, possible manual checking, and follow-up instructions from the official portal or office."}</p>
+              <p class="muted-copy">${getLanguage() === "mr" ? "पेमेंटपूर्वी सध्याच्या रेकॉर्डचा आधार घेऊन योग्य प्राधिकरण निश्चित करा." : "Use the current record details first and confirm the correct authority before payment."}</p>
             </article>
           `
         : siteData.offices
@@ -1037,10 +1157,10 @@
               (office) => `
                 <article class="office-mini-card">
                   <p class="eyebrow">${office.code}</p>
-                  <h3>${office.name}</h3>
-                  <p>${office.address}</p>
-                  <p class="muted-copy"><strong>Phone:</strong> <a href="${createPhoneHref(office.phone)}">${office.phone}</a></p>
-                  <p class="muted-copy"><strong>Email:</strong> <a href="mailto:${office.email}">${office.email}</a></p>
+                  <h3>${getLocalizedOfficeName(office)}</h3>
+                  <p>${getLocalizedOfficeAddress(office)}</p>
+                  <p class="muted-copy"><strong>${getLanguage() === "mr" ? "फोन" : "Phone"}:</strong> <a href="${createPhoneHref(office.phone)}">${office.phone}</a></p>
+                  <p class="muted-copy"><strong>${getLanguage() === "mr" ? "ईमेल" : "Email"}:</strong> <a href="mailto:${office.email}">${office.email}</a></p>
                 </article>
               `
             )
@@ -1052,9 +1172,9 @@
           <h3>${t("guide.labels.officeGuidance", "Office and appointment guidance")}</h3>
           <ul class="content-list">
             <li><strong>${t("guide.labels.startOn", "Start on")}:</strong> ${getPortalLabel(service)}</li>
-            <li><strong>${getLanguage() === "mr" ? "अपॉइंटमेंट" : "Appointment"}:</strong> ${service.appointment}</li>
-            <li><strong>${t("guide.labels.officeVisit", "Office visit")}:</strong> ${service.officeVisit}</li>
-            <li><strong>${getLanguage() === "mr" ? "तपासणी" : "Inspection"}:</strong> ${service.inspection}</li>
+            <li><strong>${getLanguage() === "mr" ? "अपॉइंटमेंट" : "Appointment"}:</strong> ${getLocalizedStatusText(service, "appointment")}</li>
+            <li><strong>${t("guide.labels.officeVisit", "Office visit")}:</strong> ${getLocalizedStatusText(service, "officeVisit")}</li>
+            <li><strong>${getLanguage() === "mr" ? "तपासणी" : "Inspection"}:</strong> ${getLocalizedStatusText(service, "inspection")}</li>
           </ul>
           <p class="muted-copy">${officeGuidance}</p>
           ${needsOriginals(service) ? `<p class="inline-note">${getLanguage() === "mr" ? "पोर्टल किंवा कार्यालय पडताळणी मागत असल्यास मूळ कागदपत्रे बाळगा." : "Carry originals if the portal or office asks for document verification."}</p>` : ""}
@@ -1112,18 +1232,20 @@
             <h3>${t("guide.labels.officialForms", "Official forms")}</h3>
             <p class="muted-copy">
               ${
-                service.officialForms.length
-                  ? `Main official forms commonly used here: ${pickLocalized(service, "mainFormsSummary") || service.mainFormsSummary}.`
+                (pickLocalized(service, "officialForms") || service.officialForms).length
+                  ? getLanguage() === "mr"
+                    ? `येथे प्रामुख्याने वापरले जाणारे अधिकृत फॉर्म: ${pickLocalized(service, "mainFormsSummary") || service.mainFormsSummary}.`
+                    : `Main official forms commonly used here: ${pickLocalized(service, "mainFormsSummary") || service.mainFormsSummary}.`
                   : getLanguage() === "mr"
                     ? "ही सेवा मुख्यतः पोर्टल-आधारित आहे. ताज्या फॉर्म आणि अपलोड सूचनांसाठी अधिकृत सेवा पान वापरा."
                     : "This service is mostly portal-driven. Use the official service page for the latest form and upload instructions."
               }
             </p>
             ${
-              service.officialForms.length
+              (pickLocalized(service, "officialForms") || service.officialForms).length
                 ? `
                   <div class="resource-stack">
-                    ${service.officialForms
+                    ${(pickLocalized(service, "officialForms") || service.officialForms)
                       .map(
                         (form) => `
                           <article class="resource-card">
@@ -1160,9 +1282,9 @@
         html: `
           <article class="content-card">
             <h3>${t("guide.labels.officialSources", "Government source used for this process")}</h3>
-            <p class="muted-copy">${getLanguage() === "mr" ? `अधिकृत स्रोतांवरून शेवटचा आढावा: ${siteData.reviewMeta.lastReviewed}.` : `Last reviewed from official sources: ${siteData.reviewMeta.lastReviewed}.`}</p>
+            <p class="muted-copy">${getLanguage() === "mr" ? `अधिकृत स्रोतांवरून शेवटचा आढावा: ${getLocalizedReviewDate()}.` : `Last reviewed from official sources: ${getLocalizedReviewDate()}.`}</p>
             <div class="resource-stack">
-              ${service.officialSourceRefs
+              ${(pickLocalized(service, "officialSourceRefs") || service.officialSourceRefs)
                 .map(
                   (link) => `
                     <a class="resource-card" href="${link.url}" target="_blank" rel="noreferrer">

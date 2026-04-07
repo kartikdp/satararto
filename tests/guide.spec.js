@@ -187,6 +187,9 @@ test.describe("language switch", () => {
     await expect(page.locator('[data-guide-section="information"]')).toContainText(
       "शिकाऊ परवाना हा कायम वाहनचालक परवान्यापूर्वीचा पहिला अधिकृत टप्पा आहे."
     );
+    await expect(page.locator('[data-guide-section="documents"]')).toContainText("वयाचा पुरावा");
+    await expect(page.locator('[data-guide-section="forms"]')).toContainText("येथे प्रामुख्याने वापरले जाणारे अधिकृत फॉर्म");
+    await expect(page.locator('[data-guide-section="sources"]')).toContainText("या प्रक्रियेसाठी वापरलेला सरकारी स्रोत");
   });
 });
 

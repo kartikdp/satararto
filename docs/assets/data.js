@@ -1657,6 +1657,8 @@ const practicalChecklistSignalsByService = {
 
 window.siteData.practicalDocsNote =
   "These are not official mandatory documents. They are backup papers repeatedly mentioned in public user reports and can help you avoid repeat visits or verification delays.";
+window.siteData.practicalDocsNoteMr =
+  "ही अधिकृतपणे बंधनकारक कागदपत्रे नाहीत. सार्वजनिक वापरकर्ता अनुभवांमध्ये वारंवार उल्लेख झालेले बॅकअप कागदपत्रे आहेत आणि त्यामुळे पुन्हा पुन्हा फेर्‍या किंवा पडताळणीतील विलंब टाळण्यास मदत होऊ शकते.";
 
 const recommendedActionByService = {
   "learner-licence": "Start the learner's licence application on Sarathi and keep your age and address proof ready.",
@@ -2734,6 +2736,7 @@ window.siteData.business = {
 
 window.siteData.reviewMeta = {
   lastReviewed: "April 7, 2026",
+  lastReviewedMr: "7 एप्रिल 2026",
   reportUrl: "https://github.com/kartikdp/satararto/issues/new"
 };
 
@@ -3084,6 +3087,425 @@ function createMarathiInformation(intro, whenNeededItems, confusionText) {
       }
     ]
   };
+}
+
+const marathiGeneratedTextByEnglish = {
+  "Address proof": "पत्त्याचा पुरावा",
+  "Address proof of purchaser": "खरेदीदाराचा पत्त्याचा पुरावा",
+  "Age proof": "वयाचा पुरावा",
+  "Air ticket or travel proof for verification": "पडताळणीसाठी विमानतिकीट किंवा प्रवासाचा पुरावा",
+  "Current driving licence": "सध्याचा वाहनचालक परवाना",
+  "Existing driving licence": "विद्यमान वाहनचालक परवाना",
+  "Existing registration-linked owner record": "नोंदणीशी जोडलेला विद्यमान मालकाचा रेकॉर्ड",
+  "Financier and owner signatures": "फायनान्सर आणि मालक यांच्या स्वाक्षऱ्या",
+  "Financier due-clearance or NOC": "फायनान्सरकडील ड्यू-क्लिअरन्स किंवा NOC",
+  "Form 1 or Form 1A depending on class and medical requirement": "वर्ग आणि वैद्यकीय अटींनुसार फॉर्म 1 किंवा फॉर्म 1A",
+  "Form 1A": "फॉर्म 1A",
+  "Form 1A medical certificate": "फॉर्म 1A वैद्यकीय प्रमाणपत्र",
+  "Form 2 application details": "फॉर्म 2 अर्ज तपशील",
+  "Form 20": "फॉर्म 20",
+  "Form 21 sale certificate": "फॉर्म 21 विक्री प्रमाणपत्र",
+  "Form 22 or Form 22A road-worthiness / compliance certificate": "फॉर्म 22 किंवा फॉर्म 22A रस्तेसुरक्षा / अनुरूपता प्रमाणपत्र",
+  "Form 25": "फॉर्म 25",
+  "Form 26": "फॉर्म 26",
+  "Form 28": "फॉर्म 28",
+  "Form 29": "फॉर्म 29",
+  "Form 30": "फॉर्म 30",
+  "Form 33": "फॉर्म 33",
+  "Form 34": "फॉर्म 34",
+  "Form 35": "फॉर्म 35",
+  "Form 4": "फॉर्म 4",
+  "Form 4A": "फॉर्म 4A",
+  "Form 9": "फॉर्म 9",
+  "Insurance certificate": "विमा प्रमाणपत्र",
+  "Insurance copy": "विम्याची प्रत",
+  "Insurance details": "विमा तपशील",
+  "LLD or duplicate licence form as listed by Maharashtra": "महाराष्ट्रानुसार नमूद केलेला LLD किंवा डुप्लिकेट परवाना फॉर्म",
+  "Learner's licence": "शिकाऊ परवाना",
+  "New address proof": "नवीन पत्त्याचा पुरावा",
+  "Old damaged licence if available": "उपलब्ध असल्यास जुना खराब परवाना",
+  "Original documents on appointment day": "अपॉइंटमेंटच्या दिवशी मूळ कागदपत्रे",
+  "Owner signature identification": "मालकाच्या स्वाक्षरीची ओळख",
+  "PAN or Form 60": "PAN किंवा फॉर्म 60",
+  "PAN or Form 60 / Form 61": "PAN किंवा फॉर्म 60 / फॉर्म 61",
+  "PUC certificate": "PUC प्रमाणपत्र",
+  "Passport": "पासपोर्ट",
+  "Permit-specific route or authorization papers": "परमिट-विशिष्ट मार्ग किंवा अधिकृतता कागदपत्रे",
+  Photos: "छायाचित्रे",
+  "Photos if requested by the workflow": "प्रक्रियेनुसार मागितल्यास छायाचित्रे",
+  "Police certificate or FIR": "पोलिस प्रमाणपत्र किंवा FIR",
+  "Police report if the licence is lost": "परवाना हरवला असल्यास पोलिस अहवाल",
+  "Portal-uploaded documents requested by the fitness service": "फिटनेस सेवेनुसार पोर्टलवर मागितलेली अपलोड कागदपत्रे",
+  "Proof of new address": "नवीन पत्त्याचा पुरावा",
+  "Purchase invoice": "खरेदी चलन",
+  RC: "RC",
+  "RC copy": "RC ची प्रत",
+  "Recent passport photos": "अलीकडील पासपोर्ट फोटो",
+  "Recent photographs": "अलीकडील छायाचित्रे",
+  "Road tax payment proof": "रस्ता कर भरल्याचा पुरावा",
+  "Tax payment proof": "कर भरल्याचा पुरावा",
+  "Tax proof": "कराचा पुरावा",
+  "Up-to-date motor vehicle tax proof": "अद्ययावत मोटार कराचा पुरावा",
+  "Valid Indian driving licence": "वैध भारतीय वाहनचालक परवाना",
+  "Valid PUC certificate": "वैध PUC प्रमाणपत्र",
+  "Vehicle papers": "वाहन कागदपत्रे",
+  "Vehicle record details in the portal": "पोर्टलवरील वाहन रेकॉर्ड तपशील",
+  "Vehicle registration details": "वाहन नोंदणी तपशील",
+  "Visa where applicable": "लागू असल्यास व्हिसा",
+  "Affidavit that RC is lost and not impounded": "RC हरवले असून जप्त नसल्याचे प्रतिज्ञापत्र",
+  "Attested photocopy of the old licence if available": "उपलब्ध असल्यास जुन्या परवान्याची सत्यापित प्रत",
+  "Chassis and engine pencil print": "चेसिस आणि इंजिनची पेन्सिल प्रत",
+  "Financier NOC if hypothecated": "तारण असल्यास फायनान्सरचे NOC",
+  "Fitness certificate where applicable": "लागू असल्यास फिटनेस प्रमाणपत्र",
+  "Form 28 if another registering authority jurisdiction is involved": "दुसरे नोंदणी प्राधिकरण लागू असल्यास फॉर्म 28",
+  "Form 34 if financed": "वाहन फायनान्सवर असल्यास फॉर्म 34",
+  "Form 5 for transport category applications": "परिवहन वर्गाच्या अर्जांसाठी फॉर्म 5",
+  "Forms vary: tourist, national, transfer, duplicate, or renewal permit forms": "फॉर्म बदलू शकतात: पर्यटन, राष्ट्रीय, हस्तांतरण, डुप्लिकेट किंवा नूतनीकरण परमिट फॉर्म",
+  "Guardian consent where legally applicable": "कायद्यानुसार लागू असल्यास पालक संमती",
+  "NOC or verification record if the original licence belongs to another state": "मूळ परवाना दुसऱ्या राज्याचा असल्यास NOC किंवा पडताळणी रेकॉर्ड",
+  "Signature identification": "स्वाक्षरीची ओळख",
+  "Some tax workflows depend on permit class or commercial classification": "काही कर प्रक्रियांमध्ये परमिट वर्ग किंवा व्यावसायिक वर्गीकरण महत्त्वाचे असते",
+  "Supporting identity document if requested by the workflow": "प्रक्रियेनुसार मागितल्यास पूरक ओळखपत्र",
+  "Tax clearance and chassis print where applicable": "लागू असल्यास कर क्लिअरन्स आणि चेसिस प्रत",
+  "Temporary registration if applicable": "लागू असल्यास तात्पुरती नोंदणी",
+  "Transport permit / challan / fitness clearances where applicable": "लागू असल्यास परिवहन परमिट / चलन / फिटनेस क्लिअरन्स",
+  "Transport-category medical documents where relevant": "लागू असल्यास परिवहन वर्गातील वैद्यकीय कागदपत्रे",
+  "Vehicle emission test at an authorized PUC center": "अधिकृत PUC केंद्रावर वाहन उत्सर्जन चाचणी",
+  "Vehicle must be physically presented for inspection": "तपासणीसाठी वाहन प्रत्यक्ष सादर करणे आवश्यक आहे",
+  "Additional late fee may apply after the grace period": "ग्रेस कालावधीनंतर अतिरिक्त विलंब शुल्क लागू होऊ शकते",
+  "Address change fee is half of the registration fee": "पत्ता बदल शुल्क नोंदणी शुल्काच्या अर्धे असते",
+  "Duplicate RC fee is half of the registration fee": "डुप्लिकेट RC शुल्क नोंदणी शुल्काच्या अर्धे असते",
+  "Final portal total may include extra charges": "पोर्टलवरील अंतिम रकमेतील अतिरिक्त शुल्क लागू होऊ शकते",
+  "Fitness certificate issue or renewal: Rs. 200": "फिटनेस प्रमाणपत्र जारी / नूतनीकरण: रु. 200",
+  "Goods vehicle state permit fee: Rs. 1000": "मालवाहतूक वाहन राज्य परमिट शुल्क: रु. 1000",
+  "LMV non-transport example: Rs. 300": "LMV नॉन-ट्रान्सपोर्ट उदाहरण: रु. 300",
+  "LMV non-transport example: Rs. 600": "LMV नॉन-ट्रान्सपोर्ट उदाहरण: रु. 600",
+  "Late fee may apply after expiry": "मुदत संपल्यानंतर विलंब शुल्क लागू होऊ शकते",
+  "Maharashtra page shows Rs. 214": "महाराष्ट्र पानानुसार शुल्क रु. 214 दाखवले आहे",
+  "Medium / heavy manual example: Rs. 600": "मध्यम / जड मॅन्युअल उदाहरण: रु. 600",
+  "Medium / heavy vehicle: Rs. 3000": "मध्यम / जड वाहन: रु. 3000",
+  "Motor cab with meter permit fee: Rs. 500": "मीटर असलेल्या मोटर कॅब परमिट शुल्क: रु. 500",
+  "Motor vehicle tax is separate": "मोटार वाहन कर वेगळा असतो",
+  "Motorcycle example: Rs. 150": "मोटरसायकल उदाहरण: रु. 150",
+  "Motorcycle example: Rs. 300": "मोटरसायकल उदाहरण: रु. 300",
+  "Motorcycle manual example: Rs. 200": "मोटरसायकल मॅन्युअल उदाहरण: रु. 200",
+  "Motorcycle: Rs. 500": "मोटरसायकल: रु. 500",
+  "National permit fee: Rs. 1500": "राष्ट्रीय परमिट शुल्क: रु. 1500",
+  "No separate cancellation fee noted in the central fee table for the termination itself": "केंद्रीय शुल्क तक्त्यात फक्त समाप्तीसाठी वेगळे रद्द शुल्क नमूद नाही",
+  "PUC rates vary by center and category": "PUC दर केंद्र आणि वाहन श्रेणीनुसार बदलतात",
+  "Registration fee depends on vehicle class": "नोंदणी शुल्क वाहनाच्या वर्गावर अवलंबून असते",
+  "Renewal uses registration fee rules by vehicle class": "नूतनीकरणासाठी वाहन वर्गानुसार नोंदणी शुल्क नियम लागू होतात",
+  "Rs. 1000": "रु. 1000",
+  "Rs. 150 per class of vehicle": "प्रत्येक वाहन वर्गासाठी रु. 150",
+  "Rs. 200 for change in address / particulars": "पत्ता / तपशील बदलासाठी रु. 200",
+  "Rs. 200 issue of driving licence": "वाहनचालक परवाना जारी शुल्क रु. 200",
+  "Rs. 200 standard renewal fee": "मानक नूतनीकरण शुल्क रु. 200",
+  "Rs. 300 driving competence test fee per class": "प्रत्येक वर्गासाठी ड्रायव्हिंग कौशल्य चाचणी शुल्क रु. 300",
+  "Rs. 300 when renewed after the grace period": "ग्रेस कालावधीनंतर नूतनीकरण केल्यास रु. 300",
+  "Rs. 50 learner's licence test fee": "शिकाऊ परवाना चाचणी शुल्क रु. 50",
+  "Rule 81 fee applies and should be confirmed on the live portal": "नियम 81 नुसार शुल्क लागू होते; अंतिम रक्कम लाईव्ह पोर्टलवर तपासा",
+  "Smart-card fee may also apply": "स्मार्ट कार्ड शुल्कही लागू होऊ शकते",
+  "Smart-card fee may apply separately": "स्मार्ट कार्ड शुल्क वेगळे लागू होऊ शकते",
+  "System-calculated and rule-based, not one flat figure": "ही एकसारखी स्थिर रक्कम नसून प्रणालीद्वारे आणि नियमांनुसार मोजली जाते",
+  "Temporary permit example: Rs. 1000": "तात्पुरते परमिट उदाहरण: रु. 1000",
+  "Test fee varies by class": "चाचणी शुल्क वाहन वर्गानुसार बदलते",
+  "Three-wheeler / LMV manual example: Rs. 400": "त्रिचाकी / LMV मॅन्युअल उदाहरण: रु. 400",
+  "Three-wheeler / quadricycle / LMV: Rs. 1500": "त्रिचाकी / क्वाड्रिसायकल / LMV: रु. 1500",
+  "Tourist cab permit fee: Rs. 1500": "टुरिस्ट कॅब परमिट शुल्क: रु. 1500",
+  "Transfer fee is half of the registration fee": "हस्तांतरण शुल्क नोंदणी शुल्काच्या अर्धे असते",
+  "Any old scan, photo, xerox, or DigiLocker view of the lost driving licence": "हरवलेल्या परवान्याची जुनी स्कॅन प्रत, फोटो, झेरॉक्स किंवा DigiLocker प्रत",
+  "Authorization letter and ID proof if a representative submits the file": "प्रतिनिधी अर्ज देत असल्यास अधिकृतता पत्र आणि ओळख पुरावा",
+  "Authorization letter from the vehicle owner if the test vehicle is borrowed": "चाचणीसाठीचे वाहन उधार असेल तर वाहनमालकाचे अधिकृतता पत्र",
+  "Backup photo and signature files, plus a couple of passport photos if image upload or counter verification fails": "इमेज अपलोड किंवा काउंटर पडताळणी अयशस्वी झाल्यास फोटो, सही फाइल्स आणि काही पासपोर्ट फोटो राखीव ठेवा",
+  "Bank NOC or loan-closure letter in original if finance ever existed": "कधी फायनान्स असले असल्यास बँकेचे मूळ NOC किंवा कर्जबंद पत्र",
+  "Bank sanction letter or finance-agreement copy": "बँकेचे मंजुरीपत्र किंवा फायनान्स कराराची प्रत",
+  "Challan-clearance or tax-receipt printout before applying": "अर्जापूर्वी चलन क्लिअरन्स किंवा कर पावतीची प्रिंट",
+  "Chassis and engine details noted down in case OTP or portal lookup fails": "OTP किंवा पोर्टल शोध अयशस्वी झाल्यास चेसिस आणि इंजिन तपशील लिहून ठेवा",
+  "Chassis pencil print or clear chassis photo if upload or counter verification asks for it": "अपलोड किंवा पडताळणीसाठी मागितल्यास चेसिस पेन्सिल प्रत किंवा स्पष्ट फोटो",
+  "Chassis print or engine number copy ready in case the counter asks": "काउंटरने मागितल्यास चेसिस प्रत किंवा इंजिन क्रमांकाची प्रत तयार ठेवा",
+  "Current permit copy and previous permit or renewal paper if any": "सध्याच्या परमिटची प्रत आणि उपलब्ध असल्यास जुने परमिट / नूतनीकरण कागद",
+  "Delivery note, temporary registration, or booking receipt as backup to the invoice": "इनव्हॉइससोबत बॅकअप म्हणून डिलिव्हरी नोट, तात्पुरती नोंदणी किंवा बुकिंग पावती",
+  "Extra FIR, NCR, or police-diary acknowledgement copies": "अतिरिक्त FIR, NCR किंवा पोलिस नोंदीच्या acknowledgement प्रती",
+  "Extra passport photos and a doctor-stamped Form 1A copy": "अतिरिक्त पासपोर्ट फोटो आणि डॉक्टरांनी सही केलेली फॉर्म 1A प्रत",
+  "Extra signed Form 28 copies and address proof for the next-state process": "पुढील राज्य प्रक्रियेसाठी अतिरिक्त सही केलेल्या फॉर्म 28 प्रती आणि पत्त्याचा पुरावा",
+  "Fresh passport photo and signature scan matching the portal size rules": "पोर्टलच्या आकार नियमांनुसार नवा पासपोर्ट फोटो आणि सही स्कॅन",
+  "Front-and-back copy or clear photo of the old driving licence because some users report DigiLocker PDF alone gets held": "काही प्रकरणांत DigiLocker PDF पुरेसा नसल्याने जुन्या परवान्याची पुढील-मागील प्रत किंवा स्पष्ट फोटो ठेवा",
+  "Green tax receipt or older-vehicle compliance receipt where applicable": "लागू असल्यास ग्रीन टॅक्स पावती किंवा जुन्या वाहनाच्या अनुपालनाची पावती",
+  "Hard-copy set of RC, insurance, permit, tax, and PUC papers": "RC, विमा, परमिट, कर आणि PUC कागदपत्रांचा हार्ड-कॉपी संच",
+  "Hard-copy set of insurance, fitness, tax, PUC, and challan-clearance papers": "विमा, फिटनेस, कर, PUC आणि चलन-क्लिअरन्स कागदपत्रांचा हार्ड-कॉपी संच",
+  "Insurance, RC, and permit or fitness copies if the taxable category is disputed": "कर श्रेणीवर वाद असल्यास विमा, RC आणि परमिट / फिटनेसच्या प्रती",
+  "Loan-closure letter or bank covering letter": "कर्जबंद पत्र किंवा बँकेचे कव्हरिंग लेटर",
+  "Old RC photo, mParivahan screenshot, or insurance copy to recover record details": "रेकॉर्ड तपशील शोधण्यासाठी जुना RC फोटो, mParivahan स्क्रीनशॉट किंवा विम्याची प्रत",
+  "Old address-linked ID or previous RC copy if spelling or format differs": "स्पेलिंग किंवा स्वरूप वेगळे असल्यास जुन्या पत्त्याशी जोडलेले ओळखपत्र किंवा मागील RC प्रत",
+  "Old application number or prior learner acknowledgement if the portal flags multiple learner records": "पोर्टलवर अनेक learner records दिसल्यास जुना अर्ज क्रमांक किंवा पूर्वीचे acknowledgement",
+  "Old driving licence front-and-back photocopy": "जुन्या वाहनचालक परवान्याची पुढील-मागील झेरॉक्स प्रत",
+  "Original PAN and address proof even if the dealer has already uploaded copies": "डिलरने प्रत अपलोड केली असली तरी मूळ PAN आणि पत्त्याचा पुरावा",
+  "Original RC plus a photocopy set": "मूळ RC आणि त्याच्या छायाप्रतींचा संच",
+  "Original RC plus hard copies of insurance, PUC, and tax receipts": "मूळ RC आणि विमा, PUC व कर पावत्यांच्या हार्ड-कॉपी प्रती",
+  "Original RC plus spare xeroxes of insurance and PUC": "मूळ RC आणि विमा व PUC च्या अतिरिक्त झेरॉक्स प्रती",
+  "Original RC plus xeroxes of insurance, PUC, and ID proof": "मूळ RC आणि विमा, PUC व ओळख पुराव्याच्या झेरॉक्स प्रती",
+  "Original RC plus xeroxes of insurance, PUC, and new address proof": "मूळ RC आणि विमा, PUC व नवीन पत्ता पुराव्याच्या झेरॉक्स प्रती",
+  "Original RC, insurance, and PUC of the vehicle used for the test": "चाचणीसाठी वापरल्या जाणाऱ्या वाहनाचे मूळ RC, विमा आणि PUC",
+  "Original address proof plus one self-attested photocopy set": "मूळ पत्ता पुरावा आणि एक स्व-प्रमाणित छायाप्रती संच",
+  "Original age and address proofs plus one self-attested photocopy set": "मूळ वय व पत्ता पुरावा आणि एक स्व-प्रमाणित छायाप्रती संच",
+  "Original bank NOC or due-clearance letter and both signed copies of Form 35": "बँकेचे मूळ NOC किंवा ड्यू-क्लिअरन्स पत्र आणि फॉर्म 35 च्या दोन्ही सही केलेल्या प्रती",
+  "Original learner's licence plus one photocopy": "मूळ शिकाऊ परवाना आणि एक छायाप्रत",
+  "Original new address proof plus one self-attested copy set": "मूळ नवीन पत्ता पुरावा आणि एक स्व-प्रमाणित प्रत संच",
+  "Original passport and physical driving licence for counter verification": "काउंटर पडताळणीसाठी मूळ पासपोर्ट आणि भौतिक वाहनचालक परवाना",
+  "Owner ID if someone else takes the vehicle for testing": "दुसरा कोणी वाहन चाचणीसाठी नेत असल्यास मालकाचा ओळख पुरावा",
+  "Owner or driver ID proof and authorization letter if a representative attends": "प्रतिनिधी उपस्थित असल्यास मालक किंवा चालकाचा ओळख पुरावा आणि अधिकृतता पत्र",
+  "Previous PUC copy or photo to avoid number-entry mistakes": "क्रमांक चुकू नयेत म्हणून मागील PUC ची प्रत किंवा फोटो",
+  "Previous tax receipt, challan, or DD copy as backup": "बॅकअप म्हणून जुनी कर पावती, चलन किंवा DD ची प्रत",
+  "Printed acknowledgement or payment receipt": "प्रिंटेड acknowledgement किंवा पेमेंट पावती",
+  "Printed and digital PUC copy because downstream RTO counters often ask for a hard copy": "पुढील RTO काउंटरवर हार्ड कॉपी मागितली जाते म्हणून PUC ची प्रिंटेड व डिजिटल प्रत ठेवा",
+  "Printed application or learner-test appointment receipt": "प्रिंटेड अर्ज किंवा learner test अपॉइंटमेंट पावती",
+  "Printed application receipt and an extra signed copy of Form 34": "प्रिंटेड अर्ज पावती आणि फॉर्म 34 ची एक अतिरिक्त सही केलेली प्रत",
+  "Printed application receipt and extra passport photos": "प्रिंटेड अर्ज पावती आणि अतिरिक्त पासपोर्ट फोटो",
+  "Printed application receipt because some users report extra speed-post or hard-copy submission steps": "काही प्रकरणांत अतिरिक्त speed post किंवा हार्ड-कॉपी सबमिशन लागू होत असल्याने प्रिंटेड अर्ज पावती ठेवा",
+  "Printed appointment or acknowledgement and fee receipt": "प्रिंटेड अपॉइंटमेंट किंवा acknowledgement आणि फी पावती",
+  "Printed appointment slip and payment receipt": "प्रिंटेड अपॉइंटमेंट स्लिप आणि पेमेंट पावती",
+  "Printed driving-test appointment slip and fee receipt": "प्रिंटेड ड्रायव्हिंग टेस्ट अपॉइंटमेंट स्लिप आणि फी पावती",
+  "Printed fee receipt, acknowledgement, and extra copies of the signed forms": "प्रिंटेड फी पावती, acknowledgement आणि सही केलेल्या फॉर्मच्या अतिरिक्त प्रती",
+  "Printed payment receipt after online payment": "ऑनलाइन पेमेंटनंतर प्रिंटेड पेमेंट पावती",
+  "RC or insurance copy if the PUC center needs vehicle details": "PUC केंद्राला वाहन तपशील लागल्यास RC किंवा विम्याची प्रत",
+  "Registered rent agreement plus landlord NOC or utility bill where address proof is rental-based": "भाडेकरार-आधारित पत्ता पुरावा असल्यास नोंदणीकृत भाडेकरार, मालकाचे NOC किंवा युटिलिटी बिल",
+  "Registered rent agreement, landlord NOC, or utility bill for rental addresses": "भाड्याच्या पत्त्यासाठी नोंदणीकृत भाडेकरार, मालकाचे NOC किंवा युटिलिटी बिल",
+  "Registered rent agreement, landlord NOC, or utility bill where rent-based proof is questioned": "भाडे-आधारित पत्ता पुराव्यावर शंका असल्यास नोंदणीकृत भाडेकरार, मालकाचे NOC किंवा युटिलिटी बिल",
+  "Route authorization, contract carriage list, or passenger endorsement papers as per permit type": "परमिट प्रकारानुसार मार्ग अधिकृतता, कॉन्ट्रॅक्ट कॅरेज सूची किंवा प्रवासी अनुमोदन कागदपत्रे",
+  "Self-attested ID and address proof copies": "स्व-प्रमाणित ओळख आणि पत्ता पुराव्यांच्या प्रती",
+  "Self-attested ID and address proof copies with the payment receipt": "पेमेंट पावतीसोबत स्व-प्रमाणित ओळख आणि पत्ता पुराव्यांच्या प्रती",
+  "Self-attested copies of RC, insurance, PUC, and PAN or Aadhaar": "RC, विमा, PUC आणि PAN किंवा Aadhaar यांच्या स्व-प्रमाणित प्रती",
+  "Self-attested copies of passport, visa, air ticket, and Indian driving licence": "पासपोर्ट, व्हिसा, विमानतिकीट आणि भारतीय वाहनचालक परवान्याच्या स्व-प्रमाणित प्रती",
+  "Seller and buyer ID proof copies with self-attestation": "विक्रेता आणि खरेदीदाराच्या ओळख पुराव्यांच्या स्व-प्रमाणित प्रती",
+  "Seller authorization or delivery note if one party is not visiting in person": "एखादा पक्ष प्रत्यक्ष येत नसेल तर विक्रेत्याचे अधिकृतता पत्र किंवा डिलिव्हरी नोट",
+  "Spare copies of FIR, NCR, or police acknowledgement": "FIR, NCR किंवा पोलिस acknowledgement च्या अतिरिक्त प्रती",
+  "Spare copies of invoice, insurance, and tax receipt for dealer or RTO counters": "डिलर किंवा RTO काउंटरसाठी invoice, विमा आणि कर पावतीच्या अतिरिक्त प्रती",
+  "Spare photocopies because inspection counters may still ask for paper sets": "तपासणी काउंटरवर अजूनही कागदी संच मागितले जाऊ शकतात म्हणून अतिरिक्त छायाप्रती ठेवा",
+  "Tax receipt and challan-clearance print if the office checks pending dues": "प्रलंबित देय तपासले गेल्यास कर पावती आणि चलन-क्लिअरन्सची प्रिंट",
+  "Travel itinerary printout if ticket or visa details are awkward to show on phone": "तिकीट किंवा व्हिसा तपशील फोनवर दाखवणे अवघड असल्यास प्रवास आराखड्याची प्रिंट"
+};
+
+const marathiSourceLabelByEnglish = {
+  "Form 25 - RC Renewal Form": "फॉर्म 25 - RC नूतनीकरण फॉर्म",
+  "Maharashtra Services Status PDF": "महाराष्ट्र सेवा स्थिती PDF",
+  "Maharashtra Transport": "महाराष्ट्र परिवहन",
+  "Maharashtra Transport - DL Renewal": "महाराष्ट्र परिवहन - DL नूतनीकरण",
+  "Maharashtra Transport - Duplicate DL": "महाराष्ट्र परिवहन - डुप्लिकेट DL",
+  "Maharashtra Transport - Faceless Services": "महाराष्ट्र परिवहन - फेसलेस सेवा",
+  "Maharashtra Transport - International Driving Permit": "महाराष्ट्र परिवहन - आंतरराष्ट्रीय वाहनचालक परवाना",
+  "Maharashtra Transport - Learning Licence": "महाराष्ट्र परिवहन - शिकाऊ परवाना",
+  "Maharashtra Transport - New Vehicle Registration": "महाराष्ट्र परिवहन - नवीन वाहन नोंदणी",
+  "Maharashtra Transport - No Objection Certificate": "महाराष्ट्र परिवहन - ना हरकत प्रमाणपत्र",
+  "Maharashtra Transport - Permanent Licence": "महाराष्ट्र परिवहन - कायम परवाना",
+  "Maharashtra Transport - Permit Fees": "महाराष्ट्र परिवहन - परमिट शुल्क",
+  "Maharashtra Transport - Rate of Vehicle Tax": "महाराष्ट्र परिवहन - वाहन कर दर",
+  "Maharashtra Transport - Registration Fees": "महाराष्ट्र परिवहन - नोंदणी शुल्क",
+  "Maharashtra Transport - Tax Calculation": "महाराष्ट्र परिवहन - कर गणना",
+  "Maharashtra Transport - Transfer Of Ownership": "महाराष्ट्र परिवहन - मालकी हस्तांतरण",
+  "Parivahan - Address Change": "परिवहन - पत्ता बदल",
+  "Parivahan - Duplicate RC": "परिवहन - डुप्लिकेट RC",
+  "Parivahan - Fitness Certificate Step By Step PDF": "परिवहन - फिटनेस प्रमाणपत्र टप्प्याटप्प्याने PDF",
+  "Parivahan - Form 45 (Permit Form Example)": "परिवहन - फॉर्म 45 (परमिट फॉर्म उदाहरण)",
+  "Parivahan - HP Endorsement": "परिवहन - तारण नोंद",
+  "Parivahan - HP Termination": "परिवहन - तारण समाप्ती",
+  "Parivahan - Licensing Related Fees and Charges": "परिवहन - परवाना संबंधित शुल्क आणि आकार",
+  "Parivahan - NOC": "परिवहन - NOC",
+  "Parivahan - Ownership Transfer": "परिवहन - मालकी हस्तांतरण",
+  Sarathi: "सारथी",
+  Vahan: "वाहन"
+};
+
+const marathiFormTitleByEnglish = {
+  "Application-cum-declaration as to physical fitness": "शारीरिक तंदुरुस्तीबाबत अर्ज व स्वघोषणा",
+  "Medical Certificate": "वैद्यकीय प्रमाणपत्र",
+  "Application for learner's licence / driving licence / renewal / change of address": "शिकाऊ परवाना / वाहनचालक परवाना / नूतनीकरण / पत्ता बदल यासाठी अर्ज",
+  "Application for Licence to Drive": "वाहन चालवण्याच्या परवान्यासाठी अर्ज",
+  "Application for International Driving Permit": "आंतरराष्ट्रीय वाहनचालक परवान्यासाठी अर्ज",
+  "Driving Certificate issued by Driving School or Establishment": "ड्रायव्हिंग स्कूल किंवा संस्थेकडून दिलेले ड्रायव्हिंग प्रमाणपत्र",
+  "Application for Renewal of Driving Licence": "वाहनचालक परवाना नूतनीकरणासाठी अर्ज",
+  "Application for Registration of a Motor Vehicle": "मोटार वाहन नोंदणीसाठी अर्ज",
+  "Application for Renewal of Certificate of Registration": "नोंदणी प्रमाणपत्र नूतनीकरणासाठी अर्ज",
+  "Application for the Issue of Duplicate Certificate of Registration": "डुप्लिकेट नोंदणी प्रमाणपत्रासाठी अर्ज",
+  "Application and Grant of No Objection Certificate": "ना हरकत प्रमाणपत्रासाठी अर्ज आणि मंजुरी",
+  "Notice of Transfer of Ownership of a Motor Vehicle": "मोटार वाहन मालकी हस्तांतरणाची सूचना",
+  "Application for Intimation and Transfer of Ownership": "मालकी बदल कळविणे आणि हस्तांतरणासाठी अर्ज",
+  "Intimation of Change of Address in RC": "RC मधील पत्ता बदलाची सूचना",
+  "Application for Making an Entry of Hire-Purchase / Lease / Hypothecation": "हायर-परचेस / लीज / तारण नोंद करण्यासाठी अर्ज",
+  "Notice of Termination of Hire-Purchase / Lease / Hypothecation": "हायर-परचेस / लीज / तारण समाप्तीची सूचना",
+  "Certificate of Fitness": "फिटनेस प्रमाणपत्र",
+  "Report of Inspection": "तपासणी अहवाल",
+  "Form 45": "फॉर्म 45",
+  "Form 46": "फॉर्म 46",
+  "Form 47": "फॉर्म 47",
+  "Form 48": "फॉर्म 48",
+  "Form 59 certificate format on the official system side": "अधिकृत प्रणालीतील फॉर्म 59 प्रमाणपत्र नमुना",
+  LLD: "LLD"
+};
+
+const marathiFormUsedForByEnglish = {
+  "Learner's licence and other licence-side workflows where self-declaration is applicable.": "स्वघोषणा लागू असलेल्या शिकाऊ परवाना आणि इतर परवाना प्रक्रियांमध्ये वापरले जाते.",
+  "Driving licence renewal, IDP, and other cases needing medical certification.": "वाहनचालक परवाना नूतनीकरण, IDP आणि वैद्यकीय प्रमाणपत्र लागणाऱ्या इतर प्रकरणांसाठी.",
+  "Learner's licence and DL-side application flows.": "शिकाऊ परवाना आणि DL संबंधित अर्ज प्रक्रियांसाठी.",
+  "Permanent driving licence and related DL issue flows.": "कायम वाहनचालक परवाना आणि संबंधित DL जारी प्रक्रियांसाठी.",
+  "International Driving Permit applications.": "आंतरराष्ट्रीय वाहनचालक परवाना अर्जांसाठी.",
+  "Transport-category driving licence cases where training certification is required.": "प्रशिक्षण प्रमाणपत्र आवश्यक असलेल्या परिवहन वर्ग वाहनचालक परवाना प्रकरणांसाठी.",
+  "Driving licence renewal.": "वाहनचालक परवाना नूतनीकरणासाठी.",
+  "New vehicle registration.": "नवीन वाहन नोंदणीसाठी.",
+  "RC renewal.": "RC नूतनीकरणासाठी.",
+  "Duplicate RC.": "डुप्लिकेट RC साठी.",
+  "NOC for moving or transferring a vehicle across jurisdiction.": "वाहन दुसऱ्या क्षेत्रात हलवणे किंवा हस्तांतरित करण्यासाठी NOC साठी.",
+  "Transfer of vehicle ownership.": "वाहन मालकी हस्तांतरणासाठी.",
+  "Transfer of ownership after sale.": "विक्रीनंतर मालकी हस्तांतरणासाठी.",
+  "Address change in registration certificate.": "नोंदणी प्रमाणपत्रातील पत्ता बदलासाठी.",
+  "Hypothecation or finance entry in RC.": "RC मधील तारण किंवा फायनान्स नोंदीसाठी.",
+  "Hypothecation removal after loan closure.": "कर्जफेडीनंतर तारण काढण्यासाठी.",
+  "Fitness certificate cases, mainly for transport vehicles.": "मुख्यतः परिवहन वाहनांच्या फिटनेस प्रमाणपत्र प्रकरणांसाठी.",
+  "Inspection report linked to transport vehicle fitness workflows.": "परिवहन वाहन फिटनेस प्रक्रियेशी संबंधित तपासणी अहवालासाठी."
+};
+
+const marathiFormLookupHintByEnglish = {
+  "Open the official driving-licence forms page and look for Form 1 if the PDF does not open directly.": "PDF थेट उघडला नाही तर अधिकृत ड्रायव्हिंग-लायसन्स फॉर्म पानावर फॉर्म 1 शोधा.",
+  "Open the official driving-licence forms page and look for Form 1A if the PDF does not open directly.": "PDF थेट उघडला नाही तर अधिकृत ड्रायव्हिंग-लायसन्स फॉर्म पानावर फॉर्म 1A शोधा.",
+  "Open the official driving-licence forms page and look for Form 2 if the PDF does not open directly.": "PDF थेट उघडला नाही तर अधिकृत ड्रायव्हिंग-लायसन्स फॉर्म पानावर फॉर्म 2 शोधा.",
+  "Open the official driving-licence forms page and look for Form 4 if the PDF does not open directly.": "PDF थेट उघडला नाही तर अधिकृत ड्रायव्हिंग-लायसन्स फॉर्म पानावर फॉर्म 4 शोधा.",
+  "Open the official driving-licence forms page and look for Form 4A if the PDF does not open directly.": "PDF थेट उघडला नाही तर अधिकृत ड्रायव्हिंग-लायसन्स फॉर्म पानावर फॉर्म 4A शोधा.",
+  "Open the official licence guidance page and look for Form 5 if the PDF does not open directly.": "PDF थेट उघडला नाही तर अधिकृत परवाना मार्गदर्शन पानावर फॉर्म 5 शोधा.",
+  "Open the official driving-licence forms page and search for Form 9 on Parivahan.": "अधिकृत ड्रायव्हिंग-लायसन्स फॉर्म पानावर परिवहनमध्ये फॉर्म 9 शोधा.",
+  "Open the official vehicle-registration forms page and look for Form 20 if the PDF does not open directly.": "PDF थेट उघडला नाही तर अधिकृत वाहन-नोंदणी फॉर्म पानावर फॉर्म 20 शोधा.",
+  "Open the official vehicle-registration forms page and look for Form 25 if the PDF does not open directly.": "PDF थेट उघडला नाही तर अधिकृत वाहन-नोंदणी फॉर्म पानावर फॉर्म 25 शोधा.",
+  "Open the official vehicle-registration forms page and search for Form 26 on Parivahan.": "अधिकृत वाहन-नोंदणी फॉर्म पानावर परिवहनमध्ये फॉर्म 26 शोधा.",
+  "Open the official vehicle-registration forms page and search for Form 28 on Parivahan.": "अधिकृत वाहन-नोंदणी फॉर्म पानावर परिवहनमध्ये फॉर्म 28 शोधा.",
+  "Open the official vehicle-registration forms page and search for Form 29 on Parivahan.": "अधिकृत वाहन-नोंदणी फॉर्म पानावर परिवहनमध्ये फॉर्म 29 शोधा.",
+  "Open the official vehicle-registration forms page and search for Form 30 on Parivahan.": "अधिकृत वाहन-नोंदणी फॉर्म पानावर परिवहनमध्ये फॉर्म 30 शोधा.",
+  "Open the official vehicle-registration forms page and look for Form 33 if the PDF does not open directly.": "PDF थेट उघडला नाही तर अधिकृत वाहन-नोंदणी फॉर्म पानावर फॉर्म 33 शोधा.",
+  "Open the official vehicle-registration forms page and search for Form 34 on Parivahan.": "अधिकृत वाहन-नोंदणी फॉर्म पानावर परिवहनमध्ये फॉर्म 34 शोधा.",
+  "Open the official vehicle-registration forms page and look for Form 35 if the PDF does not open directly.": "PDF थेट उघडला नाही तर अधिकृत वाहन-नोंदणी फॉर्म पानावर फॉर्म 35 शोधा.",
+  "Open the official vehicle-registration forms page and search for Form 38 on Parivahan.": "अधिकृत वाहन-नोंदणी फॉर्म पानावर परिवहनमध्ये फॉर्म 38 शोधा.",
+  "Open the official vehicle-registration forms page and look for Form 38A if the PDF does not open directly.": "PDF थेट उघडला नाही तर अधिकृत वाहन-नोंदणी फॉर्म पानावर फॉर्म 38A शोधा."
+};
+
+function translateGeneratedLineMr(text) {
+  if (!text) {
+    return text;
+  }
+
+  if (marathiGeneratedTextByEnglish[text]) {
+    return marathiGeneratedTextByEnglish[text];
+  }
+
+  if (/^Form \d+[A-Z]?$/.test(text)) {
+    return text.replace(/^Form /, "फॉर्म ");
+  }
+
+  return text;
+}
+
+function translateGeneratedListMr(items) {
+  return (items || []).map((item) => translateGeneratedLineMr(item));
+}
+
+function translateSourceRefsMr(items) {
+  return (items || []).map((item) => ({
+    ...item,
+    label: marathiSourceLabelByEnglish[item.label] || item.label
+  }));
+}
+
+function translateFormLabelMr(label) {
+  if (!label) {
+    return label;
+  }
+
+  if (/^Form /.test(label)) {
+    return label.replace(/^Form /, "फॉर्म ");
+  }
+
+  return translateGeneratedLineMr(label);
+}
+
+function translateOfficialFormsMr(items) {
+  return (items || []).map((form) => ({
+    ...form,
+    label: translateFormLabelMr(form.label),
+    title: marathiFormTitleByEnglish[form.title] || form.title
+  }));
+}
+
+function translateMainFormsSummaryMr(summary) {
+  if (!summary) {
+    return summary;
+  }
+
+  if (summary === "Mostly portal-driven") {
+    return "मुख्यतः पोर्टल-आधारित";
+  }
+
+  return summary.replaceAll("Form ", "फॉर्म ").replaceAll(" and ", " आणि ").replace(/, and (\d+) more$/, ", आणि आणखी $1");
+}
+
+function translateMainFormsCountLabelMr(label) {
+  if (!label) {
+    return label;
+  }
+
+  if (label === "Portal-driven") {
+    return "पोर्टल-आधारित";
+  }
+
+  if (label === "1 main form") {
+    return "1 मुख्य फॉर्म";
+  }
+
+  const match = label.match(/^(\d+) main forms$/);
+  if (match) {
+    return `${match[1]} मुख्य फॉर्म`;
+  }
+
+  return label;
+}
+
+function translateStatusTextMr(text) {
+  const map = {
+    "Faceless-enabled in supported Maharashtra cases": "महाराष्ट्रातील समर्थित प्रकरणांमध्ये फेसलेस-सक्षम",
+    "Online application plus RTO test": "ऑनलाइन अर्ज आणि RTO चाचणी",
+    "Faceless-enabled with exception handling": "अपवादात्मक पडताळणीसह फेसलेस-सक्षम",
+    "Online-first, verification may still happen": "ऑनलाइन-प्राधान्य, तरीही पडताळणी लागू होऊ शकते",
+    "Faceless-enabled in Maharashtra": "महाराष्ट्रात फेसलेस-सक्षम",
+    "Apply online, verify in person": "ऑनलाइन अर्ज, प्रत्यक्ष पडताळणी",
+    "Dealer-assisted or Vahan-linked registration flow": "डिलर-सहाय्यित किंवा Vahan-आधारित नोंदणी प्रक्रिया",
+    "Online Vahan flow with document verification": "कागदपत्र पडताळणीसह ऑनलाइन Vahan प्रक्रिया",
+    "Vahan service with clearance checks": "क्लिअरन्स तपासणीसह Vahan सेवा",
+    "Vahan service with possible appointment": "संभाव्य अपॉइंटमेंटसह Vahan सेवा",
+    "Online-first with supporting records": "पूरक रेकॉर्डसह ऑनलाइन-प्राधान्य",
+    "Vahan faceless-style flow with document upload": "कागदपत्र अपलोडसह Vahan फेसलेस-शैली प्रक्रिया",
+    "Vahan record update service": "Vahan रेकॉर्ड अपडेट सेवा",
+    "Vahan service with bank clearance dependency": "बँक क्लिअरन्सवर अवलंबून असलेली Vahan सेवा",
+    "Vahan workflow plus inspection appointment": "Vahan प्रक्रिया आणि तपासणी अपॉइंटमेंट",
+    "Permit portal with scrutiny-heavy workflows": "छाननी-आधारित परमिट पोर्टल प्रक्रिया",
+    "Online calculation and payment": "ऑनलाइन गणना आणि पेमेंट",
+    "Compliance support item": "अनुपालन-संबंधित मदत घटक",
+    "Usually not required first": "सुरुवातीला सहसा आवश्यक नाही",
+    Required: "आवश्यक",
+    Sometimes: "कधी कधी",
+    "Usually no": "साधारणपणे नाही",
+    "Possible in exception cases": "अपवादात्मक प्रकरणांत शक्य",
+    "Possible for record mismatch": "रेकॉर्ड विसंगती असल्यास शक्य",
+    "Yes or office scheduling as required": "होय किंवा कार्यालयीन वेळापत्रकानुसार",
+    "Depends on case": "प्रकरणावर अवलंबून",
+    Often: "बहुतेक वेळा",
+    Possible: "शक्य",
+    "Varies by permit type": "परमिट प्रकारानुसार बदलते",
+    No: "नाही",
+    "No vehicle inspection": "वाहन तपासणी नाही",
+    "No vehicle inspection, but driving test required": "वाहन तपासणी नाही, परंतु ड्रायव्हिंग टेस्ट आवश्यक",
+    "Vehicle inspection may be required": "वाहन तपासणी लागू होऊ शकते",
+    "Usually yes directly or through dealer process": "साधारणपणे होय, थेट किंवा डिलर प्रक्रियेद्वारे",
+    "Vehicle inspection required": "वाहन तपासणी आवश्यक",
+    "Can be part of certain permit cases": "काही परमिट प्रकरणांत लागू होऊ शकते",
+    "Emission testing happens at authorized PUC points, not usually at the RTO service step": "उत्सर्जन चाचणी अधिकृत PUC केंद्रावर होते; RTO प्रक्रियेच्या टप्प्यावर सहसा नाही"
+  };
+
+  return map[text] || text;
 }
 
 const marathiServiceById = {
@@ -3665,8 +4087,14 @@ const marathiServiceById = {
 };
 
 const marathiOfficeByCode = {
-  "MH-11": { noteMr: "तुमचे विद्यमान रेकॉर्ड किंवा अधिकृत पोर्टल राउटिंग MH-11 दाखवत असेल तर हे कार्यालय वापरा." },
-  "MH-50": { noteMr: "तुमचे विद्यमान DL किंवा RC आधीपासून MH-50 शी जोडलेले असेल किंवा पोर्टलने केस येथे दिली असेल तर हे कार्यालय वापरा." }
+  "MH-11": {
+    nameMr: "उप प्रादेशिक परिवहन कार्यालय, सातारा",
+    noteMr: "तुमचे विद्यमान रेकॉर्ड किंवा अधिकृत पोर्टल राउटिंग MH-11 दाखवत असेल तर हे कार्यालय वापरा."
+  },
+  "MH-50": {
+    nameMr: "उप प्रादेशिक परिवहन कार्यालय, कराड",
+    noteMr: "तुमचे विद्यमान DL किंवा RC आधीपासून MH-50 शी जोडलेले असेल किंवा पोर्टलने केस येथे दिली असेल तर हे कार्यालय वापरा."
+  }
 };
 
 const marathiCategoryById = {
@@ -3794,6 +4222,21 @@ window.siteData.offices = window.siteData.offices.map((office) => ({
   ...(marathiOfficeByCode[office.code] || {})
 }));
 
+window.siteData.formLibrary = window.siteData.formLibrary.map((form) => ({
+  ...form,
+  titleMr: marathiFormTitleByEnglish[form.title] || form.title,
+  usedForMr: marathiFormUsedForByEnglish[form.usedFor] || form.usedFor,
+  lookupHintMr: marathiFormLookupHintByEnglish[form.lookupHint] || form.lookupHint,
+  categoryMr:
+    form.category === "Licence Forms"
+      ? "परवाना फॉर्म"
+      : form.category === "Vehicle Forms"
+        ? "वाहन फॉर्म"
+        : form.category === "Fitness Forms"
+          ? "फिटनेस फॉर्म"
+          : form.category
+}));
+
 window.siteData.categories = window.siteData.categories.map((category) => ({
   ...category,
   ...(marathiCategoryById[category.id] || {})
@@ -3805,6 +4248,23 @@ Object.keys(marathiPlannerOptions).forEach((groupKey) => {
     ...(marathiPlannerOptions[groupKey][option.id] || {})
   }));
 });
+
+window.siteData.services = window.siteData.services.map((service) => ({
+  ...service,
+  practicalDocsMr: translateGeneratedListMr(service.practicalDocs),
+  officialRequiredDocsMr: translateGeneratedListMr(service.officialRequiredDocs),
+  officialAdditionalDocsMr: translateGeneratedListMr(service.officialAdditionalDocs),
+  officialFeeNotesMr: translateGeneratedListMr(service.officialFeeNotes),
+  officialFormsMr: translateOfficialFormsMr(service.officialForms),
+  officialSourceRefsMr: translateSourceRefsMr(service.officialSourceRefs),
+  mainFormsSummaryMr: translateMainFormsSummaryMr(service.mainFormsSummary),
+  mainFormsCountLabelMr: translateMainFormsCountLabelMr(service.mainFormsCountLabel),
+  modeMr: translateStatusTextMr(service.mode),
+  appointmentMr: translateStatusTextMr(service.appointment),
+  officeVisitMr: translateStatusTextMr(service.officeVisit),
+  inspectionMr: translateStatusTextMr(service.inspection),
+  inspectionSummaryMr: translateStatusTextMr(service.inspectionSummary)
+}));
 
 window.siteData.faqCategories = ["Licence", "RC & Vehicle", "Transfer & NOC", "General"];
 

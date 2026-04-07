@@ -61,8 +61,8 @@
         (office) => `
           <article class="office-page-card">
             <p class="eyebrow">${office.code}</p>
-            <h2>${office.name}</h2>
-            <p>${office.address}</p>
+            <h2>${pickLocalized(office, "name") || office.name}</h2>
+            <p>${pickLocalized(office, "address") || office.address}</p>
             <ul class="content-list">
               <li><strong>${getLanguage() === "mr" ? "फोन" : "Phone"}:</strong> <a href="${createPhoneHref(office.phone)}">${office.phone}</a></li>
               <li><strong>${getLanguage() === "mr" ? "ईमेल" : "Email"}:</strong> <a href="mailto:${office.email}">${office.email}</a></li>
@@ -89,8 +89,8 @@
         <h2>${t("guide.labels.officeReferenceTitle", "Official RTO office reference")}</h2>
         <ul class="content-list">
           <li>${getLanguage() === "mr" ? "तुमच्या विद्यमान DL किंवा RC वरील कार्यालय कोड आधी वापरा." : "Use the office code on your existing DL or RC first."}</li>
-          <li>${getLanguage() === "mr" ? `रेकॉर्डवर ${satara.code} असेल तर ${satara.name} येथे सुरू करा.` : `If your record points to ${satara.code}, start with ${satara.name}.`}</li>
-          <li>${getLanguage() === "mr" ? `रेकॉर्डवर ${karad.code} असेल तर ${karad.name} येथे सुरू करा.` : `If your record points to ${karad.code}, start with ${karad.name}.`}</li>
+          <li>${getLanguage() === "mr" ? `रेकॉर्डवर ${satara.code} असेल तर ${pickLocalized(satara, "name") || satara.name} येथे सुरू करा.` : `If your record points to ${satara.code}, start with ${satara.name}.`}</li>
+          <li>${getLanguage() === "mr" ? `रेकॉर्डवर ${karad.code} असेल तर ${pickLocalized(karad, "name") || karad.name} येथे सुरू करा.` : `If your record points to ${karad.code}, start with ${karad.name}.`}</li>
           <li>${getLanguage() === "mr" ? "अजूनही खात्री नसेल तर पेमेंटपूर्वी अधिकृत पोर्टलवर कार्यालय तपासा." : "If you are still unsure, confirm the office on the official portal before payment."}</li>
         </ul>
       </article>

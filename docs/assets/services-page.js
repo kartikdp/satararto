@@ -129,7 +129,7 @@
             <div class="service-card-meta">
               <span>${pickLocalized(service, "serviceLabel") || service.serviceLabel}</span>
               <span>${t("guide.labels.startOn", "Start on")} ${getPortalLabel(service)}</span>
-              <span>${t("guide.labels.officeVisit", "Office visit")}: ${service.officeVisit}</span>
+              <span>${t("guide.labels.officeVisit", "Office visit")}: ${pickLocalized(service, "officeVisit") || service.officeVisit}</span>
             </div>
             ${service.commonConfusion ? `<p class="service-card-note">${service.commonConfusion}</p>` : ""}
             <div class="service-card-actions">
