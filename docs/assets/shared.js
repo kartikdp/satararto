@@ -559,21 +559,9 @@
             <li><strong>Use this when:</strong> ${service.bestFor}</li>
             <li><strong>Start with:</strong> ${service.recommendedAction}</li>
             <li><strong>Office guidance:</strong> ${officeGuidance}</li>
+            ${selectedOffice ? `<li><strong>Selected office:</strong> ${selectedOffice.name}</li>` : ""}
           </ul>
         </article>
-        ${
-          selectedOffice
-            ? `
-              <article class="summary-card summary-card-office">
-                <h3>Selected office</h3>
-                <p><strong>${selectedOffice.name}</strong></p>
-                <p>${selectedOffice.address}</p>
-                <p><a href="${createPhoneHref(selectedOffice.phone)}">${selectedOffice.phone}</a></p>
-                <p><a href="mailto:${selectedOffice.email}">${selectedOffice.email}</a></p>
-              </article>
-            `
-            : ""
-        }
       </div>
     `;
   }
@@ -626,6 +614,7 @@
   function renderDocumentsSection(service, state) {
     const conditional = getConditionalDocs(service, state);
     const practicalDocs = service.practicalDocs || [];
+    const officialAdditionalDocs = dedupeList([...(service.officialAdditionalDocs || []), ...(conditional.docs || [])]);
 
     return `
       <div class="section-grid">
@@ -633,26 +622,32 @@
           <h3>Required documents</h3>
           <p class="muted-copy">These are the main official documents that most applicants should keep ready for this service.</p>
           <ul class="content-list">
-            ${service.requiredDocs.map((doc) => `<li>${doc}</li>`).join("")}
+            ${service.officialRequiredDocs.map((doc) => `<li>${doc}</li>`).join("")}
           </ul>
         </article>
         <article class="content-card">
           <h3>Sometimes needed</h3>
           <p class="muted-copy">These usually depend on verification, office routing, finance status, address change, or other case-specific conditions.</p>
           ${
-            conditional.docs.length
-              ? `<ul class="content-list">${conditional.docs.map((doc) => `<li>${doc}</li>`).join("")}</ul>`
+            officialAdditionalDocs.length
+              ? `<ul class="content-list">${officialAdditionalDocs.map((doc) => `<li>${doc}</li>`).join("")}</ul>`
               : `<p class="muted-copy">No extra supporting documents are highlighted for this service.</p>`
           }
         </article>
       </div>
-      <article class="content-card content-card-highlight">
-        <h3>Backup papers often asked</h3>
-        <p class="muted-copy">${siteData.practicalDocsNote}</p>
-        <ul class="content-list">
-          ${practicalDocs.map((doc) => `<li>${doc}</li>`).join("")}
-        </ul>
-      </article>
+      ${
+        practicalDocs.length
+          ? `
+            <article class="content-card content-card-highlight">
+              <h3>Optional backup papers from public user reports</h3>
+              <p class="muted-copy">${siteData.practicalDocsNote}</p>
+              <ul class="content-list">
+                ${practicalDocs.map((doc) => `<li>${doc}</li>`).join("")}
+              </ul>
+            </article>
+          `
+          : ""
+      }
     `;
   }
 
@@ -696,79 +691,70 @@
   }
 
   function renderFeesFormsSection(service) {
-    const resources = getServiceResources(service.id);
-    const formLinks = resources.formIds.map((formId) => getFormById(formId)).filter(Boolean);
-    const officialPageLinks = getOfficialPageLinks(service);
-    const hasNamedForms = !(service.forms.length === 1 && /portal-driven/i.test(service.forms[0]));
-    const validityNote = service.timelineSummary === service.validity ? "" : `<p class="muted-copy">${service.validity}</p>`;
+    const formLinks = service.officialForms || [];
 
     return `
-      <div class="section-grid">
-        <article class="content-card content-card-highlight">
-          <h3>Typical timeline / validity</h3>
-          <p>${service.timelineSummary}</p>
-          ${validityNote}
-        </article>
-        <article class="content-card">
-          <h3>Fees</h3>
-          <p class="muted-copy">Treat the live portal amount as final wherever the system calculates the amount automatically.</p>
-          <ul class="content-list">
-            ${service.fees.map((fee) => `<li>${fee}</li>`).join("")}
-          </ul>
-        </article>
-        <article class="content-card">
-          <h3>Forms users may need</h3>
-          <p class="muted-copy">
-            ${
-              service.mainFormsSummary === "Mostly portal-driven"
-                ? "This service is mostly portal-driven. Use the official page below for the latest form and upload instructions."
-                : `Main forms commonly used here: ${service.mainFormsSummary}.`
-            }
-          </p>
-          ${
-            hasNamedForms
-              ? `
-                <div class="tag-list">
-                  ${service.forms.map((form) => `<span class="tag">${form}</span>`).join("")}
-                </div>
-              `
-              : ""
-          }
+      <article class="content-card">
+        <h3>Fees</h3>
+        <p class="muted-copy">Treat the live portal amount as final wherever the system calculates the amount automatically.</p>
+        <ul class="content-list">
+          ${service.officialFeeNotes.map((fee) => `<li>${fee}</li>`).join("")}
+        </ul>
+      </article>
+      <article class="content-card">
+        <h3>Official forms</h3>
+        <p class="muted-copy">
           ${
             formLinks.length
-              ? `
-                <div class="resource-stack">
-                  ${formLinks
-                    .map(
-                      (form) => `
-                        <article class="resource-card">
-                          <strong>${form.formNo}</strong>
-                          <span>${form.title}</span>
-                          ${renderFormActions(form)}
-                        </article>
-                      `
-                    )
-                    .join("")}
-                </div>
+              ? `Main official forms commonly used here: ${service.mainFormsSummary}.`
+              : "This service is mostly portal-driven. Use the official service page for the latest form and upload instructions."
+          }
+        </p>
+        ${
+          formLinks.length
+            ? `
+              <div class="resource-stack">
+                ${formLinks
+                  .map(
+                    (form) => `
+                      <article class="resource-card">
+                        <strong>${form.label}</strong>
+                        <span>${form.title}</span>
+                        <div class="inline-actions">
+                          <a class="button button-secondary" href="${form.url}" target="_blank" rel="noreferrer">Open official page</a>
+                          ${form.downloadUrl ? `<a class="button button-secondary" href="${form.downloadUrl}" target="_blank" rel="noreferrer">Direct PDF</a>` : ""}
+                        </div>
+                      </article>
+                    `
+                  )
+                  .join("")}
+              </div>
             `
-            : `<p class="muted-copy">This workflow is mostly portal-driven. Use the official service page for the latest form and upload instructions.</p>`
+            : ""
+        }
+      </article>
+    `;
+  }
+
+  function renderTimingSection(service) {
+    return `
+      <div class="section-grid">
+        <article class="content-card">
+          <h3>When to apply</h3>
+          ${
+            service.officialTimingWindows.length
+              ? `<ul class="content-list">${service.officialTimingWindows.map((item) => `<li>${item}</li>`).join("")}</ul>`
+              : `<p class="muted-copy">No official rule-window or filing window is specifically published for this service on the source pages used here.</p>`
           }
         </article>
+        <article class="content-card">
+          <h3>Validity / rule window</h3>
+          <p>${service.officialValidity}</p>
+        </article>
       </div>
-      <article class="content-card">
-        <h3>Official links</h3>
-        <div class="resource-stack">
-          ${officialPageLinks
-            .map(
-              (link) => `
-                <a class="resource-card" href="${link.url}" target="_blank" rel="noreferrer">
-                  <strong>${link.label}</strong>
-                  <span>${link.description}</span>
-                </a>
-              `
-            )
-            .join("")}
-        </div>
+      <article class="content-card content-card-highlight">
+        <h3>Processing note</h3>
+        <p>${service.officialProcessingNote}</p>
       </article>
     `;
   }
@@ -839,40 +825,141 @@
   }
 
   function buildServiceSections(service, state) {
-    const counts = getServiceSectionCounts(service, state);
-
     return [
       {
         id: "steps",
         label: "Steps",
-        count: counts.steps,
         html: renderStepsSection(service, state)
       },
       {
         id: "documents",
         label: "Documents",
-        count: counts.documents,
         html: renderDocumentsSection(service, state)
       },
       {
-        id: "fees-forms",
-        label: "Fees & Forms",
-        count: counts["fees-forms"],
-        html: renderFeesFormsSection(service)
+        id: "timeline",
+        label: "Timeline",
+        html: renderTimingSection(service)
+      },
+      {
+        id: "fees",
+        label: "Fees",
+        html: `
+          <article class="content-card">
+            <h3>Fees</h3>
+            <p class="muted-copy">Treat the live portal amount as final wherever the system calculates the amount automatically.</p>
+            <ul class="content-list">
+              ${service.officialFeeNotes.map((fee) => `<li>${fee}</li>`).join("")}
+            </ul>
+          </article>
+        `
+      },
+      {
+        id: "forms",
+        label: "Forms",
+        html: `
+          <article class="content-card">
+            <h3>Official forms</h3>
+            <p class="muted-copy">
+              ${
+                service.officialForms.length
+                  ? `Main official forms commonly used here: ${service.mainFormsSummary}.`
+                  : "This service is mostly portal-driven. Use the official service page for the latest form and upload instructions."
+              }
+            </p>
+            ${
+              service.officialForms.length
+                ? `
+                  <div class="resource-stack">
+                    ${service.officialForms
+                      .map(
+                        (form) => `
+                          <article class="resource-card">
+                            <strong>${form.label}</strong>
+                            <span>${form.title}</span>
+                            <div class="inline-actions">
+                              <a class="button button-secondary" href="${form.url}" target="_blank" rel="noreferrer">Open official page</a>
+                              ${form.downloadUrl ? `<a class="button button-secondary" href="${form.downloadUrl}" target="_blank" rel="noreferrer">Direct PDF</a>` : ""}
+                            </div>
+                          </article>
+                        `
+                      )
+                      .join("")}
+                  </div>
+                `
+                : ""
+            }
+          </article>
+        `
       },
       {
         id: "office",
         label: "Office",
-        count: counts.office,
         html: renderOfficeSection(service, state)
       },
       {
         id: "information",
         label: "Information",
-        count: counts.information,
         html: renderInformationSection(service)
+      },
+      {
+        id: "sources",
+        label: "Sources",
+        html: `
+          <article class="content-card">
+            <h3>Official sources used for this guide</h3>
+            <div class="resource-stack">
+              ${service.officialSourceRefs
+                .map(
+                  (link) => `
+                    <a class="resource-card" href="${link.url}" target="_blank" rel="noreferrer">
+                      <strong>${link.label}</strong>
+                      <span>Official Maharashtra Transport or Parivahan source</span>
+                    </a>
+                  `
+                )
+                .join("")}
+            </div>
+          </article>
+        `
       }
     ];
+  }
+
+  function renderGuideSections(container, sections, scopeId) {
+    const anchorNav = `
+      <nav class="guide-anchor-nav" aria-label="Guide sections">
+        ${sections
+          .map(
+            (section) => `
+              <a class="guide-anchor-link" href="#${scopeId}-${section.id}">
+                ${section.label}
+              </a>
+            `
+          )
+          .join("")}
+      </nav>
+    `;
+
+    const sectionHtml = sections
+      .map(
+        (section) => `
+          <section class="guide-section" id="${scopeId}-${section.id}">
+            <div class="section-head compact">
+              <h2>${section.label}</h2>
+            </div>
+            ${section.html}
+          </section>
+        `
+      )
+      .join("");
+
+    container.innerHTML = `
+      ${anchorNav}
+      <div class="guide-stack">
+        ${sectionHtml}
+      </div>
+    `;
   }
 
   function renderTabs(container, sections, scopeId, defaultTabId) {
@@ -1127,6 +1214,7 @@
     readPlannerStateFromUrl,
     renderAtGlance,
     renderFooterSources,
+    renderGuideSections,
     renderHelpfulFeedback,
     renderServiceSummary,
     renderTabs,

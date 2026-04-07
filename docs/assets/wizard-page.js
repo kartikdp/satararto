@@ -14,10 +14,9 @@
     getServiceById,
     normalizePlannerState,
     readPlannerStateFromUrl,
-    renderAtGlance,
+    renderGuideSections,
     renderHelpfulFeedback,
     renderServiceSummary,
-    renderTabs,
     siteData,
     writePlannerStateToUrl
   } = window.SiteApp;
@@ -43,7 +42,7 @@
     wizardCard: document.getElementById("wizard-card"),
     resultSummary: document.getElementById("result-summary"),
     resultCta: document.getElementById("result-cta"),
-    resultTabs: document.getElementById("result-tabs"),
+    resultGuide: document.getElementById("result-guide"),
     resultFeedback: document.getElementById("result-feedback"),
     resultRevisit: document.getElementById("result-revisit"),
     resultChange: document.getElementById("result-change"),
@@ -506,7 +505,6 @@
 
     elements.resultSummary.innerHTML = `
       ${renderServiceSummary(service, plannerState, { mode: "wizard" })}
-      ${renderAtGlance(service)}
     `;
     elements.resultCta.innerHTML = `
       <div class="cta-box">
@@ -528,7 +526,7 @@
       </div>
     `;
 
-    renderTabs(elements.resultTabs, sections, `result-${service.id}`, "steps");
+    renderGuideSections(elements.resultGuide, sections, `result-${service.id}`);
     renderHelpfulFeedback(elements.resultFeedback, `result-${service.id}`);
     elements.resultRevisit.hidden = false;
 

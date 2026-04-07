@@ -651,6 +651,45 @@ img {
   flex: 0 0 auto;
 }
 
+.guide-anchor-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px 0 4px;
+}
+
+.guide-anchor-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0.65rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--ink);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.guide-anchor-link:hover,
+.guide-anchor-link:focus-visible {
+  background: rgba(11, 125, 114, 0.06);
+  border-color: var(--border-strong);
+  text-decoration: none;
+}
+
+.guide-stack {
+  display: grid;
+  gap: 20px;
+}
+
+.guide-section {
+  display: grid;
+  gap: 14px;
+  scroll-margin-top: 130px;
+}
+
 .pill,
 .tag,
 .filter-pill {
@@ -761,35 +800,6 @@ img {
 
 .tab-panels {
   margin-top: 16px;
-}
-
-.at-glance-grid {
-  display: grid;
-  gap: 12px;
-  margin-top: 8px;
-}
-
-.at-glance-item {
-  display: grid;
-  gap: 4px;
-  padding: 14px;
-  border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.8);
-}
-
-.at-glance-item strong {
-  font-family: "Sora", sans-serif;
-  color: var(--ink);
-  font-size: 0.98rem;
-  line-height: 1.4;
-}
-
-.at-glance-label {
-  color: var(--muted);
-  font-size: 0.8rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
 }
 
 .tab-panel {
@@ -1112,10 +1122,6 @@ img {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .at-glance-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .related-block .related-links {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1167,10 +1173,6 @@ img {
 
   .office-mini-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .at-glance-grid {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
 

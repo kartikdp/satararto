@@ -2299,6 +2299,77 @@ const relatedServiceLinksById = {
   ]
 };
 
+const officialTimingWindowsByService = {
+  "learner-licence": [
+    "Apply only after the applicant meets the age rule for the chosen vehicle class."
+  ],
+  "permanent-driving-licence": [
+    "Apply for the driving test after 30 days from learner's licence issue."
+  ],
+  "dl-renewal": [
+    "Apply from 30 days before the driving licence expiry date.",
+    "Maharashtra states renewal is not available after 5 years from expiry."
+  ],
+  "international-driving-permit": [
+    "IDP validity is typically limited to 1 year."
+  ],
+  "transfer-ownership": [
+    "Maharashtra states 14 days in the same jurisdiction.",
+    "Maharashtra states 30 days when another registering authority is involved."
+  ],
+  "rc-renewal": [
+    "Apply not more than 60 days before the RC expiry date."
+  ],
+  "rc-address-change": [
+    "Apply within 14 days of the address change."
+  ]
+};
+
+function buildOfficialForms(service) {
+  const resources = window.siteData.serviceResources[service.id] || { formIds: [] };
+  const forms = resources.formIds
+    .map((formId) => window.siteData.formLibrary.find((form) => form.id === formId))
+    .filter(Boolean)
+    .map((form) => ({
+      label: form.formNo,
+      title: form.title,
+      url: form.url,
+      downloadUrl: form.downloadUrl || ""
+    }));
+
+  if (forms.length) {
+    return forms;
+  }
+
+  return (service.forms || [])
+    .filter((form) => form && !/portal-driven/i.test(form))
+    .map((form) => ({
+      label: form,
+      title: form,
+      url: service.officialLinks[0] ? service.officialLinks[0].url : ""
+    }));
+}
+
+function buildOfficialProcessingNote(service) {
+  if (service.id === "learner-licence") {
+    return "No official processing-time estimate is published. Completion depends on portal verification and the learner-test flow.";
+  }
+
+  if (service.id === "permanent-driving-licence") {
+    return "No official processing-time estimate is published. Final issue depends on the driving-test appointment, result, and approval.";
+  }
+
+  if (service.id === "fitness-certificate") {
+    return "No official processing-time estimate is published. Final issue depends on the inspection appointment and vehicle fitness approval.";
+  }
+
+  if (service.officeVisit.toLowerCase().includes("required") || service.appointment.toLowerCase().includes("required")) {
+    return "No official processing-time estimate is published. Final completion depends on appointment, office verification, and approval.";
+  }
+
+  return "No official processing-time estimate is published. Completion depends on portal verification, record match, and office scrutiny where applicable.";
+}
+
 function buildMainFormsSummary(service) {
   const resources = window.siteData.serviceResources[service.id] || { formIds: [] };
   const formNos = resources.formIds
@@ -2340,7 +2411,15 @@ window.siteData.services = window.siteData.services.map((service) => ({
   mainFormsSummary: buildMainFormsSummary(service),
   mainFormsCountLabel: buildMainFormsCountLabel(service),
   inspectionSummary: service.inspection,
-  relatedServices: relatedServiceLinksById[service.id] || []
+  relatedServices: relatedServiceLinksById[service.id] || [],
+  officialTimingWindows: officialTimingWindowsByService[service.id] || [],
+  officialValidity: service.validity,
+  officialProcessingNote: buildOfficialProcessingNote(service),
+  officialRequiredDocs: service.requiredDocs || [],
+  officialAdditionalDocs: service.extraDocs || [],
+  officialForms: buildOfficialForms(service),
+  officialFeeNotes: service.fees || [],
+  officialSourceRefs: service.officialLinks || []
 }));
 
 window.siteData.signals.unshift({

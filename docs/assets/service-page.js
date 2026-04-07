@@ -8,11 +8,10 @@
     copyText,
     createServiceHref,
     getRelatedServices,
-    renderAtGlance,
+    renderGuideSections,
     getServiceById,
     renderHelpfulFeedback,
     renderServiceSummary,
-    renderTabs,
     siteData
   } = window.SiteApp;
 
@@ -70,7 +69,6 @@
         <section id="service-summary-anchor">
           ${renderServiceSummary(service, null, { mode: "service" })}
         </section>
-        ${renderAtGlance(service)}
         <div class="cta-box">
           <div class="cta-primary-row">
             <a class="button button-primary" href="${service.officialLinks[0].url}" target="_blank" rel="noreferrer">Open ${service.officialLinks[0].label}</a>
@@ -85,7 +83,7 @@
           </div>
         </div>
         <div id="service-guide-anchor">
-          <div id="service-page-tabs"></div>
+          <div id="service-page-guide"></div>
         </div>
         <div id="service-page-feedback"></div>
         ${
@@ -112,7 +110,7 @@
       </div>
     `;
 
-    renderTabs(document.getElementById("service-page-tabs"), sections, `service-${service.id}`, "steps");
+    renderGuideSections(document.getElementById("service-page-guide"), sections, `service-${service.id}`);
     renderHelpfulFeedback(document.getElementById("service-page-feedback"), `service-${service.id}`);
     elements.floatingStart.hidden = false;
 
