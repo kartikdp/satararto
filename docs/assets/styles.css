@@ -731,7 +731,8 @@ img {
   flex-wrap: nowrap;
   gap: 8px;
   overflow-x: auto;
-  padding: 0 0 2px;
+  padding: 2px 0 6px;
+  margin-bottom: 10px;
   scrollbar-width: none;
 }
 
@@ -764,14 +765,14 @@ img {
 
 .guide-stack {
   display: grid;
-  gap: 22px;
+  gap: 26px;
 }
 
 .guide-section {
   display: grid;
-  gap: 14px;
+  gap: 16px;
   scroll-margin-top: 130px;
-  padding-top: 6px;
+  padding-top: 10px;
   border-top: 1px solid rgba(43, 52, 49, 0.08);
 }
 
@@ -782,8 +783,8 @@ img {
 
 .guide-section-head {
   display: grid;
-  gap: 6px;
-  padding: 0 2px;
+  gap: 8px;
+  padding: 0 2px 4px;
 }
 
 .guide-section-eyebrow {
