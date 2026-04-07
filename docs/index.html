@@ -28,14 +28,10 @@
         </a>
 
         <nav class="top-nav" aria-label="Primary">
-          <a href="#planner">Planner</a>
-          <a href="#journeys">Start Here</a>
-          <a href="#services">Services</a>
-          <a href="#tools">Official Tools</a>
-          <a href="#downloads">Download Forms</a>
+          <a href="#planner">Start Here</a>
+          <a href="#services">All Services</a>
           <a href="#offices">Offices</a>
-          <a href="#documents">Documents</a>
-          <a href="#support">Support</a>
+          <a href="#faq">FAQ</a>
           <a href="#sources">Sources</a>
         </nav>
       </header>
@@ -46,12 +42,14 @@
             <p class="eyebrow">Satara District, Maharashtra</p>
             <h1>Find the right RTO service, documents, forms, and official steps in one place.</h1>
             <p class="hero-text">
-              Use this guide to understand licence, RC, transfer, NOC, hypothecation, permit, tax, and PUC services for
-              Satara district. It helps you identify the correct service, prepare documents, check forms and fees, and know
-              whether the case is online, appointment-based, or requires an RTO visit.
+              Use this guide to identify the correct service, prepare your documents, understand the process, and know when
+              you need an online application, an appointment, or an RTO visit.
             </p>
 
-            <div class="hero-actions" id="quick-actions"></div>
+            <div class="hero-actions">
+              <a class="planner-primary" href="#planner">Start Here</a>
+              <a class="planner-secondary" href="#services">Browse All Services</a>
+            </div>
 
             <div class="hero-note">
               <strong>Important:</strong> Applications, payments, appointments, and status updates happen only on official
@@ -59,17 +57,32 @@
             </div>
 
             <div class="hero-subnote">
-              Use the official links below for Sarathi, Vahan, Maharashtra Transport, forms, and status checks.
+              Use the guided flow below if you are not sure which service applies to your case.
             </div>
           </div>
 
-          <div class="hero-panel">
-            <div class="stat-grid" id="stats-grid"></div>
+          <div class="hero-panel hero-panel--guide">
+            <p class="eyebrow">How It Works</p>
+            <div class="hero-step-list">
+              <article class="hero-step-card">
+                <strong>1. Choose your situation</strong>
+                <span>Select what you want to do, such as a new licence, transfer, NOC, renewal, or address change.</span>
+              </article>
+              <article class="hero-step-card">
+                <strong>2. Answer a few questions</strong>
+                <span>Tell the site whether the case is personal or commercial, which office may be involved, and what documents are affected.</span>
+              </article>
+              <article class="hero-step-card">
+                <strong>3. Get your result</strong>
+                <span>See the exact service, documents, forms, fees, official steps, and where to apply.</span>
+              </article>
+            </div>
+
             <div class="portal-card">
               <p class="eyebrow">Official Portals</p>
               <div class="portal-links">
-                <a href="https://sarathi.parivahan.gov.in" target="_blank" rel="noreferrer">Open Sarathi</a>
-                <a href="https://vahan.parivahan.gov.in/vahanservice/" target="_blank" rel="noreferrer">Open Vahan</a>
+                <a href="https://sarathi.parivahan.gov.in" target="_blank" rel="noreferrer">Sarathi</a>
+                <a href="https://vahan.parivahan.gov.in/vahanservice/" target="_blank" rel="noreferrer">Vahan</a>
                 <a href="https://transport.maharashtra.gov.in/" target="_blank" rel="noreferrer">Maharashtra Transport</a>
               </div>
             </div>
@@ -78,42 +91,46 @@
 
         <section class="planner-section" id="planner">
           <div class="section-heading">
-            <p class="eyebrow">Case Planner</p>
-            <h2>Build a checklist for your service and documents.</h2>
+            <p class="eyebrow">Start Here</p>
+            <h2>Answer a few questions and get the right service, checklist, and official next step.</h2>
+            <p class="section-note">
+              Start with what you want to do. The result below will narrow down the exact service instead of showing every
+              licence or RC workflow at once.
+            </p>
           </div>
 
           <div class="planner-layout">
             <form class="planner-form-card" id="planner-form">
               <div class="planner-block">
-                <p class="planner-label">1. What is the main situation?</p>
+                <p class="planner-label">1. What do you want to do?</p>
                 <div class="planner-chip-grid" id="planner-journey-options"></div>
               </div>
 
-              <div class="planner-grid">
-                <label class="planner-field">
-                  <span>2. Specific service</span>
-                  <select id="planner-service-select"></select>
-                </label>
+              <div class="planner-block" id="planner-service-question">
+                <p class="planner-label">2. Which option matches your case?</p>
+                <div class="planner-chip-grid" id="planner-service-options"></div>
+              </div>
 
-                <label class="planner-field">
-                  <span>3. Known office or record</span>
+              <div class="planner-grid">
+                <label class="planner-field" id="planner-office-field">
+                  <span>3. Which office or record is involved?</span>
                   <select id="planner-office-select"></select>
                 </label>
               </div>
 
-              <div class="planner-block">
-                <p class="planner-label">4. Case type</p>
+              <div class="planner-block" id="planner-profile-question">
+                <p class="planner-label">4. Is this personal or commercial?</p>
                 <div class="planner-chip-grid" id="planner-profile-options"></div>
               </div>
 
-              <div class="planner-block">
-                <p class="planner-label">5. Extra case details</p>
+              <div class="planner-block" id="planner-flag-question">
+                <p class="planner-label">5. Anything else about this case?</p>
                 <div class="planner-flag-grid" id="planner-flag-options"></div>
               </div>
 
               <div class="planner-actions">
-                <button class="planner-primary" type="submit">Build my plan</button>
-                <button class="planner-secondary" type="button" id="planner-reset">Reset</button>
+                <button class="planner-primary" type="submit">Show My Result</button>
+                <button class="planner-secondary" type="button" id="planner-reset">Start Over</button>
               </div>
             </form>
 
@@ -121,55 +138,17 @@
           </div>
         </section>
 
-        <section class="journey-section" id="journeys">
-          <div class="section-heading">
-            <p class="eyebrow">Start Here</p>
-            <h2>What are you trying to do?</h2>
-          </div>
-          <div class="journey-grid" id="journey-grid"></div>
-        </section>
-
-        <section class="preflight-section" id="how-it-works">
-          <div class="section-heading">
-            <p class="eyebrow">How To Use This Guide</p>
-            <h2>Check the process here first, then continue on the official portal.</h2>
-          </div>
-          <div class="preflight-grid" id="preflight-grid"></div>
-        </section>
-
-        <section class="intro-grid">
-          <article class="intro-card">
-            <p class="eyebrow">What You Will Find Here</p>
-            <h2>Clear guidance for common RTO services in Satara district.</h2>
-            <ol>
-              <li>Service-wise guidance for licence, RC, NOC, transfer, hypothecation, permit, tax, and PUC work.</li>
-              <li>Document lists, form links, fees, timelines, and office-visit expectations.</li>
-              <li>Official portal links for application, status checks, and downloads.</li>
-            </ol>
-          </article>
-
-          <article class="intro-card">
-            <p class="eyebrow">Before You Apply</p>
-            <h2>Keep these points in mind before starting online.</h2>
-            <ul>
-              <li>Final applications, payments, and appointments still happen on Sarathi, Vahan, or Maharashtra Transport.</li>
-              <li>Rules can still vary for edge cases, commercial vehicles, or record mismatches.</li>
-              <li>Always verify the latest fee, office instruction, and form requirement before payment or submission.</li>
-            </ul>
-          </article>
-        </section>
-
         <section class="reference-section" id="services">
           <div class="section-heading">
-            <p class="eyebrow">Service Explorer</p>
-            <h2>Find the right service, then read the official path clearly.</h2>
+            <p class="eyebrow">All Services</p>
+            <h2>Browse the full list if you already know the service name.</h2>
           </div>
 
           <div class="reference-layout">
             <aside class="explorer-panel" aria-label="Service explorer">
               <div class="explorer-intro">
                 <h3>Find a service</h3>
-                <p>If you already know the service name, search here. Otherwise, use the "Start Here" cards above.</p>
+                <p>Search the full list below if you want the complete guide for a specific service.</p>
               </div>
               <label class="search-box" for="service-search">
                 <span>Search services</span>
@@ -186,31 +165,10 @@
           </div>
         </section>
 
-        <section class="resource-section" id="tools">
-          <div class="section-heading">
-            <p class="eyebrow">Official Tools</p>
-            <h2>Open the right government portal, status page, or rules page quickly.</h2>
-          </div>
-          <div class="tool-group-grid" id="tool-group-grid"></div>
-        </section>
-
-        <section class="download-section" id="downloads">
-          <div class="section-heading">
-            <p class="eyebrow">Download Center</p>
-            <h2>Official form links and download pages.</h2>
-            <p class="section-note">
-              If a direct PDF does not open on the first try, use the
-              <a href="https://parivahan.gov.in/parivahan/en/content/download-forms" target="_blank" rel="noreferrer">All Official Forms</a>
-              page as the official fallback.
-            </p>
-          </div>
-          <div class="download-group-grid" id="download-group-grid"></div>
-        </section>
-
-        <section class="secondary-grid">
+        <section class="secondary-grid secondary-grid--help">
           <article class="panel-card" id="offices">
             <div class="section-heading compact">
-              <p class="eyebrow">Office Reference</p>
+              <p class="eyebrow">Offices</p>
               <h2>Satara district RTO offices</h2>
             </div>
             <div class="office-grid" id="office-grid"></div>
@@ -220,28 +178,10 @@
             </p>
           </article>
 
-          <article class="panel-card" id="documents">
-            <div class="section-heading compact">
-              <p class="eyebrow">Documents</p>
-              <h2>Reusable document bundles</h2>
-            </div>
-            <div class="bundle-grid" id="bundle-grid"></div>
-          </article>
-        </section>
-
-        <section class="support-grid" id="support">
-          <article class="panel-card">
-            <div class="section-heading compact">
-              <p class="eyebrow">Common Issues</p>
-              <h2>Problems people often face during RTO work</h2>
-            </div>
-            <div class="signal-list" id="signal-list"></div>
-          </article>
-
-          <article class="panel-card">
+          <article class="panel-card" id="faq">
             <div class="section-heading compact">
               <p class="eyebrow">FAQ</p>
-              <h2>Helpful guidance for common questions</h2>
+              <h2>Helpful answers for common doubts</h2>
             </div>
             <div class="faq-list" id="faq-list"></div>
           </article>
@@ -249,8 +189,8 @@
 
         <section class="sources-section" id="sources">
           <div class="section-heading">
-            <p class="eyebrow">Sources</p>
-            <h2>Official links first, public signals second.</h2>
+            <p class="eyebrow">Official Sources</p>
+            <h2>Government pages used for service details, forms, and office information.</h2>
           </div>
           <div class="source-grid" id="source-grid"></div>
         </section>

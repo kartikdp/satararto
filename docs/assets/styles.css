@@ -25,6 +25,10 @@ html {
   scroll-behavior: smooth;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   color: var(--ink);
@@ -305,6 +309,29 @@ h3 {
   pointer-events: none;
 }
 
+.hero-step-list {
+  display: grid;
+  gap: 12px;
+}
+
+.hero-step-card {
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(29, 43, 39, 0.08);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.hero-step-card strong {
+  font-family: "Sora", sans-serif;
+}
+
+.hero-step-card span {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
 .stat-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -537,6 +564,10 @@ h3 {
   background: linear-gradient(135deg, rgba(11, 125, 114, 0.08), rgba(255, 255, 255, 0.92));
 }
 
+.planner-chip--service {
+  min-height: 100%;
+}
+
 .planner-chip--compact {
   min-height: 100%;
 }
@@ -654,6 +685,12 @@ h3 {
 .planner-panel ul {
   margin: 0;
   padding-left: 1.15rem;
+  line-height: 1.8;
+}
+
+.planner-step-list {
+  margin: 0;
+  padding-left: 1.2rem;
   line-height: 1.8;
 }
 
@@ -1237,6 +1274,10 @@ h3 {
   gap: 16px;
 }
 
+.secondary-grid--help {
+  grid-template-columns: 1.1fr 0.9fr;
+}
+
 .office-card,
 .bundle-card,
 .signal-item,
@@ -1396,14 +1437,9 @@ h3 {
   .hero,
   .planner-layout,
   .reference-layout,
-  .journey-grid,
-  .preflight-grid,
-  .tool-group-grid,
-  .download-group-grid,
   .secondary-grid,
-  .support-grid,
   .source-grid,
-  .intro-grid {
+  .secondary-grid--help {
     grid-template-columns: 1fr;
   }
 
@@ -1434,7 +1470,6 @@ h3 {
 
   .hero-copy,
   .hero-panel,
-  .intro-card,
   .panel-card,
   .explorer-panel,
   .detail-panel,
@@ -1442,7 +1477,6 @@ h3 {
     padding: 20px;
   }
 
-  .stat-grid,
   .planner-grid,
   .planner-chip-grid,
   .planner-flag-grid,
@@ -1450,7 +1484,6 @@ h3 {
   .planner-detail-grid,
   .inline-link-grid,
   .office-grid,
-  .bundle-grid,
   .detail-grid,
   .glance-grid {
     grid-template-columns: 1fr;
@@ -1474,12 +1507,7 @@ h3 {
   body::after,
   .site-header,
   .hero,
-  .journey-section,
-  .preflight-section,
-  .resource-section,
-  .download-section,
   .secondary-grid,
-  .support-grid,
   .sources-section,
   .site-footer,
   .site-toast,

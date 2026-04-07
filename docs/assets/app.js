@@ -21,27 +21,23 @@ const state = {
 };
 
 const elements = {
-  quickActions: document.getElementById("quick-actions"),
-  statsGrid: document.getElementById("stats-grid"),
-  journeyGrid: document.getElementById("journey-grid"),
-  preflightGrid: document.getElementById("preflight-grid"),
   plannerForm: document.getElementById("planner-form"),
   plannerJourneyOptions: document.getElementById("planner-journey-options"),
-  plannerServiceSelect: document.getElementById("planner-service-select"),
+  plannerServiceOptions: document.getElementById("planner-service-options"),
+  plannerServiceQuestion: document.getElementById("planner-service-question"),
   plannerOfficeSelect: document.getElementById("planner-office-select"),
+  plannerOfficeField: document.getElementById("planner-office-field"),
   plannerProfileOptions: document.getElementById("planner-profile-options"),
+  plannerProfileQuestion: document.getElementById("planner-profile-question"),
   plannerFlagOptions: document.getElementById("planner-flag-options"),
+  plannerFlagQuestion: document.getElementById("planner-flag-question"),
   plannerReset: document.getElementById("planner-reset"),
   plannerOutput: document.getElementById("planner-output"),
   categoryPills: document.getElementById("category-pills"),
   serviceSearch: document.getElementById("service-search"),
   serviceList: document.getElementById("service-list"),
   serviceDetail: document.getElementById("service-detail"),
-  toolGroupGrid: document.getElementById("tool-group-grid"),
-  downloadGroupGrid: document.getElementById("download-group-grid"),
   officeGrid: document.getElementById("office-grid"),
-  bundleGrid: document.getElementById("bundle-grid"),
-  signalList: document.getElementById("signal-list"),
   faqList: document.getElementById("faq-list"),
   sourceGrid: document.getElementById("source-grid"),
   siteToast: document.getElementById("site-toast")
@@ -175,6 +171,10 @@ function getDefaultServiceForJourney(journeyId) {
   return journey ? journey.serviceIds[0] : window.siteData.featuredIds[0];
 }
 
+function createEmptyFlags() {
+  return Object.fromEntries(plannerFlagIds.map((flagId) => [flagId, false]));
+}
+
 function syncPlannerServiceSelection() {
   const options = getPlannerServiceOptions().map((service) => service.id);
 
@@ -189,6 +189,55 @@ function syncPlannerServiceSelection() {
   if (state.planner.serviceId) {
     state.selectedServiceId = state.planner.serviceId;
   }
+}
+
+function shouldShowOfficeQuestion(service) {
+  return (
+    service.category === "vehicle" ||
+    ["permanent-driving-licence", "dl-renewal", "duplicate-dl", "dl-address-change", "international-driving-permit", "permit-services"].includes(
+      service.id
+    )
+  );
+}
+
+function shouldShowProfileQuestion(service) {
+  return service.category === "compliance" || service.category === "vehicle" || ["learner-licence", "permanent-driving-licence"].includes(service.id);
+}
+
+function getRelevantFlags(service) {
+  const relevantIds = new Set();
+
+  if (state.planner.journeyId === "new-driver") {
+    relevantIds.add("alreadyHasLearner");
+  }
+
+  if (service.category === "vehicle") {
+    relevantIds.add("financed");
+  }
+
+  if (["duplicate-dl", "duplicate-rc"].includes(service.id)) {
+    relevantIds.add("lost");
+  }
+
+  if (["dl-address-change", "rc-address-change"].includes(service.id) || state.planner.journeyId === "moved-or-shifting-state") {
+    relevantIds.add("addressChanged");
+  }
+
+  if (["transfer-ownership", "noc", "rc-address-change", "rc-renewal"].includes(service.id) || state.planner.journeyId === "moved-or-shifting-state") {
+    relevantIds.add("crossJurisdiction");
+  }
+
+  return window.siteData.planner.flags.filter((flag) => relevantIds.has(flag.id));
+}
+
+function normalizePlannerFlags(service) {
+  const allowed = new Set(getRelevantFlags(service).map((flag) => flag.id));
+
+  plannerFlagIds.forEach((flagId) => {
+    if (!allowed.has(flagId)) {
+      state.planner.flags[flagId] = false;
+    }
+  });
 }
 
 function syncPlannerFromService(serviceId) {
@@ -351,115 +400,6 @@ function createServiceLinkChip(service) {
   return `<button class="mini-chip" data-service-id="${service.id}">${service.title}</button>`;
 }
 
-function renderQuickActions() {
-  elements.quickActions.innerHTML = window.siteData.featuredIds
-    .map((id) => {
-      const service = getServiceById(id);
-      return `<button class="action-chip" data-service-id="${service.id}">${service.title}</button>`;
-    })
-    .join("");
-
-  elements.quickActions.querySelectorAll("[data-service-id]").forEach((button) => {
-    button.addEventListener("click", () => {
-      activateService(button.dataset.serviceId, {
-        clearSearch: true,
-        scrollToServices: true,
-        focusDetail: true
-      });
-    });
-  });
-}
-
-function renderStats() {
-  const cards = [
-    {
-      value: "MH-11 & MH-50",
-      label: "office guidance for Satara and Karad records"
-    },
-    {
-      value: "Licence to RC",
-      label: "guidance for driving licence, vehicle, permit, tax, and PUC work"
-    },
-    {
-      value: "Official Links",
-      label: "Sarathi, Vahan, forms, status pages, and Maharashtra Transport links"
-    },
-    {
-      value: "Checklist",
-      label: "service-wise documents, forms, fees, and visit requirements"
-    }
-  ];
-
-  elements.statsGrid.innerHTML = cards
-    .map(
-      (card) => `
-        <article class="stat-card">
-          <strong>${card.value}</strong>
-          <span>${card.label}</span>
-        </article>
-      `
-    )
-    .join("");
-}
-
-function renderJourneys() {
-  elements.journeyGrid.innerHTML = window.siteData.journeys
-    .map((journey) => {
-      const linkedServices = journey.serviceIds.map((serviceId) => getServiceById(serviceId)).filter(Boolean);
-      const isActive = state.planner.journeyId === journey.id;
-
-      return `
-        <article class="journey-card ${isActive ? "is-active" : ""}">
-          <p class="eyebrow">${getCategoryById(journey.category).label}</p>
-          <h3>${journey.title}</h3>
-          <p>${journey.description}</p>
-          <div class="mini-chip-row">
-            ${linkedServices.map((service) => createServiceLinkChip(service)).join("")}
-          </div>
-          <button class="journey-cta" data-journey-id="${journey.id}">Use this path</button>
-        </article>
-      `;
-    })
-    .join("");
-
-  elements.journeyGrid.querySelectorAll("[data-service-id]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const service = getServiceById(button.dataset.serviceId);
-      activateService(service.id, {
-        category: service.category,
-        clearSearch: true,
-        scrollToServices: true,
-        focusDetail: true
-      });
-    });
-  });
-
-  elements.journeyGrid.querySelectorAll("[data-journey-id]").forEach((button) => {
-    button.addEventListener("click", () => {
-      state.planner.journeyId = button.dataset.journeyId;
-      state.planner.serviceId = getDefaultServiceForJourney(state.planner.journeyId);
-      syncPlannerServiceSelection();
-      renderAll();
-      updateUrlState();
-      document.getElementById("planner").scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-  });
-}
-
-function renderPreflight() {
-  elements.preflightGrid.innerHTML = window.siteData.preflight
-    .map(
-      (item) => `
-        <article class="preflight-card">
-          <span class="step-badge">${item.step}</span>
-          <h3>${item.title}</h3>
-          <p>${item.description}</p>
-        </article>
-      `
-    )
-    .join("");
-}
-
 function renderPlannerJourneyOptions() {
   elements.plannerJourneyOptions.innerHTML = window.siteData.journeys
     .map(
@@ -479,6 +419,9 @@ function renderPlannerJourneyOptions() {
   elements.plannerJourneyOptions.querySelectorAll("[data-journey-id]").forEach((button) => {
     button.addEventListener("click", () => {
       state.planner.journeyId = button.dataset.journeyId;
+      state.planner.officeId = "unknown";
+      state.planner.profileId = "private";
+      state.planner.flags = createEmptyFlags();
       state.planner.serviceId = getDefaultServiceForJourney(state.planner.journeyId);
       syncPlannerServiceSelection();
       renderAll();
@@ -487,15 +430,33 @@ function renderPlannerJourneyOptions() {
   });
 }
 
-function renderPlannerServiceSelect() {
+function renderPlannerServiceOptions() {
   const options = getPlannerServiceOptions();
   syncPlannerServiceSelection();
 
-  elements.plannerServiceSelect.innerHTML = options
-    .map((service) => `<option value="${service.id}">${service.title}</option>`)
+  elements.plannerServiceQuestion.hidden = options.length <= 1;
+  elements.plannerServiceOptions.innerHTML = options
+    .map(
+      (service) => `
+        <button
+          class="planner-chip planner-chip--service ${state.planner.serviceId === service.id ? "is-active" : ""}"
+          type="button"
+          data-service-id="${service.id}"
+        >
+          <strong>${service.title}</strong>
+          <span>${service.short}</span>
+        </button>
+      `
+    )
     .join("");
 
-  elements.plannerServiceSelect.value = state.planner.serviceId;
+  elements.plannerServiceOptions.querySelectorAll("[data-service-id]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.planner.serviceId = button.dataset.serviceId;
+      normalizePlannerFlags(getServiceById(state.planner.serviceId));
+      activateService(state.planner.serviceId, { preservePlanner: true });
+    });
+  });
 }
 
 function renderPlannerOfficeSelect() {
@@ -507,6 +468,14 @@ function renderPlannerOfficeSelect() {
 }
 
 function renderPlannerProfileOptions() {
+  const service = getServiceById(state.planner.serviceId);
+  elements.plannerProfileQuestion.hidden = !shouldShowProfileQuestion(service);
+
+  if (elements.plannerProfileQuestion.hidden) {
+    state.planner.profileId = "private";
+    return;
+  }
+
   elements.plannerProfileOptions.innerHTML = window.siteData.planner.profileOptions
     .map(
       (option) => `
@@ -532,7 +501,18 @@ function renderPlannerProfileOptions() {
 }
 
 function renderPlannerFlagOptions() {
-  elements.plannerFlagOptions.innerHTML = window.siteData.planner.flags
+  const service = getServiceById(state.planner.serviceId);
+  const relevantFlags = getRelevantFlags(service);
+  normalizePlannerFlags(service);
+
+  elements.plannerFlagQuestion.hidden = !relevantFlags.length;
+
+  if (!relevantFlags.length) {
+    elements.plannerFlagOptions.innerHTML = "";
+    return;
+  }
+
+  elements.plannerFlagOptions.innerHTML = relevantFlags
     .map(
       (flag) => `
         <label class="planner-flag ${state.planner.flags[flag.id] ? "is-active" : ""}">
@@ -705,23 +685,33 @@ function renderPlannerOutput() {
   const toolLinks = resources.toolIds.map((toolId) => getToolById(toolId)).filter(Boolean);
   const conditional = getPlannerConditionalDocs(service);
   const officeGuidance = getPlannerOfficeGuidance(service);
-  const todaySteps = getPlannerTodaySteps(service);
   const readiness = getPlannerReadiness(service);
   const primaryLink = service.officialLinks[0];
   const practicalDocs = getPlannerPracticalDocs(service);
+  const condensedSteps = service.steps.slice(0, 5);
+  const actionLinks = [
+    {
+      label: primaryLink.label,
+      url: primaryLink.url,
+      description: `Open the main ${getPortalLabel(service)} page for this service.`
+    },
+    ...toolLinks
+  ].slice(0, 4);
+  const formSummary = formLinks.map((form) => form.formNo).join(", ");
 
   elements.plannerOutput.innerHTML = `
     <div class="planner-output-header">
-      <p class="eyebrow">Personalized Plan</p>
+      <p class="eyebrow">Your Result</p>
       <h3>${service.title}</h3>
-      <p>This checklist is based on your selections and is meant to help you prepare before starting on the official portal.</p>
+      <p>${service.summary}</p>
       <div class="badge-row">
         ${createBadge(`Start on ${getPortalLabel(service)}`)}
         ${createBadge(readiness, "warning")}
-        ${createBadge(state.planner.profileId === "transport" ? "Transport / commercial case" : "Private / personal case", "alert")}
+        ${createBadge(service.officeVisit, "alert")}
       </div>
       <div class="planner-output-actions">
         <a class="planner-primary" href="${primaryLink.url}" target="_blank" rel="noreferrer">Open ${primaryLink.label}</a>
+        <button class="planner-secondary" type="button" data-view-full-guide>View full guide</button>
         <button class="planner-secondary" type="button" data-copy-planner-link>Copy share link</button>
         <button class="planner-secondary" type="button" data-print-planner>Print this plan</button>
       </div>
@@ -729,41 +719,46 @@ function renderPlannerOutput() {
 
     <div class="planner-summary-grid">
       <article class="planner-summary-card">
-        <h4>Recommended office guidance</h4>
-        <p>${officeGuidance}</p>
-      </article>
-      <article class="planner-summary-card">
-        <h4>Best used for</h4>
+        <h4>Why this service</h4>
         <p>${service.bestFor}</p>
       </article>
       <article class="planner-summary-card">
-        <h4>Today's action list</h4>
-        <ol>
-          ${todaySteps.map((step) => `<li>${step}</li>`).join("")}
-        </ol>
+        <h4>Office guidance</h4>
+        <p>${officeGuidance}</p>
       </article>
+      <article class="planner-summary-card">
+        <h4>Forms you may need</h4>
+        <p>${formSummary || "Portal-based service"}</p>
+      </article>
+    </div>
+
+    <div class="planner-panel">
+      <h4>What to do next</h4>
+      <ol class="planner-step-list">
+        ${condensedSteps.map((step) => `<li>${step}</li>`).join("")}
+      </ol>
     </div>
 
     <div class="planner-detail-grid">
       <article class="planner-panel">
-        <h4>Official must keep ready</h4>
+        <h4>Required documents</h4>
         <ul>
           ${dedupeList(service.requiredDocs).map((doc) => `<li>${doc}</li>`).join("")}
         </ul>
       </article>
 
       <article class="planner-panel">
-        <h4>Official conditional documents</h4>
+        <h4>Sometimes needed</h4>
         ${
           conditional.docs.length
             ? `<ul>${conditional.docs.map((doc) => `<li>${doc}</li>`).join("")}</ul>`
-            : `<p>No extra conditional documents are highlighted for the current selections.</p>`
+            : `<p>No extra conditional documents are highlighted for this case.</p>`
         }
       </article>
     </div>
 
     <div class="planner-panel planner-panel--practical">
-      <h4>Often asked in practice</h4>
+      <h4>Bring as backup</h4>
       <p class="planner-note">${window.siteData.practicalDocsNote}</p>
       <ul>
         ${practicalDocs.map((doc) => `<li>${doc}</li>`).join("")}
@@ -772,32 +767,17 @@ function renderPlannerOutput() {
 
     <div class="planner-detail-grid">
       <article class="planner-panel">
-        <h4>Official form links</h4>
-        ${
-          formLinks.length
-            ? `
-              <div class="planner-link-stack">
-                ${formLinks
-                  .map(
-                    (form) => `
-                      <article class="planner-resource-card">
-                        <strong>${form.formNo}</strong>
-                        <span>${form.title}</span>
-                        ${renderFormActions(form)}
-                      </article>
-                    `
-                  )
-                  .join("")}
-              </div>
-            `
-            : `<p>There is no highlighted standalone form here. Use the official service flow or the full download center.</p>`
-        }
+        <h4>Fees and timing</h4>
+        <ul>
+          ${service.fees.slice(0, 3).map((item) => `<li>${item}</li>`).join("")}
+          <li>${service.validity}</li>
+        </ul>
       </article>
 
       <article class="planner-panel">
-        <h4>Useful official links</h4>
+        <h4>Official links</h4>
         <div class="planner-link-stack">
-          ${toolLinks
+          ${actionLinks
             .map(
               (tool) => `
                 <a class="planner-resource-link" href="${tool.url}" target="_blank" rel="noreferrer">
@@ -821,6 +801,7 @@ function renderPlannerOutput() {
 
   const copyButton = elements.plannerOutput.querySelector("[data-copy-planner-link]");
   const printButton = elements.plannerOutput.querySelector("[data-print-planner]");
+  const fullGuideButton = elements.plannerOutput.querySelector("[data-view-full-guide]");
 
   copyButton.addEventListener("click", () => {
     copyToClipboard(buildShareUrl({ includePlanner: true }), "Planner link copied");
@@ -829,76 +810,26 @@ function renderPlannerOutput() {
   printButton.addEventListener("click", () => {
     setPrintMode("planner");
   });
+
+  fullGuideButton.addEventListener("click", () => {
+    activateService(service.id, { preservePlanner: true, scrollToServices: true, focusDetail: true });
+  });
 }
 
 function renderPlanner() {
   renderPlannerJourneyOptions();
-  renderPlannerServiceSelect();
+  renderPlannerServiceOptions();
   renderPlannerOfficeSelect();
   renderPlannerProfileOptions();
   renderPlannerFlagOptions();
+
+  const service = getServiceById(state.planner.serviceId);
+  elements.plannerOfficeField.hidden = !shouldShowOfficeQuestion(service);
+  if (elements.plannerOfficeField.hidden) {
+    state.planner.officeId = "unknown";
+  }
+
   renderPlannerOutput();
-}
-
-function renderToolGroups() {
-  elements.toolGroupGrid.innerHTML = window.siteData.toolGroups
-    .map((group) => {
-      const tools = group.toolIds.map((toolId) => getToolById(toolId)).filter(Boolean);
-
-      return `
-        <article class="tool-group-card">
-          <h3>${group.title}</h3>
-          <p>${group.intro}</p>
-          <div class="tool-list">
-            ${tools
-              .map(
-                (tool) => `
-                  <article class="tool-card">
-                    <strong>${tool.label}</strong>
-                    <p>${tool.description}</p>
-                    <a href="${tool.url}" target="_blank" rel="noreferrer">Open official page</a>
-                  </article>
-                `
-              )
-              .join("")}
-          </div>
-        </article>
-      `;
-    })
-    .join("");
-}
-
-function renderDownloadGroups() {
-  elements.downloadGroupGrid.innerHTML = window.siteData.downloadGroups
-    .map((group) => {
-      const forms = group.formIds.map((formId) => getFormById(formId)).filter(Boolean);
-
-      return `
-        <article class="download-group-card">
-          <h3>${group.title}</h3>
-          <p>${group.intro}</p>
-          <div class="download-list">
-            ${forms
-              .map(
-                (form) => `
-                  <article class="download-card">
-                    <div class="download-copy">
-                      <span>${form.formNo}</span>
-                      <strong>${form.title}</strong>
-                      <p>${form.usedFor}</p>
-                    </div>
-                    <div class="download-actions">
-                      ${renderFormActions(form)}
-                    </div>
-                  </article>
-                `
-              )
-              .join("")}
-          </div>
-        </article>
-      `;
-    })
-    .join("");
 }
 
 function renderCategoryPills() {
@@ -994,7 +925,7 @@ function renderServiceDetail() {
       </div>
       <div class="detail-actions">
         <a class="primary-link" href="${primaryLink.url}" target="_blank" rel="noreferrer">Open ${primaryLink.label}</a>
-        <a class="secondary-link" href="#downloads">Go to Download Center</a>
+        <a class="secondary-link" href="#planner">Start here instead</a>
         <button class="secondary-link secondary-button" type="button" data-copy-service-link>Copy service link</button>
         <button class="secondary-link secondary-button" type="button" data-print-service>Print guide</button>
       </div>
@@ -1214,35 +1145,6 @@ function renderOffices() {
     .join("");
 }
 
-function renderBundles() {
-  elements.bundleGrid.innerHTML = window.siteData.bundles
-    .map(
-      (bundle) => `
-        <article class="bundle-card">
-          <h3>${bundle.title}</h3>
-          <p>${bundle.intro}</p>
-          <ul>
-            ${bundle.items.map((item) => `<li>${item}</li>`).join("")}
-          </ul>
-        </article>
-      `
-    )
-    .join("");
-}
-
-function renderSignals() {
-  elements.signalList.innerHTML = window.siteData.signals
-    .map(
-      (signal) => `
-        <article class="signal-item">
-          <strong>${signal.title}</strong>
-          <p>${signal.detail}</p>
-        </article>
-      `
-    )
-    .join("");
-}
-
 function renderFaq() {
   elements.faqList.innerHTML = window.siteData.faq
     .map(
@@ -1258,6 +1160,7 @@ function renderFaq() {
 
 function renderSources() {
   elements.sourceGrid.innerHTML = window.siteData.sourceGroups
+    .filter((group) => !group.title.toLowerCase().includes("public"))
     .map(
       (group) => `
         <article class="source-group">
@@ -1279,7 +1182,6 @@ function renderSources() {
 }
 
 function renderAll() {
-  renderJourneys();
   renderPlanner();
   renderCategoryPills();
   renderServiceList();
@@ -1296,11 +1198,6 @@ elements.plannerForm.addEventListener("submit", (event) => {
   event.preventDefault();
   activateService(state.planner.serviceId, { preservePlanner: true });
   document.getElementById("planner-output").scrollIntoView({ behavior: "smooth", block: "start" });
-});
-
-elements.plannerServiceSelect.addEventListener("change", (event) => {
-  state.planner.serviceId = event.target.value;
-  activateService(state.planner.serviceId, { preservePlanner: true });
 });
 
 elements.plannerOfficeSelect.addEventListener("change", (event) => {
@@ -1321,15 +1218,7 @@ elements.plannerReset.addEventListener("click", () => {
 });
 
 hydrateStateFromUrl();
-
-renderQuickActions();
-renderStats();
-renderPreflight();
-renderToolGroups();
-renderDownloadGroups();
 renderOffices();
-renderBundles();
-renderSignals();
 renderFaq();
 renderSources();
 renderAll();
