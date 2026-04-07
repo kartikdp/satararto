@@ -38,9 +38,9 @@
     }
 
     intro.innerHTML = `
-      <p class="eyebrow">${t("pages.services.eyebrow", "All Services")}</p>
-      <h1>${t("pages.services.title", "Choose a service")}</h1>
-      <p>${t("pages.services.body", "Open a guide directly if you already know the service name.")}</p>
+      <p class="eyebrow">${t("pages.services.eyebrow", "Service help")}</p>
+      <h1>${t("pages.services.title", "Choose the work you need help with")}</h1>
+      <p>${t("pages.services.body", "Open the service page directly if you already know the document or RTO work involved.")}</p>
     `;
   }
 
@@ -96,7 +96,7 @@
         <article class="empty-card">
           <h2>${t("guide.labels.noMatchingService", "No matching service found")}</h2>
           <p>${t("guide.labels.noMatchingHint", "Try a simpler word like renewal, transfer, NOC, address change, or permit.")}</p>
-          <p><a class="inline-link" href="./index.html${getLanguage() === "mr" ? "?lang=mr" : ""}">${t("guide.labels.useWizard", "Not sure? Use Find My Service")}</a></p>
+          <p><a class="inline-link" href="./index.html${getLanguage() === "mr" ? "?lang=mr" : ""}">${t("guide.labels.useWizard", "Not sure? Use Get Help")}</a></p>
         </article>
       `;
       return;
@@ -133,8 +133,8 @@
             </div>
             ${service.commonConfusion ? `<p class="service-card-note">${service.commonConfusion}</p>` : ""}
             <div class="service-card-actions">
-              <a class="button button-primary" href="${createServiceHref(service.id)}">${getLanguage() === "mr" ? "मार्गदर्शिका उघडा" : "Open guide"}</a>
-              <a class="button button-link" href="./index.html?${wizardParams.toString()}">${t("guide.labels.useWizard", "Not sure? Use Find My Service")}</a>
+              <a class="button button-primary" href="${createServiceHref(service.id)}">${getLanguage() === "mr" ? "सेवा पान उघडा" : "Open service page"}</a>
+              <a class="button button-link" href="./index.html?${wizardParams.toString()}">${t("guide.labels.useWizard", "Not sure? Use Get Help")}</a>
             </div>
           </article>
         `;

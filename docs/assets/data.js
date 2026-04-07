@@ -1484,7 +1484,7 @@ window.siteData = {
     {
       question: "Can this guide replace the government portal?",
       answer:
-        "No. This guide helps you understand the service, documents, fees, and visit requirements. Actual applications, payments, appointments, and status checks still happen on Sarathi, Vahan, or Maharashtra Transport."
+        "No. This website helps you understand the service, documents, fees, and visit requirements. Actual applications, payments, appointments, and status checks still happen on Sarathi, Vahan, or Maharashtra Transport."
     },
     {
       question: "What should I do first if I know the problem but not the service name?",
@@ -2656,16 +2656,16 @@ const faqCategoryByQuestion = {
 };
 
 window.siteData.navLinks = [
-  { href: "./index.html", label: "Find My Service" },
+  { href: "./index.html", label: "Get Help" },
   { href: "./services.html", label: "Services" },
   { href: "./offices.html", label: "Offices" },
   { href: "./faq.html", label: "FAQ" }
 ];
 
 window.siteData.wizardMeta = {
-  introEyebrow: "Satara District, Maharashtra",
-  introTitle: "Don't know which RTO service you need?",
-  introText: "Answer a few simple questions and get the right service, documents, forms, office guidance, and official next step.",
+  introEyebrow: "Suraj Pardeshi • Satara",
+  introTitle: "Get help with licences, RC work, NOC, permit, tax, and other RTO documents",
+  introText: "Tell us what you need. We help identify the right service, explain the process, and tell you what papers to keep ready.",
   progressLabel: "Question",
   stepMeta: {
     journey: {
@@ -2701,9 +2701,9 @@ window.siteData.wizardMeta = {
       help: "Select all that apply, then continue."
     }
   },
-  resultTitle: "This is the service you likely need",
+  resultTitle: "Recommended service",
   resultDisclaimer:
-    "Use this guide to understand the process. Applications, payments, appointments, and status checks happen only on official government portals.",
+    "This is a private assistance service. Applications, payments, and final approval happen on official government portals and at the relevant RTO office.",
   helpfulPrompt: "Was this helpful?",
   sectionTabs: [
     { id: "steps", label: "Steps" },
@@ -2712,6 +2712,24 @@ window.siteData.wizardMeta = {
     { id: "office", label: "Office" },
     { id: "information", label: "Information" }
   ]
+};
+
+window.siteData.business = {
+  name: "Suraj Pardeshi",
+  nameMr: "सुरज परदेशी",
+  businessName: "Shree Swami Smarath Enterprises",
+  businessNameMr: "श्री स्वामी स्मरथ एंटरप्रायझेस",
+  phoneDisplay: "+91 89994 33180",
+  phoneHref: "tel:+918999433180",
+  whatsappHref: "https://wa.me/918999433180",
+  address: "97 Basppapeth, Radhikaroad, Satara 415002",
+  addressMr: "97 बसप्पापेठ, राधिका रोड, सातारा 415002",
+  chargeNote: "Service charges depend on the document or work involved. Contact for a quote.",
+  chargeNoteMr: "सेवा शुल्क कामाच्या प्रकारावर आणि कागदपत्रांवर अवलंबून असते. कोटेशनसाठी संपर्क करा.",
+  disclaimer:
+    "This is a private assistance service. Applications, payments, and final approval happen on official government portals and at the relevant RTO office.",
+  disclaimerMr:
+    "ही खासगी सहाय्य सेवा आहे. अर्ज, पेमेंट आणि अंतिम मान्यता अधिकृत सरकारी पोर्टलवर व संबंधित RTO कार्यालयातच होते."
 };
 
 window.siteData.reviewMeta = {
@@ -2723,7 +2741,7 @@ window.siteData.i18n = {
   en: {
     languageName: "English",
     nav: {
-      index: "Find My Service",
+      index: "Get Help",
       services: "Services",
       offices: "Offices",
       faq: "FAQ"
@@ -2734,35 +2752,35 @@ window.siteData.i18n = {
       marathi: "मराठी"
     },
     footer: {
-      default: "Always verify the final fee, office, and required upload documents on the official portal before submission.",
-      wizard: "Applications, payments, appointments, and status checks happen on official government websites.",
-      services: "Each guide shows documents, steps, timing, forms, fees, and office guidance.",
-      faq: "If you are still unsure which service applies, go back to Find My Service.",
-      offices: "If you already have a DL or RC, use the office code on that record first."
+      default: "Private assistance service by Shree Swami Smarath Enterprises. Official submissions, payments, and approval happen on government portals and at the relevant RTO office.",
+      wizard: "Tell us the work you need help with. We use the guide to explain the process and the papers you may need.",
+      services: "Open any service page if you already know the work and want guidance or paid help with the process.",
+      faq: "Use this page for customer questions about documents, visits, and service charges before you start.",
+      offices: "This page shows the official office reference and our Satara contact details if you want help before visiting."
     },
     pages: {
       services: {
-        eyebrow: "All Services",
-        title: "Choose a service",
-        body: "Open a guide directly if you already know the service name."
+        eyebrow: "Service help",
+        title: "Choose the work you need help with",
+        body: "Open the service page directly if you already know the document or RTO work involved."
       },
       offices: {
-        eyebrow: "Offices",
-        title: "Satara district RTO offices",
-        body: "Check whether your case should start with MH-11 Satara or MH-50 Karad."
+        eyebrow: "Offices and contact",
+        title: "Official RTO offices and our Satara contact point",
+        body: "Check whether your case should start with MH-11 Satara or MH-50 Karad, and contact us before visiting if your case is unclear."
       },
       faq: {
-        eyebrow: "FAQ",
-        title: "Common questions people ask before starting",
-        body: "Find quick answers to common licence, RC, transfer, and office questions."
+        eyebrow: "Common questions",
+        title: "Questions customers usually ask before starting",
+        body: "Read quick answers about documents, office visits, service charges, and how our help works."
       }
     },
     wizard: {
-      introEyebrow: "Satara District, Maharashtra",
-      introTitle: "Don't know which RTO service you need?",
-      introText: "Answer a few simple questions and get the right service, documents, forms, office guidance, and official next step.",
-      introLinkPrefix: "Already know the service name?",
-      introLinkLabel: "Go to Services",
+      introEyebrow: "Suraj Pardeshi • Satara",
+      introTitle: "Get help with licences, RC work, NOC, permit, tax, and other RTO documents",
+      introText: "Tell us what you need. We help identify the right service, explain the process, and tell you what papers to keep ready.",
+      introLinkPrefix: "Already know the work?",
+      introLinkLabel: "See all services",
       progressLabel: "Question",
       buttons: {
         startOver: "Start over",
@@ -2790,7 +2808,7 @@ window.siteData.i18n = {
         forms: "Forms",
         office: "Office",
         information: "Information",
-        sources: "Sources"
+        sources: "Official reference"
       },
       sectionEyebrows: {
         steps: "What to do",
@@ -2804,13 +2822,13 @@ window.siteData.i18n = {
       },
       sectionIntros: {
         steps: "Follow the service in the order shown here.",
-        documents: "Main papers, supporting papers, and practical backup items.",
+        documents: "Official papers first, then supporting papers and practical backup items.",
         timeline: "Key windows, validity periods, and timing notes.",
         fees: "Official fee notes and portal amount guidance.",
         forms: "Forms and official pages linked to this service.",
         office: "Office, appointment, and inspection guidance.",
-        information: "Short research context and what this service means.",
-        sources: "Source pages used for this guide."
+        information: "Background that can help you understand the work before you start.",
+        sources: "Government source used for this process."
       },
       labels: {
         whoThisIsFor: "Who this is for",
@@ -2834,12 +2852,12 @@ window.siteData.i18n = {
         officialForms: "Official forms",
         officeGuidance: "Office and appointment guidance",
         beforeVisit: "Before you visit",
-        background: "Background and explanation",
-        officialSources: "Official sources",
+        background: "What this process means",
+        officialSources: "Government source used for this process",
         linkCopied: "Link copied",
         copyLink: "Copy link",
         printGuide: "Print guide",
-        useWizard: "Not sure? Use Find My Service",
+        useWizard: "Not sure? Use Get Help",
         searchServices: "Search services",
         searchPlaceholder: "Search learner's licence, RC transfer, NOC, permit...",
         noMatchingService: "No matching service found",
@@ -2851,14 +2869,30 @@ window.siteData.i18n = {
         faqSearchPlaceholder: "Search common questions...",
         noFaqMatch: "No matching question found",
         noFaqHint: "Try words like licence, RC, transfer, address, or office.",
-        reportOutdated: "Report outdated information"
+        reportOutdated: "Report outdated information",
+        callNow: "Call now",
+        chatWhatsapp: "Chat on WhatsApp",
+        serviceHelpTitle: "Need help with this service?",
+        serviceHelpBody: "We can help you understand the process, check what papers are needed, and guide the next step before you visit the office or open the portal.",
+        availableHelp: "Available help",
+        helpPointDocuments: "Document checklist and paper review before you start",
+        helpPointProcess: "Guidance on the process, office routing, and what to keep ready",
+        helpPointSupport: "Help if you are unsure which service or office applies",
+        customQuote: "Service charges depend on the document or work involved. Contact for a quote.",
+        privateServiceNote: "Private assistance service. Final submission, payment, and approval depend on the official portal or office.",
+        visitOfficeLabel: "Visit office / address",
+        officialReference: "Official reference",
+        howWeHelpTitle: "How our help works",
+        contactBeforeVisit: "If you are unsure, contact us before visiting the RTO.",
+        officeReferenceTitle: "Official RTO office reference",
+        businessContactTitle: "Our Satara contact point"
       }
     }
   },
   mr: {
     languageName: "मराठी",
     nav: {
-      index: "माझी सेवा शोधा",
+      index: "मदत मिळवा",
       services: "सेवा",
       offices: "कार्यालये",
       faq: "सामान्य प्रश्न"
@@ -2869,35 +2903,35 @@ window.siteData.i18n = {
       marathi: "मराठी"
     },
     footer: {
-      default: "अर्ज सादर करण्यापूर्वी अंतिम शुल्क, योग्य कार्यालय आणि आवश्यक कागदपत्रे अधिकृत संकेतस्थळावर नक्की तपासा.",
-      wizard: "अर्ज करणे, पैसे भरणे, वेळ ठरवणे आणि स्थिती तपासणे या सर्व गोष्टी अधिकृत सरकारी संकेतस्थळावरच होतात.",
-      services: "प्रत्येक मार्गदर्शिकेत कागदपत्रे, पायऱ्या, वेळ, फॉर्म, फी आणि कार्यालयीन मार्गदर्शन दिलेले आहे.",
-      faq: "कोणती सेवा लागू होते हे अजूनही स्पष्ट नसेल तर ‘माझी सेवा शोधा’ वापरा.",
-      offices: "तुमच्याकडे आधीपासून DL किंवा RC असल्यास त्यावरील कार्यालयाचा कोड आधी वापरा."
+      default: "ही Shree Swami Smarath Enterprises ची खासगी सहाय्य सेवा आहे. अधिकृत अर्ज, पेमेंट आणि अंतिम मान्यता सरकारी पोर्टलवर व संबंधित RTO कार्यालयातच होते.",
+      wizard: "तुम्हाला कोणत्या कामासाठी मदत हवी आहे ते सांगा. आम्ही प्रक्रिया आणि लागणारी कागदपत्रे समजावून सांगतो.",
+      services: "काम माहिती असल्यास थेट सेवा पान उघडा आणि प्रक्रियेबाबत मदत हवी असल्यास आमच्याशी संपर्क करा.",
+      faq: "ही पाने ग्राहकांच्या नेहमीच्या प्रश्नांसाठी आहेत, जसे कागदपत्रे, कार्यालय भेट आणि सेवा शुल्क.",
+      offices: "या पानावर अधिकृत कार्यालयाचा संदर्भ आणि भेटीपूर्वी मदतीसाठी आमचे साताऱ्यातील संपर्क तपशील दिले आहेत."
     },
     pages: {
       services: {
-        eyebrow: "सर्व सेवा",
-        title: "सेवा निवडा",
-        body: "सेवेचे नाव माहिती असेल तर थेट मार्गदर्शिका उघडा."
+        eyebrow: "सेवा मदत",
+        title: "तुम्हाला ज्या कामासाठी मदत हवी आहे ते निवडा",
+        body: "काम किंवा कागदपत्र माहिती असल्यास थेट त्या सेवा पानावर जा."
       },
       offices: {
-        eyebrow: "कार्यालये",
-        title: "सातारा जिल्हा RTO कार्यालये",
-        body: "तुमचा विषय MH-11 सातारा की MH-50 कराड येथे सुरू करायचा ते तपासा."
+        eyebrow: "कार्यालये आणि संपर्क",
+        title: "अधिकृत RTO कार्यालये आणि आमचा साताऱ्यातील संपर्क",
+        body: "तुमचा विषय MH-11 सातारा की MH-50 कराड येथे सुरू करायचा ते तपासा. शंका असल्यास भेटीपूर्वी आमच्याशी संपर्क करा."
       },
       faq: {
         eyebrow: "सामान्य प्रश्न",
-        title: "सुरू करण्यापूर्वी लोक विचारणारे सामान्य प्रश्न",
-        body: "लायसन्स, RC, ट्रान्सफर आणि कार्यालयासंबंधी झटपट उत्तरे पाहा."
+        title: "सुरू करण्यापूर्वी ग्राहक सहसा विचारणारे प्रश्न",
+        body: "कागदपत्रे, कार्यालय भेट, सेवा शुल्क आणि आमची मदत कशी काम करते याबद्दल झटपट उत्तरे पाहा."
       }
     },
     wizard: {
-      introEyebrow: "सातारा जिल्हा, महाराष्ट्र",
-      introTitle: "कोणती RTO सेवा लागेल हे समजत नाहीये?",
-      introText: "काही सोपे प्रश्नांची उत्तरे द्या आणि योग्य सेवा, कागदपत्रे, फॉर्म, कार्यालयीन मार्गदर्शन आणि अधिकृत पुढची पायरी मिळवा.",
-      introLinkPrefix: "सेवेचे नाव आधीच माहित आहे?",
-      introLinkLabel: "सेवा पानावर जा",
+      introEyebrow: "सुरज परदेशी • सातारा",
+      introTitle: "परवाना, RC, NOC, परमिट, कर आणि इतर RTO कागदपत्रांसाठी मदत मिळवा",
+      introText: "तुम्हाला काय काम आहे ते सांगा. आम्ही योग्य सेवा, प्रक्रिया आणि लागणारी कागदपत्रे समजावून सांगतो.",
+      introLinkPrefix: "काम आधीच माहिती आहे?",
+      introLinkLabel: "सर्व सेवा पाहा",
       progressLabel: "प्रश्न",
       buttons: {
         startOver: "पुन्हा सुरू करा",
@@ -2925,7 +2959,7 @@ window.siteData.i18n = {
         forms: "फॉर्म",
         office: "कार्यालय",
         information: "माहिती",
-        sources: "अधिकृत स्रोत"
+        sources: "अधिकृत संदर्भ"
       },
       sectionEyebrows: {
         steps: "काय करायचे",
@@ -2939,13 +2973,13 @@ window.siteData.i18n = {
       },
       sectionIntros: {
         steps: "सेवा खाली दिलेल्या क्रमाने पूर्ण करा.",
-        documents: "मुख्य कागदपत्रे, पूरक कागदपत्रे आणि वापरात येणारे बॅकअप कागदपत्रे.",
+        documents: "आधी अधिकृत कागदपत्रे, नंतर पूरक आणि बॅकअप कागदपत्रे पहा.",
         timeline: "महत्त्वाच्या मुदती, वैधता आणि वेळेबाबतच्या नोंदी.",
         fees: "अधिकृत शुल्क नोंदी आणि संकेतस्थळावर दिसणाऱ्या रकमेबाबत मार्गदर्शन.",
         forms: "या सेवेशी संबंधित फॉर्म आणि अधिकृत पाने.",
         office: "कार्यालय, वेळ ठरवणे आणि तपासणीसंबंधी मार्गदर्शन.",
-        information: "ही सेवा नेमकी काय आहे याबद्दल थोडक्यात माहिती.",
-        sources: "या मार्गदर्शिकेसाठी वापरलेली अधिकृत पाने."
+        information: "काम सुरू करण्यापूर्वी उपयोगी पडणारी थोडक्यात पार्श्वभूमी.",
+        sources: "या प्रक्रियेसाठी वापरलेला सरकारी स्रोत."
       },
       labels: {
         whoThisIsFor: "ही सेवा कोणासाठी आहे",
@@ -2969,12 +3003,12 @@ window.siteData.i18n = {
         officialForms: "अधिकृत फॉर्म",
         officeGuidance: "कार्यालय आणि वेळ ठरवण्याचे मार्गदर्शन",
         beforeVisit: "भेट देण्यापूर्वी",
-        background: "पार्श्वभूमी आणि स्पष्टीकरण",
-        officialSources: "अधिकृत स्रोत",
+        background: "ही प्रक्रिया नेमकी काय आहे",
+        officialSources: "या प्रक्रियेसाठी वापरलेला सरकारी स्रोत",
         linkCopied: "लिंक कॉपी झाली",
         copyLink: "लिंक कॉपी करा",
         printGuide: "मार्गदर्शिका प्रिंट करा",
-        useWizard: "निश्चित नाही? ‘माझी सेवा शोधा’ वापरा",
+        useWizard: "निश्चित नाही? ‘मदत मिळवा’ वापरा",
         searchServices: "सेवा शोधा",
         searchPlaceholder: "शिकाऊ परवाना, RC हस्तांतरण, NOC, परमिट शोधा...",
         noMatchingService: "जुळणारी सेवा सापडली नाही",
@@ -2986,7 +3020,23 @@ window.siteData.i18n = {
         faqSearchPlaceholder: "सामान्य प्रश्न शोधा...",
         noFaqMatch: "जुळणारा प्रश्न सापडला नाही",
         noFaqHint: "परवाना, RC, हस्तांतरण, पत्ता किंवा कार्यालय असे शब्द वापरून पहा.",
-        reportOutdated: "कालबाह्य माहिती कळवा"
+        reportOutdated: "कालबाह्य माहिती कळवा",
+        callNow: "आत्ता कॉल करा",
+        chatWhatsapp: "व्हॉट्सअॅपवर बोला",
+        serviceHelpTitle: "या सेवेसाठी मदत हवी आहे का?",
+        serviceHelpBody: "आम्ही प्रक्रिया समजावून सांगू शकतो, लागणारी कागदपत्रे तपासू शकतो आणि पोर्टल किंवा कार्यालयात जाण्यापूर्वी पुढची पायरी स्पष्ट करू शकतो.",
+        availableHelp: "आम्ही कशात मदत करतो",
+        helpPointDocuments: "काम सुरू करण्यापूर्वी कागदपत्रांची यादी आणि कागद तपासणी",
+        helpPointProcess: "प्रक्रिया, कोणते कार्यालय लागू होते आणि काय तयार ठेवायचे याबद्दल मार्गदर्शन",
+        helpPointSupport: "कोणती सेवा किंवा कार्यालय लागू आहे हे नक्की नसेल तरी मदत",
+        customQuote: "सेवा शुल्क कामाच्या प्रकारावर आणि कागदपत्रांवर अवलंबून असते. कोटेशनसाठी संपर्क करा.",
+        privateServiceNote: "ही खासगी सहाय्य सेवा आहे. अंतिम अर्ज, पेमेंट आणि मान्यता अधिकृत पोर्टल किंवा कार्यालयावरच अवलंबून असते.",
+        visitOfficeLabel: "कार्यालय / पत्ता",
+        officialReference: "अधिकृत संदर्भ",
+        howWeHelpTitle: "आमची मदत कशी काम करते",
+        contactBeforeVisit: "शंका असल्यास RTO ला जाण्यापूर्वी आमच्याशी संपर्क करा.",
+        officeReferenceTitle: "अधिकृत RTO कार्यालयाचा संदर्भ",
+        businessContactTitle: "आमचा साताऱ्यातील संपर्क"
       }
     }
   }
@@ -3200,6 +3250,42 @@ window.siteData.faq = window.siteData.faq.concat([
     question: "Can I apply for a permanent driving licence without a learner's licence?",
     answer:
       "No. The permanent driving licence route depends on a valid learner's licence and the official waiting period before the driving test."
+  },
+  {
+    category: "General",
+    question: "How does your service work?",
+    answer:
+      "You can call or message us with your document need. We explain the process, tell you what papers to keep ready, and support the case based on the work involved.",
+    questionMr: "तुमची सेवा कशी काम करते?",
+    answerMr:
+      "तुम्ही तुमच्या कागदपत्राच्या कामाबद्दल आम्हाला कॉल किंवा मेसेज करू शकता. आम्ही प्रक्रिया समजावून सांगतो, कोणती कागदपत्रे तयार ठेवायची ते सांगतो आणि कामाच्या प्रकारानुसार मदत करतो."
+  },
+  {
+    category: "General",
+    question: "Can you check my documents before I visit the RTO?",
+    answer:
+      "Yes. If you are unsure which papers are needed, contact us first. We can help you understand the checklist before you visit the office or start the portal process.",
+    questionMr: "RTO ला जाण्यापूर्वी तुम्ही माझी कागदपत्रे तपासू शकता का?",
+    answerMr:
+      "हो. कोणती कागदपत्रे लागतील याबद्दल शंका असल्यास आधी आमच्याशी संपर्क करा. कार्यालयात जाण्यापूर्वी किंवा पोर्टलवर प्रक्रिया सुरू करण्यापूर्वी आम्ही यादी समजावून सांगू शकतो."
+  },
+  {
+    category: "General",
+    question: "Are your service charges fixed?",
+    answer:
+      "No. Service charges depend on the document, the amount of work involved, and whether the case needs extra follow-up or office visits. Contact us for a quote.",
+    questionMr: "तुमचे सेवा शुल्क ठरलेले असते का?",
+    answerMr:
+      "नाही. सेवा शुल्क कामाच्या प्रकारावर, लागणाऱ्या प्रक्रियेवर आणि अतिरिक्त फॉलो-अप किंवा कार्यालय भेट लागते का यावर अवलंबून असते. कोटेशनसाठी संपर्क करा."
+  },
+  {
+    category: "General",
+    question: "Do I still need to visit the office in some cases?",
+    answer:
+      "Yes, in many cases an office visit, verification, driving test, inspection, or document check can still be necessary. We can help you understand whether your case is likely to need one.",
+    questionMr: "काही प्रकरणांत मला कार्यालयात जावेच लागेल का?",
+    answerMr:
+      "हो. अनेक प्रकरणांत कार्यालय भेट, पडताळणी, ड्रायव्हिंग टेस्ट, तपासणी किंवा कागद तपासणी लागू शकते. तुमच्या केसला भेट लागण्याची शक्यता आहे का हे आम्ही समजावून सांगू शकतो."
   },
   {
     category: "Transfer & NOC",

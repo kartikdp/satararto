@@ -1,6 +1,29 @@
 (function () {
-  const { getLanguage, setLanguage, siteData, t } = window.SiteApp;
+  const { getLanguage, setLanguage, siteData, t, pickLocalized } = window.SiteApp;
   const page = document.body.dataset.page;
+
+  function getBusinessValue(key) {
+    return pickLocalized(siteData.business, key) || siteData.business[key] || "";
+  }
+
+  function renderHeaderContact() {
+    const header = document.querySelector(".site-header");
+    if (!header) {
+      return;
+    }
+
+    let contact = header.querySelector(".header-contact-strip");
+    if (!contact) {
+      contact = document.createElement("div");
+      contact.className = "header-contact-strip";
+      header.appendChild(contact);
+    }
+
+    contact.innerHTML = `
+      <a class="button button-secondary header-contact-link" href="${siteData.business.phoneHref}">${t("guide.labels.callNow", "Call now")}</a>
+      <a class="button button-secondary header-contact-link" href="${siteData.business.whatsappHref}" target="_blank" rel="noreferrer">${t("guide.labels.chatWhatsapp", "Chat on WhatsApp")}</a>
+    `;
+  }
 
   function renderLanguageSwitch() {
     const header = document.querySelector(".site-header");
@@ -35,20 +58,27 @@
     const langSuffix = getLanguage() === "mr" ? "?lang=mr" : "";
 
     const brand = document.querySelector(".brand");
+    const brandMark = document.querySelector(".brand-mark");
     const brandStrong = document.querySelector(".brand-copy strong");
     const brandSmall = document.querySelector(".brand-copy small");
     if (brand) {
       brand.setAttribute("href", `./index.html${langSuffix}`);
     }
+    if (brandMark) {
+      brandMark.textContent = "SP";
+    }
     if (brandStrong) {
-      brandStrong.textContent = getLanguage() === "mr" ? "सातारा आरटीओ मार्गदर्शिका" : "Satara RTO Guide";
+      brandStrong.textContent = getBusinessValue("businessName");
     }
     if (brandSmall) {
-      brandSmall.textContent = getLanguage() === "mr" ? "सातारा जिल्हा, महाराष्ट्र" : "Satara district, Maharashtra";
+      brandSmall.textContent =
+        getLanguage() === "mr"
+          ? `${getBusinessValue("name")} • साताऱ्यातील खासगी RTO व कागदपत्र मदत`
+          : `${getBusinessValue("name")} • Private RTO and document assistance in Satara`;
     }
 
     const navLabels = {
-      "index.html": t("nav.index", "Find My Service"),
+      "index.html": t("nav.index", "Get Help"),
       "services.html": t("nav.services", "Services"),
       "offices.html": t("nav.offices", "Offices"),
       "faq.html": t("nav.faq", "FAQ")
@@ -70,7 +100,11 @@
     }
 
     const footerKey = siteData.i18n[getLanguage()].footer[page] ? page : "default";
-    footerCopy.innerHTML = `<p>${siteData.i18n[getLanguage()].footer[footerKey]}</p>`;
+    footerCopy.innerHTML = `
+      <p><strong>${getBusinessValue("businessName")}</strong> • ${getBusinessValue("name")} • <a href="${siteData.business.phoneHref}">${siteData.business.phoneDisplay}</a></p>
+      <p>${getBusinessValue("address")}</p>
+      <p>${siteData.i18n[getLanguage()].footer[footerKey]}</p>
+    `;
 
     if (siteData.reviewMeta) {
       const meta = document.createElement("p");
@@ -100,6 +134,7 @@
   }
 
   localizeHeader();
+  renderHeaderContact();
   renderLanguageSwitch();
   localizeFooter();
   markActiveNav();

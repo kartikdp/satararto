@@ -139,7 +139,7 @@ test.describe("interactive wizard smoke flows", () => {
     await page.getByRole("button", { name: /No, I need my first learner's licence/i }).click();
     await page.getByRole("button", { name: /Private \/ personal/i }).click();
     await expect(page.locator("#wizard-result")).toBeVisible();
-    await expect(page.locator("#result-summary h2")).toContainText("Learner's Licence");
+    await expect(page.locator("#result-summary .result-summary-main h2")).toContainText("Learner's Licence");
     await expectFullGuide(page, "#result-guide");
     await captureGuideScreens(page, "interactive-learner", "#result-guide");
   });
@@ -151,7 +151,7 @@ test.describe("interactive wizard smoke flows", () => {
     await page.getByRole("button", { name: /MH-11 Satara/i }).click();
     await page.getByRole("button", { name: /Private \/ personal/i }).click();
     await expect(page.locator("#wizard-result")).toBeVisible();
-    await expect(page.locator("#result-summary h2")).toContainText("Permanent Driving Licence");
+    await expect(page.locator("#result-summary .result-summary-main h2")).toContainText("Permanent Driving Licence");
     await expectFullGuide(page, "#result-guide");
     await captureGuideScreens(page, "interactive-permanent", "#result-guide");
   });
@@ -164,7 +164,7 @@ test.describe("interactive wizard smoke flows", () => {
     await page.getByRole("button", { name: /Commercial \/ transport vehicle/i }).click();
     await page.getByRole("button", { name: /Diesel/i }).click();
     await expect(page.locator("#wizard-result")).toBeVisible();
-    await expect(page.locator("#result-summary h2")).toContainText("PUC Requirements");
+    await expect(page.locator("#result-summary .result-summary-main h2")).toContainText("PUC Requirements");
     await expectFullGuide(page, "#result-guide");
     await captureGuideScreens(page, "interactive-puc", "#result-guide");
   });
@@ -175,13 +175,34 @@ test.describe("language switch", () => {
     await page.goto("/index.html");
     await page.getByRole("button", { name: "मराठी" }).click();
     await expect(page).toHaveURL(/lang=mr/);
-    await expect(page.locator(".brand-copy strong")).toContainText("सातारा आरटीओ मार्गदर्शिका");
-    await expect(page.getByRole("link", { name: "माझी सेवा शोधा" })).toBeVisible();
+    await expect(page.locator(".brand-copy strong")).toContainText("श्री स्वामी स्मरथ एंटरप्रायझेस");
+    await expect(page.getByRole("link", { name: "मदत मिळवा" })).toBeVisible();
   });
 
   test("service page respects Marathi route state", async ({ page }) => {
     await page.goto("/service.html?service=learner-licence&lang=mr");
     await expect(page.locator("#service-page-intro h1")).toContainText("शिकाऊ परवाना");
     await expect(page.locator('[data-guide-section="documents"] h2')).toContainText("कागदपत्रे");
+  });
+});
+
+test.describe("agent-first business positioning", () => {
+  test("homepage shows business identity and contact actions", async ({ page }) => {
+    await page.goto("/index.html");
+    await expect(page.locator(".brand-copy strong")).toContainText("Shree Swami Smarath Enterprises");
+    await expect(page.locator(".brand-copy small")).toContainText("Suraj Pardeshi");
+    await expect(page.getByRole("link", { name: "Call now" }).first()).toHaveAttribute("href", "tel:+918999433180");
+    await expect(page.getByRole("link", { name: "Chat on WhatsApp" }).first()).toHaveAttribute("href", /wa\.me\/918999433180/);
+    await expect(page.locator("body")).toContainText("Service charges depend on the document or work involved");
+    await expect(page.locator("body")).toContainText("Private assistance service");
+  });
+
+  test("service page shows help section and contact links", async ({ page }) => {
+    await page.goto("/service.html?service=transfer-ownership");
+    await expect(page.locator(".business-help-box")).toBeVisible();
+    await expect(page.locator(".business-help-box")).toContainText("Need help with this service?");
+    await expect(page.locator(".business-help-box")).toContainText("Service charges depend on the document or work involved");
+    await expect(page.locator('.business-help-box a[href="tel:+918999433180"]')).toBeVisible();
+    await expect(page.locator('.business-help-box a[href*="wa.me/918999433180"]')).toBeVisible();
   });
 });

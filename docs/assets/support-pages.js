@@ -6,9 +6,19 @@
     getOfficeByCode,
     getOfficeNote,
     groupFaqByCategory,
+    pickLocalized,
+    renderBusinessSupportBlock,
     siteData,
     t
   } = window.SiteApp;
+
+  function getFaqQuestion(item) {
+    return getLanguage() === "mr" && item.questionMr ? item.questionMr : item.question;
+  }
+
+  function getFaqAnswer(item) {
+    return getLanguage() === "mr" && item.answerMr ? item.answerMr : item.answer;
+  }
 
   function createMapHref(address) {
     return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
@@ -68,8 +78,15 @@
     const karad = getOfficeByCode("MH-50");
 
     guidance.innerHTML = `
+      ${renderBusinessSupportBlock(null, {
+        title: t("guide.labels.businessContactTitle", "Our Satara contact point"),
+        body:
+          getLanguage() === "mr"
+            ? "RTO ला जाण्यापूर्वी, कागदपत्रे तयार करताना किंवा योग्य सेवा समजत नसल्यास आमच्याशी संपर्क करा."
+            : "Contact us before visiting the RTO if you want help understanding the process, checking documents, or choosing the right service."
+      })}
       <article class="content-card">
-        <h2>${t("guide.labels.chooseRightOffice", "Choosing the right office")}</h2>
+        <h2>${t("guide.labels.officeReferenceTitle", "Official RTO office reference")}</h2>
         <ul class="content-list">
           <li>${getLanguage() === "mr" ? "तुमच्या विद्यमान DL किंवा RC वरील कार्यालय कोड आधी वापरा." : "Use the office code on your existing DL or RC first."}</li>
           <li>${getLanguage() === "mr" ? `रेकॉर्डवर ${satara.code} असेल तर ${satara.name} येथे सुरू करा.` : `If your record points to ${satara.code}, start with ${satara.name}.`}</li>
@@ -123,7 +140,7 @@
               return true;
             }
 
-            return `${item.question} ${item.answer}`.toLowerCase().includes(normalizedQuery);
+            return `${getFaqQuestion(item)} ${getFaqAnswer(item)}`.toLowerCase().includes(normalizedQuery);
           })
         }))
         .filter((group) => group.items.length);
@@ -151,8 +168,8 @@
                   .map(
                     (item) => `
                       <details class="faq-item">
-                        <summary>${item.question}</summary>
-                        <div class="faq-answer">${item.answer}</div>
+                        <summary>${getFaqQuestion(item)}</summary>
+                        <div class="faq-answer">${getFaqAnswer(item)}</div>
                       </details>
                     `
                   )

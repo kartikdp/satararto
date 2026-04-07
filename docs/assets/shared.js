@@ -136,6 +136,10 @@
     return pickLocalized(office, "note");
   }
 
+  function getBusinessValue(key) {
+    return pickLocalized(siteData.business, key) || siteData.business[key] || "";
+  }
+
   function dedupeList(items) {
     return [...new Set((items || []).filter(Boolean))];
   }
@@ -510,6 +514,48 @@
     return `tel:${firstNumber.replace(/[^0-9+]/g, "")}`;
   }
 
+  function renderBusinessSupportBlock(service, options = {}) {
+    const title = options.title || t("guide.labels.serviceHelpTitle", "Need help with this service?");
+    const body = options.body || t("guide.labels.serviceHelpBody", "We can help you understand the process, check what papers are needed, and guide the next step before you visit the office or open the portal.");
+    const serviceLine = service
+      ? `<p class="inline-note">${getLanguage() === "mr" ? `${getBusinessValue("name")} ${getLanguage() === "mr" ? "यांच्याकडून" : ""}` : `${getBusinessValue("name")} from ${getBusinessValue("businessName")}`} ${getLanguage() === "mr" ? `${getServiceTitle(service)} या कामाबाबत मदत मिळू शकते.` : `can assist with ${getServiceTitle(service)} and related document work.`}</p>`
+      : "";
+
+    return `
+      <article class="cta-box business-help-box">
+        <div class="section-head compact">
+          <p class="eyebrow">${getLanguage() === "mr" ? "खासगी सहाय्य सेवा" : "Private assistance service"}</p>
+          <h2>${title}</h2>
+        </div>
+        <p class="cta-note">${body}</p>
+        ${serviceLine}
+        <div class="section-grid business-help-grid">
+          <article class="content-card content-card-soft">
+            <h3>${t("guide.labels.availableHelp", "Available help")}</h3>
+            <ul class="content-list">
+              <li>${t("guide.labels.helpPointDocuments", "Document checklist and paper review before you start")}</li>
+              <li>${t("guide.labels.helpPointProcess", "Guidance on the process, office routing, and what to keep ready")}</li>
+              <li>${t("guide.labels.helpPointSupport", "Help if you are unsure which service or office applies")}</li>
+            </ul>
+          </article>
+          <article class="content-card content-card-soft">
+            <h3>${t("guide.labels.howWeHelpTitle", "How our help works")}</h3>
+            <p><strong>${getBusinessValue("businessName")}</strong></p>
+            <p>${getBusinessValue("name")}</p>
+            <p>${getBusinessValue("address")}</p>
+            <p class="inline-note">${getBusinessValue("chargeNote")}</p>
+            <p class="inline-note">${t("guide.labels.contactBeforeVisit", "If you are unsure, contact us before visiting the RTO.")}</p>
+          </article>
+        </div>
+        <div class="cta-primary-row">
+          <a class="button button-primary" href="${siteData.business.phoneHref}">${t("guide.labels.callNow", "Call now")}</a>
+          <a class="button button-secondary" href="${siteData.business.whatsappHref}" target="_blank" rel="noreferrer">${t("guide.labels.chatWhatsapp", "Chat on WhatsApp")}</a>
+        </div>
+        <p class="inline-note">${getBusinessValue("disclaimer")}</p>
+      </article>
+    `;
+  }
+
   function getConditionalDocs(service, state) {
     const docs = [...(service.extraDocs || [])];
     const notes = [];
@@ -763,7 +809,7 @@
 
     return `
       <article class="content-card content-card-highlight">
-        <h3>${t("guide.labels.background", "Background and explanation")}</h3>
+        <h3>${t("guide.labels.background", "What this process means")}</h3>
         <p>${information.intro}</p>
       </article>
       <div class="section-grid">
@@ -1104,7 +1150,7 @@
         label: t("guide.sectionLabels.sources", "Sources"),
         html: `
           <article class="content-card">
-            <h3>${t("guide.labels.officialSources", "Official sources")}</h3>
+            <h3>${t("guide.labels.officialSources", "Government source used for this process")}</h3>
             <p class="muted-copy">${getLanguage() === "mr" ? `अधिकृत स्रोतांवरून शेवटचा आढावा: ${siteData.reviewMeta.lastReviewed}.` : `Last reviewed from official sources: ${siteData.reviewMeta.lastReviewed}.`}</p>
             <div class="resource-stack">
               ${service.officialSourceRefs
@@ -1112,7 +1158,7 @@
                   (link) => `
                     <a class="resource-card" href="${link.url}" target="_blank" rel="noreferrer">
                       <strong>${link.label}</strong>
-                      <span>${getLanguage() === "mr" ? "अधिकृत महाराष्ट्र ट्रान्सपोर्ट किंवा परिवहन स्रोत" : "Official Maharashtra Transport or Parivahan source"}</span>
+                      <span>${getLanguage() === "mr" ? "या प्रक्रियेसाठी वापरलेला सरकारी स्रोत" : "Government source used for this process"}</span>
                     </a>
                   `
                 )
@@ -1424,6 +1470,7 @@
     renderAtGlance,
     renderGuideSections,
     renderHelpfulFeedback,
+    renderBusinessSupportBlock,
     renderServiceSummary,
     renderTabs,
     setLanguage,

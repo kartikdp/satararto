@@ -13,6 +13,7 @@
     getServiceById,
     getServiceShort,
     getServiceTitle,
+    renderBusinessSupportBlock,
     renderHelpfulFeedback,
     renderGuideSections,
     renderServiceSummary,
@@ -35,7 +36,7 @@
         <h1>${getLanguage() === "mr" ? "सेवा मार्गदर्शिका सापडली नाही" : "Service guide not found"}</h1>
         <p>${getLanguage() === "mr" ? "लिंक अपूर्ण असू शकते किंवा सेवा आयडी चुकीचा असू शकतो." : "The link may be incomplete or the service ID is invalid."}</p>
         <div class="service-card-actions">
-          <a class="button button-primary" href="./index.html${getLanguage() === "mr" ? "?lang=mr" : ""}">${t("nav.index", "Find My Service")}</a>
+          <a class="button button-primary" href="./index.html${getLanguage() === "mr" ? "?lang=mr" : ""}">${t("nav.index", "Get Help")}</a>
           <a class="button button-secondary" href="./services.html${getLanguage() === "mr" ? "?lang=mr" : ""}">${t("nav.services", "Services")}</a>
         </div>
       </article>
@@ -59,29 +60,31 @@
 
     const sections = buildServiceSections(service, null);
     const related = getRelatedServices(service);
-    const matchingJourney = siteData.journeys.find((journey) => journey.serviceIds.includes(service.id));
-    const journeyId = matchingJourney ? matchingJourney.id : siteData.journeys[0].id;
     const category = siteData.categories.find((entry) => entry.id === service.category);
-    const wizardParams = new URLSearchParams({
-      journey: journeyId,
-      service: service.id
-    });
-
-    if (getLanguage() === "mr") {
-      wizardParams.set("lang", "mr");
-    }
 
     elements.intro.innerHTML = `
-      <p class="eyebrow">${category ? getCategoryLabel(category) : getLanguage() === "mr" ? "सेवा" : "Service"} ${getLanguage() === "mr" ? "मार्गदर्शिका" : "Guide"}</p>
+      <p class="eyebrow">${category ? getCategoryLabel(category) : getLanguage() === "mr" ? "सेवा" : "Service"} ${getLanguage() === "mr" ? "मदत" : "Help"}</p>
       <h1>${getServiceTitle(service)}</h1>
       <p>${getServiceShort(service) || service.summary}</p>
     `;
+
+    document.title = getLanguage() === "mr" ? `${getServiceTitle(service)} | ${siteData.business.businessName}` : `${getServiceTitle(service)} | ${siteData.business.businessName}`;
+    const description = document.querySelector('meta[name="description"]');
+    if (description) {
+      description.setAttribute(
+        "content",
+        getLanguage() === "mr"
+          ? `${getServiceTitle(service)} या कामासाठी कागदपत्रे, प्रक्रिया आणि मदत मिळवण्यासाठी ${siteData.business.businessName} चे पान.`
+          : `${siteData.business.businessName} helps with ${getServiceTitle(service)}, including process guidance, document readiness, and Satara RTO support.`
+      );
+    }
 
     elements.body.innerHTML = `
       <div class="detail-shell">
         <section id="service-summary-anchor">
           ${renderServiceSummary(service, null, { mode: "service" })}
         </section>
+        ${renderBusinessSupportBlock(service)}
         <div id="service-guide-anchor">
           <div id="service-page-guide"></div>
         </div>
@@ -110,7 +113,6 @@
         <div class="guide-utility-row guide-utility-row-end">
           <button class="button button-link" type="button" id="service-share-link">${t("guide.labels.copyLink", "Copy link")}</button>
           <button class="button button-link" type="button" id="service-print">${t("guide.labels.printGuide", "Print guide")}</button>
-          <a class="button button-link" href="./index.html?${wizardParams.toString()}">${t("guide.labels.useWizard", "Not sure? Use Find My Service")}</a>
         </div>
       </div>
     `;

@@ -156,6 +156,18 @@ img {
   text-decoration: none;
 }
 
+.header-contact-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
+.header-contact-link {
+  min-height: 38px;
+  padding: 0.72rem 0.95rem;
+}
+
 .language-switch {
   display: inline-flex;
   align-items: center;
@@ -197,6 +209,10 @@ img {
   display: grid;
   gap: 12px;
   margin-bottom: 24px;
+}
+
+.page-intro .cta-box {
+  margin-top: 8px;
 }
 
 .page-intro h1 {
@@ -672,6 +688,15 @@ img {
   padding: 18px;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
+}
+
+.business-help-box {
+  display: grid;
+  gap: 14px;
+}
+
+.business-help-grid {
+  gap: 14px;
 }
 
 .cta-note {
@@ -1250,6 +1275,10 @@ img {
   line-height: 1.6;
 }
 
+.footer-copy strong {
+  color: var(--ink);
+}
+
 .footer-meta {
   font-size: 0.94rem;
 }
@@ -1268,6 +1297,11 @@ img {
   .top-nav {
     width: auto;
     overflow: visible;
+  }
+
+  .header-contact-strip {
+    width: auto;
+    margin-left: auto;
   }
 
   .page-shell,
@@ -1308,6 +1342,10 @@ img {
 @media (max-width: 759px) {
   .language-switch {
     margin-left: auto;
+  }
+
+  .header-contact-strip {
+    order: 3;
   }
 
   .sticky-revisit {

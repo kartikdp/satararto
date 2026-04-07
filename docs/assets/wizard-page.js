@@ -22,6 +22,7 @@
     getServiceTitle,
     normalizePlannerState,
     readPlannerStateFromUrl,
+    renderBusinessSupportBlock,
     renderGuideSections,
     renderHelpfulFeedback,
     renderServiceSummary,
@@ -528,20 +529,21 @@
   function renderResult() {
     const service = getServiceById(plannerState.serviceId);
     const sections = buildServiceSections(service, plannerState);
-    const selectedOffice = getOfficeByPlannerId(plannerState.officeId);
 
     elements.resultSummary.innerHTML = `
       ${renderServiceSummary(service, plannerState, { mode: "wizard" })}
+      ${renderBusinessSupportBlock(service, {
+        title: t("guide.labels.serviceHelpTitle", "Need help with this service?"),
+        body:
+          getLanguage() === "mr"
+            ? "ही प्रक्रिया, कागदपत्रे आणि पुढची पायरी समजून घेण्यासाठी आमच्याशी संपर्क करू शकता."
+            : "Contact us if you want help with the process, the document list, or the next step for this service."
+      })}
     `;
     elements.resultCta.innerHTML = `
       <div class="guide-utility-row">
         <button class="button button-link" type="button" id="result-share-link">${t("guide.labels.copyLink", "Copy link")}</button>
         <button class="button button-link" type="button" id="result-print">${t("guide.labels.printGuide", "Print guide")}</button>
-        ${
-          selectedOffice
-            ? `<a class="button button-link" href="tel:${selectedOffice.phone.replace(/[^0-9+]/g, "")}">${getLanguage() === "mr" ? `${selectedOffice.code} ला कॉल करा` : `Call ${selectedOffice.code}`}</a>`
-            : ""
-        }
       </div>
     `;
 
@@ -566,10 +568,17 @@
     writePlannerStateToUrl(plannerState, viewMode);
 
     elements.intro.innerHTML = `
-      <p class="eyebrow">${t("wizard.introEyebrow", "Satara District, Maharashtra")}</p>
-      <h1>${t("wizard.introTitle", "Don't know which RTO service you need?")}</h1>
-      <p>${t("wizard.introText", "Answer a few simple questions and get the right service, documents, forms, office guidance, and official next step.")}</p>
-      <p class="intro-inline-link">${t("wizard.introLinkPrefix", "Already know the service name?")} <a href="./services.html${getLanguage() === "mr" ? "?lang=mr" : ""}">${t("wizard.introLinkLabel", "Go to Services")}</a>.</p>
+      <p class="eyebrow">${t("wizard.introEyebrow", "Suraj Pardeshi • Satara")}</p>
+      <h1>${t("wizard.introTitle", "Get help with licences, RC work, NOC, permit, tax, and other RTO documents")}</h1>
+      <p>${t("wizard.introText", "Tell us what you need. We help identify the right service, explain the process, and tell you what papers to keep ready.")}</p>
+      <p class="intro-inline-link">${t("wizard.introLinkPrefix", "Already know the work?")} <a href="./services.html${getLanguage() === "mr" ? "?lang=mr" : ""}">${t("wizard.introLinkLabel", "See all services")}</a>.</p>
+      ${renderBusinessSupportBlock(null, {
+        title: getLanguage() === "mr" ? "कागदपत्र, लायसन्स किंवा RTO कामासाठी मदत हवी आहे का?" : "Need help with licence, RC, NOC, permit, or other document work?",
+        body:
+          getLanguage() === "mr"
+            ? "काही प्रश्नांची उत्तरे द्या. योग्य सेवा समजल्यानंतर आम्ही प्रक्रिया समजावून सांगू आणि गरज असल्यास पुढे मदत करू."
+            : "Answer a few questions first. Once the right service is clear, you can use the guide and contact us for paid help if needed."
+      })}
     `;
     elements.resetButton.textContent = t("wizard.buttons.startOver", "Start over");
     elements.backButton.textContent = t("wizard.buttons.back", "Back");
