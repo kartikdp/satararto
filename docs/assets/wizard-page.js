@@ -40,10 +40,6 @@
     resetButton: document.getElementById("wizard-reset"),
     flagsButtonRow: document.getElementById("wizard-flags-actions"),
     flagsContinue: document.getElementById("wizard-flags-continue"),
-    previewView: document.getElementById("wizard-preview"),
-    previewSummary: document.getElementById("preview-summary"),
-    previewCta: document.getElementById("preview-cta"),
-    previewGuide: document.getElementById("preview-guide"),
     resultView: document.getElementById("wizard-result"),
     wizardCard: document.getElementById("wizard-card"),
     resultSummary: document.getElementById("result-summary"),
@@ -556,17 +552,6 @@
     });
   }
 
-  function renderPreview() {
-    const service = getServiceById(plannerState.serviceId);
-    const sections = buildServiceSections(service, plannerState);
-
-    elements.previewSummary.innerHTML = `
-      ${renderServiceSummary(service, plannerState, { mode: "wizard" })}
-    `;
-    elements.previewCta.innerHTML = ``;
-    renderGuideSections(elements.previewGuide, sections, `preview-${service.id}`);
-  }
-
   function render() {
     plannerState = normalizePlannerState(plannerState);
     writePlannerStateToUrl(plannerState, viewMode);
@@ -574,7 +559,6 @@
     const showResult = viewMode === "result";
     elements.intro.hidden = showResult;
     elements.wizardCard.hidden = showResult;
-    elements.previewView.hidden = showResult;
     elements.resultView.hidden = !showResult;
 
     if (showResult) {
@@ -585,7 +569,6 @@
     const previousStepId = getPreviousStepId();
     elements.backButton.hidden = !previousStepId;
     renderCurrentStep();
-    renderPreview();
   }
 
   elements.backButton.addEventListener("click", () => {
