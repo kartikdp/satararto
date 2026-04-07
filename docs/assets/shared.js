@@ -722,10 +722,6 @@
     const leaveOfficeChecks = service.leaveOfficeChecks || [];
 
     return `
-      <article class="content-card content-card-highlight">
-        <h3>Before you start</h3>
-        <p>${service.recommendedAction}</p>
-      </article>
       <article class="content-card">
         <h3>Step-by-step</h3>
         <ol class="step-list">

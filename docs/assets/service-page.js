@@ -68,20 +68,12 @@
         <section id="service-summary-anchor">
           ${renderServiceSummary(service, null, { mode: "service" })}
         </section>
-        <div class="cta-box">
-          <div class="cta-primary-row">
-            <a class="button button-primary" href="${service.officialLinks[0].url}" target="_blank" rel="noreferrer">Open ${service.officialLinks[0].label}</a>
-            <button class="button button-secondary" type="button" id="service-print">Print guide</button>
-          </div>
-          <div class="cta-link-row cta-link-row-tertiary">
-            <button class="button button-link" type="button" id="service-share-link">Copy link</button>
-            <a class="button button-link" href="./index.html?journey=${encodeURIComponent(journeyId)}&service=${encodeURIComponent(
-              service.id
-            )}">Let the wizard choose</a>
-          </div>
-        </div>
-        <div class="floating-primary-action">
-          <a class="button button-primary" href="${service.officialLinks[0].url}" target="_blank" rel="noreferrer">Open ${service.officialLinks[0].label}</a>
+        <div class="guide-utility-row">
+          <button class="button button-link" type="button" id="service-share-link">Copy link</button>
+          <button class="button button-link" type="button" id="service-print">Print guide</button>
+          <a class="button button-link" href="./index.html?journey=${encodeURIComponent(journeyId)}&service=${encodeURIComponent(
+            service.id
+          )}">Let the wizard choose</a>
         </div>
         <div id="service-guide-anchor">
           <div id="service-page-guide"></div>

@@ -523,30 +523,20 @@
   function renderResult() {
     const service = getServiceById(plannerState.serviceId);
     const sections = buildServiceSections(service, plannerState);
-    const primaryLink = service.officialLinks[0];
     const selectedOffice = getOfficeByPlannerId(plannerState.officeId);
 
     elements.resultSummary.innerHTML = `
       ${renderServiceSummary(service, plannerState, { mode: "wizard" })}
     `;
     elements.resultCta.innerHTML = `
-      <div class="cta-box">
-        <p class="cta-note">${siteData.wizardMeta.resultDisclaimer}</p>
-        <div class="cta-primary-row">
-          <a class="button button-primary" href="${primaryLink.url}" target="_blank" rel="noreferrer">Open ${primaryLink.label}</a>
-        </div>
-        <div class="cta-link-row cta-link-row-tertiary">
-          <button class="button button-link" type="button" id="result-share-link">Copy link</button>
-          <button class="button button-link" type="button" id="result-print">Print guide</button>
-          ${
-            selectedOffice
-              ? `<a class="button button-link" href="tel:${selectedOffice.phone.replace(/[^0-9+]/g, "")}">Call ${selectedOffice.code}</a>`
-              : ""
-          }
-        </div>
-      </div>
-      <div class="floating-primary-action">
-        <a class="button button-primary" href="${primaryLink.url}" target="_blank" rel="noreferrer">Open ${primaryLink.label}</a>
+      <div class="guide-utility-row">
+        <button class="button button-link" type="button" id="result-share-link">Copy link</button>
+        <button class="button button-link" type="button" id="result-print">Print guide</button>
+        ${
+          selectedOffice
+            ? `<a class="button button-link" href="tel:${selectedOffice.phone.replace(/[^0-9+]/g, "")}">Call ${selectedOffice.code}</a>`
+            : ""
+        }
       </div>
     `;
 
@@ -569,18 +559,11 @@
   function renderPreview() {
     const service = getServiceById(plannerState.serviceId);
     const sections = buildServiceSections(service, plannerState);
-    const primaryLink = service.officialLinks[0];
 
     elements.previewSummary.innerHTML = `
       ${renderServiceSummary(service, plannerState, { mode: "wizard" })}
     `;
-    elements.previewCta.innerHTML = `
-      <div class="cta-box cta-box-preview">
-        <div class="cta-primary-row">
-          <a class="button button-primary" href="${primaryLink.url}" target="_blank" rel="noreferrer">Open ${primaryLink.label}</a>
-        </div>
-      </div>
-    `;
+    elements.previewCta.innerHTML = ``;
     renderGuideSections(elements.previewGuide, sections, `preview-${service.id}`);
   }
 
