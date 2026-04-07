@@ -191,6 +191,17 @@ test.describe("language switch", () => {
     await expect(page.locator('[data-guide-section="forms"]')).toContainText("येथे प्रामुख्याने वापरले जाणारे अधिकृत फॉर्म");
     await expect(page.locator('[data-guide-section="sources"]')).toContainText("या प्रक्रियेसाठी वापरलेला सरकारी स्रोत");
   });
+
+  test("faq and offices pages show Marathi support content", async ({ page }) => {
+    await page.goto("/faq.html?lang=mr");
+    await expect(page.locator("#faq-page-intro h1")).toContainText("सुरू करण्यापूर्वी");
+    await expect(page.locator("body")).toContainText("अधिकृत यादीत नसतानाही ही साइट अतिरिक्त बॅकअप कागदपत्रे का दाखवते?");
+
+    await page.goto("/offices.html?lang=mr");
+    await expect(page.locator("#offices-page-intro h1")).toContainText("अधिकृत RTO कार्यालये");
+    await expect(page.locator("body")).toContainText("उप प्रादेशिक परिवहन कार्यालय, सातारा");
+    await expect(page.locator("body")).toContainText("आमचा साताऱ्यातील संपर्क");
+  });
 });
 
 test.describe("agent-first business positioning", () => {

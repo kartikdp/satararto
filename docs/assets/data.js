@@ -37,7 +37,9 @@ window.siteData = {
     {
       code: "MH-11",
       name: "Dy. Regional Transport Office, Satara",
+      nameMr: "उप प्रादेशिक परिवहन कार्यालय, सातारा",
       address: "515/2, Sadar Bazar, Bhurke Bungalow, Camp, Satara - 415001",
+      addressMr: "515/2, सदर बाजार, भुरके बंगला, कॅम्प, सातारा - 415001",
       phone: "02162-230330",
       email: "dyrto.11-mh@gov.in",
       note: "Use this office when your existing record or official portal routing points to MH-11."
@@ -45,7 +47,9 @@ window.siteData = {
     {
       code: "MH-50",
       name: "Dy. Regional Transport Office, Karad",
+      nameMr: "उप प्रादेशिक परिवहन कार्यालय, कराड",
       address: "Gat No. 351, Padali (Kese), PO Supane, Tal. Karad, Dist. Satara - 415114",
+      addressMr: "गट क्र. 351, पडळी (केसे), पोस्ट सुपणे, ता. कराड, जि. सातारा - 415114",
       phone: "02164-255300 / 400 / 500",
       email: "dyrto.50-mh@gov.in",
       note: "Use this office when your existing DL or RC is already linked to MH-50 or the portal assigns your case there."
@@ -220,90 +224,120 @@ window.siteData = {
     {
       id: "sarathi",
       label: "Sarathi",
+      labelMr: "सारथी",
       description: "Official portal for learner's licence, driving licence, renewal, and IDP-related services.",
+      descriptionMr: "शिकाऊ परवाना, वाहनचालक परवाना, नूतनीकरण आणि IDP संबंधित सेवांसाठीचे अधिकृत पोर्टल.",
       url: "https://sarathi.parivahan.gov.in"
     },
     {
       id: "vahan",
       label: "Vahan",
+      labelMr: "वाहन",
       description: "Official portal for vehicle services like transfer, NOC, RC updates, tax, and fitness.",
+      descriptionMr: "हस्तांतरण, NOC, RC अपडेट, कर आणि फिटनेस यांसारख्या वाहन सेवांसाठीचे अधिकृत पोर्टल.",
       url: "https://vahan.parivahan.gov.in/vahanservice/"
     },
     {
       id: "dl-status",
       label: "Know Your Licence Details",
+      labelMr: "परवान्याचे तपशील तपासा",
       description: "Official driving licence status and details lookup on Parivahan.",
+      descriptionMr: "परिवहनवरील वाहनचालक परवाना स्थिती आणि तपशील तपासण्यासाठी अधिकृत सेवा.",
       url: "https://parivahan.gov.in/rcdlstatus/?pur_cd=101"
     },
     {
       id: "vehicle-status",
       label: "Know Your Vehicle Details",
+      labelMr: "वाहनाचे तपशील तपासा",
       description: "Official vehicle details lookup through the Vahan citizen service flow.",
+      descriptionMr: "वाहन नागरिक सेवा प्रक्रियेद्वारे वाहन तपशील पाहण्यासाठी अधिकृत सेवा.",
       url: "https://vahan.parivahan.gov.in/nrservices/faces/user/citizen/searchstatus.xhtml"
     },
     {
       id: "download-forms",
       label: "All Official Forms",
+      labelMr: "सर्व अधिकृत फॉर्म",
       description: "Central Parivahan page for downloadable driving and vehicle forms.",
+      descriptionMr: "डाउनलोड करण्यायोग्य परवाना आणि वाहन फॉर्मसाठीचे परिवहनचे केंद्रीय पान.",
       url: "https://parivahan.gov.in/parivahan/en/content/download-forms"
     },
     {
       id: "dl-forms-page",
       label: "Driving Licence Forms",
+      labelMr: "वाहनचालक परवाना फॉर्म",
       description: "Official driving licence forms directory on Parivahan.",
+      descriptionMr: "परिवहनवरील वाहनचालक परवाना फॉर्म निर्देशिका.",
       url: "https://parivahan.gov.in/parivahan/en/content/driving-licence-0"
     },
     {
       id: "vehicle-forms-page",
       label: "Vehicle Registration Forms",
+      labelMr: "वाहन नोंदणी फॉर्म",
       description: "Official vehicle-registration forms directory on Parivahan.",
+      descriptionMr: "परिवहनवरील वाहन-नोंदणी फॉर्म निर्देशिका.",
       url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration"
     },
     {
       id: "permit-forms-page",
       label: "Permit Forms",
+      labelMr: "परमिट फॉर्म",
       description: "Official permit forms and permit information on Parivahan.",
+      descriptionMr: "परिवहनवरील अधिकृत परमिट फॉर्म आणि परमिट माहिती.",
       url: "https://parivahan.gov.in/parivahan/en/content/permit-form"
     },
     {
       id: "fees-user-charges",
       label: "Fees and User Charges",
+      labelMr: "शुल्क आणि वापरकर्ता आकार",
       description: "Official central fee table for licensing, registration, and related services.",
+      descriptionMr: "परवाना, नोंदणी आणि संबंधित सेवांसाठीचे अधिकृत केंद्रीय शुल्क तक्ते.",
       url: "https://parivahan.gov.in/parivahan/en/content/fees-user-charges"
     },
     {
       id: "tax-calculation",
       label: "Maharashtra Tax Calculation",
+      labelMr: "महाराष्ट्र कर गणना",
       description: "Official Maharashtra Transport tax-calculation page.",
+      descriptionMr: "महाराष्ट्र परिवहनचे अधिकृत कर-गणना पान.",
       url: "https://transport.maharashtra.gov.in/1167/Tax-Calculation"
     },
     {
       id: "maharashtra-faceless-dl",
       label: "Maharashtra Faceless DL Services",
+      labelMr: "महाराष्ट्र फेसलेस DL सेवा",
       description: "Official Maharashtra page showing faceless Sarathi-related services.",
+      descriptionMr: "फेसलेस सारथी संबंधित सेवांचे महाराष्ट्रातील अधिकृत पान.",
       url: "https://transport.maharashtra.gov.in/1363/Sarathi-Related-Faceless-Services?format=print"
     },
     {
       id: "maharashtra-offices",
       label: "Maharashtra Regional Offices",
+      labelMr: "महाराष्ट्र प्रादेशिक कार्यालये",
       description: "Official Maharashtra office directory including Satara and Karad.",
+      descriptionMr: "सातारा आणि कराड यांसह महाराष्ट्रातील अधिकृत कार्यालय निर्देशिका.",
       url: "https://transport.maharashtra.gov.in/1184/Regional-Offices?format=print"
     }
   ],
   toolGroups: [
     {
       title: "Apply Or Check Status",
+      titleMr: "अर्ज करा किंवा स्थिती तपासा",
       intro: "Use these official links when you are ready to apply, book, or check status.",
+      introMr: "अर्ज, बुकिंग किंवा स्थिती तपासण्यासाठी तयार असाल तेव्हा हे अधिकृत दुवे वापरा.",
       toolIds: ["sarathi", "vahan", "dl-status", "vehicle-status"]
     },
     {
       title: "Download Forms And Rules",
+      titleMr: "फॉर्म आणि नियम डाउनलोड करा",
       intro: "Use these official directories when a user needs the original government form or fee/rules page.",
+      introMr: "मूळ सरकारी फॉर्म किंवा शुल्क / नियम पान पाहायचे असल्यास या अधिकृत निर्देशिका वापरा.",
       toolIds: ["download-forms", "dl-forms-page", "vehicle-forms-page", "permit-forms-page", "fees-user-charges"]
     },
     {
       title: "Maharashtra-Specific References",
+      titleMr: "महाराष्ट्र-विशिष्ट संदर्भ",
       intro: "Use these for Maharashtra service status, tax pages, and office routing.",
+      introMr: "महाराष्ट्र सेवा स्थिती, कर पान आणि कार्यालय मार्गदर्शनासाठी हे संदर्भ वापरा.",
       toolIds: ["maharashtra-faceless-dl", "tax-calculation", "maharashtra-offices"]
     }
   ],
@@ -480,17 +514,23 @@ window.siteData = {
   downloadGroups: [
     {
       title: "Licence Forms",
+      titleMr: "परवाना फॉर्म",
       intro: "Official forms commonly used for learner's licence, permanent licence, renewal, and IDP.",
+      introMr: "शिकाऊ परवाना, कायम परवाना, नूतनीकरण आणि IDP साठी सामान्यतः वापरले जाणारे अधिकृत फॉर्म.",
       formIds: ["form1", "form1a", "form2", "form4", "form4a", "form5", "form9"]
     },
     {
       title: "Vehicle Forms",
+      titleMr: "वाहन फॉर्म",
       intro: "Official forms commonly used for registration, RC work, transfer, NOC, and hypothecation.",
+      introMr: "नोंदणी, RC, हस्तांतरण, NOC आणि तारण-संबंधित कामांसाठी सामान्यतः वापरले जाणारे अधिकृत फॉर्म.",
       formIds: ["form20", "form25", "form26", "form28", "form29", "form30", "form33", "form34", "form35"]
     },
     {
       title: "Fitness And Inspection Forms",
+      titleMr: "फिटनेस आणि तपासणी फॉर्म",
       intro: "Official forms used in fitness and inspection-heavy cases.",
+      introMr: "फिटनेस आणि तपासणी-आधारित प्रकरणांमध्ये वापरले जाणारे अधिकृत फॉर्म.",
       formIds: ["form38", "form38a"]
     }
   ],
@@ -1485,26 +1525,46 @@ window.siteData = {
       question: "Can this guide replace the government portal?",
       answer:
         "No. This website helps you understand the service, documents, fees, and visit requirements. Actual applications, payments, appointments, and status checks still happen on Sarathi, Vahan, or Maharashtra Transport."
+      ,
+      questionMr: "ही मार्गदर्शिका सरकारी पोर्टलची जागा घेऊ शकते का?",
+      answerMr:
+        "नाही. ही वेबसाइट सेवा, कागदपत्रे, शुल्क आणि भेटीची गरज समजून घेण्यासाठी मदत करते. प्रत्यक्ष अर्ज, पेमेंट, अपॉइंटमेंट आणि स्थिती तपासणी सारथी, वाहन किंवा महाराष्ट्र परिवहनवरच होते."
     },
     {
       question: "What should I do first if I know the problem but not the service name?",
       answer:
         "Start with the situation first, such as a new licence, sale of vehicle, address change, loan closure, or NOC. Then match that situation to the correct official service and form."
+      ,
+      questionMr: "मला समस्या माहित आहे पण सेवचे नाव माहित नाही, तर आधी काय करावे?",
+      answerMr:
+        "सुरुवात परिस्थितीपासून करा, जसे नवीन परवाना, वाहन विक्री, पत्ता बदल, कर्जफेड किंवा NOC. त्यानंतर त्या परिस्थितीला योग्य अधिकृत सेवा आणि फॉर्मशी जुळवा."
     },
     {
       question: "Why does the site repeat PUC, tax proof, and financier papers so often?",
       answer:
         "Because many RTO services reuse the same supporting documents. Transfer, NOC, RC renewal, and finance-related services often depend on PUC, tax proof, insurance, and financier papers."
+      ,
+      questionMr: "ही साइट PUC, कराचा पुरावा आणि फायनान्सरची कागदपत्रे वारंवार का दाखवते?",
+      answerMr:
+        "कारण अनेक RTO सेवांमध्ये तीच पूरक कागदपत्रे पुन्हा लागतात. हस्तांतरण, NOC, RC नूतनीकरण आणि फायनान्स-संबंधित सेवांमध्ये PUC, कराचा पुरावा, विमा आणि फायनान्सरची कागदपत्रे वारंवार लागतात."
     },
     {
       question: "What if the service is shown as online but the office still asks me to visit?",
       answer:
         "That can still happen. Some services are online-first or faceless-enabled, but verification, record mismatch, inspection, or commercial clearances can still lead to an office visit."
+      ,
+      questionMr: "सेवा ऑनलाइन दाखवत असली तरी कार्यालयात बोलावले तर काय?",
+      answerMr:
+        "असे होऊ शकते. काही सेवा ऑनलाइन-प्राधान्य किंवा फेसलेस असल्या तरी पडताळणी, रेकॉर्ड विसंगती, तपासणी किंवा व्यावसायिक क्लिअरन्समुळे कार्यालय भेट लागू शकते."
     },
     {
       question: "What if the live portal total is different from the fee shown here?",
       answer:
         "Treat the live portal amount as final. Fee tables here are only a guide, and smart-card charges, user charges, late fees, or system-calculated additions can change the final payable amount."
+      ,
+      questionMr: "येथे दाखवलेल्या शुल्कापेक्षा पोर्टलवरील अंतिम रक्कम वेगळी असेल तर काय?",
+      answerMr:
+        "पोर्टलवरील अंतिम रक्कमच ग्राह्य धरा. येथे दाखवलेले शुल्क फक्त मार्गदर्शक आहे; स्मार्ट-कार्ड शुल्क, वापरकर्ता शुल्क, विलंब शुल्क किंवा प्रणालीद्वारे जोडलेली रक्कम अंतिम देय बदलू शकते."
     }
   ],
   sourceGroups: [
@@ -2571,7 +2631,10 @@ window.siteData.signals.unshift({
 window.siteData.faq.splice(3, 0, {
   question: "Why does the site show extra backup documents that are not on the official checklist?",
   answer:
-    "Because RTO counters sometimes ask for backup papers when uploads fail, records do not match, or originals and photocopies are checked together. They are shown separately under 'Often asked in practice' and should not be treated as official legal requirements."
+    "Because RTO counters sometimes ask for backup papers when uploads fail, records do not match, or originals and photocopies are checked together. They are shown separately under 'Often asked in practice' and should not be treated as official legal requirements.",
+  questionMr: "अधिकृत यादीत नसतानाही ही साइट अतिरिक्त बॅकअप कागदपत्रे का दाखवते?",
+  answerMr:
+    "कारण अपलोड अयशस्वी होणे, रेकॉर्ड न जुळणे किंवा मूळ कागदपत्रे आणि छायाप्रती एकत्र तपासल्या जाणे अशा परिस्थितीत RTO काउंटरवर अतिरिक्त बॅकअप कागदपत्रे मागितली जाऊ शकतात. ती 'प्रत्यक्षात वारंवार विचारली जाणारी कागदपत्रे' म्हणून वेगळी दाखवली आहेत; त्यांना अधिकृत कायदेशीर अनिवार्यता समजू नका."
 });
 
 window.siteData.sourceGroups.push(
@@ -4284,6 +4347,10 @@ window.siteData.faq = window.siteData.faq.concat([
     question: "Can I apply for a permanent driving licence without a learner's licence?",
     answer:
       "No. The permanent driving licence route depends on a valid learner's licence and the official waiting period before the driving test."
+    ,
+    questionMr: "शिकाऊ परवाना नसताना मी कायम वाहनचालक परवान्यासाठी अर्ज करू शकतो का?",
+    answerMr:
+      "नाही. कायम वाहनचालक परवान्यासाठी वैध शिकाऊ परवाना आणि ड्रायव्हिंग टेस्टपूर्वीचा अधिकृत प्रतीक्षा कालावधी आवश्यक असतो."
   },
   {
     category: "General",
@@ -4326,11 +4393,19 @@ window.siteData.faq = window.siteData.faq.concat([
     question: "When do I need NOC instead of transfer of ownership?",
     answer:
       "Use transfer of ownership when the vehicle stays within the same registration system flow. Use NOC when the vehicle is moving to another jurisdiction, state, or re-registration process."
+    ,
+    questionMr: "मालकी हस्तांतरणाऐवजी NOC कधी आवश्यक होते?",
+    answerMr:
+      "वाहन त्याच नोंदणी प्रणालीमध्ये राहणार असेल तर मालकी हस्तांतरण वापरा. वाहन दुसऱ्या क्षेत्रात, राज्यात किंवा पुनर्नोंदणी प्रक्रियेत जाणार असेल तर NOC आवश्यक होते."
   },
   {
     category: "RC & Vehicle",
     question: "Why do RC services keep asking for insurance, PUC, and tax papers together?",
     answer:
       "Because RC-side services often verify whether the vehicle record is clean and current before they approve transfer, renewal, NOC, address change, or finance-related updates."
+    ,
+    questionMr: "RC सेवांमध्ये विमा, PUC आणि कर कागदपत्रे एकत्र का मागितली जातात?",
+    answerMr:
+      "कारण RC संबंधित सेवा हस्तांतरण, नूतनीकरण, NOC, पत्ता बदल किंवा फायनान्स-संबंधित अपडेट मंजूर करण्यापूर्वी वाहन रेकॉर्ड स्वच्छ आणि अद्ययावत आहे का ते तपासतात."
   }
 ]);
