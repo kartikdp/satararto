@@ -373,20 +373,20 @@ function renderQuickActions() {
 function renderStats() {
   const cards = [
     {
-      value: window.siteData.services.length,
-      label: "guided service pages with official links and document references"
+      value: "MH-11 & MH-50",
+      label: "office guidance for Satara and Karad records"
     },
     {
-      value: window.siteData.journeys.length,
-      label: "start-here paths based on what the client is actually trying to do"
+      value: "Licence to RC",
+      label: "guidance for driving licence, vehicle, permit, tax, and PUC work"
     },
     {
-      value: window.siteData.formLibrary.length,
-      label: "official forms linked from the built-in download center"
+      value: "Official Links",
+      label: "Sarathi, Vahan, forms, status pages, and Maharashtra Transport links"
     },
     {
-      value: "Planner",
-      label: "interactive checklist builder for shareable client guidance"
+      value: "Checklist",
+      label: "service-wise documents, forms, fees, and visit requirements"
     }
   ];
 
@@ -567,11 +567,11 @@ function renderPlannerFlagOptions() {
 
 function getPlannerOfficeGuidance(service) {
   if (state.planner.officeId === "mh11") {
-    return "Use MH-11 Satara as the starting office reference and confirm the record on the official portal.";
+    return "Use MH-11 Satara as the starting office and confirm the record on the official portal.";
   }
 
   if (state.planner.officeId === "mh50") {
-    return "Use MH-50 Karad as the starting office reference and confirm the record on the official portal.";
+    return "Use MH-50 Karad as the starting office and confirm the record on the official portal.";
   }
 
   if (state.planner.officeId === "other-state") {
@@ -714,7 +714,7 @@ function renderPlannerOutput() {
     <div class="planner-output-header">
       <p class="eyebrow">Personalized Plan</p>
       <h3>${service.title}</h3>
-      <p>This checklist is based on the current planner selections and is designed to help a client prepare before using the official portal.</p>
+      <p>This checklist is based on your selections and is meant to help you prepare before starting on the official portal.</p>
       <div class="badge-row">
         ${createBadge(`Start on ${getPortalLabel(service)}`)}
         ${createBadge(readiness, "warning")}
@@ -970,7 +970,7 @@ function renderServiceDetail() {
   const service = getServiceById(state.selectedServiceId);
 
   if (!service) {
-    elements.serviceDetail.innerHTML = `<div class="empty-state">Choose a service to read the detailed reference page.</div>`;
+    elements.serviceDetail.innerHTML = `<div class="empty-state">Choose a service to view the full guide.</div>`;
     return;
   }
 
@@ -983,7 +983,7 @@ function renderServiceDetail() {
 
   elements.serviceDetail.innerHTML = `
     <div class="detail-header">
-      <p class="eyebrow">Service Reference</p>
+      <p class="eyebrow">Service Guide</p>
       <h2>${service.title}</h2>
       <p class="detail-lead">${service.summary}</p>
       <div class="badge-row">
@@ -1062,7 +1062,7 @@ function renderServiceDetail() {
           ${
             service.extraDocs.length
               ? service.extraDocs.map((doc) => `<li>${doc}</li>`).join("")
-              : "<li>No extra supporting documents highlighted for this reference page.</li>"
+              : "<li>No extra supporting documents are highlighted for this service.</li>"
           }
         </ul>
       </article>

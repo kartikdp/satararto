@@ -99,13 +99,13 @@ window.siteData = {
     },
     {
       step: "2",
-      title: "Read the full reference page",
+      title: "Read the full service guide",
       description: "Check documents, official steps, fees, timelines, and whether the case is online, appointment-based, or office-heavy."
     },
     {
       step: "3",
       title: "Then use the official portal",
-      description: "Only after the checklist is clear should the user continue to Sarathi, Vahan, or Maharashtra Transport."
+      description: "Once the checklist is clear, continue to Sarathi, Vahan, or Maharashtra Transport."
     }
   ],
   planner: {
@@ -222,7 +222,7 @@ window.siteData = {
     {
       id: "permit-forms-page",
       label: "Permit Forms",
-      description: "Official permit forms and permit references on Parivahan.",
+      description: "Official permit forms and permit information on Parivahan.",
       url: "https://parivahan.gov.in/parivahan/en/content/permit-form"
     },
     {
@@ -234,7 +234,7 @@ window.siteData = {
     {
       id: "tax-calculation",
       label: "Maharashtra Tax Calculation",
-      description: "Official Maharashtra Transport tax-calculation reference.",
+      description: "Official Maharashtra Transport tax-calculation page.",
       url: "https://transport.maharashtra.gov.in/1167/Tax-Calculation"
     },
     {
@@ -253,7 +253,7 @@ window.siteData = {
   toolGroups: [
     {
       title: "Apply Or Check Status",
-      intro: "Use these official links when the user is ready to move from guidance into the real government workflow.",
+      intro: "Use these official links when you are ready to apply, book, or check status.",
       toolIds: ["sarathi", "vahan", "dl-status", "vehicle-status"]
     },
     {
@@ -263,7 +263,7 @@ window.siteData = {
     },
     {
       title: "Maharashtra-Specific References",
-      intro: "Use these when the client wants state-level service status, tax notes, or office routing.",
+      intro: "Use these for Maharashtra service status, tax pages, and office routing.",
       toolIds: ["maharashtra-faceless-dl", "tax-calculation", "maharashtra-offices"]
     }
   ],
@@ -445,7 +445,7 @@ window.siteData = {
   downloadGroups: [
     {
       title: "Licence Forms",
-      intro: "Official forms clients most often need for learner's licence, permanent licence, renewal, and IDP.",
+      intro: "Official forms commonly used for learner's licence, permanent licence, renewal, and IDP.",
       formIds: ["form1", "form1a", "form2", "form4", "form4a", "form5", "form9"]
     },
     {
@@ -576,7 +576,7 @@ window.siteData = {
       validity: "Learner's licence validity: 6 months",
       notices: [
         "Use the state-specific Sarathi flow instead of downloading random third-party forms.",
-        "The website should explain this as an online-first service, not a guaranteed no-visit service."
+        "This service is online-first, but some cases may still be sent for manual verification."
       ],
       officialLinks: [
         { label: "Sarathi", url: "https://sarathi.parivahan.gov.in" },
@@ -592,7 +592,7 @@ window.siteData = {
       category: "licence",
       short: "Driving test-based licence after a valid learner's licence.",
       summary:
-        "Use this when the user already has a learner's licence and is ready to book the driving test for the permanent driving licence.",
+        "Use this if you already have a learner's licence and are ready to book the driving test for the permanent driving licence.",
       bestFor: "Best for learner's licence holders who have completed the waiting period and need the final licence.",
       mode: "Online application plus RTO test",
       appointment: "Required",
@@ -623,7 +623,7 @@ window.siteData = {
       fees: ["Rs. 300 driving competence test fee per class", "Rs. 200 issue of driving licence"],
       validity: "Issued after successful test and approval",
       notices: [
-        "A reference website should clearly label this as test-based and appointment-driven.",
+        "This is a test-based service and requires an appointment.",
         "Users often confuse this with a fully online workflow. It is not."
       ],
       officialLinks: [
@@ -640,7 +640,7 @@ window.siteData = {
       category: "licence",
       short: "Renew an existing licence before or after expiry.",
       summary:
-        "Use this when the user already has a driving licence and wants to keep it valid without starting again from the beginning.",
+        "Use this if you already have a driving licence and want to keep it valid without starting again from the beginning.",
       bestFor: "Best for licence holders approaching expiry or users whose licence has recently expired.",
       mode: "Faceless-enabled with exception handling",
       appointment: "Sometimes",
@@ -675,7 +675,7 @@ window.siteData = {
       ],
       validity: "Renewed licence validity depends on vehicle class and age rules",
       notices: [
-        "A reference site should flag out-of-state licences early because they need extra verification.",
+        "If the existing licence is from another state, verification can add time to the process.",
         "Fee totals can vary on the live portal if extra charges apply."
       ],
       officialLinks: [
@@ -721,7 +721,7 @@ window.siteData = {
       fees: ["Maharashtra page shows Rs. 214", "Final portal total may include extra charges"],
       validity: "Replacement depends on verification and dispatch",
       notices: [
-        "Users often re-apply for the wrong service. A reference site should explain when duplicate is the right path."
+        "Apply for duplicate only when the licence record already exists and the document is lost, damaged, or defaced."
       ],
       officialLinks: [
         { label: "Sarathi", url: "https://sarathi.parivahan.gov.in" },
@@ -737,7 +737,7 @@ window.siteData = {
       category: "licence",
       short: "Update the address attached to an existing DL.",
       summary:
-        "Use this when the user has changed residence and wants the new address reflected on the driving licence.",
+        "Use this if you have changed residence and want the new address reflected on the driving licence.",
       bestFor: "Best for existing licence holders with a valid DL and updated residence proof.",
       mode: "Faceless-enabled in Maharashtra",
       appointment: "Usually no",
@@ -757,7 +757,7 @@ window.siteData = {
       forms: ["Portal service flow"],
       fees: ["Rs. 200 for change in address / particulars"],
       validity: "Update depends on approval and dispatch",
-      notices: ["This is a good candidate for a short, very clear reference page with examples of acceptable address proofs."],
+      notices: ["Keep the new address proof exactly as you want it shown on the licence record."],
       officialLinks: [
         { label: "Sarathi", url: "https://sarathi.parivahan.gov.in" },
         {
@@ -772,8 +772,8 @@ window.siteData = {
       category: "licence",
       short: "Travel-oriented permit for Indian licence holders going abroad.",
       summary:
-        "Use this when the user already has a valid Indian driving licence and needs an International Driving Permit for travel.",
-      bestFor: "Best for users traveling abroad who need an official permit in addition to the Indian licence.",
+        "Use this if you already have a valid Indian driving licence and need an International Driving Permit for travel.",
+      bestFor: "Best for travel abroad when an official permit is needed in addition to the Indian driving licence.",
       mode: "Apply online, verify in person",
       appointment: "Yes or office scheduling as required",
       officeVisit: "Required",
@@ -803,7 +803,7 @@ window.siteData = {
       forms: ["Form 4A", "Form 1A"],
       fees: ["Rs. 1000"],
       validity: "Typically valid for 1 year",
-      notices: ["A reference website should explain that IDP is not the same thing as a domestic licence renewal or duplicate."],
+      notices: ["IDP is separate from domestic licence renewal or duplicate issue. Carry travel papers and your original DL."],
       officialLinks: [
         { label: "Sarathi", url: "https://sarathi.parivahan.gov.in" },
         {
@@ -819,7 +819,7 @@ window.siteData = {
       short: "Register a newly purchased vehicle and obtain RC details.",
       summary:
         "Use this when a user has bought a new vehicle and needs the official registration completed with the correct documents, tax, insurance, and finance details.",
-      bestFor: "Best for post-purchase registration, especially when users want to understand dealer and office responsibilities.",
+      bestFor: "Best for post-purchase registration, especially when you want to understand dealer and office responsibilities.",
       mode: "Dealer-assisted or Vahan-linked registration flow",
       appointment: "Depends on case",
       officeVisit: "Usually yes directly or through dealer process",
@@ -857,7 +857,7 @@ window.siteData = {
       ],
       validity: "RC issuance follows verification, inspection, and fee confirmation",
       notices: [
-        "A reference site should explain what the dealer handles and what the owner should still verify."
+        "Confirm which documents the dealer will submit and which originals you still need to keep ready."
       ],
       officialLinks: [
         { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
@@ -909,7 +909,7 @@ window.siteData = {
       ],
       validity: "Processed after verification and record update",
       notices: [
-        "A reference site should clearly explain that transfer, NOC, and reassignment are different but sometimes linked.",
+        "Transfer of ownership, NOC, and reassignment are different services. Make sure you are using the right one.",
         "Users often miss Form 28 when the buyer belongs to another jurisdiction."
       ],
       officialLinks: [
@@ -961,7 +961,7 @@ window.siteData = {
       fees: ["Rule 81 fee applies and should be confirmed on the live portal"],
       validity: "Use the approved NOC in the next linked workflow such as reassignment or cross-jurisdiction transfer",
       notices: [
-        "A reference site should explain NOC as part of a longer journey, not a standalone mystery form."
+        "NOC is usually part of a larger transfer or re-registration process. Check the next step before you apply."
       ],
       officialLinks: [
         { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
@@ -978,7 +978,7 @@ window.siteData = {
       short: "Renew the certificate of registration before expiry.",
       summary:
         "Use this when the registration certificate is nearing expiry and the vehicle owner wants to continue using the vehicle legally.",
-      bestFor: "Best for expiring RC cases where users need a window-based reminder and checklist.",
+      bestFor: "Best if your RC is nearing expiry and you want a clear checklist with the correct application window.",
       mode: "Vahan service with possible appointment",
       appointment: "Often",
       officeVisit: "Often",
@@ -1009,7 +1009,7 @@ window.siteData = {
       ],
       validity: "Depends on approval and vehicle category rules",
       notices: [
-        "Window-based services work well with reminder UI on a reference site."
+        "Apply within the allowed window and keep older-vehicle compliance papers ready where relevant."
       ],
       officialLinks: [
         { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
@@ -1026,7 +1026,7 @@ window.siteData = {
       short: "Replace a lost, destroyed, or damaged registration certificate.",
       summary:
         "Use this when the RC is lost or damaged and the vehicle owner needs a replacement certificate.",
-      bestFor: "Best for lost RC cases where users often forget about police reports and affidavits.",
+      bestFor: "Best for lost RC cases where police reports and affidavits are often missed.",
       mode: "Online-first with supporting records",
       appointment: "Usually no",
       officeVisit: "Sometimes",
@@ -1056,7 +1056,7 @@ window.siteData = {
       fees: ["Duplicate RC fee is half of the registration fee"],
       validity: "Replacement timing depends on verification and printing",
       notices: [
-        "A reference page should separate private and commercial vehicle extras such as challan and tax clearance."
+        "Commercial vehicles may also need tax, permit, or challan clearances before approval."
       ],
       officialLinks: [
         { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
@@ -1073,7 +1073,7 @@ window.siteData = {
       short: "Update the address attached to the vehicle registration record.",
       summary:
         "Use this when the owner changes residence and wants the RC to reflect the new address.",
-      bestFor: "Best for users who moved and want both DL and RC records updated correctly.",
+      bestFor: "Best if you moved and want both DL and RC records updated correctly.",
       mode: "Vahan faceless-style flow with document upload",
       appointment: "Usually no",
       officeVisit: "Sometimes",
@@ -1098,7 +1098,7 @@ window.siteData = {
       fees: ["Address change fee is half of the registration fee", "Smart-card fee may apply"],
       validity: "Update depends on approval",
       notices: [
-        "This is one of the clearest opportunities for paired journeys: update DL address and RC address together."
+        "If both your DL and RC need the new address, updating them together can help reduce mismatch issues."
       ],
       officialLinks: [
         { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
@@ -1143,7 +1143,7 @@ window.siteData = {
         "Medium / heavy vehicle: Rs. 3000"
       ],
       validity: "Updated after successful record endorsement",
-      notices: ["A reference guide should show who signs Form 34 because this is where many users pause."],
+      notices: ["Check that Form 34 is signed correctly by both the owner and the financier before submission."],
       officialLinks: [
         { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
         {
@@ -1184,8 +1184,8 @@ window.siteData = {
       fees: ["No separate cancellation fee noted in the central fee table for the termination itself"],
       validity: "Update depends on financier clearance and record update",
       notices: [
-        "This is a high-friction case because users often finish the loan but do not know the RC is still showing finance.",
-        "A reference site should explain the bank-side sequence before the Vahan sequence."
+        "Many people close the loan but do not realize the RC still shows finance until this update is completed.",
+        "Do not start this service until the bank has issued the final NOC or due-clearance letter."
       ],
       officialLinks: [
         { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
@@ -1234,7 +1234,7 @@ window.siteData = {
       ],
       validity: "Inspection appointment required before final approval",
       notices: [
-        "A reference site should mark this clearly as an office-and-vehicle service, not a faceless service."
+        "Carry the vehicle, originals, appointment receipt, and payment proof on inspection day."
       ],
       officialLinks: [
         { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
@@ -1250,7 +1250,7 @@ window.siteData = {
       category: "compliance",
       short: "Regional, tourist, goods, duplicate, renewal, and transfer permit guidance.",
       summary:
-        "Use this as a reference overview for permit cases such as goods carriage, tourist permits, national permits, duplicate permits, renewal, or transfer by succession.",
+        "Use this for permit cases such as goods carriage, tourist permits, national permits, duplicate permits, renewal, or transfer by succession.",
       bestFor: "Best for commercial or passenger vehicle users who need to know which permit bucket they belong to before starting.",
       mode: "Permit portal with scrutiny-heavy workflows",
       appointment: "Varies by permit type",
@@ -1285,7 +1285,7 @@ window.siteData = {
       ],
       validity: "Permit validity and renewal cycle depend on permit type",
       notices: [
-        "A reference website should split permit content by use case rather than listing every permit in one wall of text."
+        "Permit requirements change by vehicle type and permit category. Confirm the exact permit before payment."
       ],
       officialLinks: [
         {
@@ -1304,8 +1304,8 @@ window.siteData = {
       category: "compliance",
       short: "Road tax, environment tax, and rule-based vehicle tax guidance.",
       summary:
-        "Use this as the reference page when the user needs to understand motor vehicle tax, not just pay it blindly on the portal.",
-      bestFor: "Best for users who want to know why the tax amount changes by vehicle category and permit type.",
+        "Use this when you need to understand motor vehicle tax before making payment on the official portal.",
+      bestFor: "Best if you want to understand why the tax amount changes by vehicle category and permit type.",
       mode: "Online calculation and payment",
       appointment: "No",
       officeVisit: "Usually no",
@@ -1327,7 +1327,7 @@ window.siteData = {
       fees: ["System-calculated and rule-based, not one flat figure"],
       validity: "Payment receipt should be saved for transfer, NOC, renewal, and other linked services",
       notices: [
-        "A reference website should explain the tax logic in plain language and then direct users to the live calculator or portal."
+        "Tax is rule-based and portal-calculated. Use the live amount shown on the official portal as final."
       ],
       officialLinks: [
         {
@@ -1343,8 +1343,8 @@ window.siteData = {
       category: "compliance",
       short: "Understand where the pollution certificate matters in RTO journeys.",
       summary:
-        "Use this as a reference page to explain that PUC is not just for road checks. It is a supporting document in many RC-related service flows.",
-      bestFor: "Best for users preparing transfer, NOC, RC renewal, or hypothecation cases.",
+        "Use this to understand where a valid PUC certificate is required in RC-related services.",
+      bestFor: "Best when you are preparing transfer, NOC, RC renewal, or hypothecation cases.",
       mode: "Compliance support item",
       appointment: "No",
       officeVisit: "No",
@@ -1364,7 +1364,7 @@ window.siteData = {
       fees: ["PUC rates vary by center and category"],
       validity: "Carry a valid PUC before starting transfer, NOC, RC renewal, or finance-related RC updates",
       notices: [
-        "A reference site should mention PUC in the prerequisite area of many services instead of hiding it in small print."
+        "Keep a valid PUC ready before starting transfer, NOC, RC renewal, or hypothecation-related services."
       ],
       officialLinks: [
         {
@@ -1410,52 +1410,52 @@ window.siteData = {
   signals: [
     {
       title: "Payment Deducted, Portal Still Pending",
-      detail: "Users often report that money is debited but the portal does not unlock the next step. A reference website should explain how to verify payment before attempting another payment."
+      detail: "Sometimes payment is deducted but the portal does not unlock the next step immediately. Check payment status and receipt details before paying again."
     },
     {
       title: "Wrong Office Or Jurisdiction Chosen",
-      detail: "People frequently do not know whether to pick MH-11 or MH-50. Office routing guidance is one of the highest-value features for Satara users."
+      detail: "Many people are unsure whether their record belongs to MH-11 Satara or MH-50 Karad. Check the office code on your current DL or RC before applying."
     },
     {
       title: "Checklist Surprise In The Middle Of The Process",
-      detail: "PUC, police reports, financier NOCs, or tax proof are often discovered too late. The reference site should surface these before the user starts the portal flow."
+      detail: "PUC, police reports, financier NOCs, or tax proof are often discovered too late. Keep supporting papers ready before opening the portal."
     },
     {
       title: "Heavy Dependence On Agents",
-      detail: "When forms and exception handling are unclear, users feel pushed toward brokers. Clear reference content can reduce that dependency."
+      detail: "When forms and exception handling are unclear, people often feel pushed toward brokers or agents. Clear guidance can reduce that dependency."
     }
   ],
   faq: [
     {
-      question: "Can this website replace the government portal?",
+      question: "Can this guide replace the government portal?",
       answer:
-        "No. This website should work as a reference layer. It explains the service, required documents, fees, and visit expectations. Actual applications, payments, appointments, and status checks still happen on Sarathi, Vahan, or Maharashtra Transport pages."
+        "No. This guide helps you understand the service, documents, fees, and visit requirements. Actual applications, payments, appointments, and status checks still happen on Sarathi, Vahan, or Maharashtra Transport."
     },
     {
-      question: "What should a user do first when they only know the problem, not the service name?",
+      question: "What should I do first if I know the problem but not the service name?",
       answer:
-        "The website should start with a journey question such as 'I want a new licence', 'I sold my vehicle', 'I moved house', or 'I closed my loan'. From there it should map the user to the right official service and forms."
+        "Start with the situation first, such as a new licence, sale of vehicle, address change, loan closure, or NOC. Then match that situation to the correct official service and form."
     },
     {
       question: "Why does the site repeat PUC, tax proof, and financier papers so often?",
       answer:
-        "Because many RTO journeys reuse the same supporting documents. A strong reference website should help users understand dependencies, not just show the headline form."
+        "Because many RTO services reuse the same supporting documents. Transfer, NOC, RC renewal, and finance-related services often depend on PUC, tax proof, insurance, and financier papers."
     },
     {
       question: "What if the service is shown as online but the office still asks me to visit?",
       answer:
-        "That can still happen. Some services are online-first or faceless-enabled, but verification, record mismatch, inspection, or commercial clearances can still create an office visit requirement. The site should explain that possibility up front."
+        "That can still happen. Some services are online-first or faceless-enabled, but verification, record mismatch, inspection, or commercial clearances can still lead to an office visit."
     },
     {
-      question: "How should the website handle fees when the live portal total is different?",
+      question: "What if the live portal total is different from the fee shown here?",
       answer:
-        "The website should show reference fees with a note that smart-card charges, user charges, or portal-calculated extras may change the final payable amount. The live portal amount should be treated as final at payment time."
+        "Treat the live portal amount as final. Fee tables here are only a guide, and smart-card charges, user charges, late fees, or system-calculated additions can change the final payable amount."
     }
   ],
   sourceGroups: [
     {
       title: "Official Maharashtra Sources",
-      intro: "Use these for process details, office information, service status, fee tables, and state-specific service pages.",
+      intro: "Official Maharashtra sources for office details, service status, fee tables, and state-specific pages.",
       links: [
         { label: "Regional Offices", url: "https://transport.maharashtra.gov.in/1184/Regional-Offices?format=print" },
         { label: "Sarathi Related Faceless Services", url: "https://transport.maharashtra.gov.in/1363/Sarathi-Related-Faceless-Services?format=print" },
@@ -1467,7 +1467,7 @@ window.siteData = {
     },
     {
       title: "Official Parivahan Sources",
-      intro: "Use these for central guidance, form references, vehicle-service rules, and portal entry points.",
+      intro: "Official Parivahan sources for forms, service rules, and portal entry points.",
       links: [
         { label: "Sarathi", url: "https://sarathi.parivahan.gov.in" },
         { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
@@ -1479,7 +1479,7 @@ window.siteData = {
     },
     {
       title: "Public Pain-Point Signals",
-      intro: "These are useful for UX planning, not as legal authority.",
+      intro: "Public discussions that highlight common issues and delays. These are not legal or official authority.",
       links: [
         { label: "ConsumerComplaints - Sarathi / Parivahan", url: "https://www.consumercomplaints.in/bycompany/sarathi-parivahan-gov-in-a520198.html" },
         { label: "ConsumerComplaints - Payment Status Issue", url: "https://www.consumercomplaints.in/sarathi-parivahan-payment-status-failed-but-money-is-deducted-from-the-account-c3228880" },
@@ -1601,7 +1601,7 @@ const practicalChecklistSignalsByService = {
 };
 
 window.siteData.practicalDocsNote =
-  "These are not official mandatory papers. They are backup documents repeatedly mentioned by users on Reddit, Team-BHP, and public complaint forums, so clients can prepare for real-world verification and avoid repeat visits.";
+  "These are not official mandatory documents. They are backup papers repeatedly mentioned in public user reports and can help you avoid repeat visits or verification delays.";
 
 window.siteData.services = window.siteData.services.map((service) => ({
   ...service,
@@ -1617,7 +1617,7 @@ window.siteData.signals.unshift({
 window.siteData.faq.splice(3, 0, {
   question: "Why does the site show extra backup documents that are not on the official checklist?",
   answer:
-    "Because Indian RTO counters sometimes ask for backup papers when uploads fail, records do not match, or the clerk wants originals and photocopies together. The website keeps those items in a separate 'Often asked in practice' section sourced from public user reports, not as official legal requirements."
+    "Because RTO counters sometimes ask for backup papers when uploads fail, records do not match, or originals and photocopies are checked together. They are shown separately under 'Often asked in practice' and should not be treated as official legal requirements."
 });
 
 window.siteData.sourceGroups.push(
