@@ -8,17 +8,25 @@
     copyText,
     createServiceHref,
     createDefaultPlannerState,
+    getJourneyDescription,
+    getJourneyTitle,
+    getLanguage,
+    getOptionDescription,
+    getOptionLabel,
     getPlannerServiceOptions,
     getPlannerSteps,
     getOfficeByPlannerId,
     getRelevantFlags,
     getServiceById,
+    getServiceShort,
+    getServiceTitle,
     normalizePlannerState,
     readPlannerStateFromUrl,
     renderGuideSections,
     renderHelpfulFeedback,
     renderServiceSummary,
     siteData,
+    t,
     writePlannerStateToUrl
   } = window.SiteApp;
 
@@ -113,12 +121,13 @@
     const percentage = total ? Math.round((stepNumber / total) * 100) : 0;
     const service = getServiceById(plannerState.serviceId);
 
-    elements.progressLabel.textContent = `${siteData.wizardMeta.progressLabel} ${stepNumber} of ${total}`;
+    elements.progressLabel.textContent = `${t("wizard.progressLabel", siteData.wizardMeta.progressLabel)} ${stepNumber} ${getLanguage() === "mr" ? "पैकी" : "of"} ${total}`;
     elements.progressBar.style.width = `${percentage}%`;
 
     if (service && currentStepId !== "journey") {
       elements.progressService.hidden = false;
-      elements.progressService.textContent = `Likely service: ${service.title}`;
+      elements.progressService.textContent =
+        getLanguage() === "mr" ? `संभाव्य सेवा: ${getServiceTitle(service)}` : `Likely service: ${getServiceTitle(service)}`;
     } else {
       elements.progressService.hidden = true;
       elements.progressService.textContent = "";
@@ -267,8 +276,8 @@
           return `
             <button class="wizard-choice ${isActive ? "is-active" : ""}" type="button" data-journey-id="${journey.id}">
               <span class="wizard-choice-icon">${journey.iconLabel}</span>
-              <strong>${journey.title}</strong>
-              <span>${journey.description}</span>
+              <strong>${getJourneyTitle(journey)}</strong>
+              <span>${getJourneyDescription(journey)}</span>
               <small>${journey.helperLabel}</small>
             </button>
           `;
@@ -293,8 +302,8 @@
 
           return `
             <button class="wizard-choice ${isActive ? "is-active" : ""}" type="button" data-service-id="${service.id}">
-              <strong>${service.title}</strong>
-              <span>${service.short}</span>
+              <strong>${getServiceTitle(service)}</strong>
+              <span>${getServiceShort(service)}</span>
             </button>
           `;
         })}
@@ -316,8 +325,8 @@
 
           return `
             <button class="wizard-choice ${isActive ? "is-active" : ""}" type="button" data-learner-status-id="${option.id}">
-              <strong>${option.label}</strong>
-              <span>${option.description}</span>
+              <strong>${getOptionLabel(option)}</strong>
+              <span>${getOptionDescription(option)}</span>
             </button>
           `;
         })}
@@ -339,8 +348,8 @@
 
           return `
             <button class="wizard-choice ${isActive ? "is-active" : ""}" type="button" data-office-id="${option.id}">
-              <strong>${option.label}</strong>
-              <span>${option.description}</span>
+              <strong>${getOptionLabel(option)}</strong>
+              <span>${getOptionDescription(option)}</span>
             </button>
           `;
         })}
@@ -362,8 +371,8 @@
 
           return `
             <button class="wizard-choice ${isActive ? "is-active" : ""}" type="button" data-profile-id="${option.id}">
-              <strong>${option.label}</strong>
-              <span>${option.description}</span>
+              <strong>${getOptionLabel(option)}</strong>
+              <span>${getOptionDescription(option)}</span>
             </button>
           `;
         })}
@@ -385,8 +394,8 @@
 
           return `
             <button class="wizard-choice ${isActive ? "is-active" : ""}" type="button" data-vehicle-type-id="${option.id}">
-              <strong>${option.label}</strong>
-              <span>${option.description}</span>
+              <strong>${getOptionLabel(option)}</strong>
+              <span>${getOptionDescription(option)}</span>
             </button>
           `;
         })}
@@ -408,8 +417,8 @@
 
           return `
             <button class="wizard-choice ${isActive ? "is-active" : ""}" type="button" data-fuel-type-id="${option.id}">
-              <strong>${option.label}</strong>
-              <span>${option.description}</span>
+              <strong>${getOptionLabel(option)}</strong>
+              <span>${getOptionDescription(option)}</span>
             </button>
           `;
         })}
@@ -434,8 +443,8 @@
 
           return `
             <button class="wizard-choice wizard-choice-multi ${isActive ? "is-active" : ""}" type="button" data-flag-id="${flag.id}">
-              <strong>${flag.label}</strong>
-              <span>${flag.description}</span>
+              <strong>${getOptionLabel(flag)}</strong>
+              <span>${getOptionDescription(flag)}</span>
             </button>
           `;
         })}
@@ -526,11 +535,11 @@
     `;
     elements.resultCta.innerHTML = `
       <div class="guide-utility-row">
-        <button class="button button-link" type="button" id="result-share-link">Copy link</button>
-        <button class="button button-link" type="button" id="result-print">Print guide</button>
+        <button class="button button-link" type="button" id="result-share-link">${t("guide.labels.copyLink", "Copy link")}</button>
+        <button class="button button-link" type="button" id="result-print">${t("guide.labels.printGuide", "Print guide")}</button>
         ${
           selectedOffice
-            ? `<a class="button button-link" href="tel:${selectedOffice.phone.replace(/[^0-9+]/g, "")}">Call ${selectedOffice.code}</a>`
+            ? `<a class="button button-link" href="tel:${selectedOffice.phone.replace(/[^0-9+]/g, "")}">${getLanguage() === "mr" ? `${selectedOffice.code} ला कॉल करा` : `Call ${selectedOffice.code}`}</a>`
             : ""
         }
       </div>
@@ -543,7 +552,7 @@
     document.getElementById("result-share-link").addEventListener("click", () => {
       copyText(window.location.href, () => {
         const button = document.getElementById("result-share-link");
-        button.textContent = "Link copied";
+        button.textContent = t("guide.labels.linkCopied", "Link copied");
       });
     });
 
@@ -555,6 +564,18 @@
   function render() {
     plannerState = normalizePlannerState(plannerState);
     writePlannerStateToUrl(plannerState, viewMode);
+
+    elements.intro.innerHTML = `
+      <p class="eyebrow">${t("wizard.introEyebrow", "Satara District, Maharashtra")}</p>
+      <h1>${t("wizard.introTitle", "Don't know which RTO service you need?")}</h1>
+      <p>${t("wizard.introText", "Answer a few simple questions and get the right service, documents, forms, office guidance, and official next step.")}</p>
+      <p class="intro-inline-link">${t("wizard.introLinkPrefix", "Already know the service name?")} <a href="./services.html${getLanguage() === "mr" ? "?lang=mr" : ""}">${t("wizard.introLinkLabel", "Go to Services")}</a>.</p>
+    `;
+    elements.resetButton.textContent = t("wizard.buttons.startOver", "Start over");
+    elements.backButton.textContent = t("wizard.buttons.back", "Back");
+    elements.flagsContinue.textContent = t("wizard.buttons.showResult", "Show my result");
+    elements.resultChange.textContent = t("wizard.buttons.changeAnswers", "Change my answers");
+    elements.resultStartOver.textContent = t("wizard.buttons.startOver", "Start over");
 
     const showResult = viewMode === "result";
     elements.intro.hidden = showResult;

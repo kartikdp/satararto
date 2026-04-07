@@ -1,6 +1,77 @@
 (function () {
   const siteData = window.siteData;
   const plannerFlagIds = siteData.planner.flags.map((flag) => flag.id);
+  const supportedLanguages = ["en", "mr"];
+
+  function getLanguage() {
+    const params = new URLSearchParams(window.location.search);
+    const fromUrl = params.get("lang");
+
+    if (supportedLanguages.includes(fromUrl)) {
+      return fromUrl;
+    }
+
+    const stored = window.localStorage.getItem("satara-rto-lang");
+    if (supportedLanguages.includes(stored)) {
+      return stored;
+    }
+
+    return "en";
+  }
+
+  function setLanguage(lang) {
+    const next = supportedLanguages.includes(lang) ? lang : "en";
+    window.localStorage.setItem("satara-rto-lang", next);
+    document.documentElement.lang = next === "mr" ? "mr" : "en";
+
+    const params = new URLSearchParams(window.location.search);
+    if (next === "en") {
+      params.delete("lang");
+    } else {
+      params.set("lang", next);
+    }
+    const nextUrl = `${window.location.pathname}${params.toString() ? `?${params.toString()}` : ""}`;
+    window.history.replaceState({}, "", nextUrl);
+  }
+
+  function t(path, fallback = "") {
+    const lang = getLanguage();
+    const source = (siteData.i18n && siteData.i18n[lang]) || {};
+    const result = path.split(".").reduce((acc, key) => (acc && acc[key] != null ? acc[key] : undefined), source);
+    return result == null ? fallback : result;
+  }
+
+  function pickLocalized(entry, baseKey) {
+    if (!entry) {
+      return "";
+    }
+
+    const lang = getLanguage();
+    if (lang === "mr") {
+      const mrKey = `${baseKey}Mr`;
+      if (entry[mrKey]) {
+        return entry[mrKey];
+      }
+    }
+
+    return entry[baseKey] || "";
+  }
+
+  function getCategoryLabel(category) {
+    return pickLocalized(category, "label");
+  }
+
+  function getCategoryDescription(category) {
+    return pickLocalized(category, "description");
+  }
+
+  function getOptionLabel(option) {
+    return pickLocalized(option, "label");
+  }
+
+  function getOptionDescription(option) {
+    return pickLocalized(option, "description");
+  }
 
   function createEmptyFlags() {
     return Object.fromEntries(plannerFlagIds.map((flagId) => [flagId, false]));
@@ -43,6 +114,26 @@
 
   function getServiceResources(serviceId) {
     return siteData.serviceResources[serviceId] || { formIds: [], toolIds: [] };
+  }
+
+  function getJourneyTitle(journey) {
+    return pickLocalized(journey, "title");
+  }
+
+  function getJourneyDescription(journey) {
+    return pickLocalized(journey, "description");
+  }
+
+  function getServiceTitle(service) {
+    return pickLocalized(service, "title");
+  }
+
+  function getServiceShort(service) {
+    return pickLocalized(service, "short") || pickLocalized(service, "summary");
+  }
+
+  function getOfficeNote(office) {
+    return pickLocalized(office, "note");
   }
 
   function dedupeList(items) {
@@ -227,20 +318,19 @@
     const service = getServiceById(normalized.serviceId);
     const serviceOptions = getPlannerServiceOptions(normalized);
     const relevantFlags = getRelevantFlags(service, normalized);
-    const stepMeta = siteData.wizardMeta.stepMeta;
 
     return [
       {
         id: "journey",
-        title: stepMeta.journey.title,
-        help: stepMeta.journey.help
+        title: t("wizard.stepMeta.journey.title", siteData.wizardMeta.stepMeta.journey.title),
+        help: t("wizard.stepMeta.journey.help", siteData.wizardMeta.stepMeta.journey.help)
       },
       ...(shouldShowLearnerStatusQuestion(normalized)
         ? [
             {
               id: "learnerStatus",
-              title: stepMeta.learnerStatus.title,
-              help: stepMeta.learnerStatus.help
+              title: t("wizard.stepMeta.learnerStatus.title", siteData.wizardMeta.stepMeta.learnerStatus.title),
+              help: t("wizard.stepMeta.learnerStatus.help", siteData.wizardMeta.stepMeta.learnerStatus.help)
             }
           ]
         : []),
@@ -248,8 +338,8 @@
         ? [
             {
               id: "service",
-              title: stepMeta.service.title,
-              help: stepMeta.service.help
+              title: t("wizard.stepMeta.service.title", siteData.wizardMeta.stepMeta.service.title),
+              help: t("wizard.stepMeta.service.help", siteData.wizardMeta.stepMeta.service.help)
             }
           ]
         : []),
@@ -257,8 +347,8 @@
         ? [
             {
               id: "office",
-              title: stepMeta.office.title,
-              help: stepMeta.office.help
+              title: t("wizard.stepMeta.office.title", siteData.wizardMeta.stepMeta.office.title),
+              help: t("wizard.stepMeta.office.help", siteData.wizardMeta.stepMeta.office.help)
             }
           ]
         : []),
@@ -266,8 +356,8 @@
         ? [
             {
               id: "profile",
-              title: stepMeta.profile.title,
-              help: stepMeta.profile.help
+              title: t("wizard.stepMeta.profile.title", siteData.wizardMeta.stepMeta.profile.title),
+              help: t("wizard.stepMeta.profile.help", siteData.wizardMeta.stepMeta.profile.help)
             }
           ]
         : []),
@@ -275,8 +365,8 @@
         ? [
             {
               id: "vehicleType",
-              title: stepMeta.vehicleType.title,
-              help: stepMeta.vehicleType.help
+              title: t("wizard.stepMeta.vehicleType.title", siteData.wizardMeta.stepMeta.vehicleType.title),
+              help: t("wizard.stepMeta.vehicleType.help", siteData.wizardMeta.stepMeta.vehicleType.help)
             }
           ]
         : []),
@@ -284,8 +374,8 @@
         ? [
             {
               id: "fuelType",
-              title: stepMeta.fuelType.title,
-              help: stepMeta.fuelType.help
+              title: t("wizard.stepMeta.fuelType.title", siteData.wizardMeta.stepMeta.fuelType.title),
+              help: t("wizard.stepMeta.fuelType.help", siteData.wizardMeta.stepMeta.fuelType.help)
             }
           ]
         : []),
@@ -293,8 +383,8 @@
         ? [
             {
               id: "flags",
-              title: stepMeta.flags.title,
-              help: stepMeta.flags.help
+              title: t("wizard.stepMeta.flags.title", siteData.wizardMeta.stepMeta.flags.title),
+              help: t("wizard.stepMeta.flags.help", siteData.wizardMeta.stepMeta.flags.help)
             }
           ]
         : [])
@@ -324,47 +414,61 @@
       return "Vahan";
     }
 
-    return "Official portal";
+    return getLanguage() === "mr" ? "अधिकृत पोर्टल" : "Official portal";
   }
 
   function getPlannerOfficeGuidance(service, state) {
     if (state.officeId === "mh11") {
-      return "Use MH-11 Satara as the starting office and confirm the record on the official portal before payment.";
+      return getLanguage() === "mr"
+        ? "सुरुवातीसाठी MH-11 सातारा वापरा आणि पेमेंटपूर्वी अधिकृत पोर्टलवर रेकॉर्ड तपासा."
+        : "Use MH-11 Satara as the starting office and confirm the record on the official portal before payment.";
     }
 
     if (state.officeId === "mh50") {
-      return "Use MH-50 Karad as the starting office and confirm the record on the official portal before payment.";
+      return getLanguage() === "mr"
+        ? "सुरुवातीसाठी MH-50 कराड वापरा आणि पेमेंटपूर्वी अधिकृत पोर्टलवर रेकॉर्ड तपासा."
+        : "Use MH-50 Karad as the starting office and confirm the record on the official portal before payment.";
     }
 
     if (state.officeId === "other-state") {
-      return "Expect extra verification because the existing record is outside Satara district or outside Maharashtra.";
+      return getLanguage() === "mr"
+        ? "विद्यमान रेकॉर्ड सातारा जिल्ह्याबाहेर किंवा महाराष्ट्राबाहेर असल्यामुळे अतिरिक्त पडताळणी लागू शकते."
+        : "Expect extra verification because the existing record is outside Satara district or outside Maharashtra.";
     }
 
     if (service.officeVisit.toLowerCase().includes("required")) {
-      return "An office visit is part of this service. If you already have a DL or RC, use the office code on that record first.";
+      return getLanguage() === "mr"
+        ? "या सेवेत कार्यालय भेटीचा भाग असू शकतो. तुमच्याकडे आधीपासून DL किंवा RC असल्यास त्यावरील कार्यालय कोड आधी वापरा."
+        : "An office visit is part of this service. If you already have a DL or RC, use the office code on that record first.";
     }
 
-    return "If you already have a DL or RC, use the office code on that record first. Otherwise confirm jurisdiction on the official portal.";
+    return getLanguage() === "mr"
+      ? "तुमच्याकडे आधीपासून DL किंवा RC असल्यास त्यावरील कार्यालय कोड आधी वापरा. अन्यथा अधिकृत पोर्टलवर क्षेत्राधिकार तपासा."
+      : "If you already have a DL or RC, use the office code on that record first. Otherwise confirm jurisdiction on the official portal.";
   }
 
   function getGenericOfficeGuidance(service) {
     if (service.officeVisit.toLowerCase().includes("required")) {
-      return "This service usually ends with an office visit or verification step. Use the office code on the current record whenever possible.";
+      return getLanguage() === "mr"
+        ? "ही सेवा सहसा कार्यालय भेट किंवा पडताळणी टप्प्याने संपते. शक्य असल्यास सध्याच्या रेकॉर्डवरील कार्यालय कोड वापरा."
+        : "This service usually ends with an office visit or verification step. Use the office code on the current record whenever possible.";
     }
 
-    return "Use the office code on your current DL or RC if you already have a record. If you are unsure, confirm the office on the official portal before payment.";
+    return getLanguage() === "mr"
+      ? "सध्याचा DL किंवा RC असल्यास त्यावरील कार्यालय कोड वापरा. खात्री नसेल तर पेमेंटपूर्वी अधिकृत पोर्टलवर कार्यालय तपासा."
+      : "Use the office code on your current DL or RC if you already have a record. If you are unsure, confirm the office on the official portal before payment.";
   }
 
   function getPlannerReadiness(service) {
     if (service.officeVisit.toLowerCase().includes("required")) {
-      return "Office visit expected";
+      return getLanguage() === "mr" ? "कार्यालय भेट अपेक्षित" : "Office visit expected";
     }
 
     if (service.officeVisit.toLowerCase().includes("possible") || service.appointment.toLowerCase().includes("sometimes")) {
-      return "Keep room for verification";
+      return getLanguage() === "mr" ? "पडताळणीसाठी वेळ ठेवा" : "Keep room for verification";
     }
 
-    return "Online-first service";
+    return getLanguage() === "mr" ? "मुख्यतः ऑनलाइन सेवा" : "Online-first service";
   }
 
   function getStepChannel(step) {
@@ -561,26 +665,26 @@
   function renderServiceSummary(service, state, options = {}) {
     const officeGuidance = state ? getPlannerOfficeGuidance(service, state) : getGenericOfficeGuidance(service);
     const selectedOffice = state ? getOfficeByPlannerId(state.officeId) : null;
-    const purposeText = service.short || service.bestFor;
+    const purposeText = getServiceShort(service) || service.bestFor;
     const summaryNotes = [
       {
-        label: "Who this is for",
+        label: t("guide.labels.whoThisIsFor", "Who this is for"),
         text: service.bestFor
       },
       {
-        label: "You receive",
+        label: t("guide.labels.youReceive", "You receive"),
         text: service.outcomeSummary
       }
     ];
 
     if (selectedOffice) {
       summaryNotes.push({
-        label: "Office",
+        label: t("guide.labels.office", "Office"),
         text: `${selectedOffice.name}. ${officeGuidance}`
       });
     } else if (options.mode === "wizard") {
       summaryNotes.push({
-        label: "Office",
+        label: t("guide.labels.office", "Office"),
         text: officeGuidance
       });
     }
@@ -588,15 +692,15 @@
     return `
       <div class="result-summary">
         <div class="result-summary-main">
-          <h2>${service.title}</h2>
+          <h2>${getServiceTitle(service)}</h2>
           <p class="result-lead">${purposeText}</p>
         </div>
         <div class="result-summary-meta">
-          ${createBadge(service.serviceLabel)}
-          ${service.featured ? createBadge("Most used") : ""}
-          ${createBadge(`Start on ${getPortalLabel(service)}`)}
+          ${createBadge(pickLocalized(service, "serviceLabel") || service.serviceLabel)}
+          ${service.featured ? createBadge(t("guide.labels.mostUsed", "Most used")) : ""}
+          ${createBadge(`${t("guide.labels.startOn", "Start on")} ${getPortalLabel(service)}`)}
           ${createBadge(getPlannerReadiness(service), "warning")}
-          ${createBadge(`Office visit: ${service.officeVisit}`, "alert")}
+          ${createBadge(`${t("guide.labels.officeVisit", "Office visit")}: ${service.officeVisit}`, "alert")}
         </div>
         <ul class="summary-note-list">
           ${summaryNotes
@@ -652,11 +756,14 @@
 
   function renderInformationSection(service) {
     const information = getInformationSections(service);
-    const headings = ["What it is", "When you need it", "What people often confuse"];
+    const headings =
+      getLanguage() === "mr"
+        ? ["ही सेवा काय आहे", "ही सेवा कधी लागते", "लोक सहसा कशात गोंधळतात"]
+        : ["What it is", "When you need it", "What people often confuse"];
 
     return `
       <article class="content-card content-card-highlight">
-        <h3>Background and explanation</h3>
+        <h3>${t("guide.labels.background", "Background and explanation")}</h3>
         <p>${information.intro}</p>
       </article>
       <div class="section-grid">
@@ -683,20 +790,20 @@
     return `
       <div class="section-grid">
         <article class="content-card">
-          <h3>Required documents</h3>
-          <p class="muted-copy">These are the main official documents that most applicants should keep ready for this service.</p>
-          ${needsOriginals(service) ? `<p class="inline-note"><strong>Carry originals</strong> if the portal or office asks for verification.</p>` : ""}
+          <h3>${t("guide.labels.requiredDocuments", "Required documents")}</h3>
+          <p class="muted-copy">${getLanguage() === "mr" ? "या सेवेसाठी बहुतेक अर्जदारांनी तयार ठेवावीत अशी मुख्य अधिकृत कागदपत्रे." : "These are the main official documents that most applicants should keep ready for this service."}</p>
+          ${needsOriginals(service) ? `<p class="inline-note"><strong>${t("guide.labels.carryOriginals", "Carry originals")}</strong> ${getLanguage() === "mr" ? "जर पोर्टल किंवा कार्यालय पडताळणीसाठी विचारत असेल तर." : "if the portal or office asks for verification."}</p>` : ""}
           <ul class="content-list">
             ${service.officialRequiredDocs.map((doc) => `<li>${doc}</li>`).join("")}
           </ul>
         </article>
         <article class="content-card">
-          <h3>Sometimes needed</h3>
-          <p class="muted-copy">These usually depend on verification, office routing, finance status, address change, or other case-specific conditions.</p>
+          <h3>${t("guide.labels.sometimesNeeded", "Sometimes needed")}</h3>
+          <p class="muted-copy">${getLanguage() === "mr" ? "ही कागदपत्रे सहसा पडताळणी, कार्यालय राउटिंग, फायनान्स, पत्ता बदल किंवा इतर केस-विशिष्ट अटींवर अवलंबून असतात." : "These usually depend on verification, office routing, finance status, address change, or other case-specific conditions."}</p>
           ${
             officialAdditionalDocs.length
               ? `<ul class="content-list">${officialAdditionalDocs.map((doc) => `<li>${doc}</li>`).join("")}</ul>`
-              : `<p class="muted-copy">No extra supporting documents are highlighted for this service.</p>`
+              : `<p class="muted-copy">${getLanguage() === "mr" ? "या सेवेसाठी वेगळी अतिरिक्त कागदपत्रे दाखवलेली नाहीत." : "No extra supporting documents are highlighted for this service."}</p>`
           }
         </article>
       </div>
@@ -704,7 +811,7 @@
         practicalDocs.length
           ? `
             <article class="content-card content-card-soft">
-              <h3>Backup papers people often carry</h3>
+              <h3>${t("guide.labels.backupPapers", "Backup papers people often carry")}</h3>
               <p class="muted-copy">${siteData.practicalDocsNote}</p>
               <ul class="content-list">
                 ${practicalDocs.map((doc) => `<li>${doc}</li>`).join("")}
@@ -723,7 +830,7 @@
 
     return `
       <article class="content-card">
-        <h3>Step-by-step</h3>
+        <h3>${t("guide.labels.stepByStep", "Step-by-step")}</h3>
         <ol class="step-list">
           ${service.steps
             .map(
@@ -742,12 +849,12 @@
       </article>
       <div class="section-grid">
         <article class="content-card">
-          <h3>After you submit</h3>
+          <h3>${t("guide.labels.afterSubmit", "After you submit")}</h3>
           <p>${service.outcomeSummary}</p>
           <p class="muted-copy">${service.officialProcessingNote}</p>
         </article>
         <article class="content-card">
-          <h3>Before you pay</h3>
+          <h3>${t("guide.labels.beforePay", "Before you pay")}</h3>
           <p>${service.beforePayingNote}</p>
         </article>
       </div>
@@ -755,7 +862,7 @@
         watchOuts.length
           ? `
             <article class="content-card">
-              <h3>Watch out for</h3>
+              <h3>${t("guide.labels.watchOutFor", "Watch out for")}</h3>
               <ul class="content-list">
                 ${watchOuts.map((note) => `<li>${note}</li>`).join("")}
               </ul>
@@ -767,7 +874,7 @@
         leaveOfficeChecks.length
           ? `
             <article class="content-card">
-              <h3>Before you leave the office</h3>
+              <h3>${t("guide.labels.beforeLeaveOffice", "Before you leave the office")}</h3>
               <ul class="content-list">
                 ${leaveOfficeChecks.map((item) => `<li>${item}</li>`).join("")}
               </ul>
@@ -828,20 +935,20 @@
     return `
       <div class="section-grid">
         <article class="content-card">
-          <h3>Important dates</h3>
+          <h3>${t("guide.labels.importantDates", "Important dates")}</h3>
           ${
             service.officialTimingWindows.length
               ? `<ul class="content-list">${service.officialTimingWindows.map((item) => `<li>${item}</li>`).join("")}</ul>`
-              : `<p class="muted-copy">No official filing window was specifically published for this service in the source pages used here.</p>`
+              : `<p class="muted-copy">${getLanguage() === "mr" ? "या सेवेसाठी वापरलेल्या अधिकृत स्रोतांत स्वतंत्र अर्ज विंडो स्पष्ट दिलेली नाही." : "No official filing window was specifically published for this service in the source pages used here."}</p>`
           }
         </article>
         <article class="content-card">
-          <h3>Validity</h3>
+          <h3>${t("guide.labels.validity", "Validity")}</h3>
           <p>${service.officialValidity}</p>
         </article>
       </div>
       <article class="content-card content-card-highlight">
-        <h3>Processing time</h3>
+        <h3>${t("guide.labels.processingTime", "Processing time")}</h3>
         <p>${service.officialProcessingNote}</p>
       </article>
     `;
@@ -887,20 +994,20 @@
     return `
       <div class="section-grid">
         <article class="content-card">
-          <h3>Office and appointment guidance</h3>
+          <h3>${t("guide.labels.officeGuidance", "Office and appointment guidance")}</h3>
           <ul class="content-list">
-            <li><strong>Start on:</strong> ${getPortalLabel(service)}</li>
-            <li><strong>Appointment:</strong> ${service.appointment}</li>
-            <li><strong>Office visit:</strong> ${service.officeVisit}</li>
-            <li><strong>Inspection:</strong> ${service.inspection}</li>
+            <li><strong>${t("guide.labels.startOn", "Start on")}:</strong> ${getPortalLabel(service)}</li>
+            <li><strong>${getLanguage() === "mr" ? "अपॉइंटमेंट" : "Appointment"}:</strong> ${service.appointment}</li>
+            <li><strong>${t("guide.labels.officeVisit", "Office visit")}:</strong> ${service.officeVisit}</li>
+            <li><strong>${getLanguage() === "mr" ? "तपासणी" : "Inspection"}:</strong> ${service.inspection}</li>
           </ul>
           <p class="muted-copy">${officeGuidance}</p>
-          ${needsOriginals(service) ? `<p class="inline-note">Carry originals if the portal or office asks for document verification.</p>` : ""}
-          ${isFinanceSensitive(service) ? `<p class="inline-note">If a bank or financier is involved, keep the latest finance papers ready.</p>` : ""}
-          <p><a class="inline-link" href="./offices.html">See office details</a></p>
+          ${needsOriginals(service) ? `<p class="inline-note">${getLanguage() === "mr" ? "पोर्टल किंवा कार्यालय पडताळणी मागत असल्यास मूळ कागदपत्रे बाळगा." : "Carry originals if the portal or office asks for document verification."}</p>` : ""}
+          ${isFinanceSensitive(service) ? `<p class="inline-note">${getLanguage() === "mr" ? "बँक किंवा फायनान्सर सहभागी असल्यास ताज्या फायनान्स कागदपत्रांची तयारी ठेवा." : "If a bank or financier is involved, keep the latest finance papers ready."}</p>` : ""}
+          <p><a class="inline-link" href="./offices.html${getLanguage() === "mr" ? "?lang=mr" : ""}">${getLanguage() === "mr" ? "कार्यालय तपशील पहा" : "See office details"}</a></p>
         </article>
         <article class="content-card">
-          <h3>Before you visit</h3>
+          <h3>${t("guide.labels.beforeVisit", "Before you visit")}</h3>
           <ul class="content-list">
             ${service.eligibility.map((item) => `<li>${item}</li>`).join("")}
           </ul>
@@ -916,26 +1023,26 @@
     return [
       {
         id: "steps",
-        label: "Steps",
+        label: t("guide.sectionLabels.steps", "Steps"),
         html: renderStepsSection(service, state)
       },
       {
         id: "documents",
-        label: "Documents",
+        label: t("guide.sectionLabels.documents", "Documents"),
         html: renderDocumentsSection(service, state)
       },
       {
         id: "timeline",
-        label: "Timeline",
+        label: t("guide.sectionLabels.timeline", "Timeline"),
         html: renderTimingSection(service)
       },
       {
         id: "fees",
-        label: "Fees",
+        label: t("guide.sectionLabels.fees", "Fees"),
         html: `
           <article class="content-card">
-            <h3>Fees</h3>
-            <p class="muted-copy">Treat the live portal amount as final wherever the system calculates the amount automatically.</p>
+            <h3>${t("guide.sectionLabels.fees", "Fees")}</h3>
+            <p class="muted-copy">${getLanguage() === "mr" ? "ज्या सेवांमध्ये रक्कम प्रणालीद्वारे मोजली जाते, तिथे पोर्टलवर दिसणारी रक्कम अंतिम माना." : "Treat the live portal amount as final wherever the system calculates the amount automatically."}</p>
             <ul class="content-list">
               ${service.officialFeeNotes.map((fee) => `<li>${fee}</li>`).join("")}
             </ul>
@@ -944,15 +1051,17 @@
       },
       {
         id: "forms",
-        label: "Forms",
+        label: t("guide.sectionLabels.forms", "Forms"),
         html: `
           <article class="content-card">
-            <h3>Official forms</h3>
+            <h3>${t("guide.labels.officialForms", "Official forms")}</h3>
             <p class="muted-copy">
               ${
                 service.officialForms.length
                   ? `Main official forms commonly used here: ${service.mainFormsSummary}.`
-                  : "This service is mostly portal-driven. Use the official service page for the latest form and upload instructions."
+                  : getLanguage() === "mr"
+                    ? "ही सेवा मुख्यतः पोर्टल-आधारित आहे. ताज्या फॉर्म आणि अपलोड सूचनांसाठी अधिकृत सेवा पान वापरा."
+                    : "This service is mostly portal-driven. Use the official service page for the latest form and upload instructions."
               }
             </p>
             ${
@@ -966,8 +1075,8 @@
                             <strong>${form.label}</strong>
                             <span>${form.title}</span>
                             <div class="inline-actions">
-                              <a class="button button-secondary" href="${form.url}" target="_blank" rel="noreferrer">Open official page</a>
-                              ${form.downloadUrl ? `<a class="button button-secondary" href="${form.downloadUrl}" target="_blank" rel="noreferrer">Direct PDF</a>` : ""}
+                              <a class="button button-secondary" href="${form.url}" target="_blank" rel="noreferrer">${getLanguage() === "mr" ? "अधिकृत पान उघडा" : "Open official page"}</a>
+                              ${form.downloadUrl ? `<a class="button button-secondary" href="${form.downloadUrl}" target="_blank" rel="noreferrer">${getLanguage() === "mr" ? "थेट PDF" : "Direct PDF"}</a>` : ""}
                             </div>
                           </article>
                         `
@@ -982,28 +1091,28 @@
       },
       {
         id: "office",
-        label: "Office",
+        label: t("guide.sectionLabels.office", "Office"),
         html: renderOfficeSection(service, state)
       },
       {
         id: "information",
-        label: "Information",
+        label: t("guide.sectionLabels.information", "Information"),
         html: renderInformationSection(service)
       },
       {
         id: "sources",
-        label: "Sources",
+        label: t("guide.sectionLabels.sources", "Sources"),
         html: `
           <article class="content-card">
-            <h3>Official sources</h3>
-            <p class="muted-copy">Last reviewed from official sources: ${siteData.reviewMeta.lastReviewed}.</p>
+            <h3>${t("guide.labels.officialSources", "Official sources")}</h3>
+            <p class="muted-copy">${getLanguage() === "mr" ? `अधिकृत स्रोतांवरून शेवटचा आढावा: ${siteData.reviewMeta.lastReviewed}.` : `Last reviewed from official sources: ${siteData.reviewMeta.lastReviewed}.`}</p>
             <div class="resource-stack">
               ${service.officialSourceRefs
                 .map(
                   (link) => `
                     <a class="resource-card" href="${link.url}" target="_blank" rel="noreferrer">
                       <strong>${link.label}</strong>
-                      <span>Official Maharashtra Transport or Parivahan source</span>
+                      <span>${getLanguage() === "mr" ? "अधिकृत महाराष्ट्र ट्रान्सपोर्ट किंवा परिवहन स्रोत" : "Official Maharashtra Transport or Parivahan source"}</span>
                     </a>
                   `
                 )
@@ -1016,43 +1125,8 @@
   }
 
   function renderGuideSections(container, sections, scopeId) {
-    const sectionMeta = {
-      steps: {
-        eyebrow: "What to do",
-        intro: "Follow the service in the order shown here."
-      },
-      documents: {
-        eyebrow: "Keep ready",
-        intro: "Main papers, supporting papers, and practical backup items."
-      },
-      timeline: {
-        eyebrow: "Dates and validity",
-        intro: "Key windows, validity periods, and timing notes."
-      },
-      fees: {
-        eyebrow: "What you pay",
-        intro: "Official fee notes and portal amount guidance."
-      },
-      forms: {
-        eyebrow: "Official paperwork",
-        intro: "Forms and official pages linked to this service."
-      },
-      office: {
-        eyebrow: "Visit and verification",
-        intro: "Office, appointment, and inspection guidance."
-      },
-      information: {
-        eyebrow: "Background",
-        intro: "Short research context and what this service means."
-      },
-      sources: {
-        eyebrow: "Official references",
-        intro: "Source pages used for this guide."
-      }
-    };
-
     const anchorNav = `
-      <nav class="guide-anchor-nav" aria-label="Guide sections">
+      <nav class="guide-anchor-nav" aria-label="${getLanguage() === "mr" ? "मार्गदर्शिका विभाग" : "Guide sections"}">
         ${sections
           .map(
             (section) => `
@@ -1070,10 +1144,10 @@
         (section) => `
           <section class="guide-section guide-section-${section.id}" id="${scopeId}-${section.id}" data-guide-section="${section.id}">
             <div class="section-head compact guide-section-head">
-              <p class="guide-section-eyebrow">${(sectionMeta[section.id] && sectionMeta[section.id].eyebrow) || "Guide section"}</p>
+              <p class="guide-section-eyebrow">${t(`guide.sectionEyebrows.${section.id}`, getLanguage() === "mr" ? "मार्गदर्शिका विभाग" : "Guide section")}</p>
               <div class="guide-section-head-copy">
                 <h2>${section.label}</h2>
-                <p class="guide-section-intro">${(sectionMeta[section.id] && sectionMeta[section.id].intro) || ""}</p>
+                <p class="guide-section-intro">${t(`guide.sectionIntros.${section.id}`, "")}</p>
               </div>
             </div>
             ${section.html}
@@ -1145,12 +1219,12 @@
   function renderHelpfulFeedback(container, scopeId) {
     container.innerHTML = `
       <div class="feedback-card">
-        <p>${siteData.wizardMeta.helpfulPrompt}</p>
+        <p>${getLanguage() === "mr" ? "ही माहिती उपयोगी पडली का?" : siteData.wizardMeta.helpfulPrompt}</p>
         <div class="feedback-actions">
-          <button class="feedback-button" type="button" data-feedback-scope="${scopeId}" data-feedback-value="yes">Helpful</button>
-          <button class="feedback-button" type="button" data-feedback-scope="${scopeId}" data-feedback-value="no">Needs work</button>
+          <button class="feedback-button" type="button" data-feedback-scope="${scopeId}" data-feedback-value="yes">${getLanguage() === "mr" ? "उपयोगी" : "Helpful"}</button>
+          <button class="feedback-button" type="button" data-feedback-scope="${scopeId}" data-feedback-value="no">${getLanguage() === "mr" ? "अजून सुधारणा हवी" : "Needs work"}</button>
         </div>
-        <p class="feedback-response" data-feedback-response="${scopeId}" hidden>Thanks for the feedback.</p>
+        <p class="feedback-response" data-feedback-response="${scopeId}" hidden>${getLanguage() === "mr" ? "अभिप्रायाबद्दल धन्यवाद." : "Thanks for the feedback."}</p>
       </div>
     `;
 
@@ -1164,8 +1238,10 @@
         response.hidden = false;
         response.textContent =
           button.dataset.feedbackValue === "yes"
-            ? "Thanks. Glad this was useful."
-            : "Thanks. This tells us the guidance for this kind of case needs improvement.";
+            ? (getLanguage() === "mr" ? "धन्यवाद. ही माहिती उपयोगी पडली याचा आनंद आहे." : "Thanks. Glad this was useful.")
+            : (getLanguage() === "mr"
+              ? "धन्यवाद. यावरून या प्रकारच्या प्रकरणासाठी मार्गदर्शन अजून सुधारण्याची गरज आहे."
+              : "Thanks. This tells us the guidance for this kind of case needs improvement.");
       });
     });
   }
@@ -1192,7 +1268,15 @@
   }
 
   function createServiceHref(serviceId) {
-    return `./service.html?service=${encodeURIComponent(serviceId)}`;
+    const params = new URLSearchParams({
+      service: serviceId
+    });
+
+    if (getLanguage() === "mr") {
+      params.set("lang", "mr");
+    }
+
+    return `./service.html?${params.toString()}`;
   }
 
   function copyText(value, onDone) {
@@ -1286,6 +1370,10 @@
       params.set("view", "result");
     }
 
+    if (getLanguage() === "mr") {
+      params.set("lang", "mr");
+    }
+
     const nextUrl = `${window.location.pathname}${params.toString() ? `?${params.toString()}` : ""}`;
     window.history.replaceState({}, "", nextUrl);
   }
@@ -1308,28 +1396,41 @@
     createServiceHref,
     dedupeList,
     getJourneyById,
+    getJourneyDescription,
+    getJourneyTitle,
+    getLanguage,
     getPortalLabel,
     getPlannerServiceOptions,
     getPlannerSteps,
     getRelatedServices,
     getRelevantFlags,
     getOfficeByPlannerId,
+    getCategoryDescription,
+    getCategoryLabel,
     getServiceById,
+    getServiceShort,
+    getServiceTitle,
     getServiceResources,
     getToolById,
     getFormById,
     getOfficeByCode,
+    getOfficeNote,
+    getOptionDescription,
+    getOptionLabel,
     groupFaqByCategory,
     normalizePlannerState,
+    pickLocalized,
     readPlannerStateFromUrl,
     renderAtGlance,
     renderGuideSections,
     renderHelpfulFeedback,
     renderServiceSummary,
     renderTabs,
+    setLanguage,
     shouldShowOfficeQuestion,
     shouldShowProfileQuestion,
     siteData,
+    t,
     writePlannerStateToUrl
   };
 })();

@@ -3,7 +3,18 @@
     return;
   }
 
-  const { createServiceHref, getPortalLabel, siteData } = window.SiteApp;
+  const {
+    createServiceHref,
+    getCategoryDescription,
+    getCategoryLabel,
+    getLanguage,
+    getPortalLabel,
+    getServiceShort,
+    getServiceTitle,
+    pickLocalized,
+    siteData,
+    t
+  } = window.SiteApp;
 
   const elements = {
     search: document.getElementById("services-search"),
@@ -16,16 +27,39 @@
     category: "all"
   };
 
+  if (!elements.search || !elements.filters || !elements.results) {
+    return;
+  }
+
+  function updateIntro() {
+    const intro = document.getElementById("services-page-intro");
+    if (!intro) {
+      return;
+    }
+
+    intro.innerHTML = `
+      <p class="eyebrow">${t("pages.services.eyebrow", "All Services")}</p>
+      <h1>${t("pages.services.title", "Choose a service")}</h1>
+      <p>${t("pages.services.body", "Open a guide directly if you already know the service name.")}</p>
+    `;
+  }
+
   function getFilteredServices() {
     return siteData.services.filter((service) => {
       const matchesCategory = state.category === "all" || service.category === state.category;
       const haystack = [
+        getServiceTitle(service),
+        getServiceShort(service),
         service.title,
         service.short,
         service.summary,
         service.bestFor,
-        service.requiredDocs.join(" "),
-        service.forms.join(" ")
+        ...(service.officialRequiredDocs || []),
+        ...(service.officialAdditionalDocs || []),
+        ...(service.officialFeeNotes || []),
+        ...(service.officialTimingWindows || []),
+        ...(service.officialForms || []).flatMap((form) => [form.label, form.title]),
+        ...(service.officialSourceRefs || []).map((source) => source.label)
       ]
         .join(" ")
         .toLowerCase();
@@ -40,7 +74,7 @@
       .map(
         (category) => `
           <button class="filter-pill ${state.category === category.id ? "is-active" : ""}" type="button" data-category-id="${category.id}">
-            ${category.label}
+            ${getCategoryLabel(category)}
           </button>
         `
       )
@@ -60,9 +94,9 @@
     if (!services.length) {
       elements.results.innerHTML = `
         <article class="empty-card">
-          <h2>No matching service found</h2>
-          <p>Try a simpler word like renewal, transfer, NOC, address change, or permit.</p>
-          <p><a class="inline-link" href="./index.html">Let the wizard narrow it down</a></p>
+          <h2>${t("guide.labels.noMatchingService", "No matching service found")}</h2>
+          <p>${t("guide.labels.noMatchingHint", "Try a simpler word like renewal, transfer, NOC, address change, or permit.")}</p>
+          <p><a class="inline-link" href="./index.html${getLanguage() === "mr" ? "?lang=mr" : ""}">${t("guide.labels.useWizard", "Not sure? Use Find My Service")}</a></p>
         </article>
       `;
       return;
@@ -73,29 +107,34 @@
         const matchingJourney = siteData.journeys.find((journey) => journey.serviceIds.includes(service.id));
         const journeyId = matchingJourney ? matchingJourney.id : siteData.journeys[0].id;
         const category = siteData.categories.find((entry) => entry.id === service.category);
+        const wizardParams = new URLSearchParams({
+          journey: journeyId,
+          service: service.id
+        });
+
+        if (getLanguage() === "mr") {
+          wizardParams.set("lang", "mr");
+        }
 
         return `
           <article class="service-card">
             <div class="service-card-top">
               <div class="service-card-topline">
-                <p class="eyebrow">${category.label}</p>
-                ${service.featured ? `<span class="mini-tag">Most used</span>` : ""}
+                <p class="eyebrow">${category ? getCategoryLabel(category) : t("pages.services.eyebrow", "Service")}</p>
+                ${service.featured ? `<span class="mini-tag">${t("guide.labels.mostUsed", "Most used")}</span>` : ""}
               </div>
-              <h2>${service.title}</h2>
-              <p>${service.short || service.summary}</p>
+              <h2>${getServiceTitle(service)}</h2>
+              <p>${getServiceShort(service) || service.summary}</p>
             </div>
             <div class="service-card-meta">
-              <span>${service.serviceLabel}</span>
-              <span>Start on ${getPortalLabel(service)}</span>
-              <span>Office visit: ${service.officeVisit}</span>
-              <span>Appointment: ${service.appointment}</span>
+              <span>${pickLocalized(service, "serviceLabel") || service.serviceLabel}</span>
+              <span>${t("guide.labels.startOn", "Start on")} ${getPortalLabel(service)}</span>
+              <span>${t("guide.labels.officeVisit", "Office visit")}: ${service.officeVisit}</span>
             </div>
             ${service.commonConfusion ? `<p class="service-card-note">${service.commonConfusion}</p>` : ""}
             <div class="service-card-actions">
-              <a class="button button-primary" href="${createServiceHref(service.id)}">Open guide</a>
-              <a class="button button-link" href="./index.html?journey=${encodeURIComponent(journeyId)}&service=${encodeURIComponent(
-                service.id
-              )}">Let the wizard choose</a>
+              <a class="button button-primary" href="${createServiceHref(service.id)}">${getLanguage() === "mr" ? "मार्गदर्शिका उघडा" : "Open guide"}</a>
+              <a class="button button-link" href="./index.html?${wizardParams.toString()}">${t("guide.labels.useWizard", "Not sure? Use Find My Service")}</a>
             </div>
           </article>
         `;
@@ -104,6 +143,15 @@
   }
 
   function render() {
+    updateIntro();
+    const searchLabel = elements.search.closest(".search-field");
+    if (searchLabel) {
+      const labelText = searchLabel.querySelector("span");
+      if (labelText) {
+        labelText.textContent = t("guide.labels.searchServices", "Search services");
+      }
+    }
+    elements.search.setAttribute("placeholder", t("guide.labels.searchPlaceholder", "Search learner's licence, RC transfer, NOC, permit..."));
     renderFilters();
     renderResults();
   }

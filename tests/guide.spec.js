@@ -169,3 +169,19 @@ test.describe("interactive wizard smoke flows", () => {
     await captureGuideScreens(page, "interactive-puc", "#result-guide");
   });
 });
+
+test.describe("language switch", () => {
+  test("site header can switch to Marathi", async ({ page }) => {
+    await page.goto("/index.html");
+    await page.getByRole("button", { name: "मराठी" }).click();
+    await expect(page).toHaveURL(/lang=mr/);
+    await expect(page.locator(".brand-copy strong")).toContainText("सातारा RTO मार्गदर्शक");
+    await expect(page.getByRole("link", { name: "माझी सेवा शोधा" })).toBeVisible();
+  });
+
+  test("service page respects Marathi route state", async ({ page }) => {
+    await page.goto("/service.html?service=learner-licence&lang=mr");
+    await expect(page.locator("#service-page-intro h1")).toContainText("लर्नर लायसन्स");
+    await expect(page.locator('[data-guide-section="documents"] h2')).toContainText("कागदपत्रे");
+  });
+});

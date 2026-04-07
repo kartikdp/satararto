@@ -2704,6 +2704,469 @@ window.siteData.reviewMeta = {
   reportUrl: "https://github.com/kartikdp/satararto/issues/new"
 };
 
+window.siteData.i18n = {
+  en: {
+    languageName: "English",
+    nav: {
+      index: "Find My Service",
+      services: "Services",
+      offices: "Offices",
+      faq: "FAQ"
+    },
+    language: {
+      label: "Language",
+      english: "English",
+      marathi: "मराठी"
+    },
+    footer: {
+      default: "Always verify the final fee, office, and required upload documents on the official portal before submission.",
+      wizard: "Applications, payments, appointments, and status checks happen on official government websites.",
+      services: "Each guide shows documents, steps, timing, forms, fees, and office guidance.",
+      faq: "If you are still unsure which service applies, go back to Find My Service.",
+      offices: "If you already have a DL or RC, use the office code on that record first."
+    },
+    pages: {
+      services: {
+        eyebrow: "All Services",
+        title: "Choose a service",
+        body: "Open a guide directly if you already know the service name."
+      },
+      offices: {
+        eyebrow: "Offices",
+        title: "Satara district RTO offices",
+        body: "Check whether your case should start with MH-11 Satara or MH-50 Karad."
+      },
+      faq: {
+        eyebrow: "FAQ",
+        title: "Common questions people ask before starting",
+        body: "Find quick answers to common licence, RC, transfer, and office questions."
+      }
+    },
+    wizard: {
+      introEyebrow: "Satara District, Maharashtra",
+      introTitle: "Don't know which RTO service you need?",
+      introText: "Answer a few simple questions and get the right service, documents, forms, office guidance, and official next step.",
+      introLinkPrefix: "Already know the service name?",
+      introLinkLabel: "Go to Services",
+      progressLabel: "Question",
+      buttons: {
+        startOver: "Start over",
+        back: "Back",
+        showResult: "Show my result",
+        changeAnswers: "Change my answers"
+      },
+      stepMeta: {
+        journey: { title: "What are you trying to do?", help: "Choose the situation that best matches your current task." },
+        learnerStatus: { title: "Do you already have a learner's licence?", help: "This decides whether you need the learner's stage or the final driving test." },
+        service: { title: "Which service sounds closest?", help: "Pick the nearest match. You can still change it." },
+        office: { title: "Which office or record is involved?", help: "Use the code on your current DL or RC if you already have one." },
+        profile: { title: "Is this personal or commercial?", help: "This only changes cases where commercial rules matter." },
+        vehicleType: { title: "What kind of vehicle is involved?", help: "This changes tax, permit, and PUC guidance." },
+        fuelType: { title: "What fuel type does the vehicle use?", help: "This makes the PUC guidance more specific." },
+        flags: { title: "Anything else about this case?", help: "Select all that apply, then continue." }
+      }
+    },
+    guide: {
+      sectionLabels: {
+        steps: "Steps",
+        documents: "Documents",
+        timeline: "Timeline",
+        fees: "Fees",
+        forms: "Forms",
+        office: "Office",
+        information: "Information",
+        sources: "Sources"
+      },
+      sectionEyebrows: {
+        steps: "What to do",
+        documents: "Keep ready",
+        timeline: "Dates and validity",
+        fees: "What you pay",
+        forms: "Official paperwork",
+        office: "Visit and verification",
+        information: "Background",
+        sources: "Official references"
+      },
+      sectionIntros: {
+        steps: "Follow the service in the order shown here.",
+        documents: "Main papers, supporting papers, and practical backup items.",
+        timeline: "Key windows, validity periods, and timing notes.",
+        fees: "Official fee notes and portal amount guidance.",
+        forms: "Forms and official pages linked to this service.",
+        office: "Office, appointment, and inspection guidance.",
+        information: "Short research context and what this service means.",
+        sources: "Source pages used for this guide."
+      },
+      labels: {
+        whoThisIsFor: "Who this is for",
+        youReceive: "You receive",
+        office: "Office",
+        mostUsed: "Most used",
+        startOn: "Start on",
+        officeVisit: "Office visit",
+        carryOriginals: "Carry originals",
+        requiredDocuments: "Required documents",
+        sometimesNeeded: "Sometimes needed",
+        backupPapers: "Backup papers people often carry",
+        stepByStep: "Step-by-step",
+        afterSubmit: "After you submit",
+        beforePay: "Before you pay",
+        watchOutFor: "Watch out for",
+        beforeLeaveOffice: "Before you leave the office",
+        importantDates: "Important dates",
+        validity: "Validity",
+        processingTime: "Processing time",
+        officialForms: "Official forms",
+        officeGuidance: "Office and appointment guidance",
+        beforeVisit: "Before you visit",
+        background: "Background and explanation",
+        officialSources: "Official sources",
+        linkCopied: "Link copied",
+        copyLink: "Copy link",
+        printGuide: "Print guide",
+        useWizard: "Not sure? Use Find My Service",
+        searchServices: "Search services",
+        searchPlaceholder: "Search learner's licence, RC transfer, NOC, permit...",
+        noMatchingService: "No matching service found",
+        noMatchingHint: "Try a simpler word like renewal, transfer, NOC, address change, or permit.",
+        chooseRightOffice: "Choosing the right office",
+        officeCodeHint: "Where to find the office code",
+        officeCodeHintBody: "Check the office code printed on your current DL or RC. Use that code first before starting a new application.",
+        mapLink: "Open in Maps",
+        faqSearchPlaceholder: "Search common questions...",
+        noFaqMatch: "No matching question found",
+        noFaqHint: "Try words like licence, RC, transfer, address, or office.",
+        reportOutdated: "Report outdated information"
+      }
+    }
+  },
+  mr: {
+    languageName: "मराठी",
+    nav: {
+      index: "माझी सेवा शोधा",
+      services: "सेवा",
+      offices: "कार्यालये",
+      faq: "प्रश्नोत्तरे"
+    },
+    language: {
+      label: "भाषा",
+      english: "English",
+      marathi: "मराठी"
+    },
+    footer: {
+      default: "अर्ज सबमिट करण्यापूर्वी अंतिम फी, कार्यालय आणि आवश्यक अपलोड कागदपत्रे अधिकृत पोर्टलवर नक्की तपासा.",
+      wizard: "अर्ज, पेमेंट, अपॉइंटमेंट आणि स्टेटस तपासणी या सर्व गोष्टी अधिकृत सरकारी वेबसाइटवरच होतात.",
+      services: "प्रत्येक मार्गदर्शिकेत कागदपत्रे, पायऱ्या, वेळ, फॉर्म, फी आणि कार्यालयीन मार्गदर्शन दिलेले आहे.",
+      faq: "कोणती सेवा लागू होते हे अजूनही स्पष्ट नसेल तर ‘माझी सेवा शोधा’ वापरा.",
+      offices: "तुमच्याकडे आधीपासून DL किंवा RC असल्यास त्यावरील कार्यालय कोड आधी वापरा."
+    },
+    pages: {
+      services: {
+        eyebrow: "सर्व सेवा",
+        title: "सेवा निवडा",
+        body: "सेवेचे नाव माहिती असेल तर थेट मार्गदर्शिका उघडा."
+      },
+      offices: {
+        eyebrow: "कार्यालये",
+        title: "सातारा जिल्हा RTO कार्यालये",
+        body: "तुमचा विषय MH-11 सातारा की MH-50 कराड येथे सुरू करायचा ते तपासा."
+      },
+      faq: {
+        eyebrow: "प्रश्नोत्तरे",
+        title: "सुरू करण्यापूर्वी लोक विचारणारे सामान्य प्रश्न",
+        body: "लायसन्स, RC, ट्रान्सफर आणि कार्यालयासंबंधी झटपट उत्तरे पाहा."
+      }
+    },
+    wizard: {
+      introEyebrow: "सातारा जिल्हा, महाराष्ट्र",
+      introTitle: "कोणती RTO सेवा लागेल हे समजत नाहीये?",
+      introText: "काही सोपे प्रश्नांची उत्तरे द्या आणि योग्य सेवा, कागदपत्रे, फॉर्म, कार्यालयीन मार्गदर्शन आणि अधिकृत पुढची पायरी मिळवा.",
+      introLinkPrefix: "सेवेचे नाव आधीच माहित आहे?",
+      introLinkLabel: "सेवा पानावर जा",
+      progressLabel: "प्रश्न",
+      buttons: {
+        startOver: "पुन्हा सुरू करा",
+        back: "मागे",
+        showResult: "माझा निकाल दाखवा",
+        changeAnswers: "उत्तरे बदला"
+      },
+      stepMeta: {
+        journey: { title: "तुम्हाला काय करायचे आहे?", help: "तुमच्या सध्याच्या कामाशी सर्वात जास्त जुळणारी परिस्थिती निवडा." },
+        learnerStatus: { title: "तुमच्याकडे आधीच लर्नर लायसन्स आहे का?", help: "यावरून तुम्हाला लर्नर टप्पा हवा की अंतिम ड्रायव्हिंग टेस्ट ते ठरते." },
+        service: { title: "यापैकी कोणती सेवा जास्त जवळची वाटते?", help: "सर्वात जवळचा पर्याय निवडा. नंतर बदलू शकता." },
+        office: { title: "कोणते कार्यालय किंवा रेकॉर्ड लागू आहे?", help: "तुमच्याकडे सध्याचा DL किंवा RC असल्यास त्यावरील कोड वापरा." },
+        profile: { title: "हे वैयक्तिक आहे की व्यावसायिक?", help: "यामुळे फक्त जिथे कमर्शियल नियम लागू होतात तिथेच फरक पडतो." },
+        vehicleType: { title: "कोणत्या प्रकारचे वाहन आहे?", help: "यामुळे कर, परवाना आणि PUC मार्गदर्शन बदलते." },
+        fuelType: { title: "वाहन कोणत्या इंधनावर चालते?", help: "यामुळे PUC मार्गदर्शन अधिक अचूक होते." },
+        flags: { title: "या प्रकरणाबद्दल अजून काही आहे का?", help: "लागू असलेले सर्व निवडा आणि पुढे जा." }
+      }
+    },
+    guide: {
+      sectionLabels: {
+        steps: "पायऱ्या",
+        documents: "कागदपत्रे",
+        timeline: "वेळ व वैधता",
+        fees: "फी",
+        forms: "फॉर्म",
+        office: "कार्यालय",
+        information: "माहिती",
+        sources: "अधिकृत स्रोत"
+      },
+      sectionEyebrows: {
+        steps: "काय करायचे",
+        documents: "तयार ठेवा",
+        timeline: "तारखा आणि वैधता",
+        fees: "काय भरायचे",
+        forms: "अधिकृत फॉर्म",
+        office: "भेट आणि पडताळणी",
+        information: "पार्श्वभूमी",
+        sources: "अधिकृत संदर्भ"
+      },
+      sectionIntros: {
+        steps: "सेवा खाली दिलेल्या क्रमाने पूर्ण करा.",
+        documents: "मुख्य कागदपत्रे, पूरक कागदपत्रे आणि वापरात येणारे बॅकअप कागदपत्रे.",
+        timeline: "महत्त्वाच्या मुदती, वैधता आणि वेळेबाबतच्या नोंदी.",
+        fees: "अधिकृत फी नोंदी आणि पोर्टलवर दिसणाऱ्या रकमेबाबत मार्गदर्शन.",
+        forms: "या सेवेशी संबंधित फॉर्म आणि अधिकृत पाने.",
+        office: "कार्यालय, अपॉइंटमेंट आणि तपासणीसंबंधी मार्गदर्शन.",
+        information: "ही सेवा नेमकी काय आहे याबद्दल थोडक्यात माहिती.",
+        sources: "या मार्गदर्शिकेसाठी वापरलेली अधिकृत पाने."
+      },
+      labels: {
+        whoThisIsFor: "ही सेवा कोणासाठी आहे",
+        youReceive: "तुम्हाला काय मिळते",
+        office: "कार्यालय",
+        mostUsed: "सर्वाधिक वापरली जाणारी",
+        startOn: "येथून सुरू करा",
+        officeVisit: "कार्यालय भेट",
+        carryOriginals: "मूळ कागदपत्रे बाळगा",
+        requiredDocuments: "आवश्यक कागदपत्रे",
+        sometimesNeeded: "कधी कधी लागणारी",
+        backupPapers: "लोक सहसा सोबत ठेवतात अशी बॅकअप कागदपत्रे",
+        stepByStep: "टप्प्याटप्प्याने प्रक्रिया",
+        afterSubmit: "सबमिट केल्यानंतर",
+        beforePay: "पेमेंट करण्यापूर्वी",
+        watchOutFor: "लक्षात ठेवा",
+        beforeLeaveOffice: "कार्यालयातून निघण्यापूर्वी",
+        importantDates: "महत्त्वाच्या तारखा",
+        validity: "वैधता",
+        processingTime: "प्रक्रिया वेळ",
+        officialForms: "अधिकृत फॉर्म",
+        officeGuidance: "कार्यालय आणि अपॉइंटमेंट मार्गदर्शन",
+        beforeVisit: "भेट देण्यापूर्वी",
+        background: "पार्श्वभूमी आणि स्पष्टीकरण",
+        officialSources: "अधिकृत स्रोत",
+        linkCopied: "लिंक कॉपी झाली",
+        copyLink: "लिंक कॉपी करा",
+        printGuide: "मार्गदर्शिका प्रिंट करा",
+        useWizard: "निश्चित नाही? ‘माझी सेवा शोधा’ वापरा",
+        searchServices: "सेवा शोधा",
+        searchPlaceholder: "लर्नर लायसन्स, RC ट्रान्सफर, NOC, परमिट शोधा...",
+        noMatchingService: "जुळणारी सेवा सापडली नाही",
+        noMatchingHint: "renewal, transfer, NOC, address change किंवा permit असे सोपे शब्द वापरून पहा.",
+        chooseRightOffice: "योग्य कार्यालय कसे निवडावे",
+        officeCodeHint: "कार्यालयाचा कोड कुठे सापडेल",
+        officeCodeHintBody: "तुमच्या सध्याच्या DL किंवा RC वर छापलेला कार्यालय कोड पहा. नवीन अर्ज सुरू करण्यापूर्वी तोच कोड वापरा.",
+        mapLink: "नकाशावर उघडा",
+        faqSearchPlaceholder: "सामान्य प्रश्न शोधा...",
+        noFaqMatch: "जुळणारा प्रश्न सापडला नाही",
+        noFaqHint: "licence, RC, transfer, address किंवा office असे शब्द वापरून पहा.",
+        reportOutdated: "कालबाह्य माहिती कळवा"
+      }
+    }
+  }
+};
+
+const marathiJourneyById = {
+  "new-driver": {
+    titleMr: "मी नवीन चालक आहे",
+    descriptionMr: "पहिले लर्नर लायसन्स किंवा लर्नरपासून कायम लायसन्सकडे जाण्यासाठी येथे सुरू करा."
+  },
+  "renew-or-correct-licence": {
+    titleMr: "मला माझे लायसन्स अपडेट करायचे आहे",
+    descriptionMr: "रिन्यूअल, डुप्लिकेट लायसन्स, पत्ता बदल किंवा विद्यमान DL दुरुस्तीसाठी योग्य."
+  },
+  "bought-or-sold-vehicle": {
+    titleMr: "मी वाहन खरेदी केले किंवा विकले",
+    descriptionMr: "नोंदणी, मालकी हस्तांतरण किंवा मालक बदलाशी संबंधित कागदपत्रांसाठी येथे या."
+  },
+  "moved-or-shifting-state": {
+    titleMr: "मी पत्ता बदलला किंवा वाहन दुसरीकडे हलवत आहे",
+    descriptionMr: "RC पत्ता बदल, NOC आणि इतर जुरिस्डिक्शन बदलाशी संबंधित कामासाठी येथे सुरू करा."
+  },
+  "loan-or-finance": {
+    titleMr: "माझ्या वाहन कर्जाची स्थिती बदलली",
+    descriptionMr: "RC मध्ये फायनान्स जोडणे किंवा कर्जफेडीनंतर काढून टाकण्यासाठी येथे या."
+  },
+  "travel-or-commercial": {
+    titleMr: "मला प्रवास, परमिट, कर किंवा कंप्लायन्स मदत हवी आहे",
+    descriptionMr: "IDP, परमिट, कर, PUC आणि इतर कंप्लायन्स सेवांसाठी येथे सुरू करा."
+  }
+};
+
+const marathiServiceById = {
+  "learner-licence": { titleMr: "लर्नर लायसन्स", shortMr: "ड्रायव्हिंग टेस्टपूर्वीचा पहिला शिक्षण परवाना." },
+  "permanent-driving-licence": { titleMr: "कायमस्वरूपी ड्रायव्हिंग लायसन्स", shortMr: "वैध लर्नर लायसन्सनंतरची ड्रायव्हिंग टेस्ट-आधारित परवाना सेवा." },
+  "dl-renewal": { titleMr: "ड्रायव्हिंग लायसन्स नूतनीकरण", shortMr: "मुदत संपण्यापूर्वी किंवा नंतर विद्यमान लायसन्सचे नूतनीकरण." },
+  "duplicate-dl": { titleMr: "डुप्लिकेट ड्रायव्हिंग लायसन्स", shortMr: "हरवलेले, खराब झालेले किंवा अस्पष्ट लायसन्स पुनर्स्थित करा." },
+  "dl-address-change": { titleMr: "ड्रायव्हिंग लायसन्सवरील पत्ता बदल", shortMr: "विद्यमान DL शी जोडलेला पत्ता अपडेट करा." },
+  "international-driving-permit": { titleMr: "आंतरराष्ट्रीय ड्रायव्हिंग परमिट", shortMr: "परदेशात वाहन चालवण्यासाठी भारतीय लायसन्सधारकांसाठी परमिट." },
+  "new-vehicle-registration": { titleMr: "नवीन वाहन नोंदणी", shortMr: "नवीन वाहनाची नोंदणी करून RC मिळवा." },
+  "transfer-ownership": { titleMr: "मालकी हस्तांतरण", shortMr: "विक्रीनंतर वाहनाच्या नोंदणीकृत मालकाचे नाव बदला." },
+  noc: { titleMr: "ना हरकत प्रमाणपत्र (NOC)", shortMr: "सध्याच्या क्षेत्राबाहेर वाहन हलवण्यासाठी मंजुरी." },
+  "rc-renewal": { titleMr: "RC नूतनीकरण", shortMr: "नोंदणी प्रमाणपत्राची मुदत संपण्यापूर्वी नूतनीकरण." },
+  "duplicate-rc": { titleMr: "डुप्लिकेट RC", shortMr: "हरवलेले किंवा खराब झालेले नोंदणी प्रमाणपत्र पुन्हा मिळवा." },
+  "rc-address-change": { titleMr: "RC मधील पत्ता बदल", shortMr: "वाहन नोंदणी रेकॉर्डवरील पत्ता अपडेट करा." },
+  "hypothecation-addition": { titleMr: "हायपोथिकेशन जोडणे", shortMr: "वाहन RC मध्ये फायनान्स तपशील नोंदवा." },
+  "hypothecation-removal": { titleMr: "हायपोथिकेशन काढणे", shortMr: "कर्जफेडीनंतर RC मधून फायनान्स तपशील काढून टाका." },
+  "fitness-certificate": { titleMr: "फिटनेस प्रमाणपत्र", shortMr: "मुख्यतः परिवहन वाहनांसाठी तपासणी व फिटनेस मंजुरी." },
+  "permit-services": { titleMr: "परमिट संबंधित सेवा", shortMr: "परमिट रिन्यूअल, ट्रान्सफर, डुप्लिकेट आणि अधिकसाठी मार्गदर्शन." },
+  "tax-services": { titleMr: "कर संबंधित सेवा", shortMr: "रोड टॅक्स, पर्यावरण कर आणि नियमाधारित वाहन कर मार्गदर्शन." },
+  "puc-requirements": { titleMr: "PUC आवश्यकता", shortMr: "RTO कामात प्रदूषण प्रमाणपत्र कुठे लागते ते समजून घ्या." }
+};
+
+const marathiOfficeByCode = {
+  "MH-11": { noteMr: "तुमचे विद्यमान रेकॉर्ड किंवा अधिकृत पोर्टल राउटिंग MH-11 दाखवत असेल तर हे कार्यालय वापरा." },
+  "MH-50": { noteMr: "तुमचे विद्यमान DL किंवा RC आधीपासून MH-50 शी जोडलेले असेल किंवा पोर्टलने केस येथे दिली असेल तर हे कार्यालय वापरा." }
+};
+
+const marathiCategoryById = {
+  all: {
+    labelMr: "सर्व सेवा",
+    descriptionMr: "पूर्ण संदर्भ सूची",
+    shortLabelMr: "सर्व"
+  },
+  licence: {
+    labelMr: "लायसन्स",
+    descriptionMr: "लर्नर, कायम, नूतनीकरण, डुप्लिकेट, IDP",
+    shortLabelMr: "DL"
+  },
+  vehicle: {
+    labelMr: "वाहन",
+    descriptionMr: "नोंदणी, RC, NOC, ट्रान्सफर, हायपोथिकेशन",
+    shortLabelMr: "RC"
+  },
+  compliance: {
+    labelMr: "परमिट, कर आणि PUC",
+    descriptionMr: "परमिट मार्गदर्शन, कर भरणा, प्रदूषण प्रमाणपत्र",
+    shortLabelMr: "PT"
+  }
+};
+
+const marathiPlannerOptions = {
+  officeOptions: {
+    unknown: {
+      labelMr: "मला खात्री नाही",
+      descriptionMr: "रेकॉर्ड MH-11 आहे की MH-50 हे माहित नसेल तर हा पर्याय निवडा."
+    },
+    mh11: {
+      labelMr: "MH-11 सातारा",
+      descriptionMr: "तुमच्या विद्यमान DL किंवा RC वर MH-11 सातारा असेल तर हा पर्याय निवडा."
+    },
+    mh50: {
+      labelMr: "MH-50 कराड",
+      descriptionMr: "तुमच्या विद्यमान DL किंवा RC वर MH-50 कराड असेल तर हा पर्याय निवडा."
+    },
+    "other-state": {
+      labelMr: "दुसरे राज्य / अस्पष्ट रेकॉर्ड",
+      descriptionMr: "रेकॉर्ड महाराष्ट्राबाहेरचे असेल किंवा पडताळणी अपेक्षित असेल तर हा पर्याय निवडा."
+    }
+  },
+  profileOptions: {
+    private: {
+      labelMr: "खाजगी / वैयक्तिक",
+      descriptionMr: "वैयक्तिक लायसन्स आणि खाजगी वाहन प्रकरणांसाठी योग्य."
+    },
+    transport: {
+      labelMr: "परिवहन / व्यावसायिक",
+      descriptionMr: "परमिट, फिटनेस, माल, प्रवासी किंवा कमर्शियल वाहन प्रकरणांसाठी वापरा."
+    }
+  },
+  learnerStatusOptions: {
+    no: {
+      labelMr: "नाही, मला पहिले लर्नर लायसन्स हवे आहे",
+      descriptionMr: "अर्जदाराकडे अद्याप लर्नर लायसन्स नसेल तर हा पर्याय निवडा."
+    },
+    yes: {
+      labelMr: "हो, माझ्याकडे आधीच लर्नर लायसन्स आहे",
+      descriptionMr: "लर्नर लायसन्स आधीच असेल आणि पुढचा टप्पा कायम लायसन्स टेस्ट असेल तर हा पर्याय निवडा."
+    }
+  },
+  vehicleTypeOptions: {
+    "two-wheeler": {
+      labelMr: "दुचाकी",
+      descriptionMr: "मोटरसायकल, स्कूटर किंवा तत्सम दुचाकी वाहन."
+    },
+    car: {
+      labelMr: "कार / LMV",
+      descriptionMr: "खाजगी कार किंवा हलके मोटार वाहन."
+    },
+    commercial: {
+      labelMr: "व्यावसायिक / परिवहन वाहन",
+      descriptionMr: "माल, प्रवासी, परमिट किंवा परिवहनाशी संबंधित वाहन."
+    }
+  },
+  fuelTypeOptions: {
+    petrol: {
+      labelMr: "पेट्रोल / CNG / LPG",
+      descriptionMr: "पेट्रोल आणि तत्सम हलके इंधन प्रकरणे."
+    },
+    diesel: {
+      labelMr: "डिझेल",
+      descriptionMr: "डिझेल वाहनासाठीचे उत्सर्जन मार्गदर्शन."
+    },
+    "ev-other": {
+      labelMr: "इलेक्ट्रिक / हायब्रिड / खात्री नाही",
+      descriptionMr: "इंधन प्रकार इलेक्ट्रिक, हायब्रिड किंवा माहित नसेल तर हा पर्याय निवडा."
+    }
+  },
+  flags: {
+    financed: {
+      labelMr: "वाहन फायनान्स किंवा कर्जाशी संबंधित आहे",
+      descriptionMr: "हायपोथिकेशन, NOC, ट्रान्सफर आणि RC कामात महत्त्वाचे."
+    },
+    lost: {
+      labelMr: "कागदपत्र हरवले किंवा खराब झाले आहे",
+      descriptionMr: "डुप्लिकेट DL, डुप्लिकेट RC आणि तत्सम बदल प्रकरणांसाठी उपयुक्त."
+    },
+    addressChanged: {
+      labelMr: "पत्ता बदलला आहे",
+      descriptionMr: "पत्ता अपडेट आणि पुरावा तपासणी प्रकरणांसाठी उपयुक्त."
+    },
+    crossJurisdiction: {
+      labelMr: "वाहन किंवा रेकॉर्ड दुसऱ्या क्षेत्रात / राज्यात जात आहे",
+      descriptionMr: "NOC, ट्रान्सफर आणि री-असाइनमेंट प्रकारच्या प्रकरणांसाठी महत्त्वाचे."
+    }
+  }
+};
+
+window.siteData.journeys = window.siteData.journeys.map((journey) => ({
+  ...journey,
+  ...(marathiJourneyById[journey.id] || {})
+}));
+
+window.siteData.services = window.siteData.services.map((service) => ({
+  ...service,
+  ...(marathiServiceById[service.id] || {})
+}));
+
+window.siteData.offices = window.siteData.offices.map((office) => ({
+  ...office,
+  ...(marathiOfficeByCode[office.code] || {})
+}));
+
+window.siteData.categories = window.siteData.categories.map((category) => ({
+  ...category,
+  ...(marathiCategoryById[category.id] || {})
+}));
+
+Object.keys(marathiPlannerOptions).forEach((groupKey) => {
+  window.siteData.planner[groupKey] = window.siteData.planner[groupKey].map((option) => ({
+    ...option,
+    ...(marathiPlannerOptions[groupKey][option.id] || {})
+  }));
+});
+
 window.siteData.faqCategories = ["Licence", "RC & Vehicle", "Transfer & NOC", "General"];
 
 window.siteData.journeys = window.siteData.journeys.map((journey) => ({
