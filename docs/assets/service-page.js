@@ -18,13 +18,14 @@
   const params = new URLSearchParams(window.location.search);
   const service = getServiceById(params.get("service"));
 
-  const elements = {
-    body: document.getElementById("service-page-body"),
-    intro: document.getElementById("service-page-intro")
-  };
-
   function renderNotFound() {
-    elements.body.innerHTML = `
+    const body = document.getElementById("service-page-body");
+
+    if (!body) {
+      return;
+    }
+
+    body.innerHTML = `
       <article class="empty-card">
         <h1>Service guide not found</h1>
         <p>The link may be incomplete or the service ID is invalid.</p>
@@ -37,6 +38,15 @@
   }
 
   function render() {
+    const elements = {
+      body: document.getElementById("service-page-body"),
+      intro: document.getElementById("service-page-intro")
+    };
+
+    if (!elements.body || !elements.intro) {
+      return;
+    }
+
     if (!service) {
       renderNotFound();
       return;
@@ -108,5 +118,9 @@
     });
   }
 
-  render();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", render, { once: true });
+  } else {
+    render();
+  }
 })();
