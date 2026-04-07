@@ -190,6 +190,7 @@ test.describe("language switch", () => {
     await expect(page.locator('[data-guide-section="documents"]')).toContainText("वयाचा पुरावा");
     await expect(page.locator('[data-guide-section="forms"]')).toContainText("येथे प्रामुख्याने वापरले जाणारे अधिकृत फॉर्म");
     await expect(page.locator('[data-guide-section="sources"]')).toContainText("या प्रक्रियेसाठी वापरलेला सरकारी स्रोत");
+    await expect(page.locator('[data-guide-section="steps"]')).toContainText("राज्य-विशिष्ट सारथी प्रक्रिया वापरा");
   });
 
   test("faq and offices pages show Marathi support content", async ({ page }) => {

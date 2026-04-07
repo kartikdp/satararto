@@ -3345,7 +3345,43 @@ const marathiGeneratedTextByEnglish = {
   "Spare copies of invoice, insurance, and tax receipt for dealer or RTO counters": "डिलर किंवा RTO काउंटरसाठी invoice, विमा आणि कर पावतीच्या अतिरिक्त प्रती",
   "Spare photocopies because inspection counters may still ask for paper sets": "तपासणी काउंटरवर अजूनही कागदी संच मागितले जाऊ शकतात म्हणून अतिरिक्त छायाप्रती ठेवा",
   "Tax receipt and challan-clearance print if the office checks pending dues": "प्रलंबित देय तपासले गेल्यास कर पावती आणि चलन-क्लिअरन्सची प्रिंट",
-  "Travel itinerary printout if ticket or visa details are awkward to show on phone": "तिकीट किंवा व्हिसा तपशील फोनवर दाखवणे अवघड असल्यास प्रवास आराखड्याची प्रिंट"
+  "Travel itinerary printout if ticket or visa details are awkward to show on phone": "तिकीट किंवा व्हिसा तपशील फोनवर दाखवणे अवघड असल्यास प्रवास आराखड्याची प्रिंट",
+  "Apply for duplicate only when the licence record already exists and the document is lost, damaged, or defaced.": "परवान्याचा रेकॉर्ड आधीपासून अस्तित्वात असेल आणि कागदपत्र हरवले, खराब झाले किंवा अस्पष्ट झाले असेल तरच डुप्लिकेटसाठी अर्ज करा.",
+  "Apply within the allowed window and keep older-vehicle compliance papers ready where relevant.": "निर्धारित विंडोमध्ये अर्ज करा आणि लागू असल्यास जुन्या वाहनांच्या अनुपालन कागदपत्रांची तयारी ठेवा.",
+  "Carry the vehicle, originals, appointment receipt, and payment proof on inspection day.": "तपासणीच्या दिवशी वाहन, मूळ कागदपत्रे, अपॉइंटमेंट पावती आणि पेमेंट पुरावा सोबत ठेवा.",
+  "Check that Form 34 is signed correctly by both the owner and the financier before submission.": "सबमिट करण्यापूर्वी फॉर्म 34 वर मालक आणि फायनान्सर दोघांच्या स्वाक्षऱ्या योग्य आहेत याची खात्री करा.",
+  "Commercial vehicles may also need tax, permit, or challan clearances before approval.": "व्यावसायिक वाहनांसाठी मंजुरीपूर्वी कर, परमिट किंवा चलन क्लिअरन्सही लागू होऊ शकतात.",
+  "Confirm which documents the dealer will submit and which originals you still need to keep ready.": "डिलर कोणती कागदपत्रे सबमिट करणार आहे आणि तुम्हाला कोणती मूळ कागदपत्रे तयार ठेवायची आहेत ते आधी निश्चित करा.",
+  "Do not start this service until the bank has issued the final NOC or due-clearance letter.": "बँकेचे अंतिम NOC किंवा ड्यू-क्लिअरन्स पत्र मिळेपर्यंत ही सेवा सुरू करू नका.",
+  "Fee totals can vary on the live portal if extra charges apply.": "अतिरिक्त शुल्क लागू असल्यास लाईव्ह पोर्टलवरील अंतिम रक्कम बदलू शकते.",
+  "IDP is separate from domestic licence renewal or duplicate issue. Carry travel papers and your original DL.": "IDP ही देशांतर्गत परवाना नूतनीकरण किंवा डुप्लिकेट सेवा नाही. प्रवासाची कागदपत्रे आणि मूळ DL सोबत ठेवा.",
+  "If both your DL and RC need the new address, updating them together can help reduce mismatch issues.": "DL आणि RC दोन्हीवर नवीन पत्ता हवा असल्यास दोन्ही अपडेट एकत्र केल्याने विसंगतीचे प्रश्न कमी होऊ शकतात.",
+  "If the existing licence is from another state, verification can add time to the process.": "विद्यमान परवाना दुसऱ्या राज्याचा असल्यास पडताळणीमुळे प्रक्रियेला अधिक वेळ लागू शकतो.",
+  "Keep a valid PUC ready before starting transfer, NOC, RC renewal, or hypothecation-related services.": "हस्तांतरण, NOC, RC नूतनीकरण किंवा तारण-संबंधित सेवा सुरू करण्यापूर्वी वैध PUC तयार ठेवा.",
+  "Keep the new address proof exactly as you want it shown on the licence record.": "परवाना रेकॉर्डवर जसा पत्ता दाखवायचा आहे तसाच नवीन पत्ता पुरावा ठेवा.",
+  "Many people close the loan but do not realize the RC still shows finance until this update is completed.": "अनेक जण कर्जफेड पूर्ण करतात, पण हा अपडेट पूर्ण होईपर्यंत RC मध्ये फायनान्स नोंद अजूनही राहू शकते हे लक्षात घेत नाहीत.",
+  "NOC is usually part of a larger transfer or re-registration process. Check the next step before you apply.": "NOC ही साधारणतः मोठ्या हस्तांतरण किंवा पुनर्नोंदणी प्रक्रियेचा भाग असते. अर्ज करण्यापूर्वी पुढचा टप्पा तपासा.",
+  "Permit requirements change by vehicle type and permit category. Confirm the exact permit before payment.": "परमिटची अट वाहन प्रकार आणि परमिट वर्गानुसार बदलते. पेमेंटपूर्वी नेमका परमिट प्रकार निश्चित करा.",
+  "Tax is rule-based and portal-calculated. Use the live amount shown on the official portal as final.": "कर नियमांनुसार आणि पोर्टलद्वारे मोजला जातो. अधिकृत पोर्टलवर दाखवलेली लाईव्ह रक्कम अंतिम माना.",
+  "This is a test-based service and requires an appointment.": "ही चाचणी-आधारित सेवा असून अपॉइंटमेंट आवश्यक आहे.",
+  "This service is online-first, but some cases may still be sent for manual verification.": "ही सेवा ऑनलाइन-प्राधान्य असली तरी काही प्रकरणे मॅन्युअल पडताळणीसाठी पाठवली जाऊ शकतात.",
+  "Transfer of ownership, NOC, and reassignment are different services. Make sure you are using the right one.": "मालकी हस्तांतरण, NOC आणि पुनर्नियोजन या वेगळ्या सेवा आहेत. योग्य सेवा निवडली आहे याची खात्री करा.",
+  "Use the state-specific Sarathi flow instead of downloading random third-party forms.": "अनियमित तृतीय-पक्ष फॉर्म डाउनलोड करण्याऐवजी राज्य-विशिष्ट सारथी प्रक्रिया वापरा.",
+  "Users often confuse this with a fully online workflow. It is not.": "अनेक जण याला पूर्णपणे ऑनलाइन प्रक्रिया समजतात, पण तसे नाही.",
+  "Users often miss Form 28 when the buyer belongs to another jurisdiction.": "खरेदीदार दुसऱ्या क्षेत्रातील असल्यास लोक अनेकदा फॉर्म 28 चुकवतात.",
+  "Check that the test result or approval status is correctly recorded.": "चाचणीचा निकाल किंवा मंजुरीची स्थिती योग्यरीत्या नोंदली गेली आहे का ते तपासा.",
+  "Check that the buyer and seller details are correctly recorded.": "खरेदीदार आणि विक्रेत्याचे तपशील योग्यरीत्या नोंदले गेले आहेत का ते तपासा.",
+  "Check the destination authority or jurisdiction details on the acknowledgement.": "acknowledgement वर गंतव्य प्राधिकरण किंवा क्षेत्राधिकाराचे तपशील तपासा.",
+  "Check the fitness result, validity period, and any remarks before you leave.": "निघण्यापूर्वी फिटनेस निकाल, वैधता कालावधी आणि कोणत्याही नोंदी तपासा.",
+  "Check the permit type, validity, and any route or vehicle conditions before leaving.": "निघण्यापूर्वी परमिट प्रकार, वैधता आणि लागू मार्ग किंवा वाहन अटी तपासा.",
+  "Check the registration number, owner name, and chassis details on the acknowledgement.": "acknowledgement वर नोंदणी क्रमांक, मालकाचे नाव आणि चेसिस तपशील तपासा.",
+  "Keep every page of the NOC output safely.": "NOC आउटपुटमधील प्रत्येक पान सुरक्षित ठेवा.",
+  "Keep tax and registration receipts together.": "कर आणि नोंदणीच्या पावत्या एकत्र ठेवा.",
+  "Keep the acknowledgement or permit printout.": "acknowledgement किंवा परमिटची प्रिंट सुरक्षित ठेवा.",
+  "Keep the acknowledgement or receipt before you leave.": "निघण्यापूर्वी acknowledgement किंवा पावती सोबत ठेवा.",
+  "Keep the acknowledgement showing the transfer request was accepted.": "हस्तांतरण विनंती स्वीकारली गेल्याचे acknowledgement जतन ठेवा.",
+  "Keep the closure proof and acknowledgement together.": "क्लोजरचा पुरावा आणि acknowledgement एकत्र ठेवा.",
+  "Keep the inspection receipt.": "तपासणीची पावती जतन ठेवा."
 };
 
 const marathiSourceLabelByEnglish = {
@@ -4326,7 +4362,9 @@ window.siteData.services = window.siteData.services.map((service) => ({
   appointmentMr: translateStatusTextMr(service.appointment),
   officeVisitMr: translateStatusTextMr(service.officeVisit),
   inspectionMr: translateStatusTextMr(service.inspection),
-  inspectionSummaryMr: translateStatusTextMr(service.inspectionSummary)
+  inspectionSummaryMr: translateStatusTextMr(service.inspectionSummary),
+  noticesMr: translateGeneratedListMr(service.notices),
+  leaveOfficeChecksMr: translateGeneratedListMr(service.leaveOfficeChecks)
 }));
 
 window.siteData.faqCategories = ["Licence", "RC & Vehicle", "Transfer & NOC", "General"];
