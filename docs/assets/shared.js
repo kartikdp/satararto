@@ -553,33 +553,27 @@
           ${createBadge(getPlannerReadiness(service), "warning")}
           ${createBadge(`Office visit: ${service.officeVisit}`, "alert")}
         </div>
-        <div class="summary-grid">
-          <article class="summary-card summary-card-primary">
-            <h3>Use this when</h3>
-            <p>${service.bestFor}</p>
-          </article>
-          <article class="summary-card">
-            <h3>Start with</h3>
-            <p>${service.recommendedAction}</p>
-          </article>
-          <article class="summary-card">
-            <h3>Office guidance</h3>
-            <p>${officeGuidance}</p>
-          </article>
-          ${
-            selectedOffice
-              ? `
-                <article class="summary-card summary-card-office">
-                  <h3>Selected office</h3>
-                  <p><strong>${selectedOffice.name}</strong></p>
-                  <p>${selectedOffice.address}</p>
-                  <p><a href="${createPhoneHref(selectedOffice.phone)}">${selectedOffice.phone}</a></p>
-                  <p><a href="mailto:${selectedOffice.email}">${selectedOffice.email}</a></p>
-                </article>
-              `
-              : ""
-          }
-        </div>
+        <article class="content-card summary-quick-card">
+          <h3>Quick notes</h3>
+          <ul class="content-list summary-quick-list">
+            <li><strong>Use this when:</strong> ${service.bestFor}</li>
+            <li><strong>Start with:</strong> ${service.recommendedAction}</li>
+            <li><strong>Office guidance:</strong> ${officeGuidance}</li>
+          </ul>
+        </article>
+        ${
+          selectedOffice
+            ? `
+              <article class="summary-card summary-card-office">
+                <h3>Selected office</h3>
+                <p><strong>${selectedOffice.name}</strong></p>
+                <p>${selectedOffice.address}</p>
+                <p><a href="${createPhoneHref(selectedOffice.phone)}">${selectedOffice.phone}</a></p>
+                <p><a href="mailto:${selectedOffice.email}">${selectedOffice.email}</a></p>
+              </article>
+            `
+            : ""
+        }
       </div>
     `;
   }

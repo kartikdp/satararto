@@ -491,11 +491,6 @@ img {
   background: linear-gradient(135deg, rgba(11, 125, 114, 0.09), rgba(255, 255, 255, 0.92));
 }
 
-.summary-card-primary {
-  border: 1px solid rgba(214, 155, 45, 0.2);
-  background: linear-gradient(135deg, rgba(214, 155, 45, 0.12), rgba(255, 255, 255, 0.92));
-}
-
 .summary-card,
 .content-card,
 .office-page-card,
@@ -530,6 +525,24 @@ img {
 .cta-box {
   background: linear-gradient(135deg, rgba(11, 125, 114, 0.08), rgba(255, 255, 255, 0.94));
   border: 1px solid rgba(11, 125, 114, 0.16);
+}
+
+.summary-quick-card {
+  border: 1px solid rgba(214, 155, 45, 0.2);
+  background: linear-gradient(135deg, rgba(214, 155, 45, 0.12), rgba(255, 255, 255, 0.92));
+}
+
+.summary-quick-card h3 {
+  margin-bottom: 10px;
+}
+
+.summary-quick-list {
+  display: grid;
+  gap: 8px;
+}
+
+.summary-quick-list li {
+  margin-top: 0;
 }
 
 .at-glance-card h2 {
@@ -1103,10 +1116,6 @@ img {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .summary-card-primary {
-    grid-column: span 2;
-  }
-
   .related-block .related-links {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1150,10 +1159,6 @@ img {
 
   .summary-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .summary-card-primary {
-    grid-column: span 2;
   }
 
   .card-grid {
