@@ -314,8 +314,7 @@ window.siteData = {
       title: "Application-cum-declaration as to physical fitness",
       category: "Licence Forms",
       usedFor: "Learner's licence and other licence-side workflows where self-declaration is applicable.",
-      url: "https://parivahan.gov.in/parivahan/en/content/driving-licence-0",
-      downloadUrl: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form%201.pdf",
+      url: "https://transport.maharashtra.gov.in/1363/Sarathi-Related-Faceless-Services?format=print",
       lookupHint: "Open the official driving-licence forms page and look for Form 1 if the PDF does not open directly."
     },
     {
@@ -324,8 +323,7 @@ window.siteData = {
       title: "Medical Certificate",
       category: "Licence Forms",
       usedFor: "Driving licence renewal, IDP, and other cases needing medical certification.",
-      url: "https://parivahan.gov.in/parivahan/en/content/driving-licence-0",
-      downloadUrl: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/Form-1-A.pdf",
+      url: "https://transport.maharashtra.gov.in/1137/Renewal-of-Driving-License",
       lookupHint: "Open the official driving-licence forms page and look for Form 1A if the PDF does not open directly."
     },
     {
@@ -334,7 +332,7 @@ window.siteData = {
       title: "Application for learner's licence / driving licence / renewal / change of address",
       category: "Licence Forms",
       usedFor: "Learner's licence and DL-side application flows.",
-      url: "https://parivahan.gov.in/parivahan/en/content/driving-licence-0",
+      url: "https://transport.maharashtra.gov.in/1135/Learning-License",
       downloadUrl: "https://parivahan.gov.in/sites/default/files/DownloadForm/cmvr/FORM-2.pdf",
       lookupHint: "Open the official driving-licence forms page and look for Form 2 if the PDF does not open directly."
     },
@@ -344,8 +342,7 @@ window.siteData = {
       title: "Application for Licence to Drive",
       category: "Licence Forms",
       usedFor: "Permanent driving licence and related DL issue flows.",
-      url: "https://parivahan.gov.in/parivahan/en/content/driving-licence-0",
-      downloadUrl: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form4.pdf",
+      url: "https://transport.maharashtra.gov.in/1136/Permanent-License",
       lookupHint: "Open the official driving-licence forms page and look for Form 4 if the PDF does not open directly."
     },
     {
@@ -354,8 +351,7 @@ window.siteData = {
       title: "Application for International Driving Permit",
       category: "Licence Forms",
       usedFor: "International Driving Permit applications.",
-      url: "https://parivahan.gov.in/parivahan/en/content/driving-licence-0",
-      downloadUrl: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/cmvr/FORM-4A.pdf",
+      url: "https://transport.maharashtra.gov.in/1139/International-Driving-Permit",
       lookupHint: "Open the official driving-licence forms page and look for Form 4A if the PDF does not open directly."
     },
     {
@@ -364,9 +360,9 @@ window.siteData = {
       title: "Driving Certificate issued by Driving School or Establishment",
       category: "Licence Forms",
       usedFor: "Transport-category driving licence cases where training certification is required.",
-      url: "https://parivahan.gov.in/parivahan/en/content/driving-licence-0",
-      downloadUrl: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form5.pdf",
-      lookupHint: "Open the official driving-licence forms page and look for Form 5 if the PDF does not open directly."
+      url: "https://transport.maharashtra.gov.in/1136/Permanent-License",
+      downloadUrl: "https://parivahan.gov.in/sites/default/files/DownloadForm/cmvr/FORM-5.pdf",
+      lookupHint: "Open the official licence guidance page and look for Form 5 if the PDF does not open directly."
     },
     {
       id: "form9",
@@ -374,7 +370,7 @@ window.siteData = {
       title: "Application for Renewal of Driving Licence",
       category: "Licence Forms",
       usedFor: "Driving licence renewal.",
-      url: "https://parivahan.gov.in/parivahan/en/content/driving-licence-0",
+      url: "https://transport.maharashtra.gov.in/1137/Renewal-of-Driving-License",
       lookupHint: "Open the official driving-licence forms page and search for Form 9 on Parivahan."
     },
     {
@@ -383,7 +379,7 @@ window.siteData = {
       title: "Application for Registration of a Motor Vehicle",
       category: "Vehicle Forms",
       usedFor: "New vehicle registration.",
-      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      url: "https://parivahan.gov.in/parivahan//en/content/vehicle-registration",
       downloadUrl: "https://parivahan.gov.in/sites/default/files/DownloadForm/cmvr/FORM-20.pdf",
       lookupHint: "Open the official vehicle-registration forms page and look for Form 20 if the PDF does not open directly."
     },
@@ -393,8 +389,8 @@ window.siteData = {
       title: "Application for Renewal of Certificate of Registration",
       category: "Vehicle Forms",
       usedFor: "RC renewal.",
-      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
-      downloadUrl: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/cmvr/FORM-25.pdf",
+      url: "https://transport.maharashtra.gov.in/1177/Registration-Fees",
+      downloadUrl: "https://parivahan.gov.in/sites/default/files/DownloadForm/cmvr/FORM-25.pdf",
       lookupHint: "Open the official vehicle-registration forms page and look for Form 25 if the PDF does not open directly."
     },
     {
@@ -403,7 +399,7 @@ window.siteData = {
       title: "Application for the Issue of Duplicate Certificate of Registration",
       category: "Vehicle Forms",
       usedFor: "Duplicate RC.",
-      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      url: "https://parivahan.gov.in/parivahan//en/content/vehicle-registration",
       lookupHint: "Open the official vehicle-registration forms page and search for Form 26 on Parivahan."
     },
     {
@@ -412,7 +408,7 @@ window.siteData = {
       title: "Application and Grant of No Objection Certificate",
       category: "Vehicle Forms",
       usedFor: "NOC for moving or transferring a vehicle across jurisdiction.",
-      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      url: "https://parivahan.gov.in/parivahan//en/content/vehicle-registration",
       lookupHint: "Open the official vehicle-registration forms page and search for Form 28 on Parivahan."
     },
     {
@@ -421,7 +417,7 @@ window.siteData = {
       title: "Notice of Transfer of Ownership of a Motor Vehicle",
       category: "Vehicle Forms",
       usedFor: "Transfer of vehicle ownership.",
-      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      url: "https://parivahan.gov.in/parivahan//en/content/vehicle-registration",
       lookupHint: "Open the official vehicle-registration forms page and search for Form 29 on Parivahan."
     },
     {
@@ -430,7 +426,7 @@ window.siteData = {
       title: "Application for Intimation and Transfer of Ownership",
       category: "Vehicle Forms",
       usedFor: "Transfer of ownership after sale.",
-      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      url: "https://parivahan.gov.in/parivahan//en/content/vehicle-registration",
       lookupHint: "Open the official vehicle-registration forms page and search for Form 30 on Parivahan."
     },
     {
@@ -439,7 +435,7 @@ window.siteData = {
       title: "Intimation of Change of Address in RC",
       category: "Vehicle Forms",
       usedFor: "Address change in registration certificate.",
-      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      url: "https://parivahan.gov.in/parivahan//en/content/vehicle-registration",
       downloadUrl: "https://parivahan.gov.in/sites/default/files/DownloadForm/cmvr/FORM-33.pdf",
       lookupHint: "Open the official vehicle-registration forms page and look for Form 33 if the PDF does not open directly."
     },
@@ -449,7 +445,7 @@ window.siteData = {
       title: "Application for Making an Entry of Hire-Purchase / Lease / Hypothecation",
       category: "Vehicle Forms",
       usedFor: "Hypothecation or finance entry in RC.",
-      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      url: "https://parivahan.gov.in/parivahan//en/content/vehicle-registration",
       lookupHint: "Open the official vehicle-registration forms page and search for Form 34 on Parivahan."
     },
     {
@@ -458,8 +454,7 @@ window.siteData = {
       title: "Notice of Termination of Hire-Purchase / Lease / Hypothecation",
       category: "Vehicle Forms",
       usedFor: "Hypothecation removal after loan closure.",
-      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
-      downloadUrl: "https://parivahan.gov.in/parivahan/sites/default/files/DownloadForm/form%2035.pdf",
+      url: "https://parivahan.gov.in/parivahan//en/content/vehicle-registration",
       lookupHint: "Open the official vehicle-registration forms page and look for Form 35 if the PDF does not open directly."
     },
     {
@@ -468,7 +463,7 @@ window.siteData = {
       title: "Certificate of Fitness",
       category: "Fitness Forms",
       usedFor: "Fitness certificate cases, mainly for transport vehicles.",
-      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      url: "https://parivahan.gov.in/sites/default/files/FAQDOCS/VAHANSERVICES/FitnessCertificate/stepBystep.pdf",
       lookupHint: "Open the official vehicle-registration forms page and search for Form 38 on Parivahan."
     },
     {
@@ -477,7 +472,7 @@ window.siteData = {
       title: "Report of Inspection",
       category: "Fitness Forms",
       usedFor: "Inspection report linked to transport vehicle fitness workflows.",
-      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration",
+      url: "https://parivahan.gov.in/sites/default/files/FAQDOCS/VAHANSERVICES/FitnessCertificate/stepBystep.pdf",
       downloadUrl: "https://parivahan.gov.in/sites/default/files/DownloadForm/cmvr/FORM-38A.pdf",
       lookupHint: "Open the official vehicle-registration forms page and look for Form 38A if the PDF does not open directly."
     }
@@ -620,6 +615,10 @@ window.siteData = {
       ],
       officialLinks: [
         { label: "Sarathi", url: "https://sarathi.parivahan.gov.in" },
+        {
+          label: "Maharashtra Transport - Learning Licence",
+          url: "https://transport.maharashtra.gov.in/1135/Learning-License"
+        },
         {
           label: "Maharashtra Transport - Faceless Services",
           url: "https://transport.maharashtra.gov.in/1363/Sarathi-Related-Faceless-Services?format=print"
@@ -801,8 +800,12 @@ window.siteData = {
       officialLinks: [
         { label: "Sarathi", url: "https://sarathi.parivahan.gov.in" },
         {
-          label: "Parivahan FAQ - Change of Address in DL",
-          url: "https://parivahan.gov.in/parivahan//en/content/how-get-address-changed-driving-license"
+          label: "Maharashtra Transport - Faceless Services",
+          url: "https://transport.maharashtra.gov.in/1363/Sarathi-Related-Faceless-Services?format=print"
+        },
+        {
+          label: "Parivahan - Licensing Related Fees and Charges",
+          url: "https://parivahan.gov.in/en/content/licensing-related-fees-charges"
         }
       ]
     },
@@ -847,8 +850,8 @@ window.siteData = {
       officialLinks: [
         { label: "Sarathi", url: "https://sarathi.parivahan.gov.in" },
         {
-          label: "Parivahan - International Driving Permit",
-          url: "https://parivahan.gov.in/parivahan/en/content/international-driving-permit"
+          label: "Maharashtra Transport - International Driving Permit",
+          url: "https://transport.maharashtra.gov.in/1139/International-Driving-Permit"
         }
       ]
     },
@@ -904,6 +907,10 @@ window.siteData = {
         {
           label: "Maharashtra Transport - New Vehicle Registration",
           url: "https://transport.maharashtra.gov.in/1104/Registration-of-New-Vehicle"
+        },
+        {
+          label: "Maharashtra Transport - Registration Fees",
+          url: "https://transport.maharashtra.gov.in/1177/Registration-Fees"
         }
       ]
     },
@@ -921,7 +928,7 @@ window.siteData = {
       inspection: "Usually no",
       eligibility: [
         "Maharashtra states 14 days in the same jurisdiction.",
-        "Maharashtra states 30 days when another registering authority jurisdiction is involved."
+        "If another registering authority or state is involved, check whether NOC or linked reassignment steps apply before using this service."
       ],
       steps: [
         "Open the transfer of ownership service in Vahan.",
@@ -960,7 +967,7 @@ window.siteData = {
         },
         {
           label: "Parivahan - Ownership Transfer",
-          url: "https://parivahan.gov.in/index.php/en/content/ownership-transfer"
+          url: "https://parivahan.gov.in/en/content/ownership-transfer"
         }
       ]
     },
@@ -1006,8 +1013,12 @@ window.siteData = {
       officialLinks: [
         { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
         {
+          label: "Maharashtra Transport - No Objection Certificate",
+          url: "https://transport.maharashtra.gov.in/1107/No-Objection-Certificate"
+        },
+        {
           label: "Parivahan - NOC",
-          url: "https://parivahan.gov.in/parivahan/en/content/no-objection-certificate"
+          url: "https://parivahan.gov.in/en/content/no-objection-certificate"
         }
       ]
     },
@@ -1054,8 +1065,8 @@ window.siteData = {
       officialLinks: [
         { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
         {
-          label: "Parivahan - Renewal of RC",
-          url: "https://parivahan.gov.in/parivahan/en/content/renewal-rc"
+          label: "Form 25 - RC Renewal Form",
+          url: "https://parivahan.gov.in/sites/default/files/DownloadForm/cmvr/FORM-25.pdf"
         }
       ]
     },
@@ -1102,7 +1113,7 @@ window.siteData = {
         { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
         {
           label: "Parivahan - Duplicate RC",
-          url: "https://parivahan.gov.in/parivahan/en/content/duplicate-rc"
+          url: "https://parivahan.gov.in/en/content/duplicate-rc"
         }
       ]
     },
@@ -1144,7 +1155,7 @@ window.siteData = {
         { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
         {
           label: "Parivahan - Address Change",
-          url: "https://parivahan.gov.in/parivahan/en/content/address-change"
+          url: "https://parivahan.gov.in/en/content/address-change"
         }
       ]
     },
@@ -1188,7 +1199,7 @@ window.siteData = {
         { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
         {
           label: "Parivahan - HP Endorsement",
-          url: "https://parivahan.gov.in/parivahan/en/content/hp-endorsement"
+          url: "https://parivahan.gov.in/en/content/hp-endorsement"
         }
       ]
     },
@@ -1231,7 +1242,7 @@ window.siteData = {
         { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
         {
           label: "Parivahan - HP Termination",
-          url: "https://parivahan.gov.in/parivahan/en/content/hp-termination"
+          url: "https://parivahan.gov.in/en/content/hp-termination"
         }
       ]
     },
@@ -1272,15 +1283,15 @@ window.siteData = {
         "Medium / heavy manual example: Rs. 600",
         "Fitness certificate issue or renewal: Rs. 200"
       ],
-      validity: "Inspection appointment required before final approval",
+      validity: "Fitness validity depends on vehicle class and approval rules. Confirm the issued validity period on the final certificate.",
       notices: [
         "Carry the vehicle, originals, appointment receipt, and payment proof on inspection day."
       ],
       officialLinks: [
         { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
         {
-          label: "Vahan User Manual - Renewal Of Fitness",
-          url: "https://staging.parivahan.gov.in/vahaneservice/usermanual/selectedservice/renewelOfFitness/"
+          label: "Parivahan - Fitness Certificate Step By Step PDF",
+          url: "https://parivahan.gov.in/sites/default/files/FAQDOCS/VAHANSERVICES/FitnessCertificate/stepBystep.pdf"
         }
       ]
     },
@@ -1333,8 +1344,8 @@ window.siteData = {
           url: "https://transport.maharashtra.gov.in/1178/Permit-Fees"
         },
         {
-          label: "Parivahan - Permit Forms",
-          url: "https://parivahan.gov.in/parivahan/en/content/permit-form"
+          label: "Parivahan - Form 45 (Permit Form Example)",
+          url: "https://parivahan.gov.in/sites/default/files/DownloadForm/cmvr/FORM-45.pdf"
         }
       ]
     },
@@ -1373,6 +1384,10 @@ window.siteData = {
         {
           label: "Maharashtra Transport - Tax Calculation",
           url: "https://transport.maharashtra.gov.in/1167/Tax-Calculation"
+        },
+        {
+          label: "Maharashtra Transport - Rate of Vehicle Tax",
+          url: "https://transport.maharashtra.gov.in/1117/Rate-of-Vehicle-Tax"
         },
         { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" }
       ]
@@ -2319,7 +2334,7 @@ const officialTimingWindowsByService = {
   ],
   "transfer-ownership": [
     "Maharashtra states 14 days in the same jurisdiction.",
-    "Maharashtra states 30 days when another registering authority is involved."
+    "If another registering authority or state is involved, check the linked NOC or reassignment workflow before payment."
   ],
   "rc-renewal": [
     "Apply not more than 60 days before the RC expiry date."
