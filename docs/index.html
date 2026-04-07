@@ -3,210 +3,104 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Satara RTO Service Guide</title>
+    <title>Satara RTO Guide - Start Here</title>
     <meta
       name="description"
-      content="Satara RTO service guide for driving licence, vehicle registration, transfer, NOC, renewal, hypothecation, permit, tax, forms, and document guidance."
+      content="Answer a few questions to find the right Satara RTO service, documents, forms, office guidance, and official next step."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./assets/styles.css" />
   </head>
-  <body>
-    <div class="page-shell">
+  <body data-page="wizard">
+    <div class="site-shell">
       <header class="site-header">
-        <a class="brand" href="#top">
+        <a class="brand" href="./index.html">
           <span class="brand-mark">SR</span>
           <span class="brand-copy">
-            <strong>Satara RTO Service Guide</strong>
-            <small>Documents, forms, fees, and official steps</small>
+            <strong>Satara RTO Guide</strong>
+            <small>Satara district, Maharashtra</small>
           </span>
         </a>
 
         <nav class="top-nav" aria-label="Primary">
-          <a href="#planner">Start Here</a>
-          <a href="#services">All Services</a>
-          <a href="#offices">Offices</a>
-          <a href="#faq">FAQ</a>
-          <a href="#sources">Sources</a>
+          <a data-nav-link href="./index.html">Start Here</a>
+          <a data-nav-link href="./services.html">Services</a>
+          <a data-nav-link href="./offices.html">Offices</a>
+          <a data-nav-link href="./faq.html">FAQ</a>
         </nav>
       </header>
 
-      <main id="top">
-        <section class="hero">
-          <div class="hero-copy">
-            <p class="eyebrow">Satara District, Maharashtra</p>
-            <h1>Find the right RTO service, documents, forms, and official steps in one place.</h1>
-            <p class="hero-text">
-              Use this guide to identify the correct service, prepare your documents, understand the process, and know when
-              you need an online application, an appointment, or an RTO visit.
-            </p>
-
-            <div class="hero-actions">
-              <a class="planner-primary" href="#planner">Start Here</a>
-              <a class="planner-secondary" href="#services">Browse All Services</a>
-            </div>
-
-            <div class="hero-note">
-              <strong>Important:</strong> Applications, payments, appointments, and status updates happen only on official
-              government portals.
-            </div>
-
-            <div class="hero-subnote">
-              Use the guided flow below if you are not sure which service applies to your case.
-            </div>
-          </div>
-
-          <div class="hero-panel hero-panel--guide">
-            <p class="eyebrow">How It Works</p>
-            <div class="hero-step-list">
-              <article class="hero-step-card">
-                <strong>1. Choose your situation</strong>
-                <span>Select what you want to do, such as a new licence, transfer, NOC, renewal, or address change.</span>
-              </article>
-              <article class="hero-step-card">
-                <strong>2. Answer a few questions</strong>
-                <span>Tell the site whether the case is personal or commercial, which office may be involved, and what documents are affected.</span>
-              </article>
-              <article class="hero-step-card">
-                <strong>3. Get your result</strong>
-                <span>See the exact service, documents, forms, fees, official steps, and where to apply.</span>
-              </article>
-            </div>
-
-            <div class="portal-card">
-              <p class="eyebrow">Official Portals</p>
-              <div class="portal-links">
-                <a href="https://sarathi.parivahan.gov.in" target="_blank" rel="noreferrer">Sarathi</a>
-                <a href="https://vahan.parivahan.gov.in/vahanservice/" target="_blank" rel="noreferrer">Vahan</a>
-                <a href="https://transport.maharashtra.gov.in/" target="_blank" rel="noreferrer">Maharashtra Transport</a>
-              </div>
-            </div>
-          </div>
+      <main class="page-shell page-shell-tight">
+        <section class="page-intro" id="wizard-intro">
+          <p class="eyebrow">Satara District, Maharashtra</p>
+          <h1>Don't know which RTO service you need?</h1>
+          <p>
+            Answer a few simple questions and get the right service, documents, forms, office guidance, and official next
+            step.
+          </p>
+          <p class="intro-inline-link">
+            Already know the service name? <a href="./services.html">Browse all services</a>.
+          </p>
         </section>
 
-        <section class="planner-section" id="planner">
-          <div class="section-heading">
-            <p class="eyebrow">Start Here</p>
-            <h2>Answer a few questions and get the right service, checklist, and official next step.</h2>
-            <p class="section-note">
-              Start with what you want to do. The result below will narrow down the exact service instead of showing every
-              licence or RC workflow at once.
-            </p>
-          </div>
-
-          <div class="planner-layout">
-            <form class="planner-form-card" id="planner-form">
-              <div class="planner-block">
-                <p class="planner-label">1. What do you want to do?</p>
-                <div class="planner-chip-grid" id="planner-journey-options"></div>
+        <section class="wizard-shell">
+          <article class="wizard-card" id="wizard-card">
+            <div class="wizard-progress">
+              <div class="wizard-progress-top">
+                <p id="wizard-progress-label">Step 1 of 4</p>
+                <button class="text-button" type="button" id="wizard-reset">Start over</button>
               </div>
-
-              <div class="planner-block" id="planner-service-question">
-                <p class="planner-label">2. Which option matches your case?</p>
-                <div class="planner-chip-grid" id="planner-service-options"></div>
+              <div class="progress-track">
+                <div class="progress-bar" id="wizard-progress-bar"></div>
               </div>
-
-              <div class="planner-grid">
-                <label class="planner-field" id="planner-office-field">
-                  <span>3. Which office or record is involved?</span>
-                  <select id="planner-office-select"></select>
-                </label>
-              </div>
-
-              <div class="planner-block" id="planner-profile-question">
-                <p class="planner-label">4. Is this personal or commercial?</p>
-                <div class="planner-chip-grid" id="planner-profile-options"></div>
-              </div>
-
-              <div class="planner-block" id="planner-flag-question">
-                <p class="planner-label">5. Anything else about this case?</p>
-                <div class="planner-flag-grid" id="planner-flag-options"></div>
-              </div>
-
-              <div class="planner-actions">
-                <button class="planner-primary" type="submit">Show My Result</button>
-                <button class="planner-secondary" type="button" id="planner-reset">Start Over</button>
-              </div>
-            </form>
-
-            <section class="planner-output-card" id="planner-output" aria-live="polite"></section>
-          </div>
-        </section>
-
-        <section class="reference-section" id="services">
-          <div class="section-heading">
-            <p class="eyebrow">All Services</p>
-            <h2>Browse the full list if you already know the service name.</h2>
-          </div>
-
-          <div class="reference-layout">
-            <aside class="explorer-panel" aria-label="Service explorer">
-              <div class="explorer-intro">
-                <h3>Find a service</h3>
-                <p>Search the full list below if you want the complete guide for a specific service.</p>
-              </div>
-              <label class="search-box" for="service-search">
-                <span>Search services</span>
-                <input id="service-search" type="search" placeholder="Search licence, RC, NOC, transfer..." />
-              </label>
-
-              <div class="category-pills" id="category-pills"></div>
-              <div class="service-list" id="service-list"></div>
-            </aside>
-
-            <section class="detail-panel" aria-live="polite">
-              <div id="service-detail"></div>
-            </section>
-          </div>
-        </section>
-
-        <section class="secondary-grid secondary-grid--help">
-          <article class="panel-card" id="offices">
-            <div class="section-heading compact">
-              <p class="eyebrow">Offices</p>
-              <h2>Satara district RTO offices</h2>
             </div>
-            <div class="office-grid" id="office-grid"></div>
-            <p class="panel-note">
-              If you already have a DL or RC, use the office code on that record as the first routing clue. For new or unclear
-              cases, confirm the office on the official portal before payment.
-            </p>
+
+            <div class="wizard-stage">
+              <div class="wizard-stage-head">
+                <button class="text-button" type="button" id="wizard-back">Back</button>
+                <div>
+                  <h2 id="wizard-step-title"></h2>
+                  <p id="wizard-step-help"></p>
+                </div>
+              </div>
+              <div id="wizard-step-body"></div>
+            </div>
+
+            <div class="wizard-footer-actions" id="wizard-flags-actions" hidden>
+              <button class="button button-primary" type="button" id="wizard-flags-continue">Show my result</button>
+            </div>
           </article>
 
-          <article class="panel-card" id="faq">
-            <div class="section-heading compact">
-              <p class="eyebrow">FAQ</p>
-              <h2>Helpful answers for common doubts</h2>
+          <section class="result-view" id="wizard-result" hidden>
+            <div class="sticky-revisit" id="result-revisit" hidden>
+              <button class="button button-secondary" type="button" id="result-change">Change my answers</button>
+              <button class="button button-secondary" type="button" id="result-start-over">Start over</button>
             </div>
-            <div class="faq-list" id="faq-list"></div>
-          </article>
-        </section>
-
-        <section class="sources-section" id="sources">
-          <div class="section-heading">
-            <p class="eyebrow">Official Sources</p>
-            <h2>Government pages used for service details, forms, and office information.</h2>
-          </div>
-          <div class="source-grid" id="source-grid"></div>
+            <div id="result-summary"></div>
+            <div id="result-cta"></div>
+            <div id="result-tabs"></div>
+            <div id="result-feedback"></div>
+          </section>
         </section>
       </main>
 
       <footer class="site-footer">
-        <p>
-          Satara RTO Service Guide. Verify final fees, forms, office instructions, and application status on official
-          government portals before payment or submission.
-        </p>
+        <div class="footer-copy">
+          <p>Use this guide to understand the process before you open the official portal.</p>
+          <p>Final applications, payments, appointments, and status checks always happen on official government websites.</p>
+        </div>
+        <div class="footer-sources" id="footer-sources"></div>
       </footer>
     </div>
 
-    <div class="site-toast" id="site-toast" aria-live="polite" aria-atomic="true"></div>
-
     <script src="./assets/data.js"></script>
-    <script src="./assets/app.js"></script>
+    <script src="./assets/shared.js"></script>
+    <script src="./assets/shell.js"></script>
+    <script src="./assets/wizard-page.js"></script>
   </body>
 </html>

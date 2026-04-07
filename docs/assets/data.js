@@ -1603,9 +1603,31 @@ const practicalChecklistSignalsByService = {
 window.siteData.practicalDocsNote =
   "These are not official mandatory documents. They are backup papers repeatedly mentioned in public user reports and can help you avoid repeat visits or verification delays.";
 
+const recommendedActionByService = {
+  "learner-licence": "Start the learner's licence application on Sarathi and keep your age and address proof ready.",
+  "permanent-driving-licence": "Book the driving test only after your learner's licence waiting period is complete.",
+  "dl-renewal": "Open the licence renewal flow on Sarathi and check whether medical or out-of-state verification applies.",
+  "duplicate-dl": "Use the duplicate licence flow only if the original licence record already exists in the system.",
+  "dl-address-change": "Keep the new address proof ready exactly as you want it reflected on the driving licence.",
+  "international-driving-permit": "Prepare your passport, visa, travel proof, and valid Indian licence before opening the IDP flow.",
+  "new-vehicle-registration": "Confirm which papers the dealer will submit and which originals you still need to carry.",
+  "transfer-ownership": "Keep the signed transfer forms, RC, insurance, and buyer details ready before starting on Vahan.",
+  noc: "Clear tax, finance, and pending record issues before applying for the NOC.",
+  "rc-renewal": "Open the RC renewal flow within the allowed window and keep RC, insurance, PUC, and tax proof ready.",
+  "duplicate-rc": "Keep the police report and a backup copy of your RC details ready before starting the duplicate RC flow.",
+  "rc-address-change": "Prepare the new address proof and confirm whether financier approval is also needed.",
+  "hypothecation-addition": "Keep Form 34 and the finance papers signed by both the owner and financier.",
+  "hypothecation-removal": "Wait until the bank issues the final NOC or due-clearance letter before starting the removal flow.",
+  "fitness-certificate": "Book the inspection only after your vehicle papers, payment receipt, and original documents are ready.",
+  "permit-services": "Confirm the exact permit type first, because documents and fees change by permit category.",
+  "tax-services": "Use the official portal amount as final and save the payment receipt after payment.",
+  "puc-requirements": "Get a valid PUC before starting any linked RC-side service that asks for it."
+};
+
 window.siteData.services = window.siteData.services.map((service) => ({
   ...service,
-  practicalDocs: practicalChecklistSignalsByService[service.id] || []
+  practicalDocs: practicalChecklistSignalsByService[service.id] || [],
+  recommendedAction: recommendedActionByService[service.id] || service.steps[0]
 }));
 
 window.siteData.signals.unshift({
@@ -1666,3 +1688,118 @@ window.siteData.sourceGroups.push(
     ]
   }
 );
+
+const journeyMetaById = {
+  "new-driver": {
+    iconLabel: "DL",
+    helperLabel: "Licence start"
+  },
+  "renew-or-correct-licence": {
+    iconLabel: "UPD",
+    helperLabel: "Licence update"
+  },
+  "bought-or-sold-vehicle": {
+    iconLabel: "RC",
+    helperLabel: "Vehicle papers"
+  },
+  "moved-or-shifting-state": {
+    iconLabel: "NOC",
+    helperLabel: "Address or move"
+  },
+  "loan-or-finance": {
+    iconLabel: "LOAN",
+    helperLabel: "Finance update"
+  },
+  "travel-or-commercial": {
+    iconLabel: "TRVL",
+    helperLabel: "Travel or permit"
+  }
+};
+
+const faqCategoryByQuestion = {
+  "Can this guide replace the government portal?": "General",
+  "What should I do first if I know the problem but not the service name?": "General",
+  "Why does the site repeat PUC, tax proof, and financier papers so often?": "RC & Vehicle",
+  "Why does the site show extra backup documents that are not on the official checklist?": "General",
+  "What if the service is shown as online but the office still asks me to visit?": "General",
+  "What if the live portal total is different from the fee shown here?": "General"
+};
+
+window.siteData.navLinks = [
+  { href: "./index.html", label: "Start Here" },
+  { href: "./services.html", label: "Services" },
+  { href: "./offices.html", label: "Offices" },
+  { href: "./faq.html", label: "FAQ" }
+];
+
+window.siteData.wizardMeta = {
+  introEyebrow: "Satara District, Maharashtra",
+  introTitle: "Don't know which RTO service you need?",
+  introText: "Answer a few simple questions and get the right service, documents, forms, office guidance, and official next step.",
+  progressLabel: "Step",
+  stepMeta: {
+    journey: {
+      title: "What are you trying to do?",
+      help: "Pick the situation that matches your problem."
+    },
+    service: {
+      title: "Which option sounds closest?",
+      help: "Choose the closest match. You can change it later."
+    },
+    office: {
+      title: "Which office or record is involved?",
+      help: "Use the office code on your current DL or RC if you already have one."
+    },
+    profile: {
+      title: "Is this personal or commercial?",
+      help: "This helps narrow down permit, tax, and transport-heavy cases."
+    },
+    flags: {
+      title: "Anything else about this case?",
+      help: "Select all that apply, then continue."
+    }
+  },
+  resultTitle: "This is the service you likely need",
+  resultDisclaimer:
+    "Use this guide to understand the process. Applications, payments, appointments, and status checks happen only on official government portals.",
+  helpfulPrompt: "Was this helpful?",
+  sectionTabs: [
+    { id: "documents", label: "Documents" },
+    { id: "steps", label: "Steps" },
+    { id: "forms-fees", label: "Forms & Fees" },
+    { id: "office", label: "Office" }
+  ]
+};
+
+window.siteData.faqCategories = ["Licence", "RC & Vehicle", "Transfer & NOC", "General"];
+
+window.siteData.journeys = window.siteData.journeys.map((journey) => ({
+  ...journey,
+  ...(journeyMetaById[journey.id] || { iconLabel: "RTO", helperLabel: "RTO help" })
+}));
+
+window.siteData.faq = window.siteData.faq.map((item) => ({
+  ...item,
+  category: faqCategoryByQuestion[item.question] || "General"
+}));
+
+window.siteData.faq = window.siteData.faq.concat([
+  {
+    category: "Licence",
+    question: "Can I apply for a permanent driving licence without a learner's licence?",
+    answer:
+      "No. The permanent driving licence route depends on a valid learner's licence and the official waiting period before the driving test."
+  },
+  {
+    category: "Transfer & NOC",
+    question: "When do I need NOC instead of transfer of ownership?",
+    answer:
+      "Use transfer of ownership when the vehicle stays within the same registration system flow. Use NOC when the vehicle is moving to another jurisdiction, state, or re-registration process."
+  },
+  {
+    category: "RC & Vehicle",
+    question: "Why do RC services keep asking for insurance, PUC, and tax papers together?",
+    answer:
+      "Because RC-side services often verify whether the vehicle record is clean and current before they approve transfer, renewal, NOC, address change, or finance-related updates."
+  }
+]);

@@ -3,7 +3,7 @@
 This project contains:
 
 - a research pack for Satara-region RTO services in `research/satara-rto/`
-- a static website in `docs/` that turns that research into a reference-first guide
+- a static website in `docs/` that turns that research into a wizard-first public guide
 
 The website is designed to help users understand:
 
@@ -14,10 +14,10 @@ The website is designed to help users understand:
 
 It now also includes:
 
-- an interactive planner for personalized client checklists
-- shareable service and planner links
-- print-friendly planner and service views
-- an official tools hub and download center
+- a guided `Start Here` wizard on the homepage
+- dedicated pages for services, offices, and FAQ
+- shareable result links and dedicated service-guide links
+- official forms, fee references, and portal links inside each service guide
 
 It is intentionally built as a static site so it can be hosted for free on GitHub Pages.
 
@@ -27,10 +27,19 @@ It is intentionally built as a static site so it can be hosted for free on GitHu
 .
 ├── docs/
 │   ├── index.html
+│   ├── services.html
+│   ├── service.html
+│   ├── offices.html
+│   ├── faq.html
 │   ├── .nojekyll
 │   └── assets/
-│       ├── app.js
 │       ├── data.js
+│       ├── shared.js
+│       ├── shell.js
+│       ├── wizard-page.js
+│       ├── services-page.js
+│       ├── service-page.js
+│       ├── support-pages.js
 │       └── styles.css
 └── research/
     └── satara-rto/
@@ -44,13 +53,31 @@ It is intentionally built as a static site so it can be hosted for free on GitHu
 ## How the site works
 
 - `docs/index.html`
-  - main page layout
+  - homepage wizard and result experience
+- `docs/services.html`
+  - searchable service directory
+- `docs/service.html`
+  - dedicated guide page for a single service using the `service` query parameter
+- `docs/offices.html`
+  - Satara office reference page
+- `docs/faq.html`
+  - grouped FAQ page
 - `docs/assets/styles.css`
-  - styling, responsive layout, colors, typography
+  - styling, responsive layout, colors, typography, tabs, and wizard UI
 - `docs/assets/data.js`
-  - the editable content layer for services, offices, FAQ, and sources
-- `docs/assets/app.js`
-  - client-side rendering and interactivity
+  - the editable content layer for services, offices, FAQ, forms, and sources
+- `docs/assets/shared.js`
+  - shared helpers, data access, section rendering, and footer source rendering
+- `docs/assets/wizard-page.js`
+  - homepage step-by-step planner and result state
+- `docs/assets/services-page.js`
+  - searchable service directory page
+- `docs/assets/service-page.js`
+  - dedicated service guide page
+- `docs/assets/support-pages.js`
+  - office and FAQ page rendering
+- `docs/assets/shell.js`
+  - shared shell behavior such as active navigation and footer sources
 
 If you want to update the website content later, start with `docs/assets/data.js`.
 
@@ -153,7 +180,6 @@ git push
 ## Recommended next improvements
 
 - add Marathi content support
-- split services into dedicated detail pages if the site grows
 - add screenshots or diagrams for each workflow
 - add a proper office-routing helper if official jurisdiction mapping becomes available
 - add JSON export or CMS-style editing for non-technical content updates
