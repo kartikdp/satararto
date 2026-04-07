@@ -681,6 +681,11 @@ h3 {
   font-size: 1rem;
 }
 
+.planner-summary-card p {
+  margin: 0;
+  line-height: 1.65;
+}
+
 .planner-summary-card ol,
 .planner-panel ul {
   margin: 0;
@@ -1149,7 +1154,7 @@ h3 {
 }
 
 .glance-grid {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .detail-card {
@@ -1172,6 +1177,27 @@ h3 {
   margin: 0;
   padding-left: 1.2rem;
   line-height: 1.8;
+}
+
+.detail-card li + li {
+  margin-top: 0.35rem;
+}
+
+.detail-meta-list {
+  list-style: none;
+  padding: 0;
+}
+
+.detail-meta-list li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0.35rem 0;
+}
+
+.detail-meta-list strong {
+  font-family: "Sora", sans-serif;
+  font-size: 0.9rem;
 }
 
 .step-list {

@@ -77,6 +77,19 @@ function dedupeList(items) {
   return [...new Set(items.filter(Boolean))];
 }
 
+function dedupeLinksByUrl(items) {
+  const seen = new Set();
+
+  return items.filter((item) => {
+    if (!item?.url || seen.has(item.url)) {
+      return false;
+    }
+
+    seen.add(item.url);
+    return true;
+  });
+}
+
 function getFormLookupHint(form) {
   return form.lookupHint || `Open the official forms page and look for ${form.formNo}.`;
 }
@@ -689,14 +702,14 @@ function renderPlannerOutput() {
   const primaryLink = service.officialLinks[0];
   const practicalDocs = getPlannerPracticalDocs(service);
   const condensedSteps = service.steps.slice(0, 5);
-  const actionLinks = [
+  const actionLinks = dedupeLinksByUrl([
     {
       label: primaryLink.label,
       url: primaryLink.url,
       description: `Open the main ${getPortalLabel(service)} page for this service.`
     },
     ...toolLinks
-  ].slice(0, 4);
+  ]).slice(0, 4);
   const formSummary = formLinks.map((form) => form.formNo).join(", ");
 
   elements.plannerOutput.innerHTML = `
@@ -719,21 +732,21 @@ function renderPlannerOutput() {
 
     <div class="planner-summary-grid">
       <article class="planner-summary-card">
-        <h4>Why this service</h4>
+        <h4>When this applies</h4>
         <p>${service.bestFor}</p>
       </article>
       <article class="planner-summary-card">
-        <h4>Office guidance</h4>
+        <h4>Start and visit</h4>
         <p>${officeGuidance}</p>
       </article>
       <article class="planner-summary-card">
-        <h4>Forms you may need</h4>
+        <h4>Main forms</h4>
         <p>${formSummary || "Portal-based service"}</p>
       </article>
     </div>
 
     <div class="planner-panel">
-      <h4>What to do next</h4>
+      <h4>Next steps</h4>
       <ol class="planner-step-list">
         ${condensedSteps.map((step) => `<li>${step}</li>`).join("")}
       </ol>
@@ -758,7 +771,7 @@ function renderPlannerOutput() {
     </div>
 
     <div class="planner-panel planner-panel--practical">
-      <h4>Bring as backup</h4>
+      <h4>Backup papers</h4>
       <p class="planner-note">${window.siteData.practicalDocsNote}</p>
       <ul>
         ${practicalDocs.map((doc) => `<li>${doc}</li>`).join("")}
@@ -767,7 +780,7 @@ function renderPlannerOutput() {
 
     <div class="planner-detail-grid">
       <article class="planner-panel">
-        <h4>Fees and timing</h4>
+        <h4>Fee and timing</h4>
         <ul>
           ${service.fees.slice(0, 3).map((item) => `<li>${item}</li>`).join("")}
           <li>${service.validity}</li>
@@ -911,6 +924,13 @@ function renderServiceDetail() {
   const formLinks = resources.formIds.map((formId) => getFormById(formId)).filter(Boolean);
   const toolLinks = resources.toolIds.map((toolId) => getToolById(toolId)).filter(Boolean);
   const practicalDocs = getServicePracticalDocs(service);
+  const officialPageLinks = dedupeLinksByUrl([
+    ...service.officialLinks.map((link) => ({
+      ...link,
+      description: "Official service page or rule reference"
+    })),
+    ...toolLinks
+  ]);
 
   elements.serviceDetail.innerHTML = `
     <div class="detail-header">
@@ -937,12 +957,13 @@ function renderServiceDetail() {
         <p class="detail-meta">${service.bestFor}</p>
       </article>
       <article class="detail-card">
-        <h3>Start on</h3>
-        <p class="detail-meta">${getPortalLabel(service)}</p>
-      </article>
-      <article class="detail-card">
-        <h3>Office visit</h3>
-        <p class="detail-meta">${service.officeVisit}</p>
+        <h3>At a glance</h3>
+        <ul class="detail-meta-list">
+          <li><strong>Start on:</strong> ${getPortalLabel(service)}</li>
+          <li><strong>Appointment:</strong> ${service.appointment}</li>
+          <li><strong>Office visit:</strong> ${service.officeVisit}</li>
+          <li><strong>Inspection:</strong> ${service.inspection}</li>
+        </ul>
       </article>
       <article class="detail-card">
         <h3>Keep ready first</h3>
@@ -954,7 +975,7 @@ function renderServiceDetail() {
 
     <div class="detail-grid">
       <article class="detail-card wide">
-        <h3>Eligibility or timing</h3>
+        <h3>Before you begin</h3>
         <ul>
           ${service.eligibility.map((item) => `<li>${item}</li>`).join("")}
         </ul>
@@ -963,7 +984,7 @@ function renderServiceDetail() {
 
     <div class="detail-grid">
       <article class="detail-card wide">
-        <h3>Official step-by-step flow</h3>
+        <h3>Step-by-step</h3>
         <ol class="step-list">
           ${service.steps
             .map(
@@ -981,14 +1002,14 @@ function renderServiceDetail() {
 
     <div class="detail-grid">
       <article class="detail-card">
-        <h3>Official required documents</h3>
+        <h3>Required documents</h3>
         <ul>
           ${service.requiredDocs.map((doc) => `<li>${doc}</li>`).join("")}
         </ul>
       </article>
 
       <article class="detail-card">
-        <h3>Official conditional or supporting documents</h3>
+        <h3>Sometimes needed</h3>
         <ul>
           ${
             service.extraDocs.length
@@ -1001,7 +1022,7 @@ function renderServiceDetail() {
 
     <div class="detail-grid">
       <article class="detail-card detail-card--practical wide">
-        <h3>Often asked in practice</h3>
+        <h3>Additional papers often asked</h3>
         <p class="panel-note">${window.siteData.practicalDocsNote}</p>
         <ul>
           ${practicalDocs.map((doc) => `<li>${doc}</li>`).join("")}
@@ -1011,28 +1032,18 @@ function renderServiceDetail() {
 
     <div class="detail-grid">
       <article class="detail-card">
-        <h3>Fees</h3>
+        <h3>Fees and timing</h3>
         <ul>
           ${service.fees.map((item) => `<li>${item}</li>`).join("")}
+          <li>${service.validity}</li>
         </ul>
       </article>
 
       <article class="detail-card">
-        <h3>Validity or timing note</h3>
-        <p class="detail-meta">${service.validity}</p>
-      </article>
-    </div>
-
-    <div class="detail-card">
-      <h3>Forms users will see</h3>
-      <div class="tag-row">
-        ${service.forms.map((form) => `<span class="tag">${form}</span>`).join("")}
-      </div>
-    </div>
-
-    <div class="detail-grid">
-      <article class="detail-card">
-        <h3>Official form links</h3>
+        <h3>Forms and downloads</h3>
+        <div class="tag-row">
+          ${service.forms.map((form) => `<span class="tag">${form}</span>`).join("")}
+        </div>
         ${
           formLinks.length
             ? `
@@ -1050,26 +1061,26 @@ function renderServiceDetail() {
                   .join("")}
               </div>
             `
-            : `<p class="detail-meta">No standalone PDF form is highlighted here. Use the official service page or the full download center for this workflow.</p>`
+            : `<p class="detail-meta">No standalone PDF form is highlighted here. Use the official service page for this workflow.</p>`
         }
       </article>
+    </div>
 
-      <article class="detail-card">
-        <h3>Useful official links</h3>
-        <div class="inline-link-grid">
-          ${toolLinks
+    <div class="detail-card">
+      <h3>Official links</h3>
+      <div class="inline-link-grid">
+        ${officialPageLinks
             .map(
-              (tool) => `
-                <a class="inline-link-card" href="${tool.url}" target="_blank" rel="noreferrer">
-                  <strong>${tool.label}</strong>
-                  <span>${tool.description}</span>
+              (link) => `
+                <a class="inline-link-card" href="${link.url}" target="_blank" rel="noreferrer">
+                  <strong>${link.label}</strong>
+                  <span>${link.description}</span>
                   <small>Open official page</small>
                 </a>
               `
             )
             .join("")}
-        </div>
-      </article>
+      </div>
     </div>
 
     <div class="detail-card">
@@ -1077,19 +1088,6 @@ function renderServiceDetail() {
       <ul>
         ${service.notices.map((note) => `<li>${note}</li>`).join("")}
       </ul>
-    </div>
-
-    <div class="detail-card">
-      <h3>Official links</h3>
-      <div class="source-links">
-        ${service.officialLinks
-          .map(
-            (link) => `
-              <a href="${link.url}" target="_blank" rel="noreferrer">${link.label}</a>
-            `
-          )
-          .join("")}
-      </div>
     </div>
 
     ${
