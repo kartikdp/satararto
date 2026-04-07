@@ -81,9 +81,9 @@
               <p>${service.summary}</p>
             </div>
             <div class="service-card-meta">
-              <span>${getPortalLabel(service)}</span>
-              <span>${service.officeVisit}</span>
-              <span>${service.appointment}</span>
+              <span>Start on ${getPortalLabel(service)}</span>
+              <span>Office visit: ${service.officeVisit}</span>
+              <span>Appointment: ${service.appointment}</span>
             </div>
             <div class="service-card-actions">
               <a class="button button-primary" href="${createServiceHref(service.id)}">Open guide</a>

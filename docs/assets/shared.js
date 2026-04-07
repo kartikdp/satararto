@@ -458,6 +458,18 @@
     };
   }
 
+  function getServiceSectionCounts(service, state) {
+    const conditional = getConditionalDocs(service, state);
+    const selectedOffice = state ? getOfficeByPlannerId(state.officeId) : null;
+
+    return {
+      documents: service.requiredDocs.length + conditional.docs.length,
+      steps: service.steps.length,
+      "forms-fees": service.forms.length + service.fees.length,
+      office: selectedOffice || (state && state.officeId === "other-state") ? 1 : siteData.offices.length
+    };
+  }
+
   function getOfficialPageLinks(service) {
     const resources = getServiceResources(service.id);
     const toolLinks = resources.toolIds.map((toolId) => getToolById(toolId)).filter(Boolean);
@@ -489,58 +501,65 @@
     return `<span class="pill ${kind ? `pill-${kind}` : ""}">${label}</span>`;
   }
 
-  function getBasedOnAnswers(service, state) {
+  function getPathSummary(service, state) {
     if (!state) {
-      return [];
+      return "";
     }
 
-    const journey = getJourneyById(state.journeyId);
-    const answers = [
-      `Journey: ${journey ? journey.title : service.title}`,
-      `Service: ${service.title}`
-    ];
+    const parts = [];
 
     if (state.journeyId === "new-driver") {
-      answers.push(`Learner's licence status: ${state.learnerStatus === "yes" ? "Already have learner's licence" : "Need first learner's licence"}`);
+      parts.push(
+        state.learnerStatus === "yes"
+          ? "You're a new driver who already has a learner's licence."
+          : "You're a new driver who still needs a learner's licence."
+      );
+    } else {
+      const journey = getJourneyById(state.journeyId);
+      if (journey) {
+        parts.push(`${journey.title}.`);
+      }
     }
 
+    parts.push(`This points you to ${service.title}.`);
+
     const officeOption = siteData.planner.officeOptions.find((entry) => entry.id === state.officeId);
-    if (officeOption) {
-      answers.push(`Office: ${officeOption.label}`);
+    if (officeOption && state.officeId !== "unknown") {
+      parts.push(`Office context: ${officeOption.label}.`);
     }
 
     const profileOption = siteData.planner.profileOptions.find((entry) => entry.id === state.profileId);
     if (profileOption && shouldShowProfileQuestion(service)) {
-      answers.push(`Profile: ${profileOption.label}`);
+      parts.push(`Profile: ${profileOption.label}.`);
     }
 
     if (["tax-services", "puc-requirements"].includes(service.id)) {
       const vehicleType = siteData.planner.vehicleTypeOptions.find((entry) => entry.id === state.vehicleType);
       if (vehicleType) {
-        answers.push(`Vehicle type: ${vehicleType.label}`);
+        parts.push(`Vehicle type: ${vehicleType.label}.`);
       }
     }
 
     if (service.id === "puc-requirements") {
       const fuelType = siteData.planner.fuelTypeOptions.find((entry) => entry.id === state.fuelType);
       if (fuelType) {
-        answers.push(`Fuel type: ${fuelType.label}`);
+        parts.push(`Fuel type: ${fuelType.label}.`);
       }
     }
 
-    siteData.planner.flags.forEach((flag) => {
-      if (state.flags[flag.id]) {
-        answers.push(flag.label);
-      }
-    });
+    const activeFlags = siteData.planner.flags.filter((flag) => state.flags[flag.id]).map((flag) => flag.label.toLowerCase());
+    if (activeFlags.length) {
+      parts.push(`Extra conditions: ${activeFlags.join(", ")}.`);
+    }
 
-    return answers;
+    return parts.join(" ");
   }
 
   function renderServiceSummary(service, state) {
     const officeGuidance = state ? getPlannerOfficeGuidance(service, state) : getGenericOfficeGuidance(service);
     const selectedOffice = state ? getOfficeByPlannerId(state.officeId) : null;
-    const answerSummary = getBasedOnAnswers(service, state);
+    const pathSummary = getPathSummary(service, state);
+    const conditional = getConditionalDocs(service, state);
 
     return `
       <div class="result-summary">
@@ -555,13 +574,20 @@
           ${createBadge(`Office visit: ${service.officeVisit}`, "alert")}
         </div>
         ${
-          answerSummary.length
+          pathSummary
             ? `
               <article class="content-card answers-card">
-                <h3>Based on your answers</h3>
-                <ul class="content-list">
-                  ${answerSummary.map((item) => `<li>${item}</li>`).join("")}
-                </ul>
+                <h3>How this result was personalized</h3>
+                <p>${pathSummary}</p>
+                ${
+                  conditional.reasons.length
+                    ? `
+                      <ul class="content-list">
+                        ${conditional.reasons.map((reason) => `<li>${reason}</li>`).join("")}
+                      </ul>
+                    `
+                    : ""
+                }
               </article>
             `
             : ""
@@ -625,23 +651,12 @@
           ${practicalDocs.map((doc) => `<li>${doc}</li>`).join("")}
         </ul>
       </article>
-      ${
-        conditional.reasons.length
-          ? `
-            <article class="content-card">
-              <h3>Why this checklist changed</h3>
-              <ul class="content-list">
-                ${conditional.reasons.map((reason) => `<li>${reason}</li>`).join("")}
-              </ul>
-            </article>
-          `
-          : ""
-      }
     `;
   }
 
   function renderStepsSection(service, state) {
     const conditional = getConditionalDocs(service, state);
+    const watchOuts = dedupeList([...(service.notices || []), ...(conditional.notes || [])]);
 
     return `
       <article class="content-card content-card-highlight">
@@ -663,12 +678,18 @@
             .join("")}
         </ol>
       </article>
-      <article class="content-card">
-        <h3>Watch out for</h3>
-        <ul class="content-list">
-          ${dedupeList([...(service.notices || []), ...(conditional.notes || [])]).map((note) => `<li>${note}</li>`).join("")}
-        </ul>
-      </article>
+      ${
+        watchOuts.length
+          ? `
+            <article class="content-card">
+              <h3>Watch out for</h3>
+              <ul class="content-list">
+                ${watchOuts.map((note) => `<li>${note}</li>`).join("")}
+              </ul>
+            </article>
+          `
+          : ""
+      }
     `;
   }
 
@@ -796,25 +817,31 @@
   }
 
   function buildServiceSections(service, state) {
+    const counts = getServiceSectionCounts(service, state);
+
     return [
       {
         id: "documents",
         label: "Documents",
+        count: counts.documents,
         html: renderDocumentsSection(service, state)
       },
       {
         id: "steps",
         label: "Steps",
+        count: counts.steps,
         html: renderStepsSection(service, state)
       },
       {
         id: "forms-fees",
         label: "Forms & Fees",
+        count: counts["forms-fees"],
         html: renderFormsFeesSection(service)
       },
       {
         id: "office",
         label: "Office",
+        count: counts.office,
         html: renderOfficeSection(service, state)
       }
     ];
@@ -835,7 +862,7 @@
                 data-scope-id="${scopeId}"
                 data-tab-id="${section.id}"
               >
-                ${section.label}
+                ${section.label}${section.count ? ` (${section.count})` : ""}
               </button>
             `
           )

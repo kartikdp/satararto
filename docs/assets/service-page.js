@@ -52,11 +52,13 @@
         ${renderServiceSummary(service, null)}
         <div class="cta-box">
           <p class="cta-note">${siteData.wizardMeta.resultDisclaimer}</p>
-          <div class="cta-actions">
+          <div class="cta-primary-row">
             <a class="button button-primary" href="${service.officialLinks[0].url}" target="_blank" rel="noreferrer">Open ${service.officialLinks[0].label}</a>
             <a class="button button-secondary" href="./index.html?journey=${encodeURIComponent(journeyId)}&service=${encodeURIComponent(
               service.id
             )}">Use Start Here</a>
+          </div>
+          <div class="cta-link-row">
             <button class="button button-secondary" type="button" id="service-share-link">Copy guide link</button>
             <button class="button button-secondary" type="button" id="service-print">Print guide</button>
           </div>

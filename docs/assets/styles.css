@@ -125,8 +125,16 @@ img {
 
 .top-nav {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 8px;
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+}
+
+.top-nav::-webkit-scrollbar {
+  display: none;
 }
 
 .top-nav a {
@@ -324,6 +332,10 @@ img {
   display: grid;
   gap: 20px;
   margin-top: 26px;
+}
+
+.wizard-stage.is-transitioning {
+  animation: wizardStepFade 140ms ease;
 }
 
 .wizard-stage-head {
@@ -570,6 +582,8 @@ img {
 }
 
 .cta-actions,
+.cta-primary-row,
+.cta-link-row,
 .service-card-actions,
 .inline-actions,
 .feedback-actions {
@@ -578,7 +592,26 @@ img {
   gap: 10px;
 }
 
-.cta-actions .button {
+.cta-primary-row {
+  margin-bottom: 10px;
+}
+
+.cta-link-row .button {
+  min-height: 38px;
+  padding: 0.68rem 0.9rem;
+  border-color: transparent;
+  background: transparent;
+  color: var(--teal-deep);
+}
+
+.cta-link-row .button:hover,
+.cta-link-row .button:focus-visible {
+  background: rgba(11, 125, 114, 0.06);
+  border-color: rgba(11, 125, 114, 0.14);
+}
+
+.cta-actions .button,
+.cta-primary-row .button {
   flex: 0 0 auto;
 }
 
@@ -939,6 +972,11 @@ img {
     padding: 18px 28px;
   }
 
+  .top-nav {
+    width: auto;
+    overflow: visible;
+  }
+
   .page-shell,
   .page-shell-tight {
     width: min(1120px, calc(100% - 56px));
@@ -977,9 +1015,26 @@ img {
   }
 
   .cta-actions .button,
+  .cta-primary-row .button,
   .service-card-actions .button,
   .inline-actions .button {
     width: 100%;
+  }
+
+  .cta-link-row .button {
+    width: auto;
+  }
+}
+
+@keyframes wizardStepFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

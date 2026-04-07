@@ -30,6 +30,7 @@
     intro: document.getElementById("wizard-intro"),
     progressLabel: document.getElementById("wizard-progress-label"),
     progressBar: document.getElementById("wizard-progress-bar"),
+    stage: document.querySelector(".wizard-stage"),
     stepTitle: document.getElementById("wizard-step-title"),
     stepHelp: document.getElementById("wizard-step-help"),
     stepBody: document.getElementById("wizard-step-body"),
@@ -47,6 +48,12 @@
     resultChange: document.getElementById("result-change"),
     resultStartOver: document.getElementById("result-start-over")
   };
+
+  function restartStepAnimation() {
+    elements.stage.classList.remove("is-transitioning");
+    void elements.stage.offsetWidth;
+    elements.stage.classList.add("is-transitioning");
+  }
 
   function resetPlanner() {
     plannerState = createDefaultPlannerState();
@@ -446,40 +453,48 @@
 
     if (currentStep.id === "journey") {
       renderJourneyStep();
+      restartStepAnimation();
       return;
     }
 
     if (currentStep.id === "learnerStatus") {
       renderLearnerStatusStep();
+      restartStepAnimation();
       return;
     }
 
     if (currentStep.id === "service") {
       renderServiceStep();
+      restartStepAnimation();
       return;
     }
 
     if (currentStep.id === "office") {
       renderOfficeStep();
+      restartStepAnimation();
       return;
     }
 
     if (currentStep.id === "profile") {
       renderProfileStep();
+      restartStepAnimation();
       return;
     }
 
     if (currentStep.id === "vehicleType") {
       renderVehicleTypeStep();
+      restartStepAnimation();
       return;
     }
 
     if (currentStep.id === "fuelType") {
       renderFuelTypeStep();
+      restartStepAnimation();
       return;
     }
 
     renderFlagsStep();
+    restartStepAnimation();
   }
 
   function renderResult() {
@@ -492,9 +507,11 @@
     elements.resultCta.innerHTML = `
       <div class="cta-box">
         <p class="cta-note">${siteData.wizardMeta.resultDisclaimer}</p>
-        <div class="cta-actions">
+        <div class="cta-primary-row">
           <a class="button button-primary" href="${primaryLink.url}" target="_blank" rel="noreferrer">Open ${primaryLink.label}</a>
           <a class="button button-secondary" href="${createServiceHref(service.id)}">View detailed guide</a>
+        </div>
+        <div class="cta-link-row">
           <button class="button button-secondary" type="button" id="result-share-link">Copy share link</button>
           <button class="button button-secondary" type="button" id="result-print">Print this result</button>
           <a class="button button-secondary" href="./offices.html">View office details</a>
