@@ -84,11 +84,9 @@
             <a class="button button-secondary" href="./offices.html">View office details</a>
           </div>
         </div>
-        <article class="content-card guide-note-card" id="service-guide-anchor">
-          <h2>Full service guide</h2>
-          <p>Use the tabs below to move through the complete guidance for this service. Nothing important is hidden on another page.</p>
-        </article>
-        <div id="service-page-tabs"></div>
+        <div id="service-guide-anchor">
+          <div id="service-page-tabs"></div>
+        </div>
         <div id="service-page-feedback"></div>
         ${
           related.length

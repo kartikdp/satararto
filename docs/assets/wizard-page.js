@@ -507,10 +507,6 @@
     elements.resultSummary.innerHTML = `
       ${renderServiceSummary(service, plannerState, { mode: "wizard" })}
       ${renderAtGlance(service)}
-      <article class="content-card guide-note-card">
-        <h2>Full service guide</h2>
-        <p>This result already includes the full guide for this service, including steps, documents, fees, forms, office details, and background information.</p>
-      </article>
     `;
     elements.resultCta.innerHTML = `
       <div class="cta-box">

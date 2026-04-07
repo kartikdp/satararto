@@ -532,14 +532,12 @@ img {
   border: 1px solid rgba(11, 125, 114, 0.16);
 }
 
-.guide-note-card h2,
 .at-glance-card h2 {
   margin: 0;
   font-family: "Sora", sans-serif;
   font-size: 1.2rem;
 }
 
-.guide-note-card p,
 .at-glance-card p {
   margin-bottom: 0;
 }
@@ -755,7 +753,7 @@ img {
 .at-glance-grid {
   display: grid;
   gap: 12px;
-  margin-top: 14px;
+  margin-top: 8px;
 }
 
 .at-glance-item {
@@ -1151,7 +1149,7 @@ img {
   }
 
   .summary-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .summary-card-primary {

@@ -508,7 +508,6 @@
       <section class="content-card at-glance-card">
         <div class="section-head compact">
           <h2>At a glance</h2>
-          <p class="muted-copy">This quick row shows the main operational details before you open the full sections below.</p>
         </div>
         <div class="at-glance-grid">
           <article class="at-glance-item">
