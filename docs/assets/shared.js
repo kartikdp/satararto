@@ -538,13 +538,29 @@
   function renderServiceSummary(service, state, options = {}) {
     const officeGuidance = state ? getPlannerOfficeGuidance(service, state) : getGenericOfficeGuidance(service);
     const selectedOffice = state ? getOfficeByPlannerId(state.officeId) : null;
-    const guideEyebrow = options.mode === "wizard" ? "Full guide for this service" : "Complete service guide";
     const purposeText = service.short || service.bestFor;
+    const summaryNotes = [
+      {
+        label: "Best for",
+        text: service.bestFor
+      }
+    ];
+
+    if (selectedOffice) {
+      summaryNotes.push({
+        label: "Office",
+        text: `${selectedOffice.name}. ${officeGuidance}`
+      });
+    } else if (options.mode === "wizard") {
+      summaryNotes.push({
+        label: "Office",
+        text: officeGuidance
+      });
+    }
 
     return `
       <div class="result-summary">
         <div class="result-summary-main">
-          <p class="eyebrow">${guideEyebrow}</p>
           <h2>${service.title}</h2>
           <p class="result-lead">${purposeText}</p>
         </div>
@@ -553,20 +569,18 @@
           ${createBadge(getPlannerReadiness(service), "warning")}
           ${createBadge(`Office visit: ${service.officeVisit}`, "alert")}
         </div>
-        <div class="summary-mini-grid">
-          <article class="summary-mini-item">
-            <strong>Use this when</strong>
-            <span>${service.bestFor}</span>
-          </article>
-          <article class="summary-mini-item">
-            <strong>Start with</strong>
-            <span>${service.recommendedAction}</span>
-          </article>
-          <article class="summary-mini-item">
-            <strong>Office guidance</strong>
-            <span>${selectedOffice ? `${selectedOffice.name}. ` : ""}${officeGuidance}</span>
-          </article>
-        </div>
+        <ul class="summary-note-list">
+          ${summaryNotes
+            .map(
+              (note) => `
+                <li>
+                  <strong>${note.label}:</strong>
+                  <span>${note.text}</span>
+                </li>
+              `
+            )
+            .join("")}
+        </ul>
       </div>
     `;
   }
@@ -644,7 +658,7 @@
         practicalDocs.length
           ? `
             <article class="content-card content-card-highlight">
-              <h3>Optional backup papers from public user reports</h3>
+              <h3>Backup papers people often carry</h3>
               <p class="muted-copy">${siteData.practicalDocsNote}</p>
               <ul class="content-list">
                 ${practicalDocs.map((doc) => `<li>${doc}</li>`).join("")}
@@ -812,9 +826,7 @@
             <li><strong>Inspection:</strong> ${service.inspection}</li>
           </ul>
           <p class="muted-copy">${officeGuidance}</p>
-          <div class="inline-actions">
-            <a class="button button-secondary" href="./offices.html">View office details</a>
-          </div>
+          <p><a class="inline-link" href="./offices.html">See office details</a></p>
         </article>
         <article class="content-card">
           <h3>Before you visit</h3>
@@ -912,7 +924,7 @@
         label: "Sources",
         html: `
           <article class="content-card">
-            <h3>Official sources used for this guide</h3>
+            <h3>Official sources</h3>
             <div class="resource-stack">
               ${service.officialSourceRefs
                 .map(

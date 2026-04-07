@@ -53,7 +53,6 @@
       <p class="eyebrow">${category ? category.label : "Service"} guide</p>
       <h1>${service.title}</h1>
       <p>${service.summary}</p>
-      <p class="intro-inline-link">This page includes the full guide for this service: steps, documents, fees, forms, office guidance, and background information.</p>
     `;
 
     elements.floatingStart.innerHTML = `
@@ -75,11 +74,10 @@
             <button class="button button-secondary" type="button" id="service-print">Print guide</button>
           </div>
           <div class="cta-link-row cta-link-row-tertiary">
-            <button class="button button-secondary" type="button" id="service-share-link">Copy guide link</button>
-            <a class="button button-secondary" href="./index.html?journey=${encodeURIComponent(journeyId)}&service=${encodeURIComponent(
+            <button class="button button-link" type="button" id="service-share-link">Copy link</button>
+            <a class="button button-link" href="./index.html?journey=${encodeURIComponent(journeyId)}&service=${encodeURIComponent(
               service.id
             )}">Use Start Here</a>
-            <a class="button button-secondary" href="./offices.html">View office details</a>
           </div>
         </div>
         <div id="service-guide-anchor">

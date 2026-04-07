@@ -526,13 +526,11 @@
           <a class="button button-primary" href="${primaryLink.url}" target="_blank" rel="noreferrer">Open ${primaryLink.label}</a>
         </div>
         <div class="cta-link-row cta-link-row-tertiary">
-          <a class="button button-secondary" href="${getShareableServiceHref(service)}">Open shareable page</a>
-          <button class="button button-secondary" type="button" id="result-share-link">Copy share link</button>
-          <button class="button button-secondary" type="button" id="result-print">Print this result</button>
-          <a class="button button-secondary" href="./offices.html">View office details</a>
+          <button class="button button-link" type="button" id="result-share-link">Copy link</button>
+          <button class="button button-link" type="button" id="result-print">Print guide</button>
           ${
             selectedOffice
-              ? `<a class="button button-secondary" href="tel:${selectedOffice.phone.replace(/[^0-9+]/g, "")}">Call ${selectedOffice.code}</a>`
+              ? `<a class="button button-link" href="tel:${selectedOffice.phone.replace(/[^0-9+]/g, "")}">Call ${selectedOffice.code}</a>`
               : ""
           }
         </div>
@@ -565,13 +563,8 @@
     `;
     elements.previewCta.innerHTML = `
       <div class="cta-box cta-box-preview">
-        <p class="cta-note">This is the same full guide structure you will see after the final wizard result.</p>
         <div class="cta-primary-row">
           <a class="button button-primary" href="${primaryLink.url}" target="_blank" rel="noreferrer">Open ${primaryLink.label}</a>
-        </div>
-        <div class="cta-link-row cta-link-row-tertiary">
-          <a class="button button-secondary" href="${getShareableServiceHref(service)}">Open shareable page</a>
-          <a class="button button-secondary" href="./offices.html">View office details</a>
         </div>
       </div>
     `;

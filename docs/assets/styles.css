@@ -436,23 +436,6 @@ img {
   gap: 18px;
 }
 
-.preview-head {
-  display: grid;
-  gap: 8px;
-}
-
-.preview-head h2 {
-  margin: 0;
-  font-family: "Sora", sans-serif;
-  font-size: clamp(1.45rem, 3vw, 2rem);
-}
-
-.preview-head p:last-child {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.7;
-}
-
 .sticky-revisit {
   position: sticky;
   top: 78px;
@@ -566,29 +549,19 @@ img {
   margin-top: 0;
 }
 
-.summary-mini-grid {
+.summary-note-list {
   display: grid;
-  gap: 12px;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding-left: 1.2rem;
 }
 
-.summary-mini-item {
-  display: grid;
-  gap: 6px;
-  padding: 14px 16px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.72);
+.summary-note-list li {
+  line-height: 1.7;
 }
 
-.summary-mini-item strong {
-  font-family: "Sora", sans-serif;
-  font-size: 0.98rem;
-}
-
-.summary-mini-item span {
+.summary-note-list span {
   color: var(--muted);
-  line-height: 1.65;
 }
 
 .at-glance-card h2 {
@@ -682,10 +655,30 @@ img {
   color: var(--teal-deep);
 }
 
+.button-link {
+  min-height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--teal-deep);
+}
+
 .cta-link-row .button:hover,
-.cta-link-row .button:focus-visible {
+.cta-link-row .button:focus-visible,
+.button-link:hover,
+.button-link:focus-visible {
   background: rgba(11, 125, 114, 0.06);
   border-color: rgba(11, 125, 114, 0.14);
+}
+
+.button-link:hover,
+.button-link:focus-visible {
+  text-decoration: underline;
+  transform: none;
+}
+
+.inline-link {
+  font-weight: 800;
 }
 
 .cta-link-row-tertiary {

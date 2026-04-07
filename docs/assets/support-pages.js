@@ -14,7 +14,7 @@
             <h2>${office.name}</h2>
             <p>${office.address}</p>
             <ul class="content-list">
-              <li><strong>Phone:</strong> ${office.phone}</li>
+              <li><strong>Phone:</strong> <a href="tel:${office.phone.replace(/[^0-9+]/g, "")}">${office.phone}</a></li>
               <li><strong>Email:</strong> <a href="mailto:${office.email}">${office.email}</a></li>
               <li>${office.note}</li>
             </ul>
@@ -28,7 +28,7 @@
 
     guidance.innerHTML = `
       <article class="content-card">
-        <h2>How to choose the right office</h2>
+        <h2>Choosing the right office</h2>
         <ul class="content-list">
           <li>Use the office code on your existing DL or RC first.</li>
           <li>If your record points to ${satara.code}, start with ${satara.name}.</li>

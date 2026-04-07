@@ -78,7 +78,7 @@
             <div class="service-card-top">
               <p class="eyebrow">${category.label}</p>
               <h2>${service.title}</h2>
-              <p>${service.summary}</p>
+              <p>${service.short || service.summary}</p>
             </div>
             <div class="service-card-meta">
               <span>Start on ${getPortalLabel(service)}</span>
@@ -87,7 +87,7 @@
             </div>
             <div class="service-card-actions">
               <a class="button button-primary" href="${createServiceHref(service.id)}">Open guide</a>
-              <a class="button button-secondary" href="./index.html?journey=${encodeURIComponent(journeyId)}&service=${encodeURIComponent(
+              <a class="button button-link" href="./index.html?journey=${encodeURIComponent(journeyId)}&service=${encodeURIComponent(
                 service.id
               )}">Use Start Here</a>
             </div>
