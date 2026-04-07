@@ -39,6 +39,10 @@
     resetButton: document.getElementById("wizard-reset"),
     flagsButtonRow: document.getElementById("wizard-flags-actions"),
     flagsContinue: document.getElementById("wizard-flags-continue"),
+    previewView: document.getElementById("wizard-preview"),
+    previewSummary: document.getElementById("preview-summary"),
+    previewCta: document.getElementById("preview-cta"),
+    previewGuide: document.getElementById("preview-guide"),
     resultView: document.getElementById("wizard-result"),
     wizardCard: document.getElementById("wizard-card"),
     resultSummary: document.getElementById("result-summary"),
@@ -49,6 +53,14 @@
     resultChange: document.getElementById("result-change"),
     resultStartOver: document.getElementById("result-start-over")
   };
+
+  function getShareableServiceHref(service) {
+    if (typeof createServiceHref === "function") {
+      return createServiceHref(service.id);
+    }
+
+    return `./service.html?service=${encodeURIComponent(service.id)}`;
+  }
 
   function restartStepAnimation() {
     elements.stage.classList.remove("is-transitioning");
@@ -514,7 +526,7 @@
           <a class="button button-primary" href="${primaryLink.url}" target="_blank" rel="noreferrer">Open ${primaryLink.label}</a>
         </div>
         <div class="cta-link-row cta-link-row-tertiary">
-          <a class="button button-secondary" href="${createServiceHref(service.id)}">Open shareable page</a>
+          <a class="button button-secondary" href="${getShareableServiceHref(service)}">Open shareable page</a>
           <button class="button button-secondary" type="button" id="result-share-link">Copy share link</button>
           <button class="button button-secondary" type="button" id="result-print">Print this result</button>
           <a class="button button-secondary" href="./offices.html">View office details</a>
@@ -543,6 +555,29 @@
     });
   }
 
+  function renderPreview() {
+    const service = getServiceById(plannerState.serviceId);
+    const sections = buildServiceSections(service, plannerState);
+    const primaryLink = service.officialLinks[0];
+
+    elements.previewSummary.innerHTML = `
+      ${renderServiceSummary(service, plannerState, { mode: "wizard" })}
+    `;
+    elements.previewCta.innerHTML = `
+      <div class="cta-box cta-box-preview">
+        <p class="cta-note">This is the same full guide structure you will see after the final wizard result.</p>
+        <div class="cta-primary-row">
+          <a class="button button-primary" href="${primaryLink.url}" target="_blank" rel="noreferrer">Open ${primaryLink.label}</a>
+        </div>
+        <div class="cta-link-row cta-link-row-tertiary">
+          <a class="button button-secondary" href="${getShareableServiceHref(service)}">Open shareable page</a>
+          <a class="button button-secondary" href="./offices.html">View office details</a>
+        </div>
+      </div>
+    `;
+    renderGuideSections(elements.previewGuide, sections, `preview-${service.id}`);
+  }
+
   function render() {
     plannerState = normalizePlannerState(plannerState);
     writePlannerStateToUrl(plannerState, viewMode);
@@ -550,6 +585,7 @@
     const showResult = viewMode === "result";
     elements.intro.hidden = showResult;
     elements.wizardCard.hidden = showResult;
+    elements.previewView.hidden = showResult;
     elements.resultView.hidden = !showResult;
 
     if (showResult) {
@@ -560,6 +596,7 @@
     const previousStepId = getPreviousStepId();
     elements.backButton.hidden = !previousStepId;
     renderCurrentStep();
+    renderPreview();
   }
 
   elements.backButton.addEventListener("click", () => {

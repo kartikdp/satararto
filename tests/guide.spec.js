@@ -72,38 +72,39 @@ function ensureScreenshotDir() {
   fs.mkdirSync(screenshotDir, { recursive: true });
 }
 
-async function captureGuideScreens(page, slug) {
+async function captureGuideScreens(page, slug, rootSelector = "body") {
   ensureScreenshotDir();
   await page.screenshot({ path: path.join(screenshotDir, `${slug}-top.png`) });
-  const stepsSection = page.locator('[data-guide-section="steps"]').first();
+  const stepsSection = page.locator(rootSelector).locator('[data-guide-section="steps"]').first();
   await stepsSection.scrollIntoViewIfNeeded();
   await page.screenshot({ path: path.join(screenshotDir, `${slug}-steps.png`) });
   await page.screenshot({ path: path.join(screenshotDir, `${slug}-full.png`), fullPage: true });
 }
 
-async function expectFullGuide(page) {
+async function expectFullGuide(page, rootSelector = "body") {
+  const root = page.locator(rootSelector);
   const sectionIds = ["steps", "documents", "timeline", "fees", "forms", "office", "information", "sources"];
 
   for (const sectionId of sectionIds) {
-    await expect(page.locator(`[data-guide-section="${sectionId}"]`).first()).toBeVisible();
+    await expect(root.locator(`[data-guide-section="${sectionId}"]`).first()).toBeVisible();
   }
 
-  await expect(page.locator('[data-guide-section="steps"] .step-list li').first()).toBeVisible();
-  await expect(page.locator('[data-guide-section="documents"] h3', { hasText: "Required documents" })).toBeVisible();
-  await expect(page.locator('[data-guide-section="timeline"] h3', { hasText: "Processing note" })).toBeVisible();
-  await expect(page.locator('[data-guide-section="fees"] .content-list li').first()).toBeVisible();
-  await expect(page.locator('[data-guide-section="forms"] article').first()).toBeVisible();
-  await expect(page.locator('[data-guide-section="office"] article').first()).toBeVisible();
-  await expect(page.locator('[data-guide-section="information"] article').first()).toBeVisible();
+  await expect(root.locator('[data-guide-section="steps"] .step-list li').first()).toBeVisible();
+  await expect(root.locator('[data-guide-section="documents"] h3', { hasText: "Required documents" })).toBeVisible();
+  await expect(root.locator('[data-guide-section="timeline"] h3', { hasText: "Processing note" })).toBeVisible();
+  await expect(root.locator('[data-guide-section="fees"] .content-list li').first()).toBeVisible();
+  await expect(root.locator('[data-guide-section="forms"] article').first()).toBeVisible();
+  await expect(root.locator('[data-guide-section="office"] article').first()).toBeVisible();
+  await expect(root.locator('[data-guide-section="information"] article').first()).toBeVisible();
 
-  const sourceLinks = page.locator('[data-guide-section="sources"] a[href]');
+  const sourceLinks = root.locator('[data-guide-section="sources"] a[href]');
   await expect(sourceLinks.first()).toBeVisible();
   const hrefs = await sourceLinks.evaluateAll((nodes) => nodes.map((node) => node.href));
   for (const href of hrefs) {
     expect(href).toMatch(/(parivahan\.gov\.in|transport\.maharashtra\.gov\.in)/);
   }
 
-  const stepsBox = await page.locator('[data-guide-section="steps"]').first().boundingBox();
+  const stepsBox = await root.locator('[data-guide-section="steps"]').first().boundingBox();
   expect(stepsBox).not.toBeNull();
   expect(stepsBox.y).toBeLessThan(1450);
 }
@@ -113,8 +114,8 @@ test.describe("direct service pages render the complete guide", () => {
     test(`service page shows full guide for ${serviceId}`, async ({ page }) => {
       await page.goto(`/service.html?service=${serviceId}`);
       await expect(page.locator("#service-page-guide")).toBeVisible();
-      await expectFullGuide(page);
-      await captureGuideScreens(page, `service-${serviceId}`);
+      await expectFullGuide(page, "#service-page-guide");
+      await captureGuideScreens(page, `service-${serviceId}`, "#service-page-guide");
     });
   }
 });
@@ -125,8 +126,8 @@ test.describe("wizard result pages render the same detailed guide", () => {
       await page.goto(entry.url);
       await expect(page.locator("#wizard-result")).toBeVisible();
       await expect(page.locator("#result-guide")).toBeVisible();
-      await expectFullGuide(page);
-      await captureGuideScreens(page, entry.slug);
+      await expectFullGuide(page, "#result-guide");
+      await captureGuideScreens(page, entry.slug, "#result-guide");
     });
   }
 });
@@ -139,8 +140,8 @@ test.describe("interactive wizard smoke flows", () => {
     await page.getByRole("button", { name: /Private \/ personal/i }).click();
     await expect(page.locator("#wizard-result")).toBeVisible();
     await expect(page.locator("#result-summary h2")).toContainText("Learner's Licence");
-    await expectFullGuide(page);
-    await captureGuideScreens(page, "interactive-learner");
+    await expectFullGuide(page, "#result-guide");
+    await captureGuideScreens(page, "interactive-learner", "#result-guide");
   });
 
   test("new driver with learner licence reaches permanent licence full guide", async ({ page }) => {
@@ -151,8 +152,8 @@ test.describe("interactive wizard smoke flows", () => {
     await page.getByRole("button", { name: /Private \/ personal/i }).click();
     await expect(page.locator("#wizard-result")).toBeVisible();
     await expect(page.locator("#result-summary h2")).toContainText("Permanent Driving Licence");
-    await expectFullGuide(page);
-    await captureGuideScreens(page, "interactive-permanent");
+    await expectFullGuide(page, "#result-guide");
+    await captureGuideScreens(page, "interactive-permanent", "#result-guide");
   });
 
   test("travel and compliance flow reaches PUC full guide with vehicle and fuel questions", async ({ page }) => {
@@ -164,7 +165,7 @@ test.describe("interactive wizard smoke flows", () => {
     await page.getByRole("button", { name: /Diesel/i }).click();
     await expect(page.locator("#wizard-result")).toBeVisible();
     await expect(page.locator("#result-summary h2")).toContainText("PUC Requirements");
-    await expectFullGuide(page);
-    await captureGuideScreens(page, "interactive-puc");
+    await expectFullGuide(page, "#result-guide");
+    await captureGuideScreens(page, "interactive-puc", "#result-guide");
   });
 });

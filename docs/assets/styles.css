@@ -432,6 +432,27 @@ img {
   padding: 22px;
 }
 
+.result-view-preview {
+  gap: 18px;
+}
+
+.preview-head {
+  display: grid;
+  gap: 8px;
+}
+
+.preview-head h2 {
+  margin: 0;
+  font-family: "Sora", sans-serif;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+}
+
+.preview-head p:last-child {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
 .sticky-revisit {
   position: sticky;
   top: 78px;
