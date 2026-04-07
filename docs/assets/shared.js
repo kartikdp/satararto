@@ -467,7 +467,7 @@
       steps: service.steps.length,
       documents: service.requiredDocs.length + conditional.docs.length,
       information: informationCount,
-      "forms-fees": service.forms.length + service.fees.length,
+      "fees-forms": service.forms.length + service.fees.length,
       office: selectedOffice || (state && state.officeId === "other-state") ? 1 : siteData.offices.length
     };
   }
@@ -503,16 +503,51 @@
     return `<span class="pill ${kind ? `pill-${kind}` : ""}">${label}</span>`;
   }
 
-  function renderServiceSummary(service, state) {
+  function renderAtGlance(service) {
+    return `
+      <section class="content-card at-glance-card">
+        <div class="section-head compact">
+          <h2>At a glance</h2>
+          <p class="muted-copy">This quick row shows the main operational details before you open the full sections below.</p>
+        </div>
+        <div class="at-glance-grid">
+          <article class="at-glance-item">
+            <span class="at-glance-label">Start on</span>
+            <strong>${getPortalLabel(service)}</strong>
+          </article>
+          <article class="at-glance-item">
+            <span class="at-glance-label">Office visit</span>
+            <strong>${service.officeVisit}</strong>
+          </article>
+          <article class="at-glance-item">
+            <span class="at-glance-label">Appointment</span>
+            <strong>${service.appointment}</strong>
+          </article>
+          <article class="at-glance-item">
+            <span class="at-glance-label">Inspection</span>
+            <strong>${service.inspectionSummary}</strong>
+          </article>
+          <article class="at-glance-item">
+            <span class="at-glance-label">Main forms</span>
+            <strong>${service.mainFormsCountLabel}</strong>
+          </article>
+        </div>
+      </section>
+    `;
+  }
+
+  function renderServiceSummary(service, state, options = {}) {
     const officeGuidance = state ? getPlannerOfficeGuidance(service, state) : getGenericOfficeGuidance(service);
     const selectedOffice = state ? getOfficeByPlannerId(state.officeId) : null;
+    const guideEyebrow = options.mode === "wizard" ? "Full guide for this service" : "Complete service guide";
+    const purposeText = service.short || service.bestFor;
 
     return `
       <div class="result-summary">
         <div class="result-summary-main">
-          <p class="eyebrow">Recommended service</p>
+          <p class="eyebrow">${guideEyebrow}</p>
           <h2>${service.title}</h2>
-          <p class="result-lead">${service.summary}</p>
+          <p class="result-lead">${purposeText}</p>
         </div>
         <div class="result-summary-meta">
           ${createBadge(`Start on ${getPortalLabel(service)}`)}
@@ -520,12 +555,12 @@
           ${createBadge(`Office visit: ${service.officeVisit}`, "alert")}
         </div>
         <div class="summary-grid">
-          <article class="summary-card">
-            <h3>Why this fits</h3>
+          <article class="summary-card summary-card-primary">
+            <h3>Use this when</h3>
             <p>${service.bestFor}</p>
           </article>
           <article class="summary-card">
-            <h3>What to do first</h3>
+            <h3>Start with</h3>
             <p>${service.recommendedAction}</p>
           </article>
           <article class="summary-card">
@@ -572,6 +607,7 @@
 
   function renderInformationSection(service) {
     const information = getInformationSections(service);
+    const headings = ["What it is", "When you need it", "What people often confuse"];
 
     return `
       <article class="content-card content-card-highlight">
@@ -581,9 +617,9 @@
       <div class="section-grid">
         ${information.sections
           .map(
-            (section) => `
+            (section, index) => `
               <article class="content-card">
-                <h3>${section.title}</h3>
+                <h3>${headings[index] || section.title}</h3>
                 ${section.body ? `<p>${section.body}</p>` : ""}
                 ${section.items && section.items.length ? `<ul class="content-list">${section.items.map((item) => `<li>${item}</li>`).join("")}</ul>` : ""}
               </article>
@@ -602,12 +638,14 @@
       <div class="section-grid">
         <article class="content-card">
           <h3>Required documents</h3>
+          <p class="muted-copy">These are the main official documents that most applicants should keep ready for this service.</p>
           <ul class="content-list">
             ${service.requiredDocs.map((doc) => `<li>${doc}</li>`).join("")}
           </ul>
         </article>
         <article class="content-card">
           <h3>Sometimes needed</h3>
+          <p class="muted-copy">These usually depend on verification, office routing, finance status, address change, or other case-specific conditions.</p>
           ${
             conditional.docs.length
               ? `<ul class="content-list">${conditional.docs.map((doc) => `<li>${doc}</li>`).join("")}</ul>`
@@ -616,7 +654,7 @@
         </article>
       </div>
       <article class="content-card content-card-highlight">
-        <h3>Additional papers often asked</h3>
+        <h3>Backup papers often asked</h3>
         <p class="muted-copy">${siteData.practicalDocsNote}</p>
         <ul class="content-list">
           ${practicalDocs.map((doc) => `<li>${doc}</li>`).join("")}
@@ -631,7 +669,7 @@
 
     return `
       <article class="content-card content-card-highlight">
-        <h3>What to do next</h3>
+        <h3>Before you start</h3>
         <p>${service.recommendedAction}</p>
       </article>
       <article class="content-card">
@@ -664,25 +702,45 @@
     `;
   }
 
-  function renderFormsFeesSection(service) {
+  function renderFeesFormsSection(service) {
     const resources = getServiceResources(service.id);
     const formLinks = resources.formIds.map((formId) => getFormById(formId)).filter(Boolean);
     const officialPageLinks = getOfficialPageLinks(service);
+    const hasNamedForms = !(service.forms.length === 1 && /portal-driven/i.test(service.forms[0]));
+    const validityNote = service.timelineSummary === service.validity ? "" : `<p class="muted-copy">${service.validity}</p>`;
 
     return `
       <div class="section-grid">
+        <article class="content-card content-card-highlight">
+          <h3>Typical timeline / validity</h3>
+          <p>${service.timelineSummary}</p>
+          ${validityNote}
+        </article>
         <article class="content-card">
-          <h3>Fees and timing</h3>
+          <h3>Fees</h3>
+          <p class="muted-copy">Treat the live portal amount as final wherever the system calculates the amount automatically.</p>
           <ul class="content-list">
             ${service.fees.map((fee) => `<li>${fee}</li>`).join("")}
-            <li>${service.validity}</li>
           </ul>
         </article>
         <article class="content-card">
           <h3>Forms users may need</h3>
-          <div class="tag-list">
-            ${service.forms.map((form) => `<span class="tag">${form}</span>`).join("")}
-          </div>
+          <p class="muted-copy">
+            ${
+              service.mainFormsSummary === "Mostly portal-driven"
+                ? "This service is mostly portal-driven. Use the official page below for the latest form and upload instructions."
+                : `Main forms commonly used here: ${service.mainFormsSummary}.`
+            }
+          </p>
+          ${
+            hasNamedForms
+              ? `
+                <div class="tag-list">
+                  ${service.forms.map((form) => `<span class="tag">${form}</span>`).join("")}
+                </div>
+              `
+              : ""
+          }
           ${
             formLinks.length
               ? `
@@ -699,8 +757,8 @@
                     )
                     .join("")}
                 </div>
-              `
-              : `<p class="muted-copy">This workflow is mostly portal-driven. Use the official service page for the latest form and upload instructions.</p>`
+            `
+            : `<p class="muted-copy">This workflow is mostly portal-driven. Use the official service page for the latest form and upload instructions.</p>`
           }
         </article>
       </div>
@@ -804,22 +862,22 @@
         html: renderDocumentsSection(service, state)
       },
       {
-        id: "information",
-        label: "Information",
-        count: counts.information,
-        html: renderInformationSection(service)
-      },
-      {
-        id: "forms-fees",
-        label: "Forms & Fees",
-        count: counts["forms-fees"],
-        html: renderFormsFeesSection(service)
+        id: "fees-forms",
+        label: "Fees & Forms",
+        count: counts["fees-forms"],
+        html: renderFeesFormsSection(service)
       },
       {
         id: "office",
         label: "Office",
         count: counts.office,
         html: renderOfficeSection(service, state)
+      },
+      {
+        id: "information",
+        label: "Information",
+        count: counts.information,
+        html: renderInformationSection(service)
       }
     ];
   }
@@ -924,9 +982,24 @@
   }
 
   function getRelatedServices(service) {
+    const configured = (service.relatedServices || [])
+      .map((item) => {
+        const related = getServiceById(item.id);
+        return related ? { ...related, reason: item.reason } : null;
+      })
+      .filter(Boolean);
+
+    if (configured.length) {
+      return configured;
+    }
+
     return siteData.services
       .filter((entry) => entry.category === service.category && entry.id !== service.id)
-      .slice(0, 4);
+      .slice(0, 3)
+      .map((entry) => ({
+        ...entry,
+        reason: "Another related service in the same category."
+      }));
   }
 
   function createServiceHref(serviceId) {
@@ -1045,9 +1118,9 @@
     createServiceHref,
     dedupeList,
     getJourneyById,
+    getPortalLabel,
     getPlannerServiceOptions,
     getPlannerSteps,
-    getPortalLabel,
     getRelatedServices,
     getRelevantFlags,
     getOfficeByPlannerId,
@@ -1059,6 +1132,7 @@
     groupFaqByCategory,
     normalizePlannerState,
     readPlannerStateFromUrl,
+    renderAtGlance,
     renderFooterSources,
     renderHelpfulFeedback,
     renderServiceSummary,

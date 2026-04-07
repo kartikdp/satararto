@@ -2204,11 +2204,143 @@ const informationByService = {
   }
 };
 
+const timelineSummaryByService = {
+  "learner-licence": "Usually valid for 6 months after issue.",
+  "permanent-driving-licence": "Apply after the learner waiting period and when you are ready for the driving test.",
+  "dl-renewal": "Best started before expiry or as soon as possible after expiry.",
+  "duplicate-dl": "Processing depends on how quickly the existing licence record is verified.",
+  "dl-address-change": "Timeline depends on address-proof verification and record matching.",
+  "international-driving-permit": "Usually tied to a valid Indian licence and current travel documents.",
+  "new-vehicle-registration": "Dealer and office timelines vary until the permanent RC record is issued.",
+  "transfer-ownership": "Timing depends on seller, buyer, and record verification steps.",
+  noc: "Timing depends on tax, finance, and record-clearance checks.",
+  "rc-renewal": "Start within the allowed renewal window before the RC expires.",
+  "duplicate-rc": "Processing depends on loss verification and existing record match.",
+  "rc-address-change": "Timeline depends on address proof, financier status, and record update speed.",
+  "hypothecation-addition": "Usually moves only after the signed finance papers are accepted.",
+  "hypothecation-removal": "Start only after the bank issues the final NOC or due-clearance letter.",
+  "fitness-certificate": "Validity and turnaround depend on vehicle class, inspection, and compliance status.",
+  "permit-services": "Validity and renewal cycle depend on the exact permit category.",
+  "tax-services": "Live portal calculation and payment confirmation control the timing.",
+  "puc-requirements": "Validity depends on the certificate issued by the authorised PUC centre."
+};
+
+const relatedServiceLinksById = {
+  "learner-licence": [
+    { id: "permanent-driving-licence", reason: "Use this after the learner stage is complete and you are ready for the test." }
+  ],
+  "permanent-driving-licence": [
+    { id: "learner-licence", reason: "Use this first if the applicant does not yet have a learner's licence." },
+    { id: "dl-renewal", reason: "Use this later when the issued driving licence needs renewal." }
+  ],
+  "dl-renewal": [
+    { id: "duplicate-dl", reason: "Use this instead if the issue is loss or damage, not expiry." },
+    { id: "dl-address-change", reason: "Use this if the main problem is updating the address on the licence." }
+  ],
+  "duplicate-dl": [
+    { id: "dl-renewal", reason: "Use this if the licence is expiring rather than lost or damaged." },
+    { id: "dl-address-change", reason: "Use this if the licence address also needs correction." }
+  ],
+  "dl-address-change": [
+    { id: "dl-renewal", reason: "Use this if the licence also needs renewal based on expiry." },
+    { id: "duplicate-dl", reason: "Use this if the card is lost or unusable, not only address-mismatched." }
+  ],
+  "international-driving-permit": [
+    { id: "dl-renewal", reason: "Use this first if the Indian licence is expired or close to expiry." },
+    { id: "permanent-driving-licence", reason: "Use this first if the applicant does not yet hold a full Indian driving licence." }
+  ],
+  "new-vehicle-registration": [
+    { id: "hypothecation-addition", reason: "Use this if the new vehicle is financed and the lender must be added to the RC." },
+    { id: "tax-services", reason: "Use this if you need to understand the live tax calculation before payment." }
+  ],
+  "transfer-ownership": [
+    { id: "noc", reason: "Use this as well if the vehicle is moving to another state or registration authority." },
+    { id: "hypothecation-removal", reason: "Use this first if the RC still shows an active loan or financier." }
+  ],
+  noc: [
+    { id: "transfer-ownership", reason: "Use this if the vehicle is changing owner inside the normal local transfer flow." },
+    { id: "rc-address-change", reason: "Use this instead if only the owner address is changing within the same jurisdiction." }
+  ],
+  "rc-renewal": [
+    { id: "duplicate-rc", reason: "Use this instead if the RC is lost or damaged rather than close to expiry." },
+    { id: "fitness-certificate", reason: "Use this if the vehicle class also needs a current fitness certificate." }
+  ],
+  "duplicate-rc": [
+    { id: "rc-renewal", reason: "Use this if the RC is expiring rather than missing." },
+    { id: "rc-address-change", reason: "Use this if the main update is the owner's address, not a lost RC." }
+  ],
+  "rc-address-change": [
+    { id: "noc", reason: "Use this instead if the vehicle record is actually moving out of the current jurisdiction." },
+    { id: "transfer-ownership", reason: "Use this if the owner is changing rather than only the address." }
+  ],
+  "hypothecation-addition": [
+    { id: "new-vehicle-registration", reason: "Use this alongside new registration when the new vehicle is financed." },
+    { id: "hypothecation-removal", reason: "Use this later after the vehicle loan is fully closed." }
+  ],
+  "hypothecation-removal": [
+    { id: "transfer-ownership", reason: "Use this before sale if the RC still shows a financier." },
+    { id: "noc", reason: "Use this before moving the record if finance clearance is still pending." }
+  ],
+  "fitness-certificate": [
+    { id: "permit-services", reason: "Use this alongside permit work when transport operation depends on fitness validity." },
+    { id: "tax-services", reason: "Use this if the commercial vehicle case also needs current tax compliance." }
+  ],
+  "permit-services": [
+    { id: "fitness-certificate", reason: "Use this if the permit depends on a current vehicle fitness record." },
+    { id: "tax-services", reason: "Use this if the permit process is blocked by unpaid or unclear tax." }
+  ],
+  "tax-services": [
+    { id: "permit-services", reason: "Use this if the vehicle is commercial and permit-linked." },
+    { id: "puc-requirements", reason: "Use this if you also need to confirm compliance papers often checked in RC-side workflows." }
+  ],
+  "puc-requirements": [
+    { id: "tax-services", reason: "Use this if the larger compliance issue is tax payment rather than emissions proof." },
+    { id: "rc-renewal", reason: "Use this when you are preparing RC renewal and need the compliance checklist around it." }
+  ]
+};
+
+function buildMainFormsSummary(service) {
+  const resources = window.siteData.serviceResources[service.id] || { formIds: [] };
+  const formNos = resources.formIds
+    .map((formId) => window.siteData.formLibrary.find((form) => form.id === formId))
+    .filter(Boolean)
+    .map((form) => form.formNo);
+
+  if (!formNos.length || (service.forms.length === 1 && /portal-driven/i.test(service.forms[0]))) {
+    return "Mostly portal-driven";
+  }
+
+  if (formNos.length === 1) {
+    return formNos[0];
+  }
+
+  if (formNos.length === 2) {
+    return `${formNos[0]} and ${formNos[1]}`;
+  }
+
+  return `${formNos[0]}, ${formNos[1]}, and ${formNos.length - 2} more`;
+}
+
+function buildMainFormsCountLabel(service) {
+  const resources = window.siteData.serviceResources[service.id] || { formIds: [] };
+
+  if (!resources.formIds.length || (service.forms.length === 1 && /portal-driven/i.test(service.forms[0]))) {
+    return "Portal-driven";
+  }
+
+  return resources.formIds.length === 1 ? "1 main form" : `${resources.formIds.length} main forms`;
+}
+
 window.siteData.services = window.siteData.services.map((service) => ({
   ...service,
   practicalDocs: practicalChecklistSignalsByService[service.id] || [],
   recommendedAction: recommendedActionByService[service.id] || service.steps[0],
-  information: informationByService[service.id] || null
+  information: informationByService[service.id] || null,
+  timelineSummary: timelineSummaryByService[service.id] || service.validity,
+  mainFormsSummary: buildMainFormsSummary(service),
+  mainFormsCountLabel: buildMainFormsCountLabel(service),
+  inspectionSummary: service.inspection,
+  relatedServices: relatedServiceLinksById[service.id] || []
 }));
 
 window.siteData.signals.unshift({
@@ -2359,9 +2491,9 @@ window.siteData.wizardMeta = {
   sectionTabs: [
     { id: "steps", label: "Steps" },
     { id: "documents", label: "Documents" },
-    { id: "information", label: "Information" },
-    { id: "forms-fees", label: "Forms & Fees" },
-    { id: "office", label: "Office" }
+    { id: "fees-forms", label: "Fees & Forms" },
+    { id: "office", label: "Office" },
+    { id: "information", label: "Information" }
   ]
 };
 

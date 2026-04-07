@@ -8,6 +8,7 @@
     copyText,
     createServiceHref,
     getRelatedServices,
+    renderAtGlance,
     getServiceById,
     renderHelpfulFeedback,
     renderServiceSummary,
@@ -20,6 +21,7 @@
 
   const elements = {
     body: document.getElementById("service-page-body"),
+    intro: document.getElementById("service-page-intro"),
     floatingStart: document.getElementById("service-page-start")
   };
 
@@ -46,33 +48,63 @@
     const related = getRelatedServices(service);
     const matchingJourney = siteData.journeys.find((journey) => journey.serviceIds.includes(service.id));
     const journeyId = matchingJourney ? matchingJourney.id : siteData.journeys[0].id;
+    const category = siteData.categories.find((entry) => entry.id === service.category);
+
+    elements.intro.innerHTML = `
+      <p class="eyebrow">${category ? category.label : "Service"} guide</p>
+      <h1>${service.title}</h1>
+      <p>${service.summary}</p>
+      <p class="intro-inline-link">This page includes the full guide for this service: steps, documents, fees, forms, office guidance, and background information.</p>
+    `;
+
+    elements.floatingStart.innerHTML = `
+      <a class="button button-secondary" href="./index.html">Start Here</a>
+      <a class="button button-secondary" href="./services.html">All services</a>
+      <a class="button button-secondary" href="#service-summary-anchor">Summary</a>
+      <a class="button button-secondary" href="#service-guide-anchor">Guide</a>
+      ${related.length ? `<a class="button button-secondary" href="#service-related-anchor">Related</a>` : ""}
+    `;
 
     elements.body.innerHTML = `
       <div class="detail-shell">
-        ${renderServiceSummary(service, null)}
+        <section id="service-summary-anchor">
+          ${renderServiceSummary(service, null, { mode: "service" })}
+        </section>
+        ${renderAtGlance(service)}
         <div class="cta-box">
-          <p class="cta-note">${siteData.wizardMeta.resultDisclaimer}</p>
           <div class="cta-primary-row">
             <a class="button button-primary" href="${service.officialLinks[0].url}" target="_blank" rel="noreferrer">Open ${service.officialLinks[0].label}</a>
+            <button class="button button-secondary" type="button" id="service-print">Print guide</button>
+          </div>
+          <div class="cta-link-row cta-link-row-tertiary">
+            <button class="button button-secondary" type="button" id="service-share-link">Copy guide link</button>
             <a class="button button-secondary" href="./index.html?journey=${encodeURIComponent(journeyId)}&service=${encodeURIComponent(
               service.id
             )}">Use Start Here</a>
-          </div>
-          <div class="cta-link-row">
-            <button class="button button-secondary" type="button" id="service-share-link">Copy guide link</button>
-            <button class="button button-secondary" type="button" id="service-print">Print guide</button>
+            <a class="button button-secondary" href="./offices.html">View office details</a>
           </div>
         </div>
+        <article class="content-card guide-note-card" id="service-guide-anchor">
+          <h2>Full service guide</h2>
+          <p>Use the tabs below to move through the complete guidance for this service. Nothing important is hidden on another page.</p>
+        </article>
         <div id="service-page-tabs"></div>
         <div id="service-page-feedback"></div>
         ${
           related.length
             ? `
-              <section class="related-block">
+              <section class="related-block" id="service-related-anchor">
                 <h2>Related services</h2>
                 <div class="related-links">
                   ${related
-                    .map((entry) => `<a class="tag tag-link" href="${createServiceHref(entry.id)}">${entry.title}</a>`)
+                    .map(
+                      (entry) => `
+                        <a class="related-link-card" href="${createServiceHref(entry.id)}">
+                          <strong>${entry.title}</strong>
+                          <span>${entry.reason}</span>
+                        </a>
+                      `
+                    )
                     .join("")}
                 </div>
               </section>

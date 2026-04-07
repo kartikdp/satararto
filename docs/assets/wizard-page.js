@@ -14,6 +14,7 @@
     getServiceById,
     normalizePlannerState,
     readPlannerStateFromUrl,
+    renderAtGlance,
     renderHelpfulFeedback,
     renderServiceSummary,
     renderTabs,
@@ -503,15 +504,22 @@
     const primaryLink = service.officialLinks[0];
     const selectedOffice = getOfficeByPlannerId(plannerState.officeId);
 
-    elements.resultSummary.innerHTML = renderServiceSummary(service, plannerState);
+    elements.resultSummary.innerHTML = `
+      ${renderServiceSummary(service, plannerState, { mode: "wizard" })}
+      ${renderAtGlance(service)}
+      <article class="content-card guide-note-card">
+        <h2>Full service guide</h2>
+        <p>This result already includes the full guide for this service, including steps, documents, fees, forms, office details, and background information.</p>
+      </article>
+    `;
     elements.resultCta.innerHTML = `
       <div class="cta-box">
         <p class="cta-note">${siteData.wizardMeta.resultDisclaimer}</p>
         <div class="cta-primary-row">
           <a class="button button-primary" href="${primaryLink.url}" target="_blank" rel="noreferrer">Open ${primaryLink.label}</a>
-          <a class="button button-secondary" href="${createServiceHref(service.id)}">View detailed guide</a>
         </div>
-        <div class="cta-link-row">
+        <div class="cta-link-row cta-link-row-tertiary">
+          <a class="button button-secondary" href="${createServiceHref(service.id)}">Open shareable page</a>
           <button class="button button-secondary" type="button" id="result-share-link">Copy share link</button>
           <button class="button button-secondary" type="button" id="result-print">Print this result</button>
           <a class="button button-secondary" href="./offices.html">View office details</a>
