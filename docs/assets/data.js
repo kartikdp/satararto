@@ -1660,10 +1660,555 @@ const recommendedActionByService = {
   "puc-requirements": "Get a valid PUC before starting any linked RC-side service that asks for it."
 };
 
+const informationByService = {
+  "learner-licence": {
+    intro:
+      "A learner's licence is the first legal step before a permanent driving licence. It confirms that the applicant is allowed to learn driving for the approved vehicle class after clearing the learner-stage process.",
+    sections: [
+      {
+        title: "What it means",
+        items: [
+          "This is a temporary learning-stage licence, not the final driving licence.",
+          "It is the official record used before you can book the permanent driving test.",
+          "In Maharashtra, it is usually the first portal-based step for a new driver."
+        ]
+      },
+      {
+        title: "When you usually need it",
+        items: [
+          "You are applying for your first two-wheeler or LMV driving entitlement.",
+          "You do not already have a learner's licence for the class you want.",
+          "You want to begin the waiting period required before the permanent test."
+        ]
+      },
+      {
+        title: "Important to know",
+        items: [
+          "The learner's licence is usually valid for six months.",
+          "You cannot skip directly to a permanent driving licence without this stage.",
+          "Vehicle-class selection matters, so the application should match the class you actually want to drive."
+        ]
+      }
+    ]
+  },
+  "permanent-driving-licence": {
+    intro:
+      "The permanent driving licence is the full licence issued after the learner stage, waiting period, and driving test are completed successfully.",
+    sections: [
+      {
+        title: "What it means",
+        items: [
+          "This is the stage where the licensing authority checks practical driving ability.",
+          "It depends on an existing valid learner's licence.",
+          "The final issue normally happens only after the driving test result is accepted."
+        ]
+      },
+      {
+        title: "When you usually need it",
+        items: [
+          "You already hold a learner's licence and the minimum waiting period is over.",
+          "You are ready for the driving test for the approved class.",
+          "You want the final licence card or digital record after clearing the test."
+        ]
+      },
+      {
+        title: "Important to know",
+        items: [
+          "This is not only a document upload flow; the driving test is a real decision point.",
+          "The vehicle used for the test should match the class applied for.",
+          "If the office calls you for verification, carry the learner record, test appointment slip, and vehicle papers."
+        ]
+      }
+    ]
+  },
+  "dl-renewal": {
+    intro:
+      "Driving licence renewal keeps an existing licence valid after expiry or near-expiry and can also trigger medical or verification checks depending on age, licence class, and timing.",
+    sections: [
+      {
+        title: "What it means",
+        items: [
+          "Renewal extends the validity of an existing licence record; it is not the same as duplicate issue or address correction.",
+          "The process uses the existing driving licence as the base record.",
+          "Medical fitness can become important in some renewal cases."
+        ]
+      },
+      {
+        title: "When you usually need it",
+        items: [
+          "Your licence is close to expiry or has already expired.",
+          "You need to continue using the existing licence legally without interruption.",
+          "The office or portal shows renewal instead of correction or duplicate issue."
+        ]
+      },
+      {
+        title: "Important to know",
+        items: [
+          "Renewal timelines matter, so do not rely on old photocopies without checking the live expiry date.",
+          "Out-of-state or old-record cases can trigger extra verification.",
+          "If the renewal page asks for medical documents, prepare them before paying and booking the next step."
+        ]
+      }
+    ]
+  },
+  "duplicate-dl": {
+    intro:
+      "Duplicate driving licence service is for replacing a lost, damaged, or unusable licence when the original licence record already exists in the official system.",
+    sections: [
+      {
+        title: "What it means",
+        items: [
+          "This service replaces the physical or active licence document without changing the underlying entitlement.",
+          "It is used when the licence is lost, torn, damaged, or otherwise unusable.",
+          "The portal generally expects the original licence record to be traceable."
+        ]
+      },
+      {
+        title: "When you usually need it",
+        items: [
+          "The driving licence is lost or stolen.",
+          "The card is damaged, torn, or unreadable.",
+          "You still want the same licence record, not a renewal or address correction."
+        ]
+      },
+      {
+        title: "Important to know",
+        items: [
+          "A police acknowledgement or supporting loss record is often useful when the original document is not available.",
+          "Any old scan or number reference can help recover the existing record faster.",
+          "If the licence is also expired or has address issues, check whether another service is more accurate."
+        ]
+      }
+    ]
+  },
+  "dl-address-change": {
+    intro:
+      "Driving licence address change updates the address linked to the existing licence record when the holder has shifted residence or wants the DL to reflect the current address.",
+    sections: [
+      {
+        title: "What it means",
+        items: [
+          "This is a correction or update to the existing driving licence record.",
+          "The core licence entitlement stays the same; only the address details are changed.",
+          "The new address proof should match the way the address needs to appear on the final record."
+        ]
+      },
+      {
+        title: "When you usually need it",
+        items: [
+          "You have moved house and want the driving licence to show the new address.",
+          "The old address no longer matches the current ID or residence proof.",
+          "A linked service asks for the licence to reflect the current residence."
+        ]
+      },
+      {
+        title: "Important to know",
+        items: [
+          "Address mismatch is a common reason for follow-up checks, so spelling and flat number format matter.",
+          "Rental-address cases sometimes need stronger support like a registered agreement or utility-backed proof.",
+          "Address change does not by itself renew an expired licence unless the portal routes you into a combined flow."
+        ]
+      }
+    ]
+  },
+  "international-driving-permit": {
+    intro:
+      "An International Driving Permit is a travel-linked permit issued on the basis of a valid Indian driving licence. It is typically used when the traveller needs a recognised driving document for use abroad.",
+    sections: [
+      {
+        title: "What it means",
+        items: [
+          "The IDP does not replace the Indian driving licence; it works along with it.",
+          "Travel documents like passport and visa matter because the use case is international travel.",
+          "The issuing authority checks whether the underlying Indian licence is valid and usable."
+        ]
+      },
+      {
+        title: "When you usually need it",
+        items: [
+          "You are travelling abroad and need an international permit for driving.",
+          "The destination or rental process expects an IDP in addition to the Indian licence.",
+          "You already hold a valid Indian driving licence."
+        ]
+      },
+      {
+        title: "Important to know",
+        items: [
+          "The IDP is normally time-bound and linked to travel context, not a permanent local entitlement abroad.",
+          "Passport, visa, travel proof, and medical paperwork can become the most time-sensitive part of the file.",
+          "This is a case where office verification is still common, so keep originals ready."
+        ]
+      }
+    ]
+  },
+  "new-vehicle-registration": {
+    intro:
+      "New vehicle registration creates the first official vehicle record after purchase. It links the owner, vehicle details, insurance, tax, and manufacturer papers into the RC-side system.",
+    sections: [
+      {
+        title: "What it means",
+        items: [
+          "Registration is the first official entry of the vehicle into the transport system.",
+          "It is based on vehicle invoice, manufacturer documents, tax payment, insurance, and owner proof.",
+          "Dealer support is common, but the owner still needs to understand which originals or confirmations remain their responsibility."
+        ]
+      },
+      {
+        title: "When you usually need it",
+        items: [
+          "You purchased a new vehicle and the permanent registration is pending.",
+          "The dealer asks for owner-side proofs or signatures before completion.",
+          "The temporary registration has to move into the final RC flow."
+        ]
+      },
+      {
+        title: "Important to know",
+        items: [
+          "Hypothecation, address proof, tax, and invoice details should align from the start because corrections later are more painful.",
+          "Vehicle-class and owner-category details affect tax and registration fee logic.",
+          "Even when the dealer handles most of the workflow, the owner should preserve copies of every paper used."
+        ]
+      }
+    ]
+  },
+  "transfer-ownership": {
+    intro:
+      "Transfer of ownership changes the registered owner in the official RC record after a vehicle sale or ownership handover. It is one of the most document-heavy vehicle services because both parties and the vehicle record must align.",
+    sections: [
+      {
+        title: "What it means",
+        items: [
+          "This is the legal change of registered owner in the RC system.",
+          "It is different from a mere delivery note or private sale agreement.",
+          "The RC, insurance, PUC, tax proof, and signed transfer forms usually work together in this flow."
+        ]
+      },
+      {
+        title: "When you usually need it",
+        items: [
+          "A used vehicle has been sold or purchased.",
+          "The seller and buyer need the RC to reflect the new owner's name.",
+          "The vehicle remains in the normal transfer system and is not yet moving to another state through NOC."
+        ]
+      },
+      {
+        title: "Important to know",
+        items: [
+          "Sale and transfer are not complete until the official record changes.",
+          "Financed vehicles can need bank involvement before transfer clears.",
+          "If the vehicle is moving to another state or registration authority, NOC may become part of the process."
+        ]
+      }
+    ]
+  },
+  noc: {
+    intro:
+      "A No Objection Certificate is used when a vehicle record needs to move out of the current registering authority, commonly for another state, another jurisdiction, or a linked reassignment process.",
+    sections: [
+      {
+        title: "What it means",
+        items: [
+          "NOC is not the same thing as transfer of ownership.",
+          "It is a clearance-style step that allows the record to move or be re-used under another authority.",
+          "The office checks whether finance, tax, PUC, and record issues are clear before it is issued."
+        ]
+      },
+      {
+        title: "When you usually need it",
+        items: [
+          "The vehicle is shifting to another state or another registration jurisdiction.",
+          "The next process needs a formal clearance from the current registering authority.",
+          "The record is old, finance-linked, or likely to need verification before it can move."
+        ]
+      },
+      {
+        title: "Important to know",
+        items: [
+          "People often confuse NOC with simple address change or ownership transfer inside one local system.",
+          "Chassis print, tax clearance, and financier clearance often become important here.",
+          "If the vehicle is both sold and moved out, expect the sequence of documents to matter."
+        ]
+      }
+    ]
+  },
+  "rc-renewal": {
+    intro:
+      "RC renewal extends or refreshes the vehicle registration record when the registration term is ending and the vehicle must continue in legal use.",
+    sections: [
+      {
+        title: "What it means",
+        items: [
+          "This is a continuation of the registration record, not a transfer or duplicate issue.",
+          "The vehicle record, current compliances, and sometimes inspection-linked requirements are reviewed together.",
+          "The workflow becomes more sensitive for older vehicles and compliance-linked cases."
+        ]
+      },
+      {
+        title: "When you usually need it",
+        items: [
+          "The RC is approaching expiry and the vehicle still needs to remain active.",
+          "The official portal or office points you to renewal instead of duplicate or address change.",
+          "The vehicle is old enough that renewal timing now matters."
+        ]
+      },
+      {
+        title: "Important to know",
+        items: [
+          "Insurance, PUC, tax, and any green-tax or older-vehicle compliance papers should be current before you start.",
+          "Do not treat RC renewal as a purely clerical upload; inspection or additional checks can still apply.",
+          "The closer you are to the correct renewal window, the smoother the case usually is."
+        ]
+      }
+    ]
+  },
+  "duplicate-rc": {
+    intro:
+      "Duplicate RC service replaces a lost, stolen, or damaged registration certificate when the underlying vehicle record already exists and only the certificate has to be re-issued.",
+    sections: [
+      {
+        title: "What it means",
+        items: [
+          "This is a replacement of the registration certificate, not a change in owner or address.",
+          "The office usually expects proof that the original RC is unavailable or unusable.",
+          "The existing vehicle record remains the basis of the service."
+        ]
+      },
+      {
+        title: "When you usually need it",
+        items: [
+          "The RC is lost, stolen, damaged, or unreadable.",
+          "The owner needs a valid replacement before other RC-side services can proceed smoothly.",
+          "The vehicle details already exist in the official database."
+        ]
+      },
+      {
+        title: "Important to know",
+        items: [
+          "A police acknowledgement and any old RC copy can speed up record confirmation.",
+          "If address, owner name, or finance status also changed, you may need a separate or follow-up service.",
+          "Keep the vehicle record clean on insurance, PUC, and tax to avoid unrelated delays."
+        ]
+      }
+    ]
+  },
+  "rc-address-change": {
+    intro:
+      "RC address change updates the owner's address in the vehicle registration record. It matters when the owner's residence proof changed and the RC now needs to reflect the current address.",
+    sections: [
+      {
+        title: "What it means",
+        items: [
+          "This is an owner-address update inside the RC record.",
+          "It does not transfer ownership and does not by itself move the vehicle to another state.",
+          "The supporting address proof should match the final address format you want on the record."
+        ]
+      },
+      {
+        title: "When you usually need it",
+        items: [
+          "You changed residence and want the RC to carry the new address.",
+          "A linked insurance, finance, or compliance process requires the RC address to be updated.",
+          "The case is still an address update, not an out-of-state reassignment."
+        ]
+      },
+      {
+        title: "Important to know",
+        items: [
+          "People often confuse RC address change with NOC or transfer when the vehicle is moving outside the current jurisdiction.",
+          "If the vehicle is financed, the financier's consent may also matter.",
+          "PUC, insurance, and the new address proof are often checked together."
+        ]
+      }
+    ]
+  },
+  "hypothecation-addition": {
+    intro:
+      "Hypothecation addition records the lender's interest on the RC when a vehicle is purchased or financed through a bank or financier.",
+    sections: [
+      {
+        title: "What it means",
+        items: [
+          "The RC is being updated to show that the vehicle is under finance.",
+          "This protects the financier's interest in the official record.",
+          "The update depends on signed finance papers from both the owner and the lender."
+        ]
+      },
+      {
+        title: "When you usually need it",
+        items: [
+          "The vehicle purchase is financed and the RC still has to reflect that loan.",
+          "The dealer or bank asks for Form 34 or finance endorsement completion.",
+          "A new RC or newly financed vehicle record is being created or corrected."
+        ]
+      },
+      {
+        title: "Important to know",
+        items: [
+          "Owner name, vehicle details, and finance papers should match exactly across the file.",
+          "This is not the same as loan closure or removal; it is the entry of finance into the RC.",
+          "If the dealer is coordinating the file, still keep copies of the signed finance papers."
+        ]
+      }
+    ]
+  },
+  "hypothecation-removal": {
+    intro:
+      "Hypothecation removal clears the lender's interest from the RC after the vehicle loan is fully closed and the bank has issued the required release or NOC papers.",
+    sections: [
+      {
+        title: "What it means",
+        items: [
+          "This service removes the finance endorsement from the RC.",
+          "The bank's final clearance is the key supporting document.",
+          "The vehicle remains with the same owner; only the lender's hold is being removed from the record."
+        ]
+      },
+      {
+        title: "When you usually need it",
+        items: [
+          "The vehicle loan is fully paid and the bank has issued the closure papers.",
+          "You want a clean RC before transfer, sale, or future record updates.",
+          "The RC still shows finance even though the loan is already closed."
+        ]
+      },
+      {
+        title: "Important to know",
+        items: [
+          "Do not start too early; wait until the bank issues the proper NOC or due-clearance letter.",
+          "Form 35 and lender-side signature or release paperwork are central to this service.",
+          "Users often face delay when the bank letter format does not match what the office expects, so preserve the originals."
+        ]
+      }
+    ]
+  },
+  "fitness-certificate": {
+    intro:
+      "A fitness certificate confirms that a vehicle, especially in transport-linked use, meets the roadworthiness standards required for continued legal operation.",
+    sections: [
+      {
+        title: "What it means",
+        items: [
+          "Fitness is a roadworthiness and inspection-oriented service.",
+          "It is different from PUC, which only concerns emissions.",
+          "Vehicle papers and the physical vehicle condition both matter in this flow."
+        ]
+      },
+      {
+        title: "When you usually need it",
+        items: [
+          "The vehicle class or permit status requires a current fitness certificate.",
+          "The existing fitness period is ending and the vehicle must remain in active use.",
+          "A permit or commercial workflow depends on fitness validity."
+        ]
+      },
+      {
+        title: "Important to know",
+        items: [
+          "This is one of the clearest office-and-inspection dependent services.",
+          "Carry originals because counters and inspection points may still ask for paper sets.",
+          "Do not confuse fitness validity with insurance, permit, or PUC validity; they are related but separate compliance layers."
+        ]
+      }
+    ]
+  },
+  "permit-services": {
+    intro:
+      "Permit services cover the authorisation required for commercial, passenger, goods, tourist, and route-specific vehicle operations. The exact permit type decides the forms, fees, and sanctions involved.",
+    sections: [
+      {
+        title: "What it means",
+        items: [
+          "A permit is an operational authorisation, not the same as registration or tax payment.",
+          "The category can change everything, including forms, scrutiny, and renewal cycle.",
+          "Permit work often sits at the intersection of RC, tax, fitness, and route authorisation."
+        ]
+      },
+      {
+        title: "When you usually need it",
+        items: [
+          "A commercial vehicle needs a fresh permit, renewal, duplicate, transfer, or related approval.",
+          "The vehicle is used for goods, passenger, contract, tourist, or route-based operation.",
+          "The official workflow asks for permit-category selection before it can continue."
+        ]
+      },
+      {
+        title: "Important to know",
+        items: [
+          "Always identify the exact permit type first; guessing the category creates the wrong checklist.",
+          "Permit readiness depends on related papers like tax, fitness, insurance, and sometimes route or sanction documents.",
+          "Commercial operators should expect more office-side scrutiny than in simple private-vehicle services."
+        ]
+      }
+    ]
+  },
+  "tax-services": {
+    intro:
+      "Tax-related services help you understand and pay vehicle tax, environment tax, or other rule-based transport charges linked to the vehicle category. This is a calculation-heavy service, not a simple one-form application.",
+    sections: [
+      {
+        title: "What this covers",
+        items: [
+          "Vehicle tax is typically calculated from category, class, fuel, value, seating, GVW, or transport status.",
+          "The official portal usually computes the amount after vehicle verification rather than relying on one flat fee list.",
+          "Tax receipts become supporting papers for many later RC-side services."
+        ]
+      },
+      {
+        title: "When it matters",
+        items: [
+          "You need to pay current tax before transfer, NOC, renewal, or permit work can move ahead.",
+          "The amount is unclear because the vehicle type or commercial classification affects the slab.",
+          "You want to understand why the payable amount is different from another vehicle's case."
+        ]
+      },
+      {
+        title: "What users often confuse",
+        items: [
+          "Tax is not the same as registration fee, permit fee, or penalty; those can appear separately.",
+          "Commercial and private vehicles do not necessarily follow the same slab logic.",
+          "The final live portal amount should be treated as authoritative when it differs from a general guide."
+        ]
+      }
+    ]
+  },
+  "puc-requirements": {
+    intro:
+      "PUC stands for Pollution Under Control. It is the emissions certificate issued after a vehicle passes testing at an authorised PUC centre, and it frequently becomes a supporting document in RC-side RTO services.",
+    sections: [
+      {
+        title: "What PUC actually is",
+        items: [
+          "It records that the vehicle passed the required emission test for the applicable fuel and category.",
+          "It is usually obtained from an authorised PUC testing point, not by filing a direct RTO form first.",
+          "Once issued, it becomes a supporting paper for several vehicle-related workflows."
+        ]
+      },
+      {
+        title: "Where it usually matters",
+        items: [
+          "Transfer of ownership and NOC files",
+          "RC renewal, duplicate RC, and RC address change",
+          "Hypothecation addition or removal and other RC-side updates",
+          "Cases where the office wants the vehicle's compliance record to be current before approval"
+        ]
+      },
+      {
+        title: "What people often confuse",
+        items: [
+          "PUC is not the same as a fitness certificate. PUC only deals with emissions, while fitness checks roadworthiness.",
+          "Having insurance or tax paid does not automatically mean the PUC is current.",
+          "If the fuel type is recorded wrongly at the testing point, downstream RTO services can still get delayed."
+        ]
+      }
+    ]
+  }
+};
+
 window.siteData.services = window.siteData.services.map((service) => ({
   ...service,
   practicalDocs: practicalChecklistSignalsByService[service.id] || [],
-  recommendedAction: recommendedActionByService[service.id] || service.steps[0]
+  recommendedAction: recommendedActionByService[service.id] || service.steps[0],
+  information: informationByService[service.id] || null
 }));
 
 window.siteData.signals.unshift({
@@ -1812,8 +2357,9 @@ window.siteData.wizardMeta = {
     "Use this guide to understand the process. Applications, payments, appointments, and status checks happen only on official government portals.",
   helpfulPrompt: "Was this helpful?",
   sectionTabs: [
-    { id: "documents", label: "Documents" },
     { id: "steps", label: "Steps" },
+    { id: "documents", label: "Documents" },
+    { id: "information", label: "Information" },
     { id: "forms-fees", label: "Forms & Fees" },
     { id: "office", label: "Office" }
   ]

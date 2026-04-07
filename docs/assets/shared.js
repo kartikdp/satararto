@@ -461,10 +461,12 @@
   function getServiceSectionCounts(service, state) {
     const conditional = getConditionalDocs(service, state);
     const selectedOffice = state ? getOfficeByPlannerId(state.officeId) : null;
+    const informationCount = service.information && service.information.sections ? service.information.sections.length : 0;
 
     return {
-      documents: service.requiredDocs.length + conditional.docs.length,
       steps: service.steps.length,
+      documents: service.requiredDocs.length + conditional.docs.length,
+      information: informationCount,
       "forms-fees": service.forms.length + service.fees.length,
       office: selectedOffice || (state && state.officeId === "other-state") ? 1 : siteData.offices.length
     };
@@ -501,65 +503,9 @@
     return `<span class="pill ${kind ? `pill-${kind}` : ""}">${label}</span>`;
   }
 
-  function getPathSummary(service, state) {
-    if (!state) {
-      return "";
-    }
-
-    const parts = [];
-
-    if (state.journeyId === "new-driver") {
-      parts.push(
-        state.learnerStatus === "yes"
-          ? "You're a new driver who already has a learner's licence."
-          : "You're a new driver who still needs a learner's licence."
-      );
-    } else {
-      const journey = getJourneyById(state.journeyId);
-      if (journey) {
-        parts.push(`${journey.title}.`);
-      }
-    }
-
-    parts.push(`This points you to ${service.title}.`);
-
-    const officeOption = siteData.planner.officeOptions.find((entry) => entry.id === state.officeId);
-    if (officeOption && state.officeId !== "unknown") {
-      parts.push(`Office context: ${officeOption.label}.`);
-    }
-
-    const profileOption = siteData.planner.profileOptions.find((entry) => entry.id === state.profileId);
-    if (profileOption && shouldShowProfileQuestion(service)) {
-      parts.push(`Profile: ${profileOption.label}.`);
-    }
-
-    if (["tax-services", "puc-requirements"].includes(service.id)) {
-      const vehicleType = siteData.planner.vehicleTypeOptions.find((entry) => entry.id === state.vehicleType);
-      if (vehicleType) {
-        parts.push(`Vehicle type: ${vehicleType.label}.`);
-      }
-    }
-
-    if (service.id === "puc-requirements") {
-      const fuelType = siteData.planner.fuelTypeOptions.find((entry) => entry.id === state.fuelType);
-      if (fuelType) {
-        parts.push(`Fuel type: ${fuelType.label}.`);
-      }
-    }
-
-    const activeFlags = siteData.planner.flags.filter((flag) => state.flags[flag.id]).map((flag) => flag.label.toLowerCase());
-    if (activeFlags.length) {
-      parts.push(`Extra conditions: ${activeFlags.join(", ")}.`);
-    }
-
-    return parts.join(" ");
-  }
-
   function renderServiceSummary(service, state) {
     const officeGuidance = state ? getPlannerOfficeGuidance(service, state) : getGenericOfficeGuidance(service);
     const selectedOffice = state ? getOfficeByPlannerId(state.officeId) : null;
-    const pathSummary = getPathSummary(service, state);
-    const conditional = getConditionalDocs(service, state);
 
     return `
       <div class="result-summary">
@@ -573,25 +519,6 @@
           ${createBadge(getPlannerReadiness(service), "warning")}
           ${createBadge(`Office visit: ${service.officeVisit}`, "alert")}
         </div>
-        ${
-          pathSummary
-            ? `
-              <article class="content-card answers-card">
-                <h3>How this result was personalized</h3>
-                <p>${pathSummary}</p>
-                ${
-                  conditional.reasons.length
-                    ? `
-                      <ul class="content-list">
-                        ${conditional.reasons.map((reason) => `<li>${reason}</li>`).join("")}
-                      </ul>
-                    `
-                    : ""
-                }
-              </article>
-            `
-            : ""
-        }
         <div class="summary-grid">
           <article class="summary-card">
             <h3>Why this fits</h3>
@@ -619,6 +546,50 @@
               : ""
           }
         </div>
+      </div>
+    `;
+  }
+
+  function getInformationSections(service) {
+    if (service.information && service.information.sections && service.information.sections.length) {
+      return service.information;
+    }
+
+    return {
+      intro: service.summary,
+      sections: [
+        {
+          title: "What this service is for",
+          body: service.bestFor
+        },
+        {
+          title: "What to keep in mind",
+          items: dedupeList([...(service.eligibility || []), ...(service.notices || [])])
+        }
+      ]
+    };
+  }
+
+  function renderInformationSection(service) {
+    const information = getInformationSections(service);
+
+    return `
+      <article class="content-card content-card-highlight">
+        <h3>Background and explanation</h3>
+        <p>${information.intro}</p>
+      </article>
+      <div class="section-grid">
+        ${information.sections
+          .map(
+            (section) => `
+              <article class="content-card">
+                <h3>${section.title}</h3>
+                ${section.body ? `<p>${section.body}</p>` : ""}
+                ${section.items && section.items.length ? `<ul class="content-list">${section.items.map((item) => `<li>${item}</li>`).join("")}</ul>` : ""}
+              </article>
+            `
+          )
+          .join("")}
       </div>
     `;
   }
@@ -821,16 +792,22 @@
 
     return [
       {
+        id: "steps",
+        label: "Steps",
+        count: counts.steps,
+        html: renderStepsSection(service, state)
+      },
+      {
         id: "documents",
         label: "Documents",
         count: counts.documents,
         html: renderDocumentsSection(service, state)
       },
       {
-        id: "steps",
-        label: "Steps",
-        count: counts.steps,
-        html: renderStepsSection(service, state)
+        id: "information",
+        label: "Information",
+        count: counts.information,
+        html: renderInformationSection(service)
       },
       {
         id: "forms-fees",

@@ -451,11 +451,6 @@ img {
   gap: 16px;
 }
 
-.answers-card {
-  border-color: rgba(214, 155, 45, 0.28);
-  background: linear-gradient(135deg, rgba(214, 155, 45, 0.12), rgba(255, 255, 255, 0.94));
-}
-
 .result-summary-main h2 {
   margin: 4px 0 0;
   font-family: "Sora", sans-serif;
