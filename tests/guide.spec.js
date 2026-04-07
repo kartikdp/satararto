@@ -183,6 +183,10 @@ test.describe("language switch", () => {
     await page.goto("/service.html?service=learner-licence&lang=mr");
     await expect(page.locator("#service-page-intro h1")).toContainText("शिकाऊ परवाना");
     await expect(page.locator('[data-guide-section="documents"] h2')).toContainText("कागदपत्रे");
+    await expect(page.locator('[data-guide-section="steps"]')).toContainText("शिकाऊ परवान्यासाठी अर्ज सुरू करा.");
+    await expect(page.locator('[data-guide-section="information"]')).toContainText(
+      "शिकाऊ परवाना हा कायम वाहनचालक परवान्यापूर्वीचा पहिला अधिकृत टप्पा आहे."
+    );
   });
 });
 
