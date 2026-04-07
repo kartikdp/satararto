@@ -1148,38 +1148,6 @@ img {
   font-size: 0.94rem;
 }
 
-.footer-sources {
-  width: min(1120px, 100%);
-  margin: 0 auto;
-  display: grid;
-  gap: 12px;
-}
-
-.footer-source-group {
-  display: grid;
-  gap: 8px;
-}
-
-.footer-source-group strong {
-  font-family: "Sora", sans-serif;
-}
-
-.footer-source-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.footer-source-links a {
-  display: inline-flex;
-  min-height: 36px;
-  align-items: center;
-  padding: 0.5rem 0.75rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.76);
-  border: 1px solid var(--border);
-}
-
 #service-summary-anchor,
 #service-guide-anchor,
 #service-related-anchor {

@@ -1,10 +1,5 @@
 (function () {
-  const { renderFooterSources, siteData } = window.SiteApp;
-
-  const footerSources = document.getElementById("footer-sources");
-  if (footerSources) {
-    renderFooterSources(footerSources);
-  }
+  const { siteData } = window.SiteApp;
 
   const footerCopy = document.querySelector(".footer-copy");
   if (footerCopy && siteData.reviewMeta) {

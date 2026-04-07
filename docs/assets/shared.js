@@ -1131,25 +1131,6 @@
     });
   }
 
-  function renderFooterSources(container) {
-    const officialGroups = siteData.sourceGroups.filter((group) => !group.title.toLowerCase().includes("public"));
-
-    container.innerHTML = officialGroups
-      .map(
-        (group) => `
-          <div class="footer-source-group">
-            <strong>${group.title}</strong>
-            <div class="footer-source-links">
-              ${group.links
-                .map((link) => `<a href="${link.url}" target="_blank" rel="noreferrer">${link.label}</a>`)
-                .join("")}
-            </div>
-          </div>
-        `
-      )
-      .join("");
-  }
-
   function getRelatedServices(service) {
     const configured = (service.relatedServices || [])
       .map((item) => {
@@ -1303,7 +1284,6 @@
     normalizePlannerState,
     readPlannerStateFromUrl,
     renderAtGlance,
-    renderFooterSources,
     renderGuideSections,
     renderHelpfulFeedback,
     renderServiceSummary,
