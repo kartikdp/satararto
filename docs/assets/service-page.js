@@ -68,13 +68,6 @@
         <section id="service-summary-anchor">
           ${renderServiceSummary(service, null, { mode: "service" })}
         </section>
-        <div class="guide-utility-row">
-          <button class="button button-link" type="button" id="service-share-link">Copy link</button>
-          <button class="button button-link" type="button" id="service-print">Print guide</button>
-          <a class="button button-link" href="./index.html?journey=${encodeURIComponent(journeyId)}&service=${encodeURIComponent(
-            service.id
-          )}">Let the wizard choose</a>
-        </div>
         <div id="service-guide-anchor">
           <div id="service-page-guide"></div>
         </div>
@@ -100,6 +93,13 @@
             `
             : ""
         }
+        <div class="guide-utility-row guide-utility-row-end">
+          <button class="button button-link" type="button" id="service-share-link">Copy link</button>
+          <button class="button button-link" type="button" id="service-print">Print guide</button>
+          <a class="button button-link" href="./index.html?journey=${encodeURIComponent(journeyId)}&service=${encodeURIComponent(
+            service.id
+          )}">Let the wizard choose</a>
+        </div>
       </div>
     `;
 

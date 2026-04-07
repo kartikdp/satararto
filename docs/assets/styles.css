@@ -681,6 +681,8 @@ img {
   border: 0;
   background: transparent;
   color: var(--teal-deep);
+  font-size: 0.96rem;
+  font-weight: 800;
 }
 
 .cta-link-row .button:hover,
@@ -708,9 +710,15 @@ img {
 .guide-utility-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
+  gap: 16px;
   align-items: center;
-  padding: 2px 2px 8px;
+  padding: 0 2px 4px;
+}
+
+.guide-utility-row-end {
+  margin-top: 10px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(43, 52, 49, 0.08);
 }
 
 .cta-actions .button,
@@ -720,23 +728,31 @@ img {
 
 .guide-anchor-nav {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 4px 0 2px;
+  flex-wrap: nowrap;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 0 2px;
+  scrollbar-width: none;
+}
+
+.guide-anchor-nav::-webkit-scrollbar {
+  display: none;
 }
 
 .guide-anchor-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 38px;
-  padding: 0.65rem 0.9rem;
+  min-height: 32px;
+  padding: 0.42rem 0.72rem;
   border-radius: 999px;
   border: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.78);
   color: var(--ink);
+  font-size: 0.9rem;
   font-weight: 800;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .guide-anchor-link:hover,
