@@ -764,13 +764,63 @@ img {
 
 .guide-stack {
   display: grid;
-  gap: 18px;
+  gap: 22px;
 }
 
 .guide-section {
   display: grid;
-  gap: 12px;
+  gap: 14px;
   scroll-margin-top: 130px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(43, 52, 49, 0.08);
+}
+
+.guide-section:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.guide-section-head {
+  display: grid;
+  gap: 6px;
+  padding: 0 2px;
+}
+
+.guide-section-eyebrow {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.guide-section-head-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.guide-section-intro {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.6;
+}
+
+.guide-section-steps .guide-section-eyebrow,
+.guide-section-office .guide-section-eyebrow {
+  color: var(--teal);
+}
+
+.guide-section-documents .guide-section-eyebrow,
+.guide-section-timeline .guide-section-eyebrow,
+.guide-section-forms .guide-section-eyebrow {
+  color: #8b6200;
+}
+
+.guide-section-fees .guide-section-eyebrow,
+.guide-section-information .guide-section-eyebrow,
+.guide-section-sources .guide-section-eyebrow {
+  color: var(--accent);
 }
 
 .pill,
@@ -1103,6 +1153,10 @@ img {
   margin: 0;
   font-family: "Sora", sans-serif;
   font-size: 1.25rem;
+}
+
+.guide-section-head.section-head.compact {
+  margin-bottom: 0;
 }
 
 .faq-group {

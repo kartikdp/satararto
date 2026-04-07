@@ -1016,6 +1016,41 @@
   }
 
   function renderGuideSections(container, sections, scopeId) {
+    const sectionMeta = {
+      steps: {
+        eyebrow: "What to do",
+        intro: "Follow the service in the order shown here."
+      },
+      documents: {
+        eyebrow: "Keep ready",
+        intro: "Main papers, supporting papers, and practical backup items."
+      },
+      timeline: {
+        eyebrow: "Dates and validity",
+        intro: "Key windows, validity periods, and timing notes."
+      },
+      fees: {
+        eyebrow: "What you pay",
+        intro: "Official fee notes and portal amount guidance."
+      },
+      forms: {
+        eyebrow: "Official paperwork",
+        intro: "Forms and official pages linked to this service."
+      },
+      office: {
+        eyebrow: "Visit and verification",
+        intro: "Office, appointment, and inspection guidance."
+      },
+      information: {
+        eyebrow: "Background",
+        intro: "Short research context and what this service means."
+      },
+      sources: {
+        eyebrow: "Official references",
+        intro: "Source pages used for this guide."
+      }
+    };
+
     const anchorNav = `
       <nav class="guide-anchor-nav" aria-label="Guide sections">
         ${sections
@@ -1033,9 +1068,13 @@
     const sectionHtml = sections
       .map(
         (section) => `
-          <section class="guide-section" id="${scopeId}-${section.id}" data-guide-section="${section.id}">
-            <div class="section-head compact">
-              <h2>${section.label}</h2>
+          <section class="guide-section guide-section-${section.id}" id="${scopeId}-${section.id}" data-guide-section="${section.id}">
+            <div class="section-head compact guide-section-head">
+              <p class="guide-section-eyebrow">${(sectionMeta[section.id] && sectionMeta[section.id].eyebrow) || "Guide section"}</p>
+              <div class="guide-section-head-copy">
+                <h2>${section.label}</h2>
+                <p class="guide-section-intro">${(sectionMeta[section.id] && sectionMeta[section.id].intro) || ""}</p>
+              </div>
             </div>
             ${section.html}
           </section>
