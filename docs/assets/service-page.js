@@ -115,18 +115,32 @@
       </div>
     `;
 
-    renderGuideSections(document.getElementById("service-page-guide"), sections, `service-${service.id}`);
-    renderHelpfulFeedback(document.getElementById("service-page-feedback"), `service-${service.id}`);
+    const guide = document.getElementById("service-page-guide");
+    const feedback = document.getElementById("service-page-feedback");
+    const shareLink = document.getElementById("service-share-link");
+    const printButton = document.getElementById("service-print");
 
-    document.getElementById("service-share-link").addEventListener("click", () => {
-      copyText(window.location.href, () => {
-        document.getElementById("service-share-link").textContent = t("guide.labels.linkCopied", "Link copied");
+    if (guide) {
+      renderGuideSections(guide, sections, `service-${service.id}`);
+    }
+
+    if (feedback) {
+      renderHelpfulFeedback(feedback, `service-${service.id}`);
+    }
+
+    if (shareLink) {
+      shareLink.addEventListener("click", () => {
+        copyText(window.location.href, () => {
+          shareLink.textContent = t("guide.labels.linkCopied", "Link copied");
+        });
       });
-    });
+    }
 
-    document.getElementById("service-print").addEventListener("click", () => {
-      window.print();
-    });
+    if (printButton) {
+      printButton.addEventListener("click", () => {
+        window.print();
+      });
+    }
   }
 
   if (document.readyState === "loading") {
