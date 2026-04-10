@@ -569,7 +569,7 @@
 
     elements.intro.innerHTML = `
       <p class="eyebrow">${t("wizard.introEyebrow", "Suraj Pardeshi • Satara")}</p>
-      <h1>${t("wizard.introTitle", "Get help with licences, RC work, NOC, permit, tax, and other RTO documents")}</h1>
+      <h1>${t("wizard.introTitle", "Get help with licences, RC work, NOC, permits, tax, and other RTO documents")}</h1>
       <p>${t("wizard.introText", "Tell us what you need. We help identify the right service, explain the process, and tell you what papers to keep ready.")}</p>
       <p class="intro-inline-link">${t("wizard.introLinkPrefix", "Already know the work?")} <a href="./services.html${getLanguage() === "mr" ? "?lang=mr" : ""}">${t("wizard.introLinkLabel", "See all services")}</a>.</p>
       ${renderBusinessSupportBlock(null, {

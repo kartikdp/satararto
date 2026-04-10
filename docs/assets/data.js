@@ -73,13 +73,13 @@ window.siteData = {
     {
       id: "bought-or-sold-vehicle",
       title: "I bought or sold a vehicle",
-      description: "Use this if you need registration, transfer of ownership, or papers for a change in owner.",
+      description: "Use this if you need registration, transfer of ownership, or papers for a change of ownership.",
       category: "vehicle",
       serviceIds: ["new-vehicle-registration", "transfer-ownership"]
     },
     {
       id: "moved-or-shifting-state",
-      title: "I moved house or I am shifting the vehicle",
+      title: "I moved house or I am shifting my vehicle",
       description: "Start here for address change in RC, NOC, and related cross-jurisdiction paperwork.",
       category: "vehicle",
       serviceIds: ["rc-address-change", "noc", "rc-renewal"]
@@ -227,7 +227,7 @@ window.siteData = {
       labelMr: "सारथी",
       description: "Official portal for learner's licence, driving licence, renewal, and IDP-related services.",
       descriptionMr: "शिकाऊ परवाना, वाहनचालक परवाना, नूतनीकरण आणि IDP संबंधित सेवांसाठीचे अधिकृत पोर्टल.",
-      url: "https://sarathi.parivahan.gov.in"
+      url: "https://sarathi.parivahan.gov.in/sarathiservice/stateSelection.do"
     },
     {
       id: "vahan",
@@ -235,7 +235,7 @@ window.siteData = {
       labelMr: "वाहन",
       description: "Official portal for vehicle services like transfer, NOC, RC updates, tax, and fitness.",
       descriptionMr: "हस्तांतरण, NOC, RC अपडेट, कर आणि फिटनेस यांसारख्या वाहन सेवांसाठीचे अधिकृत पोर्टल.",
-      url: "https://vahan.parivahan.gov.in/vahanservice/"
+      url: "https://vahan.parivahan.gov.in/vahanservice/vahan/"
     },
     {
       id: "dl-status",
@@ -251,7 +251,7 @@ window.siteData = {
       labelMr: "वाहनाचे तपशील तपासा",
       description: "Official vehicle details lookup through the Vahan citizen service flow.",
       descriptionMr: "वाहन नागरिक सेवा प्रक्रियेद्वारे वाहन तपशील पाहण्यासाठी अधिकृत सेवा.",
-      url: "https://vahan.parivahan.gov.in/nrservices/faces/user/citizen/searchstatus.xhtml"
+      url: "https://parivahan.gov.in/en/content/license-registration-details-page"
     },
     {
       id: "download-forms",
@@ -259,7 +259,7 @@ window.siteData = {
       labelMr: "सर्व अधिकृत फॉर्म",
       description: "Central Parivahan page for downloadable driving and vehicle forms.",
       descriptionMr: "डाउनलोड करण्यायोग्य परवाना आणि वाहन फॉर्मसाठीचे परिवहनचे केंद्रीय पान.",
-      url: "https://parivahan.gov.in/parivahan/en/content/download-forms"
+      url: "https://parivahan.gov.in/parivahan//en/content/all-forms"
     },
     {
       id: "dl-forms-page",
@@ -267,7 +267,7 @@ window.siteData = {
       labelMr: "वाहनचालक परवाना फॉर्म",
       description: "Official driving licence forms directory on Parivahan.",
       descriptionMr: "परिवहनवरील वाहनचालक परवाना फॉर्म निर्देशिका.",
-      url: "https://parivahan.gov.in/parivahan/en/content/driving-licence-0"
+      url: "https://parivahan.gov.in/parivahan//en/content/driving-licence-0"
     },
     {
       id: "vehicle-forms-page",
@@ -275,7 +275,7 @@ window.siteData = {
       labelMr: "वाहन नोंदणी फॉर्म",
       description: "Official vehicle-registration forms directory on Parivahan.",
       descriptionMr: "परिवहनवरील वाहन-नोंदणी फॉर्म निर्देशिका.",
-      url: "https://parivahan.gov.in/parivahan/en/content/vehicle-registration"
+      url: "https://parivahan.gov.in/parivahan//en/content/vehicle-registration"
     },
     {
       id: "permit-forms-page",
@@ -283,7 +283,7 @@ window.siteData = {
       labelMr: "परमिट फॉर्म",
       description: "Official permit forms and permit information on Parivahan.",
       descriptionMr: "परिवहनवरील अधिकृत परमिट फॉर्म आणि परमिट माहिती.",
-      url: "https://parivahan.gov.in/parivahan/en/content/permit-form"
+      url: "https://parivahan.gov.in/parivahan//en/content/permit-form"
     },
     {
       id: "fees-user-charges",
@@ -291,7 +291,7 @@ window.siteData = {
       labelMr: "शुल्क आणि वापरकर्ता आकार",
       description: "Official central fee table for licensing, registration, and related services.",
       descriptionMr: "परवाना, नोंदणी आणि संबंधित सेवांसाठीचे अधिकृत केंद्रीय शुल्क तक्ते.",
-      url: "https://parivahan.gov.in/parivahan/en/content/fees-user-charges"
+      url: "https://parivahan.gov.in/parivahan//en/content/fees-user-charges"
     },
     {
       id: "tax-calculation",
@@ -320,14 +320,14 @@ window.siteData = {
   ],
   toolGroups: [
     {
-      title: "Apply Or Check Status",
+      title: "Apply or check status",
       titleMr: "अर्ज करा किंवा स्थिती तपासा",
       intro: "Use these official links when you are ready to apply, book, or check status.",
       introMr: "अर्ज, बुकिंग किंवा स्थिती तपासण्यासाठी तयार असाल तेव्हा हे अधिकृत दुवे वापरा.",
       toolIds: ["sarathi", "vahan", "dl-status", "vehicle-status"]
     },
     {
-      title: "Download Forms And Rules",
+      title: "Download forms and rules",
       titleMr: "फॉर्म आणि नियम डाउनलोड करा",
       intro: "Use these official directories when a user needs the original government form or fee/rules page.",
       introMr: "मूळ सरकारी फॉर्म किंवा शुल्क / नियम पान पाहायचे असल्यास या अधिकृत निर्देशिका वापरा.",
@@ -527,7 +527,7 @@ window.siteData = {
       formIds: ["form20", "form25", "form26", "form28", "form29", "form30", "form33", "form34", "form35"]
     },
     {
-      title: "Fitness And Inspection Forms",
+      title: "Fitness and inspection forms",
       titleMr: "फिटनेस आणि तपासणी फॉर्म",
       intro: "Official forms used in fitness and inspection-heavy cases.",
       introMr: "फिटनेस आणि तपासणी-आधारित प्रकरणांमध्ये वापरले जाणारे अधिकृत फॉर्म.",
@@ -618,7 +618,7 @@ window.siteData = {
         "Start here if you are applying for your first learner's licence in Maharashtra.",
       bestFor: "People applying for their first learner's licence before practice and testing.",
       mode: "Faceless-enabled in supported Maharashtra cases",
-      appointment: "Usually not required first",
+      appointment: "Usually not required at first",
       officeVisit: "Possible for verification in some cases",
       inspection: "No vehicle inspection",
       eligibility: [
@@ -654,7 +654,7 @@ window.siteData = {
         "This service is online-first, but some cases may still be sent for manual verification."
       ],
       officialLinks: [
-        { label: "Sarathi", url: "https://sarathi.parivahan.gov.in" },
+        { label: "Sarathi", url: "https://sarathi.parivahan.gov.in/sarathiservice/stateSelection.do" },
         {
           label: "Maharashtra Transport - Learning Licence",
           url: "https://transport.maharashtra.gov.in/1135/Learning-License"
@@ -706,7 +706,7 @@ window.siteData = {
         "Users often confuse this with a fully online workflow. It is not."
       ],
       officialLinks: [
-        { label: "Sarathi", url: "https://sarathi.parivahan.gov.in" },
+        { label: "Sarathi", url: "https://sarathi.parivahan.gov.in/sarathiservice/stateSelection.do" },
         {
           label: "Maharashtra Transport - Permanent Licence",
           url: "https://transport.maharashtra.gov.in/1136/Permanent-License"
@@ -758,7 +758,7 @@ window.siteData = {
         "Fee totals can vary on the live portal if extra charges apply."
       ],
       officialLinks: [
-        { label: "Sarathi", url: "https://sarathi.parivahan.gov.in" },
+        { label: "Sarathi", url: "https://sarathi.parivahan.gov.in/sarathiservice/stateSelection.do" },
         {
           label: "Maharashtra Transport - DL Renewal",
           url: "https://transport.maharashtra.gov.in/1137/Renewal-of-Driving-License"
@@ -775,7 +775,7 @@ window.siteData = {
       bestFor: "Lost, torn, damaged, or defaced licence cases.",
       mode: "Online-first, verification may still happen",
       appointment: "Usually no",
-      officeVisit: "Possible in exception cases",
+      officeVisit: "Possible in exceptional cases",
       inspection: "No vehicle inspection",
       eligibility: [
         "Valid permanent licence record should already exist.",
@@ -803,7 +803,7 @@ window.siteData = {
         "Apply for duplicate only when the licence record already exists and the document is lost, damaged, or defaced."
       ],
       officialLinks: [
-        { label: "Sarathi", url: "https://sarathi.parivahan.gov.in" },
+        { label: "Sarathi", url: "https://sarathi.parivahan.gov.in/sarathiservice/stateSelection.do" },
         {
           label: "Maharashtra Transport - Duplicate DL",
           url: "https://transport.maharashtra.gov.in/1206/Duplicate-License?format=print"
@@ -812,7 +812,7 @@ window.siteData = {
     },
     {
       id: "dl-address-change",
-      title: "Address Change In Driving Licence",
+      title: "Address change in driving licence",
       category: "licence",
       short: "Update the address attached to an existing DL.",
       summary:
@@ -838,7 +838,7 @@ window.siteData = {
       validity: "Update depends on approval and dispatch",
       notices: ["Keep the new address proof exactly as you want it shown on the licence record."],
       officialLinks: [
-        { label: "Sarathi", url: "https://sarathi.parivahan.gov.in" },
+        { label: "Sarathi", url: "https://sarathi.parivahan.gov.in/sarathiservice/stateSelection.do" },
         {
           label: "Maharashtra Transport - Faceless Services",
           url: "https://transport.maharashtra.gov.in/1363/Sarathi-Related-Faceless-Services?format=print"
@@ -858,7 +858,7 @@ window.siteData = {
         "Apply for an International Driving Permit if you already hold a valid Indian driving licence and plan to drive abroad.",
       bestFor: "Travellers who need an IDP in addition to their Indian driving licence.",
       mode: "Apply online, verify in person",
-      appointment: "Yes or office scheduling as required",
+      appointment: "Yes; office scheduling as required",
       officeVisit: "Required",
       inspection: "No vehicle inspection",
       eligibility: [
@@ -888,7 +888,7 @@ window.siteData = {
       validity: "Typically valid for 1 year",
       notices: ["IDP is separate from domestic licence renewal or duplicate issue. Carry travel papers and your original DL."],
       officialLinks: [
-        { label: "Sarathi", url: "https://sarathi.parivahan.gov.in" },
+        { label: "Sarathi", url: "https://sarathi.parivahan.gov.in/sarathiservice/stateSelection.do" },
         {
           label: "Maharashtra Transport - International Driving Permit",
           url: "https://transport.maharashtra.gov.in/1139/International-Driving-Permit"
@@ -905,7 +905,7 @@ window.siteData = {
       bestFor: "Vehicle owners who have recently bought a new vehicle.",
       mode: "Dealer-assisted or Vahan-linked registration flow",
       appointment: "Depends on case",
-      officeVisit: "Usually yes directly or through dealer process",
+      officeVisit: "Usually yes, directly or through the dealer process",
       inspection: "Vehicle inspection may be required",
       eligibility: [
         "Vehicle purchase completed.",
@@ -943,7 +943,7 @@ window.siteData = {
         "Confirm which documents the dealer will submit and which originals you still need to keep ready."
       ],
       officialLinks: [
-        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
+        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/vahan/" },
         {
           label: "Maharashtra Transport - New Vehicle Registration",
           url: "https://transport.maharashtra.gov.in/1104/Registration-of-New-Vehicle"
@@ -956,7 +956,7 @@ window.siteData = {
     },
     {
       id: "transfer-ownership",
-      title: "Transfer Of Ownership",
+      title: "Transfer of ownership",
       category: "vehicle",
       short: "Update the registered owner after a sale or ownership change.",
       summary:
@@ -1000,9 +1000,9 @@ window.siteData = {
         "Users often miss Form 28 when the buyer belongs to another jurisdiction."
       ],
       officialLinks: [
-        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
+        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/vahan/" },
         {
-          label: "Maharashtra Transport - Transfer Of Ownership",
+          label: "Maharashtra Transport - Transfer of ownership",
           url: "https://transport.maharashtra.gov.in/1108/Transfer-of-Motor-Vehicle-Ownership"
         },
         {
@@ -1051,7 +1051,7 @@ window.siteData = {
         "NOC is usually part of a larger transfer or re-registration process. Check the next step before you apply."
       ],
       officialLinks: [
-        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
+        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/vahan/" },
         {
           label: "Maharashtra Transport - No Objection Certificate",
           url: "https://transport.maharashtra.gov.in/1107/No-Objection-Certificate"
@@ -1103,7 +1103,7 @@ window.siteData = {
         "Apply within the allowed window and keep older-vehicle compliance papers ready where relevant."
       ],
       officialLinks: [
-        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
+        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/vahan/" },
         {
           label: "Form 25 - RC Renewal Form",
           url: "https://parivahan.gov.in/sites/default/files/DownloadForm/cmvr/FORM-25.pdf"
@@ -1150,7 +1150,7 @@ window.siteData = {
         "Commercial vehicles may also need tax, permit, or challan clearances before approval."
       ],
       officialLinks: [
-        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
+        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/vahan/" },
         {
           label: "Parivahan - Duplicate RC",
           url: "https://parivahan.gov.in/en/content/duplicate-rc"
@@ -1159,7 +1159,7 @@ window.siteData = {
     },
     {
       id: "rc-address-change",
-      title: "Address Change In RC",
+      title: "Address change in RC",
       category: "vehicle",
       short: "Update the address attached to the vehicle registration record.",
       summary:
@@ -1192,7 +1192,7 @@ window.siteData = {
         "If both your DL and RC need the new address, updating them together can help reduce mismatch issues."
       ],
       officialLinks: [
-        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
+        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/vahan/" },
         {
           label: "Parivahan - Address Change",
           url: "https://parivahan.gov.in/en/content/address-change"
@@ -1236,7 +1236,7 @@ window.siteData = {
       validity: "Updated after successful record endorsement",
       notices: ["Check that Form 34 is signed correctly by both the owner and the financier before submission."],
       officialLinks: [
-        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
+        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/vahan/" },
         {
           label: "Parivahan - HP Endorsement",
           url: "https://parivahan.gov.in/en/content/hp-endorsement"
@@ -1279,7 +1279,7 @@ window.siteData = {
         "Do not start this service until the bank has issued the final NOC or due-clearance letter."
       ],
       officialLinks: [
-        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
+        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/vahan/" },
         {
           label: "Parivahan - HP Termination",
           url: "https://parivahan.gov.in/en/content/hp-termination"
@@ -1429,7 +1429,7 @@ window.siteData = {
           label: "Maharashtra Transport - Rate of Vehicle Tax",
           url: "https://transport.maharashtra.gov.in/1117/Rate-of-Vehicle-Tax"
         },
-        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" }
+        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/vahan/" }
       ]
     },
     {
@@ -1508,15 +1508,15 @@ window.siteData = {
       detail: "Sometimes payment is deducted but the portal does not unlock the next step immediately. Check payment status and receipt details before paying again."
     },
     {
-      title: "Wrong Office Or Jurisdiction Chosen",
+      title: "Wrong office or jurisdiction chosen",
       detail: "Many people are unsure whether their record belongs to MH-11 Satara or MH-50 Karad. Check the office code on your current DL or RC before applying."
     },
     {
-      title: "Checklist Surprise In The Middle Of The Process",
+      title: "Checklist surprise in the middle of the process",
       detail: "PUC, police reports, financier NOCs, or tax proof are often discovered too late. Keep supporting papers ready before opening the portal."
     },
     {
-      title: "Heavy Dependence On Agents",
+      title: "Heavy dependence on agents",
       detail: "When forms and exception handling are unclear, people often feel pushed toward brokers or agents. Clear guidance can reduce that dependency."
     }
   ],
@@ -1535,7 +1535,7 @@ window.siteData = {
       answer:
         "Start with the situation first, such as a new licence, sale of vehicle, address change, loan closure, or NOC. Then match that situation to the correct official service and form."
       ,
-      questionMr: "मला समस्या माहित आहे पण सेवचे नाव माहित नाही, तर आधी काय करावे?",
+      questionMr: "मला समस्या माहित आहे पण सेवेचे नाव माहित नाही, तर आधी काय करावे?",
       answerMr:
         "सुरुवात परिस्थितीपासून करा, जसे नवीन परवाना, वाहन विक्री, पत्ता बदल, कर्जफेड किंवा NOC. त्यानंतर त्या परिस्थितीला योग्य अधिकृत सेवा आणि फॉर्मशी जुळवा."
     },
@@ -1569,31 +1569,31 @@ window.siteData = {
   ],
   sourceGroups: [
     {
-      title: "Official Maharashtra Sources",
+      title: "Official Maharashtra sources",
       intro: "Official Maharashtra sources for office details, service status, fee tables, and state-specific pages.",
       links: [
         { label: "Regional Offices", url: "https://transport.maharashtra.gov.in/1184/Regional-Offices?format=print" },
         { label: "Sarathi Related Faceless Services", url: "https://transport.maharashtra.gov.in/1363/Sarathi-Related-Faceless-Services?format=print" },
         { label: "Permanent Licence", url: "https://transport.maharashtra.gov.in/1136/Permanent-License" },
         { label: "DL Renewal", url: "https://transport.maharashtra.gov.in/1137/Renewal-of-Driving-License" },
-        { label: "Transfer Of Ownership", url: "https://transport.maharashtra.gov.in/1108/Transfer-of-Motor-Vehicle-Ownership" },
+        { label: "Transfer of ownership", url: "https://transport.maharashtra.gov.in/1108/Transfer-of-Motor-Vehicle-Ownership" },
         { label: "Permit Fees", url: "https://transport.maharashtra.gov.in/1178/Permit-Fees" }
       ]
     },
     {
-      title: "Official Parivahan Sources",
+      title: "Official Parivahan sources",
       intro: "Official Parivahan sources for forms, service rules, and portal entry points.",
       links: [
-        { label: "Sarathi", url: "https://sarathi.parivahan.gov.in" },
-        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/" },
+        { label: "Sarathi", url: "https://sarathi.parivahan.gov.in/sarathiservice/stateSelection.do" },
+        { label: "Vahan", url: "https://vahan.parivahan.gov.in/vahanservice/vahan/" },
         { label: "Ownership Transfer", url: "https://parivahan.gov.in/index.php/en/content/ownership-transfer" },
-        { label: "Address Change", url: "https://parivahan.gov.in/parivahan/en/content/address-change" },
-        { label: "Duplicate RC", url: "https://parivahan.gov.in/parivahan/en/content/duplicate-rc" },
-        { label: "HP Termination", url: "https://parivahan.gov.in/parivahan/en/content/hp-termination" }
+        { label: "Address Change", url: "https://parivahan.gov.in/en/content/address-change" },
+        { label: "Duplicate RC", url: "https://parivahan.gov.in/en/content/duplicate-rc" },
+        { label: "HP Termination", url: "https://parivahan.gov.in/en/content/hp-termination" }
       ]
     },
     {
-      title: "Public Pain-Point Signals",
+      title: "Public pain-point signals",
       intro: "Public discussions that highlight common issues and delays. These are not legal or official authority.",
       links: [
         { label: "ConsumerComplaints - Sarathi / Parivahan", url: "https://www.consumercomplaints.in/bycompany/sarathi-parivahan-gov-in-a520198.html" },
@@ -2049,7 +2049,7 @@ const informationByService = {
       {
         title: "What it means",
         items: [
-          "This is a replacement of the registration certificate, not a change in owner or address.",
+          "This is a replacement of the registration certificate, not a change of ownership or address.",
           "The office usually expects proof that the original RC is unavailable or unusable.",
           "The existing vehicle record remains the basis of the service."
         ]
@@ -2623,7 +2623,7 @@ function normalizeServiceGuideFields(service) {
 window.siteData.services = window.siteData.services.map(normalizeServiceGuideFields);
 
 window.siteData.signals.unshift({
-  title: "Counter Staff Often Ask For Backup Copies",
+  title: "Counter staff often ask for backup copies",
   detail:
     "Public user reports repeatedly mention self-attested photocopies, printed receipts, old scans, passport photos, and originals being asked for during verification even after online submission."
 });
@@ -2639,7 +2639,7 @@ window.siteData.faq.splice(3, 0, {
 
 window.siteData.sourceGroups.push(
   {
-    title: "Public Checklist Reports From Reddit",
+    title: "Public checklist reports from Reddit",
     intro: "These posts helped identify the backup papers people say they were still asked to carry in real RTO flows. Treat them as practical signals, not law.",
     links: [
       { label: "CarsIndia - Getting the learners licence", url: "https://www.reddit.com/r/CarsIndia/comments/1jo1enp" },
@@ -2657,7 +2657,7 @@ window.siteData.sourceGroups.push(
     ]
   },
   {
-    title: "Public Checklist Reports From Forums And Complaints",
+    title: "Public checklist reports from forums and complaints",
     intro: "These walkthroughs and complaint pages surfaced repeated mentions of printed receipts, extra photocopies, old document scans, original RC sets, and bank paperwork.",
     links: [
       {
@@ -2729,7 +2729,7 @@ window.siteData.navLinks = [
 
 window.siteData.wizardMeta = {
   introEyebrow: "Suraj Pardeshi • Satara",
-  introTitle: "Get help with licences, RC work, NOC, permit, tax, and other RTO documents",
+  introTitle: "Get help with licences, RC work, NOC, permits, tax, and other RTO documents",
   introText: "Tell us what you need. We help identify the right service, explain the process, and tell you what papers to keep ready.",
   progressLabel: "Question",
   stepMeta: {
@@ -2782,12 +2782,12 @@ window.siteData.wizardMeta = {
 window.siteData.business = {
   name: "Suraj Pardeshi",
   nameMr: "सुरज परदेशी",
-  businessName: "Shree Swami Smarath Enterprises",
-  businessNameMr: "श्री स्वामी स्मरथ एंटरप्रायझेस",
+  businessName: "Shree Swami Samarth Enterprises",
+  businessNameMr: "श्री स्वामी समर्थ एंटरप्रायझेस",
   phoneDisplay: "+91 89994 33180",
   phoneHref: "tel:+918999433180",
   whatsappHref: "https://wa.me/918999433180",
-  address: "97 Basppapeth, Radhikaroad, Satara 415002",
+  address: "97 Basappa Peth, Radhika Road, Satara 415002",
   addressMr: "97 बसप्पापेठ, राधिका रोड, सातारा 415002",
   chargeNote: "Service charges depend on the document or work involved. Contact for a quote.",
   chargeNoteMr: "सेवा शुल्क कामाच्या प्रकारावर आणि कागदपत्रांवर अवलंबून असते. कोटेशनसाठी संपर्क करा.",
@@ -2818,7 +2818,7 @@ window.siteData.i18n = {
       marathi: "मराठी"
     },
     footer: {
-      default: "Private assistance service by Shree Swami Smarath Enterprises. Official submissions, payments, and approval happen on government portals and at the relevant RTO office.",
+      default: "Private assistance service by Shree Swami Samarth Enterprises. Official submissions, payments, and approval happen on government portals and at the relevant RTO office.",
       wizard: "Tell us the work you need help with. We use the guide to explain the process and the papers you may need.",
       services: "Open any service page if you already know the work and want guidance or paid help with the process.",
       faq: "Use this page for customer questions about documents, visits, and service charges before you start.",
@@ -2837,13 +2837,13 @@ window.siteData.i18n = {
       },
       faq: {
         eyebrow: "Common questions",
-        title: "Questions customers usually ask before starting",
+        title: "Common questions people ask before starting",
         body: "Read quick answers about documents, office visits, service charges, and how our help works."
       }
     },
     wizard: {
       introEyebrow: "Suraj Pardeshi • Satara",
-      introTitle: "Get help with licences, RC work, NOC, permit, tax, and other RTO documents",
+      introTitle: "Get help with licences, RC work, NOC, permits, tax, and other RTO documents",
       introText: "Tell us what you need. We help identify the right service, explain the process, and tell you what papers to keep ready.",
       introLinkPrefix: "Already know the work?",
       introLinkLabel: "See all services",
@@ -2969,7 +2969,7 @@ window.siteData.i18n = {
       marathi: "मराठी"
     },
     footer: {
-      default: "ही Shree Swami Smarath Enterprises ची खासगी सहाय्य सेवा आहे. अधिकृत अर्ज, पेमेंट आणि अंतिम मान्यता सरकारी पोर्टलवर व संबंधित RTO कार्यालयातच होते.",
+      default: "ही Shree Swami Samarth Enterprises ची खासगी सहाय्य सेवा आहे. अधिकृत अर्ज, पेमेंट आणि अंतिम मान्यता सरकारी पोर्टलवर व संबंधित RTO कार्यालयातच होते.",
       wizard: "तुम्हाला कोणत्या कामासाठी मदत हवी आहे ते सांगा. आम्ही प्रक्रिया आणि लागणारी कागदपत्रे समजावून सांगतो.",
       services: "काम माहिती असल्यास थेट सेवा पान उघडा आणि प्रक्रियेबाबत मदत हवी असल्यास आमच्याशी संपर्क करा.",
       faq: "ही पाने ग्राहकांच्या नेहमीच्या प्रश्नांसाठी आहेत, जसे कागदपत्रे, कार्यालय भेट आणि सेवा शुल्क.",
@@ -3400,7 +3400,7 @@ const marathiSourceLabelByEnglish = {
   "Maharashtra Transport - Rate of Vehicle Tax": "महाराष्ट्र परिवहन - वाहन कर दर",
   "Maharashtra Transport - Registration Fees": "महाराष्ट्र परिवहन - नोंदणी शुल्क",
   "Maharashtra Transport - Tax Calculation": "महाराष्ट्र परिवहन - कर गणना",
-  "Maharashtra Transport - Transfer Of Ownership": "महाराष्ट्र परिवहन - मालकी हस्तांतरण",
+  "Maharashtra Transport - Transfer of ownership": "महाराष्ट्र परिवहन - मालकी हस्तांतरण",
   "Parivahan - Address Change": "परिवहन - पत्ता बदल",
   "Parivahan - Duplicate RC": "परिवहन - डुप्लिकेट RC",
   "Parivahan - Fitness Certificate Step By Step PDF": "परिवहन - फिटनेस प्रमाणपत्र टप्प्याटप्प्याने PDF",
@@ -3583,13 +3583,13 @@ function translateStatusTextMr(text) {
     "Permit portal with scrutiny-heavy workflows": "छाननी-आधारित परमिट पोर्टल प्रक्रिया",
     "Online calculation and payment": "ऑनलाइन गणना आणि पेमेंट",
     "Compliance support item": "अनुपालन-संबंधित मदत घटक",
-    "Usually not required first": "सुरुवातीला सहसा आवश्यक नाही",
+    "Usually not required at first": "सुरुवातीला सहसा आवश्यक नाही",
     Required: "आवश्यक",
     Sometimes: "कधी कधी",
     "Usually no": "साधारणपणे नाही",
-    "Possible in exception cases": "अपवादात्मक प्रकरणांत शक्य",
+    "Possible in exceptional cases": "अपवादात्मक प्रकरणांत शक्य",
     "Possible for record mismatch": "रेकॉर्ड विसंगती असल्यास शक्य",
-    "Yes or office scheduling as required": "होय किंवा कार्यालयीन वेळापत्रकानुसार",
+    "Yes; office scheduling as required": "होय; कार्यालयीन वेळापत्रकानुसार",
     "Depends on case": "प्रकरणावर अवलंबून",
     Often: "बहुतेक वेळा",
     Possible: "शक्य",
@@ -3598,7 +3598,7 @@ function translateStatusTextMr(text) {
     "No vehicle inspection": "वाहन तपासणी नाही",
     "No vehicle inspection, but driving test required": "वाहन तपासणी नाही, परंतु ड्रायव्हिंग टेस्ट आवश्यक",
     "Vehicle inspection may be required": "वाहन तपासणी लागू होऊ शकते",
-    "Usually yes directly or through dealer process": "साधारणपणे होय, थेट किंवा डिलर प्रक्रियेद्वारे",
+    "Usually yes, directly or through the dealer process": "साधारणपणे होय, थेट किंवा डिलर प्रक्रियेद्वारे",
     "Vehicle inspection required": "वाहन तपासणी आवश्यक",
     "Can be part of certain permit cases": "काही परमिट प्रकरणांत लागू होऊ शकते",
     "Emission testing happens at authorized PUC points, not usually at the RTO service step": "उत्सर्जन चाचणी अधिकृत PUC केंद्रावर होते; RTO प्रक्रियेच्या टप्प्यावर सहसा नाही"
